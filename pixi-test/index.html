@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PortFolio Pierre Castaing</title>
+    <link rel="stylesheet" href="../css/body.css">
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <!-- <script src="js/pixi.dev.js"></script> -->
+
+    <script type="module">
+        const app = new PIXI.Application();
+
+        await app.init({ 
+            // width: 1440, 
+            // height: 1024, 
+            width: window.innerWidth, // largeur de la fenêtre du navigateur
+            height: window.innerHeight,
+            // resizeTo: window, 
+            backgroundColor: 0x1099bb,
+            // resolution: window.devicePixelRatio || 1,
+        });
+        document.body.appendChild(app.canvas);
+
+        // // Charger l'image de fond
+        await PIXI.Assets.load('../sprites/home.png');
+        const background = PIXI.Sprite.from('../sprites/home.png');
+        // // Ajuster la taille de l'image de fond pour qu'elle couvre tout le canvas
+
+        // Définir les marges (en pixels)
+        const marginX = 50; // Marge à gauche et à droite
+        const marginY = 30; // Marge en haut et en bas
+
+        background.width = app.screen.width- 2 * marginX;
+        // background.height = app.screen.height- 2 * marginY;
+
+        // Placer l'image avec les marges
+        background.x = marginX;  // Décalage à gauche
+        background.y = marginY;  // Décalage en haut
+
+        app.stage.addChild(background);
+
+
+        // SAMPLE QUI BOUGE
+        await PIXI.Assets.load('sample.png');
+        let sprite = PIXI.Sprite.from('sample.png');
+        app.stage.addChild(sprite);
+          // Add a variable to count up the seconds our demo has been running
+        let elapsed = 0.0;
+          // Tell our application's ticker to run a new callback every frame, passing
+          // in the amount of time that has passed since the last tick
+        app.ticker.add((ticker) => {
+          // Add the time to our total elapsed time
+        elapsed += ticker.deltaTime;
+          // Update the sprite's X position based on the cosine of our elapsed time.  We divide
+          // by 50 to slow the animation down a bit...
+        sprite.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
+        });
+
+        // Fonction pour ajuster la taille en temps réel
+        function adjustCanvasSize() {
+            app.renderer.resize(window.innerWidth, window.innerHeight); // Redimensionne le canvas
+            background.width = app.screen.width;  // Ajuste la largeur du fond
+            background.height = app.screen.height; // Ajuste la hauteur du fond
+        }
+
+        // Applique le redimensionnement à chaque événement 'resize'
+        window.addEventListener('resize', adjustCanvasSize);
+
+        // Optionnel : pour s'assurer que tout est bien redimensionné dès le chargement initial
+        adjustCanvasSize();
+
+    </script>
+</head>
+<body>
+    <!-- <h1>Hello PixiJS</h1> -->
+</body>
+
+</html>

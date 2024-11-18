@@ -5,6 +5,7 @@
  * PixiJS is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
+
 var PIXI = (function (exports) {
     'use strict';
 

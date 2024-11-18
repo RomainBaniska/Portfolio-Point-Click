@@ -1,15 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PortFolio Romain CABANIS</title>
-
     <link rel="stylesheet" href="css/body.css">
 </head>
 <body>
 
     hello world
     
+
+<!-- Script area -->
+<!-- <script src="js/pixi.dev.js"></script> -->
+<script src="https://pixijs.download/release/pixi.js"></script>
+<script>
+
+import { Application } from 'pixi.dev.js';
+
+// Asynchronous IIFE
+(async () =>
+{
+    // Create a PixiJS application.
+    const app = new Application();
+
+    // Intialize the application.
+    await app.init({ background: '#1099bb', resizeTo: window });
+
+    // Then adding the application's canvas to the DOM body.
+    document.body.appendChild(app.canvas);
+})();
+    
+</script>
 </body>
+
 </html>
