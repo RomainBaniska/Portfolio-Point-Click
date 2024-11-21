@@ -7,6 +7,11 @@
     <!-- <script src="js/pixi.dev.js"></script> -->
 
     <script type="module">
+
+        
+    (async () =>
+    {
+        // Création d'une nouvelle application
         const app = new PIXI.Application();
 
         // Configuration de la largeur maximale adaptée à la taille de l'écran si plus petit
@@ -15,19 +20,42 @@
         const aspectRatio = 16 / 9;
         const height = width / aspectRatio;
 
+        // Initialisation de l'application
         await app.init({ 
             width: width,
             height: height,
-            // resizeTo: window, 
             backgroundColor: 0x1099bb,
-            // resolution: window.devicePixelRatio || 1,
         });
-        document.body.appendChild(app.canvas);
 
-        // // Charger l'image de fond
+        // Ajout du canvas de l'app au body
+        document.body.appendChild(app.canvas);
+        
+
+        // Chargement de la texture du background
+        const backgroundTexture = await PIXI.Assets.load('../sprites/home.png');
+        // Créer un sprite "background"
+        const background = new PIXI.Sprite(backgroundTexture);
         await PIXI.Assets.load('../sprites/home.png');
-        const background = PIXI.Sprite.from('../sprites/home.png');
         app.stage.addChild(background);
+
+        // Chargement du JSON de GuyBrush Face Talk
+        const guybrushSpritesheet = await PIXI.Assets.load('../sprites/TALK/romain face talk.json');
+        // Création d'une animation à partir des frames du JSON
+        const frames = Object.keys(guybrushSpritesheet.textures).map(
+                                 frame => guybrushSpritesheet.textures[frame]
+        );
+        const guybrush = new PIXI.AnimatedSprite(frames);
+        app.stage.addChild(guybrush);
+
+        guybrush.animationSpeed = 0.1;
+        guybrush.play();
+        guybrush.x = app.screen.width / 2;
+        guybrush.y = app.screen.height / 2 + 200;
+        guybrush.anchor.set(0.5); // Centrer le sprite
+
+        
+        app.stage.addChild(guybrush);
+
 
 
         // Fonction pour ajuster la taille du canvas en temps réel
@@ -35,63 +63,29 @@
             app.renderer.resize(window.innerWidth, window.innerHeight);
             background.width = app.screen.width;
             background.height = app.screen.height;
+            // On recentre Guybrush
+            guybrush.x = app.screen.width / 2;
+            guybrush.y = app.screen.height / 2 + 200;
+            // Ajuster l'échelle de Guybrush proportionnellement
+            const scaleFactor = Math.min(
+                // A CHANGER ! CES VALEURS NE SONT APPLICABLES QUE POUR MON PETIT ECRAN
+                // app.screen.width / 1440, 
+                // app.screen.height / 900
+                app.screen.width / 1000, 
+                app.screen.height / 600  
+            );
+            guybrush.scale.set(scaleFactor);
         }
+        
 
         // Applique le redimensionnement à chaque événement 'resize'
         window.addEventListener('resize', adjustCanvasSize);
 
         // Optionnel : pour s'assurer que tout est bien redimensionné dès le chargement initial
         adjustCanvasSize();
-
-
-
-        // Ajout du sprite "Romain" et ses animations
-
-        const loader = new PIXI.Loader();
-
-        loader.shared
-        .add('sample', 'sample.png')
-        .add('romain facetalk', '../sprites/TALK/romain face talk.json')
-        .add('romain walk left', '../sprites/WALK/romain walk left.json')
-        .add('romain walk right', '../sprites/WALK/romain walk right.json')
-        .load(playerSetup);
-
-
-        function playerSetup() {
-                const spriteSheet1 = PIXI.Loader.shared.resources['romain face talk'].spritesheet;
-                const spriteSheet2 = PIXI.Loader.shared.resources['romain walk left'].spritesheet;
-                const spriteSheet3 = PIXI.Loader.shared.resources['romain walk right'].spritesheet;
-
-                // Crée des animations pour chaque état (idle, marche avant, marche arrière)
-                const idle = new PIXI.AnimatedSprite(spriteSheet1.animations['idle']);
-                const walkLeft = new PIXI.AnimatedSprite(spriteSheet2.animations['walkLeft']);
-                const walkRight = new PIXI.AnimatedSprite(spriteSheet3.animations['walkRight']);
-
-                // Positionner l'animation et l'ajouter au stage
-                idle.position.set(100, 100);
-                walkLeft.position.set(100, 100);
-                walkRight.position.set(100, 100);
-
-                app.stage.addChild(idle);
-                
-                // On change l'animation en fonction des actions du personnage
-                function switchAnimation(state) {
-                    if (state === 'idle') {
-                    idle.play();
-                    walkLeft.stop();
-                    walkRight.stop();
-                    } else if (state === 'walkLeft') {
-                    walkLeft.play();
-                    idle.stop();
-                    walkRight.stop();
-                    } else if (state === 'walkRight') {
-                    walkRight.play();
-                    idle.stop();
-                    walkLeft.stop();
-                    }
-                }
-                }
-
+        console.log("tout s\'est bien déclenché");
+            
+        })();
 
     </script>
 </head>
