@@ -32,10 +32,10 @@
         
 
         // Chargement de la texture du background
-        const backgroundTexture = await PIXI.Assets.load('../sprites/home.png');
+        const backgroundTexture = await PIXI.Assets.load('../sprites/homeImproved.png');
         // Créer un sprite "background"
         const background = new PIXI.Sprite(backgroundTexture);
-        await PIXI.Assets.load('../sprites/home.png');
+        await PIXI.Assets.load('../sprites/homeImproved.png');
         app.stage.addChild(background);
 
         // Chargement du JSON de GuyBrush Face Talk
@@ -45,17 +45,48 @@
                                  frame => guybrushSpritesheet.textures[frame]
         );
         const guybrush = new PIXI.AnimatedSprite(frames);
+
+         // Chargement du JSON du Guybrush Right Walk
+        const guybrushSpritesheetWR = await PIXI.Assets.load('../sprites/WALK/romain walk right.json');
+        // Frames WR
+        const framesWR = Object.keys(guybrushSpritesheetWR.textures).map(
+                            frame => guybrushSpritesheetWR.textures[frame]
+        );
+        const guybrushWR = new PIXI.AnimatedSprite(framesWR);
+
+        // Chargement du JSON du Guybrush Right Walk
+        const guybrushSpritesheetWL = await PIXI.Assets.load('../sprites/WALK/romain walk left.json');
+        // Frames WL
+        const framesWL = Object.keys(guybrushSpritesheetWL.textures).map(
+                            frame => guybrushSpritesheetWL.textures[frame]
+        );
+        const guybrushWL = new PIXI.AnimatedSprite(framesWL);
+
+
         app.stage.addChild(guybrush);
 
-        guybrush.animationSpeed = 0.1;
+        guybrush.animationSpeed = 0.13;
         guybrush.play();
         guybrush.x = app.screen.width / 2;
         guybrush.y = app.screen.height * 0.8;
         guybrush.anchor.set(0.5); // Centrer le sprite
 
         
-        app.stage.addChild(guybrush);
+        app.stage.addChild(guybrushWR);
 
+        guybrushWR.animationSpeed = 0.13;
+        guybrushWR.play();
+        guybrushWR.x = app.screen.width * 0.4 ;
+        guybrushWR.y = app.screen.height * 0.8;
+        guybrushWR.anchor.set(0.5); // Centrer le sprite
+
+        app.stage.addChild(guybrushWL);
+
+        guybrushWL.animationSpeed = 0.13;
+        guybrushWL.play();
+        guybrushWL.x = app.screen.width * 0.6 ;
+        guybrushWL.y = app.screen.height * 0.8;
+        guybrushWL.anchor.set(0.5); // Centrer le sprite
 
 
         // Fonction pour ajuster la taille du canvas en temps réel
@@ -66,6 +97,13 @@
             // On recentre Guybrush
             guybrush.x = app.screen.width / 2;
             guybrush.y = app.screen.height * 0.8;
+
+            guybrushWR.x = app.screen.width * 0.4 ;
+            guybrushWR.y = app.screen.height * 0.802;
+
+            guybrushWL.x = app.screen.width * 0.6 ;
+            guybrushWL.y = app.screen.height * 0.802;
+
             // Ajuster l'échelle de Guybrush proportionnellement
             const scaleFactor = Math.min(
                 // A CHANGER ! CES VALEURS NE SONT APPLICABLES QUE POUR MON PETIT ECRAN
@@ -75,6 +113,20 @@
                 app.screen.height / 600  
             );
             guybrush.scale.set(scaleFactor);
+
+            // Ajuster l'échelle de GuybrushWR proportionnellement
+            const scaleFactorWR = Math.min(
+                app.screen.width / 850, 
+                app.screen.height / 600
+            );
+            guybrushWR.scale.set(scaleFactorWR);
+
+            // Ajuster l'échelle de GuybrushWR proportionnellement
+            const scaleFactorWL = Math.min(
+                app.screen.width / 850, 
+                app.screen.height / 600
+            );
+            guybrushWL.scale.set(scaleFactorWL);
         }
         
 
