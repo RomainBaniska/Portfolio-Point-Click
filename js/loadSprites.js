@@ -51,7 +51,7 @@ export async function loadSprites(app) {
     guybrush.x = app.screen.width / 2;
     guybrush.y = app.screen.height * 0.8;
     guybrush.anchor.set(0.5); 
-    container.addChild(guybrush);
+    // container.addChild(guybrush);
 
      // WALK RIGHT
     const guybrushSpritesheetWR = await PIXI.Assets.load('../sprites/WALK/romain walk right.json');
@@ -91,12 +91,7 @@ export async function loadSprites(app) {
     guybrushLD.y = app.screen.height * 0.77;
     guybrushLD.anchor.set(0.5); 
     guybrushLD.interactive = true;
-    // guybrushLD.on('click', wakeUp);
     container.addChild(guybrushLD);
-
-    // function wakeUp() {
-    //     console.log("Ok");
-    //     }
 
     // GET UP / AWAKENING
     const guybrushSpritesheetGU = await PIXI.Assets.load('../sprites/GETUP/get up.json');
@@ -109,10 +104,12 @@ export async function loadSprites(app) {
     guybrushGU.x = app.screen.width * 0.74 ;
     guybrushGU.y = app.screen.height * 0.77;
     guybrushGU.anchor.set(0.5); 
+    guybrushGU.interactive = true;
     // container.addChild(guybrushGU);
 
     // return app;
     return {
+        container,
         background,
         crosshair,
         guybrush,
