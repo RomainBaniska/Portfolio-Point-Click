@@ -34,6 +34,13 @@ function adjustCanvasSize() {
     guybrushGU.x = app.screen.width * 0.74;
     guybrushGU.y = app.screen.height * 0.83;
 
+    // Ajuste l'échelle du crosshair proportionnellement
+    const scaleFactorCrosshair = Math.min(
+        app.screen.width / 2000,
+        app.screen.height / 1200
+    );
+    crosshair.scale.set(scaleFactorCrosshair);
+
     // Ajuste l'échelle de Guybrush proportionnellement
     const scaleFactor = Math.min(
         app.screen.width / 1000,
