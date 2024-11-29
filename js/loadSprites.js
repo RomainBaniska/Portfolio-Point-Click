@@ -1,11 +1,26 @@
 export async function loadSprites(app) {
     try {
+
+    // Création d'un container
+    const container = new PIXI.Container();
+    container.sortableChildren = true;
+    app.stage.addChild(container);
+
+
     // Chargement de la texture du background
     const backgroundTexture = await PIXI.Assets.load('../sprites/homeImproved.png');
     // Créer un sprite "background"
     const background = new PIXI.Sprite(backgroundTexture);
     await PIXI.Assets.load('../sprites/homeImproved.png');
-    app.stage.addChild(background);
+    container.addChild(background);
+
+    // Chargement de la Crosshair
+    const crosshairSpriteSheet = await PIXI.Assets.load('../sprites/CROSSHAIR/crosshair2.json');
+    // Création d'une animation à partir des frames du JSON
+    const framesCrossHair = Object.keys(crosshairSpriteSheet.textures).map(
+                             frame => crosshairSpriteSheet.textures[frame]
+    );
+    const crosshair = new PIXI.AnimatedSprite(framesCrossHair);
 
     // Chargement du JSON de GuyBrush Face Talk
     const guybrushSpritesheet = await PIXI.Assets.load('../sprites/TALK/romain face talk.json');
@@ -48,7 +63,16 @@ export async function loadSprites(app) {
     const guybrushGU = new PIXI.AnimatedSprite(framesGU);
 
 
-    app.stage.addChild(guybrush);
+    container.addChild(crosshair);
+
+    crosshair.animationSpeed = 0.08;
+    crosshair.play();
+    crosshair.zIndex = 3;
+    // crosshair.x = app.screen.width / 2;
+    // crosshair.y = app.screen.height * 0.8;
+    crosshair.anchor.set(0.5); 
+
+    container.addChild(guybrush);
 
     guybrush.animationSpeed = 0.13;
     guybrush.play();
@@ -57,7 +81,7 @@ export async function loadSprites(app) {
     guybrush.anchor.set(0.5); 
 
     // Commenter - Décommenter addChild pour afficher/retirer le sprite
-    // app.stage.addChild(guybrushWR);
+    // container.addChild(guybrushWR);
 
     guybrushWR.animationSpeed = 0.13;
     guybrushWR.play();
@@ -66,7 +90,7 @@ export async function loadSprites(app) {
     guybrushWR.anchor.set(0.5); 
 
     // Commenter - Décommenter addChild pour afficher/retirer le sprite
-    // app.stage.addChild(guybrushWL);
+    // container.addChild(guybrushWL);
 
     guybrushWL.animationSpeed = 0.13;
     guybrushWL.play();
@@ -75,7 +99,7 @@ export async function loadSprites(app) {
     guybrushWL.anchor.set(0.5); 
 
      // Commenter - Décommenter addChild pour afficher/retirer le sprite
-    // app.stage.addChild(guybrushLD);
+    // container.addChild(guybrushLD);
 
     guybrushLD.animationSpeed = 0.05;
     guybrushLD.play();
@@ -84,7 +108,7 @@ export async function loadSprites(app) {
     guybrushLD.anchor.set(0.5); 
 
     // Commenter - Décommenter addChild pour afficher/retirer le sprite
-    app.stage.addChild(guybrushGU);
+    container.addChild(guybrushGU);
     guybrushGU.animationSpeed = 0.12;
     guybrushGU.play();
     guybrushGU.x = app.screen.width * 0.74 ;
@@ -94,6 +118,7 @@ export async function loadSprites(app) {
     // return app;
     return {
         background,
+        crosshair,
         guybrush,
         guybrushWR,
         guybrushWL,

@@ -1,11 +1,6 @@
 export async function resizeHandler(app, sprites) {
 
-    const { background, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU } = sprites; // Déstructuration pour accéder à background
-
-    if (!background) {
-        console.error('Le sprite de fond n\'est pas trouvé.');
-        return;
-    }
+    const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU } = sprites;
 
 function adjustCanvasSize() {
     // Redimensionne le canvas
@@ -15,21 +10,29 @@ function adjustCanvasSize() {
     background.width = app.screen.width;
     background.height = app.screen.height;
 
-    // Recentre Guybrush
+    // Position du Crosshair
+    crosshair.x = app.screen.width / 2;
+    crosshair.y = app.screen.height * 0.8;
+
+    // Position Guybrush qui parle
     guybrush.x = app.screen.width / 2;
     guybrush.y = app.screen.height * 0.8;
 
+    // Position Guybrush qui marche à droite
     guybrushWR.x = app.screen.width * 0.4;
     guybrushWR.y = app.screen.height * 0.802;
 
+    // Position qui marche à gauche
     guybrushWL.x = app.screen.width * 0.6;
     guybrushWL.y = app.screen.height * 0.802;
 
+    // Position qui dort
     guybrushLD.x = app.screen.width * 0.74;
     guybrushLD.y = app.screen.height * 0.84;
 
+    // Position qui se réveille et se lève
     guybrushGU.x = app.screen.width * 0.74;
-    guybrushGU.y = app.screen.height * 0.84;
+    guybrushGU.y = app.screen.height * 0.83;
 
     // Ajuste l'échelle de Guybrush proportionnellement
     const scaleFactor = Math.min(
