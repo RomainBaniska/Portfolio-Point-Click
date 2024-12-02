@@ -13,7 +13,17 @@ export async function interactions(app, sprites) {
         container.addChild(guybrushGU);
 
         guybrushGU.gotoAndPlay(0);
+        guybrushGU.loop = false;
+
+        guybrushGU.onComplete = () => {
+            setTimeout(() => {
+                container.removeChild(guybrushGU); 
+                container.addChild(guybrushWL); 
+                // walkToCenter();
+        }, 500);     
+        };
     }
+
     }
 
     function goSleep() {
@@ -24,6 +34,10 @@ export async function interactions(app, sprites) {
 
         guybrushLD.gotoAndPlay(0);
     }
+    }
+
+    function walkToCenter() {
+        guybrushWL.x = 1   
     }
 
     console.log("tout s'est bien déclenché dans interactions");

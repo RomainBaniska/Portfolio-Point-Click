@@ -74,8 +74,10 @@ export async function loadSprites(app) {
     const guybrushWL = new PIXI.AnimatedSprite(framesWL);
     guybrushWL.animationSpeed = 0.13;
     guybrushWL.play();
-    guybrushWL.x = app.screen.width * 0.6 ;
-    guybrushWL.y = app.screen.height * 0.8;
+    // guybrushWL.x = app.screen.width * 0.6 ;
+    // guybrushWL.y = app.screen.height * 0.8;
+    guybrushWL.x = app.screen.width * 0.74 ;
+    guybrushWL.y = app.screen.height * 0.77;
     guybrushWL.anchor.set(0.5); 
      // container.addChild(guybrushWL);
 

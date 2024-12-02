@@ -23,8 +23,10 @@ function adjustCanvasSize() {
     guybrushWR.y = app.screen.height * 0.802;
 
     // Position qui marche à gauche
-    guybrushWL.x = app.screen.width * 0.6;
-    guybrushWL.y = app.screen.height * 0.802;
+    // guybrushWL.x = app.screen.width * 0.6;
+    // guybrushWL.y = app.screen.height * 0.802;
+    guybrushWL.x = app.screen.width * 0.74;
+    guybrushWL.y = app.screen.height * 0.83;
 
     // Position qui dort
     guybrushLD.x = app.screen.width * 0.74;
