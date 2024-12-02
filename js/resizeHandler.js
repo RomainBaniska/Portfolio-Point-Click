@@ -16,7 +16,7 @@ function adjustCanvasSize() {
 
     // Position Guybrush qui parle
     guybrush.x = app.screen.width / 2;
-    guybrush.y = app.screen.height * 0.8;
+    guybrush.y = app.screen.height * 0.83;
 
     // Position Guybrush qui marche à droite
     guybrushWR.x = app.screen.width * 0.4;

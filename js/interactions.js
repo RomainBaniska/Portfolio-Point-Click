@@ -15,15 +15,20 @@ export async function interactions(app, sprites) {
         guybrushGU.gotoAndPlay(0);
         guybrushGU.loop = false;
 
-        guybrushGU.onComplete = () => {
-            setTimeout(() => {
+        guybrushGU.onComplete = async () => {
+            setTimeout(async () => {
                 container.removeChild(guybrushGU); 
                 container.addChild(guybrushWL); 
-                // walkToCenter();
-        }, 500);     
+                
+                await walkLeft();
+
+                console.log("Cinematique terminée !");
+                container.removeChild(guybrushWL);
+                container.addChild(guybrush);  
+        }, 500);   
+          
         };
     }
-
     }
 
     function goSleep() {
@@ -36,8 +41,28 @@ export async function interactions(app, sprites) {
     }
     }
 
-    function walkToCenter() {
-        guybrushWL.x = 1   
+    function walkLeft () {
+    return new Promise((resolve) => {
+    
+    let moving = true; // Indique si le sprite doit bouger
+    const speed = 2.7; // Vitesse de déplacement (pixels par frame)
+    const stopPosition = app.screen.width * 0.5; // Position où le sprite doit s'arrêter
+
+    console.log(`Position initiale: ${guybrushWL.x}`);
+    console.log(`Arrêt prévu: ${stopPosition}`);
+
+
+    app.ticker.add(() => {
+        if (moving) {
+            guybrushWL.x -= speed; 
+            if (guybrushWL.x <= stopPosition) {
+                moving = false;
+                console.log("Arrêt atteint à :", guybrushWL.x);
+                resolve();
+            }
+        }
+    });
+});
     }
 
     console.log("tout s'est bien déclenché dans interactions");
