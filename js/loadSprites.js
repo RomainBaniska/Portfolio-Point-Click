@@ -41,14 +41,13 @@ export async function loadSprites(app) {
     }
 
     // TESTFONT
-    Assets.addBundle('fonts', [
-        { alias: 'MonkeyIsland', src: './font/MonkeyIsland-1991.ttf' },
-    ]);
-    await Assets.loadBundle('fonts');
-
-    const text = new Text({ text: 'Hey Guyrom Threepnis', 
-                            style: { fontFamily: 'MonkeyIsland', fontSize: 50 } 
+    // const loader = new PIXI.loaders.Loader();
+    // loader.add('MonkeyIsland', '../font/MonkeyIsland-1991-refined.ttf');
+    
+    const text = new PIXI.Text({ text: 'Hey Guyrom Threepnis', 
+                            style: { fontFamily: 'MonkeyIsland, arial', fontSize: 50, fill: 0xffffff } 
                         });
+
     container.addChild(text);
 
 

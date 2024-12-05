@@ -3,6 +3,21 @@
 <head>
     <title>PortFolio Pierre Castaing</title>
     <link rel="stylesheet" href="../css/body.css">
+
+    <!-- Synchronisation du chargement des polices d'écriture AVANT tout dessin sur le canvas avec WebFontLoader-->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: {
+                families: ['MonkeyIsland']
+            },
+            active:e=>{
+                console.log("font loaded!");
+                // now start setting up your PixiJS (or canvas) stuff!
+            }
+        });
+    </script>
+
     <script src="https://pixijs.download/release/pixi.js"></script>
     <script type="module" src="../js/script2.js"></script>
 </head>

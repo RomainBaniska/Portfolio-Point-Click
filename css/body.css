@@ -12,3 +12,8 @@ html, body {
  canvas {
      display: block;
  }
+
+@font-face {
+    font-family: 'MonkeyIsland';
+    src: url('../font/MonkeyIsland-1991-refined.ttf');
+}
