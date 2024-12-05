@@ -1,13 +1,16 @@
-export async function interactions(app, sprites) {
+export async function interactions(app, sprites, texts) {
 
     const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, messageText } = sprites;
+
+    const { wakeUpText } = texts;
 
     // Lors du click sur le Guybrush qui dort, on le réveille
     guybrushLD.on('click', wakeUp);
     guybrushGU.on('click', goSleep);
 
     function wakeUp() {
-        console.log("Se réveille");
+        // Se réveille 
+    console.log ("se réveille");
     if (container.children.includes(guybrushLD)) {
         container.removeChild(guybrushLD);
         container.addChild(guybrushGU);
@@ -17,17 +20,17 @@ export async function interactions(app, sprites) {
 
         guybrushGU.onComplete = async () => {
             setTimeout(async () => {
+                 // Se déplace vers la gauche de l'écran à la fin du réveil
+                console.log ("se déplace vers la gauche");
                 container.removeChild(guybrushGU); 
                 container.addChild(guybrushWL); 
                 
                 await walkLeft();
 
-                console.log("Cinematique terminée !");
+        // À la fin de l'animation walk left, se met de face et parle
                 container.removeChild(guybrushWL);
                 container.addChild(guybrush);  
-
-                // Mise à jour du message
-                messageText.text = 'Attention ça va chier';
+                container.addChild(wakeUpText);
         }, 500);   
           
         };
@@ -47,13 +50,12 @@ export async function interactions(app, sprites) {
     function walkLeft () {
     return new Promise((resolve) => {
     
-    let moving = true; // Indique si le sprite doit bouger
-    const speed = 2.7; // Vitesse de déplacement (pixels par frame)
-    const stopPosition = app.screen.width * 0.5; // Position où le sprite doit s'arrêter
+    let moving = true;
+    const speed = 2.7;
+    const stopPosition = app.screen.width * 0.5;
 
     console.log(`Position initiale: ${guybrushWL.x}`);
     console.log(`Arrêt prévu: ${stopPosition}`);
-
 
     app.ticker.add(() => {
         if (moving) {

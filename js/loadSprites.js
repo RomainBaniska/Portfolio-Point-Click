@@ -40,15 +40,11 @@ export async function loadSprites(app) {
         crosshair.y = pos.y;
     }
 
-    // TESTFONT
-    // const loader = new PIXI.loaders.Loader();
-    // loader.add('MonkeyIsland', '../font/MonkeyIsland-1991-refined.ttf');
-    
-    const text = new PIXI.Text({ text: 'Hey Guyrom Threepnis', 
-                            style: { fontFamily: 'MonkeyIsland, arial', fontSize: 50, fill: 0xffffff } 
-                        });
-
-    container.addChild(text);
+    // // TESTFONT
+    // const text = new PIXI.Text({ text: 'Hey Guyrom Threepnis', 
+    //                         style: { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: 'black', strokeThickness: 6 } 
+    //                     });
+    // container.addChild(text);
 
 
     // FACETALK
