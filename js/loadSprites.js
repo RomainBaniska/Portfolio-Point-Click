@@ -40,13 +40,6 @@ export async function loadSprites(app) {
         crosshair.y = pos.y;
     }
 
-    // // TESTFONT
-    // const text = new PIXI.Text({ text: 'Hey Guyrom Threepnis', 
-    //                         style: { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: 'black', strokeThickness: 6 } 
-    //                     });
-    // container.addChild(text);
-
-
     // FACETALK
     const guybrushSpritesheet = await PIXI.Assets.load('../sprites/TALK/romain face talk.json');
     const frames = Object.keys(guybrushSpritesheet.textures).map(

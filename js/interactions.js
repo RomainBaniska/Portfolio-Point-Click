@@ -31,6 +31,27 @@ export async function interactions(app, sprites, texts) {
                 container.removeChild(guybrushWL);
                 container.addChild(guybrush);  
                 container.addChild(wakeUpText);
+
+                let clicked = false;
+                container.interactive = true;
+
+                container.addEventListener('click', () => {
+                    if (!clicked) {
+                        clicked = true; 
+                        container.removeChild(wakeUpText);
+                        container.interactive = false;
+                    }
+                });
+
+                if (!clicked) {
+                    setTimeout(() => {
+                        if (!clicked) {
+                            container.removeChild(wakeUpText);
+                            container.interactive = false;
+                        }
+                    }, 5000);
+                }
+
         }, 500);   
           
         };
