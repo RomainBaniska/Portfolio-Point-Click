@@ -1,6 +1,6 @@
 export async function interactions(app, sprites) {
 
-    const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU } = sprites;
+    const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, messageText } = sprites;
 
     // Lors du click sur le Guybrush qui dort, on le réveille
     guybrushLD.on('click', wakeUp);
@@ -25,6 +25,9 @@ export async function interactions(app, sprites) {
                 console.log("Cinematique terminée !");
                 container.removeChild(guybrushWL);
                 container.addChild(guybrush);  
+
+                // Mise à jour du message
+                messageText.text = 'Attention ça va chier';
         }, 500);   
           
         };

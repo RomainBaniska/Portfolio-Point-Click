@@ -40,6 +40,18 @@ export async function loadSprites(app) {
         crosshair.y = pos.y;
     }
 
+    // TESTFONT
+    Assets.addBundle('fonts', [
+        { alias: 'MonkeyIsland', src: './font/MonkeyIsland-1991.ttf' },
+    ]);
+    await Assets.loadBundle('fonts');
+
+    const text = new Text({ text: 'Hey Guyrom Threepnis', 
+                            style: { fontFamily: 'MonkeyIsland', fontSize: 50 } 
+                        });
+    container.addChild(text);
+
+
     // FACETALK
     const guybrushSpritesheet = await PIXI.Assets.load('../sprites/TALK/romain face talk.json');
     const frames = Object.keys(guybrushSpritesheet.textures).map(
@@ -74,8 +86,6 @@ export async function loadSprites(app) {
     const guybrushWL = new PIXI.AnimatedSprite(framesWL);
     guybrushWL.animationSpeed = 0.13;
     guybrushWL.play();
-    // guybrushWL.x = app.screen.width * 0.6 ;
-    // guybrushWL.y = app.screen.height * 0.8;
     guybrushWL.x = app.screen.width * 0.74 ;
     guybrushWL.y = app.screen.height * 0.77;
     guybrushWL.anchor.set(0.5); 
@@ -109,7 +119,7 @@ export async function loadSprites(app) {
     guybrushGU.interactive = true;
     // container.addChild(guybrushGU);
 
-    // return app;
+
     return {
         container,
         background,
