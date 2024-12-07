@@ -2,7 +2,7 @@ export async function interactions(app, sprites, texts) {
 
     const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, messageText } = sprites;
 
-    const { wakeUpText, wakeUpText2 } = texts;
+    const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
     // Lors du click sur le Guybrush qui dort, on le réveille
     guybrushLD.on('click', wakeUp);
@@ -40,6 +40,11 @@ export async function interactions(app, sprites, texts) {
                 await skipDialogue(container, wakeUpText2, 4000);
 
                 console.log("wakeUpText2 est traité");
+
+                container.addChild(wakeUpText3);
+                await skipDialogue(container, wakeUpText3, 4000);
+
+                console.log("wakeUpText3 est traité");
 
                 // let clicked = false;
                 // container.interactive = true;
