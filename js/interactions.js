@@ -2,7 +2,7 @@ export async function interactions(app, sprites, texts) {
 
     const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, messageText } = sprites;
 
-    const { wakeUpText } = texts;
+    const { wakeUpText, wakeUpText2 } = texts;
 
     // Lors du click sur le Guybrush qui dort, on le réveille
     guybrushLD.on('click', wakeUp);
@@ -32,28 +32,30 @@ export async function interactions(app, sprites, texts) {
                 container.addChild(guybrush);  
                 container.addChild(wakeUpText);
 
-                let clicked = false;
-                container.interactive = true;
+                skipDialogue(container, wakeUpText);
 
-                container.addEventListener('click', () => {
-                    if (!clicked) {
-                        clicked = true; 
-                        container.removeChild(wakeUpText);
-                        container.interactive = false;
-                    }
-                });
+                // let clicked = false;
+                // container.interactive = true;
 
-                if (!clicked) {
-                    setTimeout(() => {
-                        if (!clicked) {
-                            container.removeChild(wakeUpText);
-                            container.interactive = false;
-                        }
-                    }, 5000);
-                }
+                // container.addEventListener('click', () => {
+                //     if (!clicked) {
+                //         clicked = true; 
+                //         container.removeChild(wakeUpText);
+                //         container.interactive = false;
+                //         container.addChild(wakeUpText2);
+                //     }
+                // });
 
+                // if (!clicked) {
+                //     setTimeout(() => {
+                //         if (!clicked) {
+                //             container.removeChild(wakeUpText);
+                //             container.interactive = false;
+                //             container.addChild(wakeUpText2);
+                //         }
+                //     }, 5000);
+                // }
         }, 500);   
-          
         };
     }
     }
@@ -92,4 +94,28 @@ export async function interactions(app, sprites, texts) {
     }
 
     console.log("tout s'est bien déclenché dans interactions");
+}
+
+// METHODE DE SKIP DIALOGUE (TEXT)
+
+function skipDialogue(container, textDialogue) {
+    let clicked = false;
+    container.interactive = true;
+
+    container.addEventListener('click', function onClick() {
+        if (!clicked) {
+            clicked = true;
+            container.removeChild(textDialogue);
+            container.interactive = false;
+            container.removeEventListener('click', onClick);
+        }
+    });
+
+    setTimeout(() => {
+        if (!clicked) {
+            container.removeChild(textDialogue);
+            container.interactive = false;
+            container.removeEventListener('click', onClick);
+        }
+    }, 5000);
 }
