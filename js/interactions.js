@@ -33,11 +33,11 @@ export async function interactions(app, sprites, texts) {
                 
                 container.addChild(wakeUpText);
 
-                await skipDialogue(container, wakeUpText);
+                await skipDialogue(container, wakeUpText, 4000);
                 console.log("wakeUpText traité, ajout de wakeUpText2");
 
                 container.addChild(wakeUpText2);
-                await skipDialogue(container, wakeUpText2);
+                await skipDialogue(container, wakeUpText2, 4000);
 
                 console.log("wakeUpText2 est traité");
 
@@ -105,7 +105,7 @@ export async function interactions(app, sprites, texts) {
 
 // METHODE DE SKIP DIALOGUE (TEXT)
 
-function skipDialogue(container, textDialogue) {
+function skipDialogue(container, textDialogue, duration) {
     return new Promise((resolve) => {
         let clicked = false;
         container.interactive = true;
@@ -129,6 +129,6 @@ function skipDialogue(container, textDialogue) {
                 container.removeEventListener('click', onClick);
                 resolve();
             }
-        }, 5000);
+        }, duration);
     });
 }
