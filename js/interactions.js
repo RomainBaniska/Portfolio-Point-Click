@@ -30,9 +30,16 @@ export async function interactions(app, sprites, texts) {
         // À la fin de l'animation walk left, se met de face et parle
                 container.removeChild(guybrushWL);
                 container.addChild(guybrush);  
+                
                 container.addChild(wakeUpText);
 
-                skipDialogue(container, wakeUpText);
+                await skipDialogue(container, wakeUpText);
+                console.log("wakeUpText traité, ajout de wakeUpText2");
+
+                container.addChild(wakeUpText2);
+                await skipDialogue(container, wakeUpText2);
+
+                console.log("wakeUpText2 est traité");
 
                 // let clicked = false;
                 // container.interactive = true;
@@ -99,23 +106,29 @@ export async function interactions(app, sprites, texts) {
 // METHODE DE SKIP DIALOGUE (TEXT)
 
 function skipDialogue(container, textDialogue) {
-    let clicked = false;
-    container.interactive = true;
+    return new Promise((resolve) => {
+        let clicked = false;
+        container.interactive = true;
 
-    container.addEventListener('click', function onClick() {
-        if (!clicked) {
-            clicked = true;
-            container.removeChild(textDialogue);
-            container.interactive = false;
-            container.removeEventListener('click', onClick);
+        function onClick() {
+            if (!clicked) {
+                clicked = true;
+                container.removeChild(textDialogue);
+                container.interactive = false;
+                container.removeEventListener('click', onClick);
+                resolve();
+            }
         }
+
+        container.addEventListener('click', onClick);
+
+        setTimeout(() => {
+            if (!clicked) {
+                container.removeChild(textDialogue);
+                container.interactive = false;
+                container.removeEventListener('click', onClick);
+                resolve();
+            }
+        }, 5000);
     });
-
-    setTimeout(() => {
-        if (!clicked) {
-            container.removeChild(textDialogue);
-            container.interactive = false;
-            container.removeEventListener('click', onClick);
-        }
-    }, 5000);
 }
