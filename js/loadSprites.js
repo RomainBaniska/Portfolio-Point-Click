@@ -83,7 +83,7 @@ export async function loadSprites(app) {
     guybrushLD.play();
     guybrushLD.anchor.set(0.5); 
     guybrushLD.interactive = true;
-    container.addChild(guybrushLD);
+    // container.addChild(guybrushLD);
 
     // GET UP / AWAKENING
     const guybrushSpritesheetGU = await PIXI.Assets.load('../sprites/GETUP/get up.json');

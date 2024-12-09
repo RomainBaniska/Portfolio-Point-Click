@@ -4,6 +4,7 @@ export async function interactions(app, sprites, texts) {
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
+    container.addChild(guybrushLD);
     // Lors du click sur le Guybrush qui dort, on le réveille
     guybrushLD.on('click', wakeUp);
     guybrushGU.on('click', goSleep);
