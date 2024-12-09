@@ -6,7 +6,7 @@ export async function loadTexts(app) {
         const guybrushText = new PIXI.Text(textContent, dialogueStyle);
         guybrushText.position.set(app.screen.width / 2, app.screen.height / 2);
         guybrushText.anchor.set(0.5);
-        return guybrushText;  // Retourner le texte créé pour l'utiliser
+        return guybrushText; 
     }
 
     const wakeUpText = textConfig('Non mais je rêve');

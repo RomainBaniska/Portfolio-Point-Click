@@ -48,8 +48,6 @@ export async function loadSprites(app) {
     const guybrush = new PIXI.AnimatedSprite(frames);
     guybrush.animationSpeed = 0.13;
     guybrush.play();
-    guybrush.x = app.screen.width / 2;
-    guybrush.y = app.screen.height * 0.8;
     guybrush.anchor.set(0.5); 
     // container.addChild(guybrush);
 
@@ -61,8 +59,6 @@ export async function loadSprites(app) {
     const guybrushWR = new PIXI.AnimatedSprite(framesWR);
     guybrushWR.animationSpeed = 0.13;
     guybrushWR.play();
-    guybrushWR.x = app.screen.width * 0.4 ;
-    guybrushWR.y = app.screen.height * 0.8;
     guybrushWR.anchor.set(0.5); 
     // container.addChild(guybrushWR);
 
@@ -74,8 +70,6 @@ export async function loadSprites(app) {
     const guybrushWL = new PIXI.AnimatedSprite(framesWL);
     guybrushWL.animationSpeed = 0.13;
     guybrushWL.play();
-    guybrushWL.x = app.screen.width * 0.74 ;
-    guybrushWL.y = app.screen.height * 0.77;
     guybrushWL.anchor.set(0.5); 
      // container.addChild(guybrushWL);
 
@@ -87,8 +81,6 @@ export async function loadSprites(app) {
     const guybrushLD = new PIXI.AnimatedSprite(framesLD);
     guybrushLD.animationSpeed = 0.05;
     guybrushLD.play();
-    guybrushLD.x = app.screen.width * 0.74 ;
-    guybrushLD.y = app.screen.height * 0.77;
     guybrushLD.anchor.set(0.5); 
     guybrushLD.interactive = true;
     container.addChild(guybrushLD);
@@ -101,11 +93,33 @@ export async function loadSprites(app) {
     const guybrushGU = new PIXI.AnimatedSprite(framesGU);
     guybrushGU.animationSpeed = 0.12;
     guybrushGU.play();
-    guybrushGU.x = app.screen.width * 0.74 ;
-    guybrushGU.y = app.screen.height * 0.77;
     guybrushGU.anchor.set(0.5); 
     guybrushGU.interactive = true;
     // container.addChild(guybrushGU);
+
+    // SIT ORDI
+    const guybrushSpritesheetSO = await PIXI.Assets.load('../sprites/SITORDI/sitordi.json');
+    const framesSO = Object.keys(guybrushSpritesheetSO.textures).map(
+                             frame => guybrushSpritesheetSO.textures[frame]
+    );
+    const guybrushSO = new PIXI.AnimatedSprite(framesSO);
+    guybrushSO.animationSpeed = 0.12;
+    guybrushSO.play();
+    guybrushSO.anchor.set(0.5); 
+    guybrushSO.interactive = true;
+    // container.addChild(guybrushSO);
+
+    // SIT ORDI TALK
+    const guybrushSpritesheetSOT = await PIXI.Assets.load('../sprites/SITORDI/sitorditalk.json');
+    const framesSOT = Object.keys(guybrushSpritesheetSOT.textures).map(
+                             frame => guybrushSpritesheetSOT.textures[frame]
+    );
+    const guybrushSOT = new PIXI.AnimatedSprite(framesSOT);
+    guybrushSOT.animationSpeed = 0.12;
+    guybrushSOT.play();
+    guybrushSOT.anchor.set(0.5); 
+    guybrushSOT.interactive = true;
+    // container.addChild(guybrushSOT);
 
 
     return {
@@ -116,7 +130,9 @@ export async function loadSprites(app) {
         guybrushWR,
         guybrushWL,
         guybrushLD,
-        guybrushGU
+        guybrushGU,
+        guybrushSO,
+        guybrushSOT
     };
 
 } catch (error) {

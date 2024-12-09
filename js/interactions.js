@@ -1,6 +1,6 @@
 export async function interactions(app, sprites, texts) {
 
-    const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, messageText } = sprites;
+    const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -25,7 +25,7 @@ export async function interactions(app, sprites, texts) {
                 container.removeChild(guybrushGU); 
                 container.addChild(guybrushWL); 
                 
-                await walkLeft();
+                await walkLeft(0.5);
 
         // À la fin de l'animation walk left, se met de face et parle
                 container.removeChild(guybrushWL);
@@ -46,27 +46,20 @@ export async function interactions(app, sprites, texts) {
 
                 console.log("wakeUpText3 est traité");
 
-                // let clicked = false;
-                // container.interactive = true;
+                container.removeChild(guybrush);
+                container.addChild(guybrushWL); 
+                await walkLeft(0.3);
+                container.removeChild(guybrushWL);
 
-                // container.addEventListener('click', () => {
-                //     if (!clicked) {
-                //         clicked = true; 
-                //         container.removeChild(wakeUpText);
-                //         container.interactive = false;
-                //         container.addChild(wakeUpText2);
-                //     }
-                // });
+                container.addChild(guybrushSO);
+                setTimeout(async () => {
+                container.removeChild(guybrushSO);
+                }, 4000);
+                setTimeout(async () => {
+                await container.addChild(guybrushSOT);
+                }, 4000);
 
-                // if (!clicked) {
-                //     setTimeout(() => {
-                //         if (!clicked) {
-                //             container.removeChild(wakeUpText);
-                //             container.interactive = false;
-                //             container.addChild(wakeUpText2);
-                //         }
-                //     }, 5000);
-                // }
+
         }, 500);   
         };
     }
@@ -82,12 +75,12 @@ export async function interactions(app, sprites, texts) {
     }
     }
 
-    function walkLeft () {
+    function walkLeft (positionFactor) {
     return new Promise((resolve) => {
     
     let moving = true;
     const speed = 2.7;
-    const stopPosition = app.screen.width * 0.5;
+    const stopPosition = app.screen.width * positionFactor;
 
     console.log(`Position initiale: ${guybrushWL.x}`);
     console.log(`Arrêt prévu: ${stopPosition}`);
