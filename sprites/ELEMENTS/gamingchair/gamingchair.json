@@ -1,0 +1,26 @@
+{ "frames": {
+   "gamingchair.ase": {
+    "frame": { "x": 0, "y": 0, "w": 152, "h": 221 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 152, "h": 221 },
+    "sourceSize": { "w": 152, "h": 221 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.10.1-x64",
+  "image": "gamingchair.png",
+  "format": "RGBA8888",
+  "size": { "w": 152, "h": 221 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

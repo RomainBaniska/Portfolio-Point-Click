@@ -1,6 +1,6 @@
 export async function resizeHandler(app, sprites) {
 
-    const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT } = sprites;
+    const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi } = sprites;
 
 function adjustCanvasSize() {
     // Redimensionne le canvas
@@ -28,19 +28,24 @@ function adjustCanvasSize() {
 
     // Position qui dort
     guybrushLD.x = app.screen.width * 0.74;
-    guybrushLD.y = app.screen.height * 0.84;
+    guybrushLD.y = app.screen.height * 0.849;
 
     // Position qui se réveille et se lève
     guybrushGU.x = app.screen.width * 0.74;
     guybrushGU.y = app.screen.height * 0.83;
 
-    // Position qui sur ordi
+    // Position qui travaille sur ordi
     guybrushSO.x = app.screen.width * 0.29;
     guybrushSO.y = app.screen.height * 0.84;
 
-    // Position qui sur ordi
+    // Position qui parle sur ordi
     guybrushSOT.x = app.screen.width * 0.298;
     guybrushSOT.y = app.screen.height * 0.84;
+
+    // Position Ordinateur
+    ordi.x =  app.screen.width * 0.23;;
+    ordi.y =  app.screen.height * 0.78;;
+
 
     // Ajuste l'échelle du crosshair proportionnellement
     const scaleFactorCrosshair = Math.min(
@@ -97,6 +102,13 @@ function adjustCanvasSize() {
         app.screen.height / 1250
     );
     guybrushSOT.scale.set(scaleFactorSOT);
+
+     // Ajuste l'échelle de l'ordinateur proportionnellement
+     const scaleFactorOrdi = Math.min(
+        app.screen.width / 770,
+        app.screen.height / 770
+    );
+    ordi.scale.set(scaleFactorOrdi);
 }
 
 // Applique le redimensionnement à chaque événement 'resize'

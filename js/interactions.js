@@ -59,6 +59,12 @@ export async function interactions(app, sprites, texts) {
                 setTimeout(async () => {
                 await container.addChild(guybrushSOT);
                 }, 4000);
+                setTimeout(async () => {
+                await container.removeChild(guybrushSOT);
+                }, 8000);
+                setTimeout(async () => {
+                await container.addChild(guybrushSO);
+                }, 8000);
 
 
         }, 500);   

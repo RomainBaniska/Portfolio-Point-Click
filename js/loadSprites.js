@@ -16,9 +16,9 @@ export async function loadSprites(app) {
     app.renderer.events.cursorStyles.default = "none";
 
     // BACKGROUND
-    const backgroundTexture = await PIXI.Assets.load('../sprites/homeImproved.png');
+    const backgroundTexture = await PIXI.Assets.load('../sprites/homeImproved2.png');
     const background = new PIXI.Sprite(backgroundTexture);
-    await PIXI.Assets.load('../sprites/homeImproved.png');
+    await PIXI.Assets.load('../sprites/homeImproved2.png');
     container.addChild(background);
 
     // CROSSHAIR
@@ -121,6 +121,18 @@ export async function loadSprites(app) {
     guybrushSOT.interactive = true;
     // container.addChild(guybrushSOT);
 
+    //////////////////////////////////////// ELEMENTS & OBJECTS ////////////////////////////////
+
+    const ordiSpritesheet = await PIXI.Assets.load('../sprites/ELEMENTS/ordi/ordi.json');
+    const framesOrdi = Object.keys(ordiSpritesheet.textures).map(
+                             frame => ordiSpritesheet.textures[frame]
+    );
+    const ordi = new PIXI.AnimatedSprite(framesOrdi);
+    ordi.animationSpeed = 0.12;
+    ordi.play();
+    ordi.anchor.set(0.5); 
+    ordi.interactive = true;
+    container.addChild(ordi);
 
     return {
         container,
@@ -132,7 +144,9 @@ export async function loadSprites(app) {
         guybrushLD,
         guybrushGU,
         guybrushSO,
-        guybrushSOT
+        guybrushSOT,
+        // ELEMENTS & OBJECTS
+        ordi,
     };
 
 } catch (error) {
