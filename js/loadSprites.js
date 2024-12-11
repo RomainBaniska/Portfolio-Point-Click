@@ -2,8 +2,31 @@
 // Set the texture's scale mode to nearest to preserve pixelation
 // texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
 
+
+
 export async function loadSprites(app) {
     try {
+
+    const SPRITE_PATH_PREFIX = '../sprites/';
+
+    // Fonction D'affichage des sprites
+    async function displaySprite(path, speed) {
+        // path: SITORDI/sitorditalk.json par exemple
+        const spritesheet = await PIXI.Assets.load(SPRITE_PATH_PREFIX + path);
+        const frames = Object.keys(spritesheet.textures).map(frame => spritesheet.textures[frame]);
+        const sprite = new PIXI.AnimatedSprite(frames);
+        sprite.animationSpeed = speed;
+        sprite.play();
+        sprite.anchor.set(0.5);
+        return sprite;
+    }
+
+    // Fonction permettant le retrait de frames
+    function removeFrame(framesToRemove) {
+        if (!Array.isArray(framesToRemove)) {
+            throw new TypeError("La variable déposée doit être un tableau.");
+        }
+    };
 
     // CONTAINER
     const container = new PIXI.Container();
@@ -22,16 +45,10 @@ export async function loadSprites(app) {
     container.addChild(background);
 
     // CROSSHAIR
-    const crosshairSpriteSheet = await PIXI.Assets.load('../sprites/CROSSHAIR/crosshair2.json');
-    const framesCrosshair = Object.keys(crosshairSpriteSheet.textures).map(
-                             frame => crosshairSpriteSheet.textures[frame]
-    );
-    const crosshair = new PIXI.AnimatedSprite(framesCrosshair);
-    crosshair.animationSpeed = 0.08;
+    const crosshair = await displaySprite('CROSSHAIR/crosshair2.json', 0.08);
     crosshair.play();
     crosshair.interactiveChildren = false;
     crosshair.zIndex = 3;
-    crosshair.anchor.set(0.5); 
     container.addChild(crosshair);
     // Définition de la fonction moveCrosshair après la création de crosshair
     function moveCrosshair(e) {
@@ -41,98 +58,69 @@ export async function loadSprites(app) {
     }
 
     // FACETALK
-    const guybrushSpritesheet = await PIXI.Assets.load('../sprites/TALK/romain face talk.json');
-    const frames = Object.keys(guybrushSpritesheet.textures).map(
-                             frame => guybrushSpritesheet.textures[frame]
-    );
-    const guybrush = new PIXI.AnimatedSprite(frames);
-    guybrush.animationSpeed = 0.13;
+    const guybrush = await displaySprite('TALK/romain face talk.json', 0.13);
     guybrush.play();
-    guybrush.anchor.set(0.5); 
     // container.addChild(guybrush);
 
-     // WALK RIGHT
-    const guybrushSpritesheetWR = await PIXI.Assets.load('../sprites/WALK/romain walk right.json');
-    const framesWR = Object.keys(guybrushSpritesheetWR.textures).map(
-                        frame => guybrushSpritesheetWR.textures[frame]
-    );
-    const guybrushWR = new PIXI.AnimatedSprite(framesWR);
-    guybrushWR.animationSpeed = 0.13;
+    // WALK RIGHT
+    const guybrushWR = await displaySprite('WALK/romain walk right.json', 0.13);
     guybrushWR.play();
-    guybrushWR.anchor.set(0.5); 
     // container.addChild(guybrushWR);
 
     // LEFT WALK
-    const guybrushSpritesheetWL = await PIXI.Assets.load('../sprites/WALK/romain walk left.json');
-    const framesWL = Object.keys(guybrushSpritesheetWL.textures).map(
-                        frame => guybrushSpritesheetWL.textures[frame]
-    );
-    const guybrushWL = new PIXI.AnimatedSprite(framesWL);
-    guybrushWL.animationSpeed = 0.13;
+    const guybrushWL = await displaySprite('WALK/romain walk left.json', 0.13);
     guybrushWL.play();
-    guybrushWL.anchor.set(0.5); 
      // container.addChild(guybrushWL);
 
     // LAYDOWN / SLEEP
-    const guybrushSpritesheetLD = await PIXI.Assets.load('../sprites/LAYDOWN/lay down.json');
-    const framesLD = Object.keys(guybrushSpritesheetLD.textures).map(
-                        frame => guybrushSpritesheetLD.textures[frame]
-    );
-    const guybrushLD = new PIXI.AnimatedSprite(framesLD);
-    guybrushLD.animationSpeed = 0.05;
+    const guybrushLD = await displaySprite('LAYDOWN/lay down.json', 0.05);
     guybrushLD.play();
-    guybrushLD.anchor.set(0.5); 
     guybrushLD.interactive = true;
     // container.addChild(guybrushLD);
 
     // GET UP / AWAKENING
-    const guybrushSpritesheetGU = await PIXI.Assets.load('../sprites/GETUP/get up.json');
-    const framesGU = Object.keys(guybrushSpritesheetGU.textures).map(
-                             frame => guybrushSpritesheetGU.textures[frame]
-    );
-    const guybrushGU = new PIXI.AnimatedSprite(framesGU);
-    guybrushGU.animationSpeed = 0.12;
-    guybrushGU.play();
-    guybrushGU.anchor.set(0.5); 
+    const guybrushGU = await displaySprite('GETUP/get up.json', 0.12);
     guybrushGU.interactive = true;
-    // container.addChild(guybrushGU);
+    guybrushGU.play();
 
     // SIT ORDI
-    const guybrushSpritesheetSO = await PIXI.Assets.load('../sprites/SITORDI/sitordi.json');
-    const framesSO = Object.keys(guybrushSpritesheetSO.textures).map(
-                             frame => guybrushSpritesheetSO.textures[frame]
-    );
-    const guybrushSO = new PIXI.AnimatedSprite(framesSO);
-    guybrushSO.animationSpeed = 0.12;
+    const guybrushSO = await displaySprite('SITORDI/sitordi.json', 0.12);
     guybrushSO.play();
-    guybrushSO.anchor.set(0.5); 
-    guybrushSO.interactive = true;
-    // container.addChild(guybrushSO);
 
     // SIT ORDI TALK
-    const guybrushSpritesheetSOT = await PIXI.Assets.load('../sprites/SITORDI/sitorditalk.json');
-    const framesSOT = Object.keys(guybrushSpritesheetSOT.textures).map(
-                             frame => guybrushSpritesheetSOT.textures[frame]
-    );
-    const guybrushSOT = new PIXI.AnimatedSprite(framesSOT);
-    guybrushSOT.animationSpeed = 0.12;
+    const guybrushSOT = await displaySprite('SITORDI/sitorditalk.json', 0.12);
     guybrushSOT.play();
-    guybrushSOT.anchor.set(0.5); 
-    guybrushSOT.interactive = true;
-    // container.addChild(guybrushSOT);
 
     //////////////////////////////////////// ELEMENTS & OBJECTS ////////////////////////////////
 
-    const ordiSpritesheet = await PIXI.Assets.load('../sprites/ELEMENTS/ordi/ordi.json');
-    const framesOrdi = Object.keys(ordiSpritesheet.textures).map(
-                             frame => ordiSpritesheet.textures[frame]
-    );
-    const ordi = new PIXI.AnimatedSprite(framesOrdi);
-    ordi.animationSpeed = 0.12;
-    ordi.play();
-    ordi.anchor.set(0.5); 
+    // ORDINATEUR
+    const ordi = await displaySprite('ELEMENTS/ordi/ordi.json', 0.12);
+    // ordi.play();
+    // ordi.gotoAndPlay(0); 
+    ordi.gotoAndStop(0); 
     ordi.interactive = true;
     container.addChild(ordi);
+
+    // BUREAU
+    const deskSpritesheet = await PIXI.Assets.load('../sprites/ELEMENTS/ordi/desk.png');
+    const desk = new PIXI.Sprite(deskSpritesheet);
+    desk.anchor.set(0.5); 
+    desk.interactive = true;
+    container.addChild(desk);
+
+    // GAMINGCHAIR
+    const gcSpritesheet = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
+    const gamingChair = new PIXI.Sprite(gcSpritesheet);
+    gamingChair.anchor.set(0.5); 
+    gamingChair.interactive = true;
+    container.addChild(gamingChair);
+    // GAMINGCHAIR Armrest
+    const gcARSpritesheet = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchairarmrest.png');
+    const gamingChairAR = new PIXI.Sprite(gcARSpritesheet);
+    gamingChairAR.anchor.set(0.5); 
+    gamingChairAR.interactive = true;
+    gamingChairAR.zIndex = 2;
+    // container.addChild(gamingChairAR);
 
     return {
         container,
@@ -147,6 +135,9 @@ export async function loadSprites(app) {
         guybrushSOT,
         // ELEMENTS & OBJECTS
         ordi,
+        desk,
+        gamingChair,
+        gamingChairAR,
     };
 
 } catch (error) {

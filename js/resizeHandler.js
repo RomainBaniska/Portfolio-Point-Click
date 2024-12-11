@@ -1,6 +1,6 @@
 export async function resizeHandler(app, sprites) {
 
-    const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi } = sprites;
+    const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, desk, gamingChair, gamingChairAR } = sprites;
 
 function adjustCanvasSize() {
     // Redimensionne le canvas
@@ -38,14 +38,28 @@ function adjustCanvasSize() {
     guybrushSO.x = app.screen.width * 0.29;
     guybrushSO.y = app.screen.height * 0.84;
 
+
+    /// ELEMENTS & OBJECTS ///
+
     // Position qui parle sur ordi
     guybrushSOT.x = app.screen.width * 0.298;
     guybrushSOT.y = app.screen.height * 0.84;
 
     // Position Ordinateur
-    ordi.x =  app.screen.width * 0.23;;
-    ordi.y =  app.screen.height * 0.78;;
+    ordi.x =  app.screen.width * 0.20;
+    ordi.y =  app.screen.height * 0.730;
 
+    // Position Bureau
+    desk.x =  app.screen.width * 0.22;
+    desk.y =  app.screen.height * 0.89;
+
+    // Position GamingChair
+    gamingChair.x =  app.screen.width * 0.328;
+    gamingChair.y =  app.screen.height * 0.885;
+
+    // Position GamingChair ArmRest
+    gamingChairAR.x =  app.screen.width * 0.328;
+    gamingChairAR.y =  app.screen.height * 0.885;
 
     // Ajuste l'échelle du crosshair proportionnellement
     const scaleFactorCrosshair = Math.min(
@@ -103,12 +117,33 @@ function adjustCanvasSize() {
     );
     guybrushSOT.scale.set(scaleFactorSOT);
 
-     // Ajuste l'échelle de l'ordinateur proportionnellement
-     const scaleFactorOrdi = Math.min(
+    // Ajuste l'échelle de l'ordinateur proportionnellement
+    const scaleFactorOrdi = Math.min(
         app.screen.width / 770,
-        app.screen.height / 770
+        app.screen.height / 790
     );
     ordi.scale.set(scaleFactorOrdi);
+
+    // Ajuste l'échelle du bureau proportionnellement
+    const scaleFactorDesk = Math.min(
+        app.screen.width / 800,
+        app.screen.height / 780
+    );
+    desk.scale.set(scaleFactorDesk);
+
+    // Ajuste l'échelle da gamingchair
+    const scaleFactorGC = Math.min(
+        app.screen.width / 900,
+        app.screen.height / 1000
+    );
+    gamingChair.scale.set(scaleFactorGC);
+
+     // Ajuste l'échelle da gamingchair armrest
+     const scaleFactorGCAR = Math.min(
+        app.screen.width / 900,
+        app.screen.height / 1000
+    );
+    gamingChairAR.scale.set(scaleFactorGCAR);
 }
 
 // Applique le redimensionnement à chaque événement 'resize'

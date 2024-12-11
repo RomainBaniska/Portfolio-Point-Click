@@ -1,6 +1,6 @@
 export async function interactions(app, sprites, texts) {
 
-    const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT } = sprites;
+    const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -53,6 +53,7 @@ export async function interactions(app, sprites, texts) {
                 container.removeChild(guybrushWL);
 
                 container.addChild(guybrushSO);
+                container.addChild(gamingChairAR);
                 setTimeout(async () => {
                 container.removeChild(guybrushSO);
                 }, 4000);
