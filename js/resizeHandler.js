@@ -3,6 +3,20 @@ export async function resizeHandler(app, sprites) {
     const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, desk, gamingChair, gamingChairAR } = sprites;
 
 function adjustCanvasSize() {
+
+    function setPositionAndScale(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
+        // Positionnement du sprite
+        sprite.x = app.screen.width * positionXFactor;
+        sprite.y = app.screen.height * positionYFactor;
+    
+        // Ajustement de l'échelle proportionnelle
+        const scaleFactor = Math.min(
+            app.screen.width / scaleWidthFactor,
+            app.screen.height / scaleHeightFactor
+        );
+        sprite.scale.set(scaleFactor);
+    }
+
     // Redimensionne le canvas
     app.renderer.resize(window.innerWidth, window.innerHeight);
 
@@ -11,139 +25,43 @@ function adjustCanvasSize() {
     background.height = app.screen.height;
 
     // Position du Crosshair
-    crosshair.x = app.screen.width / 2;
-    crosshair.y = app.screen.height * 0.8;
+    setPositionAndScale(crosshair, 0.5, 0.8, 2000, 1200);
 
     // Position Guybrush qui parle
-    guybrush.x = app.screen.width / 2;
-    guybrush.y = app.screen.height * 0.83;
+    setPositionAndScale(guybrush, 0.5, 0.83, 1000, 600);
 
     // Position Guybrush qui marche à droite
-    guybrushWR.x = app.screen.width * 0.4;
-    guybrushWR.y = app.screen.height * 0.802;
+    setPositionAndScale(guybrushWR, 0.4, 0.802, 850, 600);
 
     // Position qui marche à gauche
-    guybrushWL.x = app.screen.width * 0.74;
-    guybrushWL.y = app.screen.height * 0.83;
+    setPositionAndScale(guybrushWL, 0.74, 0.83, 850, 600);
 
     // Position qui dort
-    guybrushLD.x = app.screen.width * 0.74;
-    guybrushLD.y = app.screen.height * 0.849;
+    setPositionAndScale(guybrushLD, 0.74, 0.849, 850, 600);
 
     // Position qui se réveille et se lève
-    guybrushGU.x = app.screen.width * 0.74;
-    guybrushGU.y = app.screen.height * 0.83;
+    setPositionAndScale(guybrushGU, 0.74, 0.83, 850, 600);
 
     // Position qui travaille sur ordi
-    guybrushSO.x = app.screen.width * 0.29;
-    guybrushSO.y = app.screen.height * 0.84;
+    setPositionAndScale(guybrushSO, 0.29, 0.84, 850, 1250);
+
+    // Position qui parle sur ordi
+    setPositionAndScale(guybrushSOT, 0.298, 0.84, 850, 1250);
 
 
     /// ELEMENTS & OBJECTS ///
 
-    // Position qui parle sur ordi
-    guybrushSOT.x = app.screen.width * 0.298;
-    guybrushSOT.y = app.screen.height * 0.84;
-
     // Position Ordinateur
-    ordi.x =  app.screen.width * 0.20;
-    ordi.y =  app.screen.height * 0.730;
-
+    setPositionAndScale(ordi, 0.2, 0.73, 770, 790);
+   
     // Position Bureau
-    desk.x =  app.screen.width * 0.22;
-    desk.y =  app.screen.height * 0.89;
+    setPositionAndScale(desk, 0.22, 0.89, 800, 780);
 
     // Position GamingChair
-    gamingChair.x =  app.screen.width * 0.328;
-    gamingChair.y =  app.screen.height * 0.885;
+    setPositionAndScale(gamingChair, 0.328, 0.885, 900, 1000);
 
     // Position GamingChair ArmRest
-    gamingChairAR.x =  app.screen.width * 0.328;
-    gamingChairAR.y =  app.screen.height * 0.885;
-
-    // Ajuste l'échelle du crosshair proportionnellement
-    const scaleFactorCrosshair = Math.min(
-        app.screen.width / 2000,
-        app.screen.height / 1200
-    );
-    crosshair.scale.set(scaleFactorCrosshair);
-
-    // Ajuste l'échelle de Guybrush proportionnellement
-    const scaleFactor = Math.min(
-        app.screen.width / 1000,
-        app.screen.height / 600
-    );
-    guybrush.scale.set(scaleFactor);
-
-    // Ajuste l'échelle de GuybrushWR proportionnellement
-    const scaleFactorWR = Math.min(
-        app.screen.width / 850,
-        app.screen.height / 600
-    );
-    guybrushWR.scale.set(scaleFactorWR);
-
-    // Ajuste l'échelle de GuybrushWL proportionnellement
-    const scaleFactorWL = Math.min(
-        app.screen.width / 850,
-        app.screen.height / 600
-    );
-    guybrushWL.scale.set(scaleFactorWL);
-
-    // Ajuste l'échelle de GuybrushLD proportionnellement
-    const scaleFactorLD = Math.min(
-        app.screen.width / 850,
-        app.screen.height / 600
-    );
-    guybrushLD.scale.set(scaleFactorLD);
-
-    // Ajuste l'échelle de GuybrushGU proportionnellement
-    const scaleFactorGU = Math.min(
-        app.screen.width / 850,
-        app.screen.height / 600
-    );
-    guybrushGU.scale.set(scaleFactorGU);
-
-    // Ajuste l'échelle de GuybrushSO proportionnellement
-    const scaleFactorSO = Math.min(
-        app.screen.width / 850,
-        app.screen.height / 1250
-    );
-    guybrushSO.scale.set(scaleFactorSO);
-
-    // Ajuste l'échelle de GuybrushSOT proportionnellement
-    const scaleFactorSOT = Math.min(
-        app.screen.width / 850,
-        app.screen.height / 1250
-    );
-    guybrushSOT.scale.set(scaleFactorSOT);
-
-    // Ajuste l'échelle de l'ordinateur proportionnellement
-    const scaleFactorOrdi = Math.min(
-        app.screen.width / 770,
-        app.screen.height / 790
-    );
-    ordi.scale.set(scaleFactorOrdi);
-
-    // Ajuste l'échelle du bureau proportionnellement
-    const scaleFactorDesk = Math.min(
-        app.screen.width / 800,
-        app.screen.height / 780
-    );
-    desk.scale.set(scaleFactorDesk);
-
-    // Ajuste l'échelle da gamingchair
-    const scaleFactorGC = Math.min(
-        app.screen.width / 900,
-        app.screen.height / 1000
-    );
-    gamingChair.scale.set(scaleFactorGC);
-
-     // Ajuste l'échelle da gamingchair armrest
-     const scaleFactorGCAR = Math.min(
-        app.screen.width / 900,
-        app.screen.height / 1000
-    );
-    gamingChairAR.scale.set(scaleFactorGCAR);
+    setPositionAndScale(gamingChairAR, 0.328, 0.885, 900, 1000);
 }
 
 // Applique le redimensionnement à chaque événement 'resize'
