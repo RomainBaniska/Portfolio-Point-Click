@@ -2,8 +2,6 @@
 // Set the texture's scale mode to nearest to preserve pixelation
 // texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
 
-
-
 export async function loadSprites(app) {
     try {
 
