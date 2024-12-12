@@ -32,9 +32,12 @@ export async function interactions(app, sprites, texts) {
                 container.removeChild(guybrushWL);
                 container.addChild(guybrush);  
                 
-                container.addChild(wakeUpText);
+                guybrush.addChild(wakeUpText);
+                wakeUpText.x = 0.1 * guybrush.width
+                wakeUpText.y = -0.8 * guybrush.height
+                // container.addChild(wakeUpText);
 
-                await skipDialogue(container, wakeUpText, 4000);
+                await skipDialogue(guybrush, wakeUpText, 4000);
                 console.log("wakeUpText traité, ajout de wakeUpText2");
 
                 container.addChild(wakeUpText2);

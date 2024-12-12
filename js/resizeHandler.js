@@ -1,10 +1,25 @@
-export async function resizeHandler(app, sprites) {
+export async function resizeHandler(app, sprites, texts) {
 
     const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, desk, gamingChair, gamingChairAR } = sprites;
 
+    const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
+
 function adjustCanvasSize() {
 
-    function setPositionAndScale(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
+    // AJOUTER UNE LOGIQUE Où LE TEXTE SUIT GUYBRUSH
+    // sprite.addChild(text)
+    // text.x = .5 * sprite.width
+    // text.y = .5 * sprite.height
+
+    // function setTextPositionAndScale(textToResize) {
+    //     textToResize.position.set(app.screen.width / 2, app.screen.height / 2);
+    // };
+
+    // setTextPositionAndScale(wakeUpText);
+    // setTextPositionAndScale(wakeUpText2);
+    // setTextPositionAndScale(wakeUpText3);
+
+    function setSpritePositionAndScale(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
         // Positionnement du sprite
         sprite.x = app.screen.width * positionXFactor;
         sprite.y = app.screen.height * positionYFactor;
@@ -17,57 +32,56 @@ function adjustCanvasSize() {
         sprite.scale.set(scaleFactor);
     }
 
-    // Redimensionne le canvas
+    // Redimensionne le canvas & ajuste la taille du background
     app.renderer.resize(window.innerWidth, window.innerHeight);
-
-    // Ajuste la taille du background
     background.width = app.screen.width;
     background.height = app.screen.height;
 
+    // Sprite, Position X, Position Y, Largeur, Hauteur des éléments
+
     // Position du Crosshair
-    setPositionAndScale(crosshair, 0.5, 0.8, 2000, 1200);
+    setSpritePositionAndScale(crosshair, 0.5, 0.8, 2000, 1200);
 
     // Position Guybrush qui parle
-    setPositionAndScale(guybrush, 0.5, 0.83, 1000, 600);
+    setSpritePositionAndScale(guybrush, 0.5, 0.83, 1000, 600);
 
     // Position Guybrush qui marche à droite
-    setPositionAndScale(guybrushWR, 0.4, 0.802, 850, 600);
+    setSpritePositionAndScale(guybrushWR, 0.4, 0.802, 850, 600);
 
     // Position qui marche à gauche
-    setPositionAndScale(guybrushWL, 0.74, 0.83, 850, 600);
+    setSpritePositionAndScale(guybrushWL, 0.74, 0.83, 850, 600);
 
     // Position qui dort
-    setPositionAndScale(guybrushLD, 0.74, 0.849, 850, 600);
+    setSpritePositionAndScale(guybrushLD, 0.74, 0.849, 850, 600);
 
     // Position qui se réveille et se lève
-    setPositionAndScale(guybrushGU, 0.74, 0.83, 850, 600);
+    setSpritePositionAndScale(guybrushGU, 0.74, 0.83, 850, 600);
 
     // Position qui travaille sur ordi
-    setPositionAndScale(guybrushSO, 0.29, 0.84, 850, 1250);
+    setSpritePositionAndScale(guybrushSO, 0.29, 0.84, 850, 1250);
 
     // Position qui parle sur ordi
-    setPositionAndScale(guybrushSOT, 0.298, 0.84, 850, 1250);
-
+    setSpritePositionAndScale(guybrushSOT, 0.298, 0.84, 850, 1250);
 
     /// ELEMENTS & OBJECTS ///
 
     // Position Ordinateur
-    setPositionAndScale(ordi, 0.2, 0.73, 770, 790);
+    setSpritePositionAndScale(ordi, 0.2, 0.73, 770, 790);
    
     // Position Bureau
-    setPositionAndScale(desk, 0.22, 0.89, 800, 780);
+    setSpritePositionAndScale(desk, 0.22, 0.89, 800, 780);
 
     // Position GamingChair
-    setPositionAndScale(gamingChair, 0.328, 0.885, 900, 1000);
+    setSpritePositionAndScale(gamingChair, 0.328, 0.885, 900, 1000);
 
     // Position GamingChair ArmRest
-    setPositionAndScale(gamingChairAR, 0.328, 0.885, 900, 1000);
+    setSpritePositionAndScale(gamingChairAR, 0.328, 0.885, 900, 1000);
 }
 
 // Applique le redimensionnement à chaque événement 'resize'
 window.addEventListener('resize', adjustCanvasSize);
 
-// Optionnel : pour s'assurer que tout est bien redimensionné dès le chargement initial
+// Redimensionnement dès le chargement initial
 adjustCanvasSize();
 
 console.log("tout s'est bien déclenché");

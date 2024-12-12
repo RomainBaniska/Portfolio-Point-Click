@@ -4,7 +4,7 @@ export async function loadTexts(app) {
 
     function textConfig(textContent) {
         const guybrushText = new PIXI.Text(textContent, dialogueStyle);
-        guybrushText.position.set(app.screen.width / 2, app.screen.height / 2);
+        guybrushText.position.set(app.screen.width * 0.5, app.screen.height * 0.5);
         guybrushText.anchor.set(0.5);
         return guybrushText; 
     }

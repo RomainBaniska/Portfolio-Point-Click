@@ -8,6 +8,6 @@ import { loadTexts } from './loadTexts.js';
     const app = await initializeApp();
     const sprites = await loadSprites(app); 
     const texts = await loadTexts(app); 
-    await resizeHandler(app, sprites);
+    await resizeHandler(app, sprites, texts);
     await interactions(app, sprites, texts);
 })();
