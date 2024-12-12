@@ -37,16 +37,20 @@ export async function interactions(app, sprites, texts) {
                 wakeUpText.y = -0.8 * guybrush.height
                 // container.addChild(wakeUpText);
 
-                await skipDialogue(guybrush, wakeUpText, 4000);
+                await skipDialogue(container, guybrush, wakeUpText, 4000);
                 console.log("wakeUpText traité, ajout de wakeUpText2");
 
-                container.addChild(wakeUpText2);
-                await skipDialogue(container, wakeUpText2, 4000);
+                guybrush.addChild(wakeUpText2);
+                wakeUpText2.x = 0.1 * guybrush.width
+                wakeUpText2.y = -0.8 * guybrush.height
+                await skipDialogue(container, guybrush, wakeUpText2, 4000);
 
                 console.log("wakeUpText2 est traité");
 
-                container.addChild(wakeUpText3);
-                await skipDialogue(container, wakeUpText3, 4000);
+                guybrush.addChild(wakeUpText3);
+                wakeUpText3.x = 0.1 * guybrush.width
+                wakeUpText3.y = -0.8 * guybrush.height
+                await skipDialogue(container, guybrush, wakeUpText3, 4000);
 
                 console.log("wakeUpText3 est traité");
 
@@ -114,7 +118,7 @@ export async function interactions(app, sprites, texts) {
 
 // METHODE DE SKIP DIALOGUE (TEXT)
 
-function skipDialogue(container, textDialogue, duration) {
+function skipDialogue(container, textParent, textDialogue, duration) {
     return new Promise((resolve) => {
         let clicked = false;
         container.interactive = true;
@@ -122,7 +126,7 @@ function skipDialogue(container, textDialogue, duration) {
         function onClick() {
             if (!clicked) {
                 clicked = true;
-                container.removeChild(textDialogue);
+                textParent.removeChild(textDialogue);
                 container.interactive = false;
                 container.removeEventListener('click', onClick);
                 resolve();
@@ -133,7 +137,7 @@ function skipDialogue(container, textDialogue, duration) {
 
         setTimeout(() => {
             if (!clicked) {
-                container.removeChild(textDialogue);
+                textParent.removeChild(textDialogue);
                 container.interactive = false;
                 container.removeEventListener('click', onClick);
                 resolve();
