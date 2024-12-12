@@ -89,6 +89,14 @@ export async function loadSprites(app) {
     const guybrushSOT = await displaySprite('SITORDI/sitorditalk.json', 0.12);
     guybrushSOT.play();
 
+    // IDLE - USE LEFT
+    const guybrushIUL = await displaySprite('IDLEUSE/utilisemiddleleft.json', 0.05);
+    // guybrushIUL.play();
+
+    // IDLE - USE LEFT
+    const guybrushIUR = await displaySprite('IDLEUSE/utilisemiddleright.json', 0.12);
+    guybrushIUR.play();
+
     //////////////////////////////////////// ELEMENTS & OBJECTS ////////////////////////////////
 
     // ORDINATEUR
@@ -131,6 +139,8 @@ export async function loadSprites(app) {
         guybrushGU,
         guybrushSO,
         guybrushSOT,
+        guybrushIUL,
+        guybrushIUR,
         // ELEMENTS & OBJECTS
         ordi,
         desk,

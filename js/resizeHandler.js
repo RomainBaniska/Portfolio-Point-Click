@@ -1,15 +1,10 @@
 export async function resizeHandler(app, sprites, texts) {
 
-    const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, desk, gamingChair, gamingChairAR } = sprites;
+    const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
-
-    // AJOUTER UNE LOGIQUE Où LE TEXTE SUIT GUYBRUSH
-    // sprite.addChild(text)
-    // text.x = .5 * sprite.width
-    // text.y = .5 * sprite.height
 
     // function setTextPositionAndScale(textToResize) {
     //     textToResize.position.set(app.screen.width / 2, app.screen.height / 2);
@@ -46,7 +41,7 @@ function adjustCanvasSize() {
     setSpritePositionAndScale(guybrush, 0.5, 0.83, 1000, 600);
 
     // Position Guybrush qui marche à droite
-    setSpritePositionAndScale(guybrushWR, 0.4, 0.802, 850, 600);
+    setSpritePositionAndScale(guybrushWR, 0.25, 0.827, 850, 600);
 
     // Position qui marche à gauche
     setSpritePositionAndScale(guybrushWL, 0.74, 0.83, 850, 600);
@@ -62,6 +57,12 @@ function adjustCanvasSize() {
 
     // Position qui parle sur ordi
     setSpritePositionAndScale(guybrushSOT, 0.298, 0.84, 850, 1250);
+
+    // Position idle qui tend la main à gauche
+    setSpritePositionAndScale(guybrushIUL, 0.25, 0.827, 850, 570);
+
+    // Position idle qui tend la main à droite
+    setSpritePositionAndScale(guybrushIUR, 0.298, 0.84, 600, 800);
 
     /// ELEMENTS & OBJECTS ///
 

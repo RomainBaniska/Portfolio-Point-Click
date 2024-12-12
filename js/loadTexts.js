@@ -11,7 +11,7 @@ export async function loadTexts(app) {
 
     const wakeUpText = textConfig('Non mais je rêve');
     const wakeUpText2 = textConfig('T\'es qui toi ? Et pourquoi tu fais sonner mon réveil si tôt ?');
-    const wakeUpText3 = textConfig('MEEEEEEEEEEEEEEERDE');
+    const wakeUpText3 = textConfig('Bon si on a fini, moi j\'ai du travail');
 
     return {
         wakeUpText,
