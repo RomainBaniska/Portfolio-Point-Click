@@ -1,6 +1,6 @@
 export async function resizeHandler(app, sprites, texts) {
 
-    const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR } = sprites;
+    const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -68,6 +68,7 @@ function adjustCanvasSize() {
 
     // Position Ordinateur
     setSpritePositionAndScale(ordi, 0.2, 0.73, 770, 790);
+    setSpritePositionAndScale(ordiRun, 0.2, 0.73, 770, 790);
    
     // Position Bureau
     setSpritePositionAndScale(desk, 0.22, 0.89, 800, 780);

@@ -13,7 +13,7 @@ export async function initializeApp() {
     await app.init({ 
         width: width,
         height: height,
-        backgroundColor: 0x1099bb,
+        backgroundColor: 0x000000,
     });
 
     // Ajout du canvas de l'app au body

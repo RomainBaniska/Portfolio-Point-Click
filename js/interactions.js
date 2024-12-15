@@ -1,6 +1,6 @@
 export async function interactions(app, sprites, texts) {
 
-    const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR } = sprites;
+    const { container, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -52,9 +52,11 @@ export async function interactions(app, sprites, texts) {
                 spriteSwap(container, guybrushWL, guybrushIUL);
                 guybrushIUL.gotoAndPlay(0);
                 guybrushIUL.loop = false;
-                await delay(2000);
+                await delay(1000);
+                spriteSwap(container, ordi, ordiRun);
                 console.log('ok1');
                 
+                // Se retourne vers le fauteuil
                 spriteSwap(container, guybrushIUL, guybrushWR);
                 await walkRight(0.328);
                 console.log('ok2');

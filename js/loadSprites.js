@@ -20,11 +20,11 @@ export async function loadSprites(app) {
     }
 
     // Fonction permettant le retrait de frames
-    function removeFrame(framesToRemove) {
-        if (!Array.isArray(framesToRemove)) {
-            throw new TypeError("La variable déposée doit être un tableau.");
-        }
-    };
+    // function removeFrame(framesToRemove) {
+    //     if (!Array.isArray(framesToRemove)) {
+    //         throw new TypeError("La variable déposée doit être un tableau.");
+    //     }
+    // };
 
     // CONTAINER
     const container = new PIXI.Container();
@@ -35,6 +35,9 @@ export async function loadSprites(app) {
     // Ajout de la logique de mouvement du crosshair
     app.stage.on("pointermove", moveCrosshair);
     app.renderer.events.cursorStyles.default = "none";
+    // Taille container 
+    // container.screen.width = 800;
+    // container.screen.width = 800;
 
     // BACKGROUND
     const backgroundTexture = await PIXI.Assets.load('../sprites/homeImproved2.png');
@@ -101,6 +104,7 @@ export async function loadSprites(app) {
 
     // ORDINATEUR
     const ordi = await displaySprite('ELEMENTS/ordi/ordi.json', 0.12);
+    const ordiRun = await displaySprite('ELEMENTS/ordi/ordiRun.json', 0.12);
     // ordi.play();
     // ordi.gotoAndPlay(0); 
     ordi.gotoAndStop(0); 
@@ -143,6 +147,7 @@ export async function loadSprites(app) {
         guybrushIUR,
         // ELEMENTS & OBJECTS
         ordi,
+        ordiRun,
         desk,
         gamingChair,
         gamingChairAR,
