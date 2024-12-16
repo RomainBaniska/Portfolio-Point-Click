@@ -2,6 +2,8 @@
     // Création d'une nouvelle application
     const app = new PIXI.Application();
 
+    globalThis.__PIXI_APP__ = app;
+
     // Configuration de la largeur maximale adaptée à la taille de l'écran si plus petit
     const maxWidth = 1440;
     const width = Math.min(window.innerWidth, maxWidth);
@@ -12,7 +14,7 @@
     await app.init({ 
         width: width,
         height: height,
-        backgroundColor: 0x000000,
+        backgroundColor: 0x88888,
     });
 
     // Ajout du canvas de l'app au body
@@ -20,30 +22,37 @@
     
     // Chargement de la texture du background
     const backgroundTexture = await PIXI.Assets.load('../sprites/homeImproved.png');
-    const background = new PIXI.Sprite(backgroundTexture);
-    app.stage.addChild(background);
+    const house = new PIXI.Sprite(backgroundTexture);
+    house.anchor.set(0.5, 0);
+    app.stage.addChild(house);
 
-    // Création du bandeau rouge
-    const redBanner = new PIXI.Graphics();
-    app.stage.addChild(redBanner);
+    // CONTAINER
+    const container = new PIXI.Container();
+    container.sortableChildren = true;
+    app.stage.addChild(container);
 
-    function adjustCanvasSize() {
+    const redBannerSprite = await PIXI.Assets.load('../sprites/test sprite menu.png');
+    const desk = new PIXI.Sprite(redBannerSprite);
+    desk.anchor.set(0.5, 0); 
+    container.addChild(desk);
+
+    async function adjustCanvasSize() {
         app.renderer.resize(window.innerWidth, window.innerHeight);
+    
 
-        // Ajuster la taille du background (80% de la hauteur de l'écran)
-        background.height = app.screen.height * 0.75;
-        background.width = (background.height / backgroundTexture.height) * backgroundTexture.width * 1.4;
-
-        // Centrer le background horizontalement
-        background.x = (app.screen.width - background.width) / 2;
-        background.y = 0;
-
-        // Ajuster le bandeau rouge pour qu'il corresponde au background
-        redBanner.clear();
-        redBanner.beginFill(0x1C0718);
-        redBanner.drawRect(background.x, app.screen.height * 0.75, background.width, app.screen.height * 0.25);
-        redBanner.endFill();
+        house.height = app.screen.height * 0.75;
+        house.width = (house.height / backgroundTexture.height) * backgroundTexture.width * 1.4;
+    
+        house.x = app.screen.width / 2;
+        house.y = 0;
+    
+        desk.height = app.screen.height * 0.26;
+        desk.width = (house.height / backgroundTexture.height) * backgroundTexture.width * 1.4;
+    
+        desk.x = app.screen.width / 2;
+        desk.y = house.height;
     }
+    
 
     // Applique le redimensionnement à chaque événement 'resize'
     window.addEventListener('resize', adjustCanvasSize);
