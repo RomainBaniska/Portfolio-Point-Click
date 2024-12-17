@@ -50,10 +50,22 @@
     const menuButton = new PIXI.Sprite(menuButtonSprite);
     const menuButton2 = new PIXI.Sprite(menuButtonSprite);
     const menuButton3 = new PIXI.Sprite(menuButtonSprite);
+    const menuButton4 = new PIXI.Sprite(menuButtonSprite);
+    const menuButton5 = new PIXI.Sprite(menuButtonSprite);
+    const menuButton6 = new PIXI.Sprite(menuButtonSprite);
+    const menuButton7 = new PIXI.Sprite(menuButtonSprite);
+    const menuButton8 = new PIXI.Sprite(menuButtonSprite);
+    const menuButton9 = new PIXI.Sprite(menuButtonSprite);
     // Ajout des boutons au Menu Container
     menuContainer.addChild(menuButton);
     menuContainer.addChild(menuButton2);
     menuContainer.addChild(menuButton3);
+    menuContainer.addChild(menuButton4);
+    menuContainer.addChild(menuButton5);
+    menuContainer.addChild(menuButton6);
+    menuContainer.addChild(menuButton7);
+    menuContainer.addChild(menuButton8);
+    menuContainer.addChild(menuButton9);
 
     async function adjustCanvasSize() {
         app.renderer.resize(window.innerWidth, window.innerHeight);
@@ -83,6 +95,7 @@
         const menuXPosition = menuBackground.x;
         const menuYPosition = menuBackground.y;
 
+        // PREMIERE COLONNE
         // BOUTON : Le 1er bouton occupe 30% du menu
         menuButton.height = menuHeight * 0.3 ;
         // ainsi qu'un sixième de la largeur totale du menu
@@ -114,7 +127,37 @@
         menuButton3.y = menuButton2YPosition + menuButton2Height;
 
 
+        // DEUXIEME COLONNE
+        menuButton4.height = menuHeight * 0.3;
+        menuButton4.width = menuWidth * (1 / 6);
+        menuButton4.x = menuXPosition - menuWidth / 2 + menuButtonWidth; // Décalage d'une colonne
+        menuButton4.y = menuYPosition + menuHeight * 0.1;
 
+        menuButton5.height = menuHeight * 0.3;
+        menuButton5.width = menuWidth * (1 / 6);
+        menuButton5.x = menuXPosition - menuWidth / 2 + menuButtonWidth;
+        menuButton5.y = menuButton4.y + menuButton4.height;
+
+        menuButton6.height = menuHeight * 0.3;
+        menuButton6.width = menuWidth * (1 / 6);
+        menuButton6.x = menuXPosition - menuWidth / 2 + menuButtonWidth;
+        menuButton6.y = menuButton5.y + menuButton5.height;
+
+        // TROISIEME COLONNE
+        menuButton7.height = menuHeight * 0.3;
+        menuButton7.width = menuWidth * (1 / 6);
+        menuButton7.x = menuXPosition - menuWidth / 2 + 2 * menuButtonWidth; // Décalage de deux colonnes
+        menuButton7.y = menuYPosition + menuHeight * 0.1;
+
+        menuButton8.height = menuHeight * 0.3;
+        menuButton8.width = menuWidth * (1 / 6);
+        menuButton8.x = menuXPosition - menuWidth / 2 + 2 * menuButtonWidth;
+        menuButton8.y = menuButton7.y + menuButton7.height;
+
+        menuButton9.height = menuHeight * 0.3;
+        menuButton9.width = menuWidth * (1 / 6);
+        menuButton9.x = menuXPosition - menuWidth / 2 + 2 * menuButtonWidth;
+        menuButton9.y = menuButton8.y + menuButton8.height;
     }
     
 
