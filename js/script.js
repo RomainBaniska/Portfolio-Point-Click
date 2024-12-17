@@ -19,38 +19,102 @@
 
     // Ajout du canvas de l'app au body
     document.body.appendChild(app.canvas);
+
+    // HOUSE CONTAINER
+     const houseContainer = new PIXI.Container();
+     houseContainer.sortableChildren = true;
+     app.stage.addChild(houseContainer);
     
     // Chargement de la texture du background
-    const backgroundTexture = await PIXI.Assets.load('../sprites/homeImproved.png');
-    const house = new PIXI.Sprite(backgroundTexture);
-    house.anchor.set(0.5, 0);
-    app.stage.addChild(house);
+    const houseSprite = await PIXI.Assets.load('../sprites/homeImproved.png');
+    const house = new PIXI.Sprite(houseSprite);
+    // house.anchor.set(0.5, 0);
+    // Le container prend les coordonnées et dimensions du premier enfant
+    houseContainer.addChild(house);
 
-    // CONTAINER
-    const container = new PIXI.Container();
-    container.sortableChildren = true;
-    app.stage.addChild(container);
+    // MENU CONTAINER
+    const menuContainer = new PIXI.Container();
+    menuContainer.sortableChildren = true;
+    // menuContainer.anchor.set(0.5, 0); 
+    app.stage.addChild(menuContainer);
 
-    const redBannerSprite = await PIXI.Assets.load('../sprites/test sprite menu.png');
-    const desk = new PIXI.Sprite(redBannerSprite);
-    desk.anchor.set(0.5, 0); 
-    container.addChild(desk);
+    // Menu Background
+    const menuBackgroundSprite = await PIXI.Assets.load('../sprites/test sprite menu.png');
+    const menuBackground = new PIXI.Sprite(menuBackgroundSprite);
+    menuBackground.anchor.set(0.5, 0);
+    // Le container prend les coordonnées et dimensions du premier enfant
+    menuContainer.addChild(menuBackground);
+
+    // Boutons du menu (un seul sprite pour le test)
+    const menuButtonSprite = await PIXI.Assets.load('../sprites/leftcase.png')
+    const menuButton = new PIXI.Sprite(menuButtonSprite);
+    const menuButton2 = new PIXI.Sprite(menuButtonSprite);
+    const menuButton3 = new PIXI.Sprite(menuButtonSprite);
+    // Ajout des boutons au Menu Container
+    menuContainer.addChild(menuButton);
+    menuContainer.addChild(menuButton2);
+    menuContainer.addChild(menuButton3);
 
     async function adjustCanvasSize() {
         app.renderer.resize(window.innerWidth, window.innerHeight);
     
+        // Taille max du sprite
+        const houseMaxHeight = 1024;
+        const houseMaxWidth = 1440;
 
-        house.height = app.screen.height * 0.75;
-        house.width = (house.height / backgroundTexture.height) * backgroundTexture.width * 1.4;
-    
-        house.x = app.screen.width / 2;
+        // MAISON : La maison occupe 74% de l'écran
+        house.height = app.screen.height * 0.74;
+        // Le calcul finit par 1.4 pour réduire la largeur de 40%
+        house.width = (house.height / houseMaxHeight) * houseMaxWidth * 1.4;
+        // Position de House
+        house.x = (app.screen.width - house.width) / 2;
         house.y = 0;
     
-        desk.height = app.screen.height * 0.26;
-        desk.width = (house.height / backgroundTexture.height) * backgroundTexture.width * 1.4;
-    
-        desk.x = app.screen.width / 2;
-        desk.y = house.height;
+        // MENU : Le menu occupe 26% de l'écran
+        menuBackground.height = app.screen.height * 0.26;
+        // On applique la même largeur que pour la maison
+        menuBackground.width = (house.height / houseMaxHeight) * houseMaxWidth * 1.4;
+        menuBackground.x = app.screen.width / 2;
+        // Le menu commence lorsque la maison termine
+        menuBackground.y = house.height;
+
+        const menuHeight = menuBackground.height
+        const menuWidth = menuBackground.width;
+        const menuXPosition = menuBackground.x;
+        const menuYPosition = menuBackground.y;
+
+        // BOUTON : Le 1er bouton occupe 30% du menu
+        menuButton.height = menuHeight * 0.3 ;
+        // ainsi qu'un sixième de la largeur totale du menu
+        menuButton.width = menuWidth * (1/6);
+        menuButton.x = menuXPosition - menuWidth / 2;
+        // La position 'y' du bouton correspond au top left du menu
+        menuButton.y = menuYPosition + menuHeight * 0.1;
+
+        const menuButtonHeight = menuButton.height;
+        const menuButtonWidth = menuButton.width;
+        const menuButtonXPosition = menuButton.x;
+        const menuButtonYPosition = menuButton.y;
+
+        // 2ème bouton idem
+        menuButton2.height = menuHeight * 0.3 ;
+        menuButton2.width = menuWidth * (1/6);
+        menuButton2.x = menuXPosition - menuWidth / 2;
+        menuButton2.y = menuButtonYPosition + menuButtonHeight;
+
+        const menuButton2Height = menuButton2.height;
+        const menuButton2Width = menuButton2.width;
+        const menuButton2XPosition = menuButton2.x;
+        const menuButton2YPosition = menuButton2.y;
+
+        // 3ème bouton idem
+        menuButton3.height = menuHeight * 0.3 ;
+        menuButton3.width = menuWidth * (1/6);
+        menuButton3.x = menuXPosition - menuWidth / 2;
+        menuButton3.y = menuButton2YPosition + menuButton2Height;
+
+
+
     }
     
 
