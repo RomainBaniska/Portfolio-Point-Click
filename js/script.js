@@ -1,4 +1,7 @@
 (async () => {
+
+    const SPRITE_PATH_PREFIX = '../sprites/';
+    
     // Création d'une nouvelle application
     const app = new PIXI.Application();
 
@@ -46,16 +49,34 @@
     menuContainer.addChild(menuBackground);
 
     // Boutons du menu (un seul sprite pour le test)
-    const menuButtonSprite = await PIXI.Assets.load('../sprites/leftcase.png')
+    // const menuButtonSprite = await PIXI.Assets.load('../sprites/leftcase.png')
+    const menuButtonSprite = await displaySprite('MENU/inactive/button.json');
     const menuButton = new PIXI.Sprite(menuButtonSprite);
-    const menuButton2 = new PIXI.Sprite(menuButtonSprite);
-    const menuButton3 = new PIXI.Sprite(menuButtonSprite);
-    const menuButton4 = new PIXI.Sprite(menuButtonSprite);
-    const menuButton5 = new PIXI.Sprite(menuButtonSprite);
-    const menuButton6 = new PIXI.Sprite(menuButtonSprite);
-    const menuButton7 = new PIXI.Sprite(menuButtonSprite);
-    const menuButton8 = new PIXI.Sprite(menuButtonSprite);
-    const menuButton9 = new PIXI.Sprite(menuButtonSprite);
+
+    const menuButtonSprite2 = await displaySprite('MENU/inactive/button2.json');
+    const menuButton2 = new PIXI.Sprite(menuButtonSprite2);
+
+    const menuButtonSprite3 = await displaySprite('MENU/inactive/button3.json');
+    const menuButton3 = new PIXI.Sprite(menuButtonSprite3);
+
+    const menuButtonSprite4 = await displaySprite('MENU/inactive/button4.json');
+    const menuButton4 = new PIXI.Sprite(menuButtonSprite4);
+
+    const menuButtonSprite5 = await displaySprite('MENU/inactive/button5.json');
+    const menuButton5 = new PIXI.Sprite(menuButtonSprite5);
+
+    const menuButtonSprite6 = await displaySprite('MENU/inactive/button6.json');
+    const menuButton6 = new PIXI.Sprite(menuButtonSprite6);
+
+    const menuButtonSprite7 = await displaySprite('MENU/inactive/button7.json');
+    const menuButton7 = new PIXI.Sprite(menuButtonSprite7);
+
+    const menuButtonSprite8 = await displaySprite('MENU/inactive/button8.json');
+    const menuButton8 = new PIXI.Sprite(menuButtonSprite8);
+
+    const menuButtonSprite9 = await displaySprite('MENU/inactive/button9.json');
+    const menuButton9 = new PIXI.Sprite(menuButtonSprite9);
+
     // Ajout des boutons au Menu Container
     menuContainer.addChild(menuButton);
     menuContainer.addChild(menuButton2);
@@ -160,6 +181,17 @@
         menuButton9.y = menuButton8.y + menuButton8.height;
     }
     
+
+
+
+    // Fonction D'affichage des sprites
+    async function displaySprite(path) {
+        // path: SITORDI/sitorditalk.json par exemple
+        const spritesheet = await PIXI.Assets.load(SPRITE_PATH_PREFIX + path);
+        const frames = Object.keys(spritesheet.textures).map(frame => spritesheet.textures[frame]);
+        const sprite = new PIXI.AnimatedSprite(frames);
+        return sprite;
+    }
 
     // Applique le redimensionnement à chaque événement 'resize'
     window.addEventListener('resize', adjustCanvasSize);
