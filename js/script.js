@@ -108,7 +108,8 @@
         menuButton9
     );
     
-    function createButtonInteraction(menuButton, menuButtonSprite, menuButtonActive, menuContainer) {
+    // Créer l'effet de hover sur les boutons
+    function menuButtonHover(menuButton, menuButtonSprite, menuButtonActive, menuContainer) {
         menuButton.interactive = true;
         menuButton.on('pointerover', () => {
             menuContainer.addChild(menuButtonActive);
@@ -119,16 +120,17 @@
             menuButton.texture = menuButtonSprite.texture; 
         });
     }
-    
-    createButtonInteraction(menuButton, menuButtonSprite, menuButtonActive, menuContainer);
-    createButtonInteraction(menuButton2, menuButton2Sprite, menuButton2Active, menuContainer);
-    createButtonInteraction(menuButton3, menuButton3Sprite, menuButton3Active, menuContainer);
-    createButtonInteraction(menuButton4, menuButton4Sprite, menuButton4Active, menuContainer);
-    createButtonInteraction(menuButton5, menuButton5Sprite, menuButton5Active, menuContainer);
-    createButtonInteraction(menuButton6, menuButton6Sprite, menuButton6Active, menuContainer);
-    createButtonInteraction(menuButton7, menuButton7Sprite, menuButton7Active, menuContainer);
-    createButtonInteraction(menuButton8, menuButton8Sprite, menuButton8Active, menuContainer);
-    createButtonInteraction(menuButton9, menuButton9Sprite, menuButton9Active, menuContainer);
+
+    // Application de la fonction à tous les boutons
+    menuButtonHover(menuButton, menuButtonSprite, menuButtonActive, menuContainer);
+    menuButtonHover(menuButton2, menuButton2Sprite, menuButton2Active, menuContainer);
+    menuButtonHover(menuButton3, menuButton3Sprite, menuButton3Active, menuContainer);
+    menuButtonHover(menuButton4, menuButton4Sprite, menuButton4Active, menuContainer);
+    menuButtonHover(menuButton5, menuButton5Sprite, menuButton5Active, menuContainer);
+    menuButtonHover(menuButton6, menuButton6Sprite, menuButton6Active, menuContainer);
+    menuButtonHover(menuButton7, menuButton7Sprite, menuButton7Active, menuContainer);
+    menuButtonHover(menuButton8, menuButton8Sprite, menuButton8Active, menuContainer);
+    menuButtonHover(menuButton9, menuButton9Sprite, menuButton9Active, menuContainer);
     
 
     async function adjustCanvasSize() {
