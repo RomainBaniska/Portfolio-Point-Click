@@ -1,14 +1,6 @@
 { "frames": {
-   "menu buttons 0.ase": {
-    "frame": { "x": 0, "y": 0, "w": 240, "h": 60 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 240, "h": 60 },
-    "sourceSize": { "w": 240, "h": 60 },
-    "duration": 100
-   },
-   "menu buttons 6.ase": {
-    "frame": { "x": 1440, "y": 0, "w": 240, "h": 60 },
+   "menu buttons 8.ase": {
+    "frame": { "x": 1200, "y": 0, "w": 240, "h": 60 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 240, "h": 60 },

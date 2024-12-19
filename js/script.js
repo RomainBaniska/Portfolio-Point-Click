@@ -199,5 +199,10 @@
     // Ajuster la taille dès le chargement initial
     adjustCanvasSize();
 
+    console.log(menuButton);
+    console.log(menuButton2);
+    console.log(menuButton3);
+    console.log(menuButton4);
+
     console.log("Tout s'est bien déclenché");
 })();
