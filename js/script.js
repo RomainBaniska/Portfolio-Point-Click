@@ -48,45 +48,88 @@
     // Le container prend les coordonnées et dimensions du premier enfant
     menuContainer.addChild(menuBackground);
 
-    // Boutons du menu (un seul sprite pour le test)
-    // const menuButtonSprite = await PIXI.Assets.load('../sprites/leftcase.png')
+    // Exemple clair Button 1
     const menuButtonSprite = await displaySprite('MENU/inactive/button.json');
+    const menuButtonSpriteActive = await displaySprite('MENU/active/button active.json');
     const menuButton = new PIXI.Sprite(menuButtonSprite);
+    const menuButtonActive = new PIXI.Sprite(menuButtonSpriteActive);
 
-    const menuButtonSprite2 = await displaySprite('MENU/inactive/button2.json');
-    const menuButton2 = new PIXI.Sprite(menuButtonSprite2);
+    const menuButton2Sprite = await displaySprite('MENU/inactive/button2.json');
+    const menuButton2SpriteActive = await displaySprite('MENU/active/button2 active.json');
+    const menuButton2 = new PIXI.Sprite(menuButton2Sprite);
+    const menuButton2Active = new PIXI.Sprite(menuButton2SpriteActive);
 
-    const menuButtonSprite3 = await displaySprite('MENU/inactive/button3.json');
-    const menuButton3 = new PIXI.Sprite(menuButtonSprite3);
+    const menuButton3Sprite = await displaySprite('MENU/inactive/button3.json');
+    const menuButton3SpriteActive = await displaySprite('MENU/active/button3 active.json');
+    const menuButton3 = new PIXI.Sprite(menuButton3Sprite);
+    const menuButton3Active = new PIXI.Sprite(menuButton3SpriteActive);
 
-    const menuButtonSprite4 = await displaySprite('MENU/inactive/button4.json');
-    const menuButton4 = new PIXI.Sprite(menuButtonSprite4);
+    const menuButton4Sprite = await displaySprite('MENU/inactive/button4.json');
+    const menuButton4SpriteActive = await displaySprite('MENU/active/button4 active.json');
+    const menuButton4 = new PIXI.Sprite(menuButton4Sprite);
+    const menuButton4Active = new PIXI.Sprite(menuButton4SpriteActive);
 
-    const menuButtonSprite5 = await displaySprite('MENU/inactive/button5.json');
-    const menuButton5 = new PIXI.Sprite(menuButtonSprite5);
+    const menuButton5Sprite = await displaySprite('MENU/inactive/button5.json');
+    const menuButton5SpriteActive = await displaySprite('MENU/active/button5 active.json');
+    const menuButton5 = new PIXI.Sprite(menuButton5Sprite);
+    const menuButton5Active = new PIXI.Sprite(menuButton5SpriteActive);
 
-    const menuButtonSprite6 = await displaySprite('MENU/inactive/button6.json');
-    const menuButton6 = new PIXI.Sprite(menuButtonSprite6);
+    const menuButton6Sprite = await displaySprite('MENU/inactive/button6.json');
+    const menuButton6SpriteActive = await displaySprite('MENU/active/button6 active.json');
+    const menuButton6 = new PIXI.Sprite(menuButton6Sprite);
+    const menuButton6Active = new PIXI.Sprite(menuButton6SpriteActive);
 
-    const menuButtonSprite7 = await displaySprite('MENU/inactive/button7.json');
-    const menuButton7 = new PIXI.Sprite(menuButtonSprite7);
+    const menuButton7Sprite = await displaySprite('MENU/inactive/button7.json');
+    const menuButton7SpriteActive = await displaySprite('MENU/active/button7 active.json');
+    const menuButton7 = new PIXI.Sprite(menuButton7Sprite);
+    const menuButton7Active = new PIXI.Sprite(menuButton7SpriteActive);
 
-    const menuButtonSprite8 = await displaySprite('MENU/inactive/button8.json');
-    const menuButton8 = new PIXI.Sprite(menuButtonSprite8);
+    const menuButton8Sprite = await displaySprite('MENU/inactive/button8.json');
+    const menuButton8SpriteActive = await displaySprite('MENU/active/button8 active.json');
+    const menuButton8 = new PIXI.Sprite(menuButton8Sprite);
+    const menuButton8Active = new PIXI.Sprite(menuButton8SpriteActive);
 
-    const menuButtonSprite9 = await displaySprite('MENU/inactive/button9.json');
-    const menuButton9 = new PIXI.Sprite(menuButtonSprite9);
+    const menuButton9Sprite = await displaySprite('MENU/inactive/button9.json');
+    const menuButton9SpriteActive = await displaySprite('MENU/active/button9 active.json');
+    const menuButton9 = new PIXI.Sprite(menuButton9Sprite);
+    const menuButton9Active = new PIXI.Sprite(menuButton9SpriteActive);
+
 
     // Ajout des boutons au Menu Container
-    menuContainer.addChild(menuButton);
-    menuContainer.addChild(menuButton2);
-    menuContainer.addChild(menuButton3);
-    menuContainer.addChild(menuButton4);
-    menuContainer.addChild(menuButton5);
-    menuContainer.addChild(menuButton6);
-    menuContainer.addChild(menuButton7);
-    menuContainer.addChild(menuButton8);
-    menuContainer.addChild(menuButton9);
+    menuContainer.addChild(
+        menuButton, 
+        menuButton2, 
+        menuButton3, 
+        menuButton4, 
+        menuButton5, 
+        menuButton6, 
+        menuButton7, 
+        menuButton8, 
+        menuButton9
+    );
+    
+    function createButtonInteraction(menuButton, menuButtonSprite, menuButtonActive, menuContainer) {
+        menuButton.interactive = true;
+        menuButton.on('pointerover', () => {
+            menuContainer.addChild(menuButtonActive);
+            menuButton.texture = menuButtonActive.texture;  
+        });
+        menuButton.on('pointerout', () => {
+            menuContainer.removeChild(menuButtonActive);
+            menuButton.texture = menuButtonSprite.texture; 
+        });
+    }
+    
+    createButtonInteraction(menuButton, menuButtonSprite, menuButtonActive, menuContainer);
+    createButtonInteraction(menuButton2, menuButton2Sprite, menuButton2Active, menuContainer);
+    createButtonInteraction(menuButton3, menuButton3Sprite, menuButton3Active, menuContainer);
+    createButtonInteraction(menuButton4, menuButton4Sprite, menuButton4Active, menuContainer);
+    createButtonInteraction(menuButton5, menuButton5Sprite, menuButton5Active, menuContainer);
+    createButtonInteraction(menuButton6, menuButton6Sprite, menuButton6Active, menuContainer);
+    createButtonInteraction(menuButton7, menuButton7Sprite, menuButton7Active, menuContainer);
+    createButtonInteraction(menuButton8, menuButton8Sprite, menuButton8Active, menuContainer);
+    createButtonInteraction(menuButton9, menuButton9Sprite, menuButton9Active, menuContainer);
+    
 
     async function adjustCanvasSize() {
         app.renderer.resize(window.innerWidth, window.innerHeight);
@@ -116,74 +159,46 @@
         const menuXPosition = menuBackground.x;
         const menuYPosition = menuBackground.y;
 
-        // PREMIERE COLONNE
-        // BOUTON : Le 1er bouton occupe 30% du menu
-        menuButton.height = menuHeight * 0.3 ;
-        // ainsi qu'un sixième de la largeur totale du menu
-        menuButton.width = menuWidth * (1/6);
-        menuButton.x = menuXPosition - menuWidth / 2;
-        // La position 'y' du bouton correspond au top left du menu
-        menuButton.y = menuYPosition + menuHeight * 0.1;
+    // Fonction pour positionner les boutons (NOTE : Logique détaillée dans 'logiquePositionMenuButtons.js')
+    function adjustMenuButtonPosition(button, column, row) {
+        const buttonWidth = menuWidth * (1 / 6);
+        const buttonHeight = menuHeight * 0.3;
 
-        const menuButtonHeight = menuButton.height;
-        const menuButtonWidth = menuButton.width;
-        const menuButtonXPosition = menuButton.x;
-        const menuButtonYPosition = menuButton.y;
+        button.width = buttonWidth;
+        button.height = buttonHeight;
 
-        // 2ème bouton idem
-        menuButton2.height = menuHeight * 0.3 ;
-        menuButton2.width = menuWidth * (1/6);
-        menuButton2.x = menuXPosition - menuWidth / 2;
-        menuButton2.y = menuButtonYPosition + menuButtonHeight;
+        button.x = menuXPosition - menuWidth / 2 + column * buttonWidth;
+        button.y = menuYPosition + menuHeight * 0.1 + row * buttonHeight;
+    }
 
-        const menuButton2Height = menuButton2.height;
-        const menuButton2Width = menuButton2.width;
-        const menuButton2XPosition = menuButton2.x;
-        const menuButton2YPosition = menuButton2.y;
+    // POSITION DES BOUTONS (3 colonnes de 3 boutons)
+        adjustMenuButtonPosition(menuButton, 0, 0);
+        adjustMenuButtonPosition(menuButton2, 0, 1);
+        adjustMenuButtonPosition(menuButton3, 0, 2);
 
-        // 3ème bouton idem
-        menuButton3.height = menuHeight * 0.3 ;
-        menuButton3.width = menuWidth * (1/6);
-        menuButton3.x = menuXPosition - menuWidth / 2;
-        menuButton3.y = menuButton2YPosition + menuButton2Height;
+        adjustMenuButtonPosition(menuButton4, 1, 0);
+        adjustMenuButtonPosition(menuButton5, 1, 1);
+        adjustMenuButtonPosition(menuButton6, 1, 2);
 
+        adjustMenuButtonPosition(menuButton7, 2, 0);
+        adjustMenuButtonPosition(menuButton8, 2, 1);
+        adjustMenuButtonPosition(menuButton9, 2, 2);
 
-        // DEUXIEME COLONNE
-        menuButton4.height = menuHeight * 0.3;
-        menuButton4.width = menuWidth * (1 / 6);
-        menuButton4.x = menuXPosition - menuWidth / 2 + menuButtonWidth; // Décalage d'une colonne
-        menuButton4.y = menuYPosition + menuHeight * 0.1;
+    // POSITION DES BOUTONS ACTIFS
+        adjustMenuButtonPosition(menuButtonActive, 0, 0);
+        adjustMenuButtonPosition(menuButton2Active, 0, 1);
+        adjustMenuButtonPosition(menuButton3Active, 0, 2);
 
-        menuButton5.height = menuHeight * 0.3;
-        menuButton5.width = menuWidth * (1 / 6);
-        menuButton5.x = menuXPosition - menuWidth / 2 + menuButtonWidth;
-        menuButton5.y = menuButton4.y + menuButton4.height;
+        adjustMenuButtonPosition(menuButton4Active, 1, 0);
+        adjustMenuButtonPosition(menuButton5Active, 1, 1);
+        adjustMenuButtonPosition(menuButton6Active, 1, 2);
+        
+        adjustMenuButtonPosition(menuButton7Active, 2, 0);
+        adjustMenuButtonPosition(menuButton8Active, 2, 1);
+        adjustMenuButtonPosition(menuButton9Active, 2, 2);
 
-        menuButton6.height = menuHeight * 0.3;
-        menuButton6.width = menuWidth * (1 / 6);
-        menuButton6.x = menuXPosition - menuWidth / 2 + menuButtonWidth;
-        menuButton6.y = menuButton5.y + menuButton5.height;
-
-        // TROISIEME COLONNE
-        menuButton7.height = menuHeight * 0.3;
-        menuButton7.width = menuWidth * (1 / 6);
-        menuButton7.x = menuXPosition - menuWidth / 2 + 2 * menuButtonWidth; // Décalage de deux colonnes
-        menuButton7.y = menuYPosition + menuHeight * 0.1;
-
-        menuButton8.height = menuHeight * 0.3;
-        menuButton8.width = menuWidth * (1 / 6);
-        menuButton8.x = menuXPosition - menuWidth / 2 + 2 * menuButtonWidth;
-        menuButton8.y = menuButton7.y + menuButton7.height;
-
-        menuButton9.height = menuHeight * 0.3;
-        menuButton9.width = menuWidth * (1 / 6);
-        menuButton9.x = menuXPosition - menuWidth / 2 + 2 * menuButtonWidth;
-        menuButton9.y = menuButton8.y + menuButton8.height;
     }
     
-
-
-
     // Fonction D'affichage des sprites
     async function displaySprite(path) {
         // path: SITORDI/sitorditalk.json par exemple
@@ -193,16 +208,15 @@
         return sprite;
     }
 
+    // async function menuButtonHover(button) {
+
+    // }
+
     // Applique le redimensionnement à chaque événement 'resize'
     window.addEventListener('resize', adjustCanvasSize);
 
     // Ajuster la taille dès le chargement initial
     adjustCanvasSize();
-
-    console.log(menuButton);
-    console.log(menuButton2);
-    console.log(menuButton3);
-    console.log(menuButton4);
 
     console.log("Tout s'est bien déclenché");
 })();
