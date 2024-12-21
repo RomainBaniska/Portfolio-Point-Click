@@ -9,7 +9,6 @@ export async function loadSprites(app) {
 
     // Fonction D'affichage des sprites
     async function displaySprite(path, speed) {
-        // path: SITORDI/sitorditalk.json par exemple
         const spritesheet = await PIXI.Assets.load(SPRITE_PATH_PREFIX + path);
         const frames = Object.keys(spritesheet.textures).map(frame => spritesheet.textures[frame]);
         const sprite = new PIXI.AnimatedSprite(frames);
@@ -19,25 +18,13 @@ export async function loadSprites(app) {
         return sprite;
     }
 
-    // Fonction permettant le retrait de frames
-    // function removeFrame(framesToRemove) {
-    //     if (!Array.isArray(framesToRemove)) {
-    //         throw new TypeError("La variable déposée doit être un tableau.");
-    //     }
-    // };
-
     // CONTAINER
     const container = new PIXI.Container();
     container.sortableChildren = true;
     app.stage.addChild(container);
-    // Ajout de l'interactivité du canvas/container
     app.stage.interactive = true;
-    // Ajout de la logique de mouvement du crosshair
     app.stage.on("pointermove", moveCrosshair);
     app.renderer.events.cursorStyles.default = "none";
-    // Taille container 
-    // container.screen.width = 800;
-    // container.screen.width = 800;
 
     // BACKGROUND
     const backgroundTexture = await PIXI.Assets.load('../sprites/homeImproved2.png');

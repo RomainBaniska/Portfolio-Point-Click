@@ -37,7 +37,6 @@
     app.stage.addChild(menuContainer);
     const menuSprite = await PIXI.Assets.load('../sprites/test sprite menu.png');
     const menu = new PIXI.Sprite(menuSprite);
-    menu.anchor.set(0.5, 0);
     menuContainer.addChild(menu);
 
     // MENU BUTTONS Textures
@@ -100,29 +99,34 @@
         menuButton9
     );
     
-    // Créer l'effet de hover sur les boutons
-    function menuButtonHover(menuButton, menuButtonSprite, menuButtonActive, menuContainer) {
-        menuButton.interactive = true;
-        menuButton.on('pointerover', () => {
-            menuContainer.addChild(menuButtonActive);
-            menuButton.texture = menuButtonActive.texture;  
+    // Créer l'effet de hover sur les boutons : menuButton prend la texture de menuButtonActive
+    function menuButtonHover(button, sprite, activeSprite) {
+        button.interactive = true;
+        
+        button.on('pointerover', () => {
+            button.texture = activeSprite.texture;  
         });
-        menuButton.on('pointerout', () => {
-            menuContainer.removeChild(menuButtonActive);
-            menuButton.texture = menuButtonSprite.texture; 
+        button.on('pointerout', () => {
+            button.texture = sprite.texture; 
         });
     }
 
-    // Application de la fonction à tous les boutons
-    menuButtonHover(menuButton, menuButtonSprite, menuButtonActive, menuContainer);
-    menuButtonHover(menuButton2, menuButton2Sprite, menuButton2Active, menuContainer);
-    menuButtonHover(menuButton3, menuButton3Sprite, menuButton3Active, menuContainer);
-    menuButtonHover(menuButton4, menuButton4Sprite, menuButton4Active, menuContainer);
-    menuButtonHover(menuButton5, menuButton5Sprite, menuButton5Active, menuContainer);
-    menuButtonHover(menuButton6, menuButton6Sprite, menuButton6Active, menuContainer);
-    menuButtonHover(menuButton7, menuButton7Sprite, menuButton7Active, menuContainer);
-    menuButtonHover(menuButton8, menuButton8Sprite, menuButton8Active, menuContainer);
-    menuButtonHover(menuButton9, menuButton9Sprite, menuButton9Active, menuContainer);
+    // On va ranger tous les boutons dans un tableau
+    const menuButtonsInteractive = [
+        { button: menuButton, sprite: menuButtonSprite, activeSprite: menuButtonSpriteActive },
+        { button: menuButton2, sprite: menuButton2Sprite, activeSprite: menuButton2SpriteActive },
+        { button: menuButton3, sprite: menuButton3Sprite, activeSprite: menuButton3SpriteActive },
+        { button: menuButton4, sprite: menuButton4Sprite, activeSprite: menuButton4SpriteActive },
+        { button: menuButton5, sprite: menuButton5Sprite, activeSprite: menuButton5SpriteActive },
+        { button: menuButton6, sprite: menuButton6Sprite, activeSprite: menuButton6SpriteActive },
+        { button: menuButton7, sprite: menuButton7Sprite, activeSprite: menuButton7SpriteActive },
+        { button: menuButton8, sprite: menuButton8Sprite, activeSprite: menuButton8SpriteActive },
+        { button: menuButton9, sprite: menuButton9Sprite, activeSprite: menuButton9SpriteActive }
+    ];
+
+    menuButtonsInteractive.forEach(({button, sprite, activeSprite}) => {
+        menuButtonHover(button, sprite, activeSprite); 
+    });
     
 
     async function adjustCanvasSize() {
@@ -145,7 +149,7 @@
         // Sprite menuContainer : La hauteur occupe 26% de l'écran / même largeur houseContainer
         menu.height = app.screen.height * 0.26;
         menu.width = (house.height / houseMaxHeight) * houseMaxWidth * 1.4;
-        menu.x = screenWidth / 2;
+        menu.x = (screenWidth - menu.width) / 2;
         // Le menu commence lorsque la maison termine
         menu.y = house.height;
 
@@ -162,7 +166,7 @@
         button.width = buttonWidth;
         button.height = buttonHeight;
 
-        button.x = menuXPosition - menuWidth / 2 + column * buttonWidth;
+        button.x = menuXPosition + column * buttonWidth;
         button.y = menuYPosition + menuHeight * 0.1 + row * buttonHeight;
     }
 
