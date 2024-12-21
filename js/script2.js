@@ -1,6 +1,6 @@
 import { initializeApp } from './initApp.js';
 import { loadSprites } from './loadSprites.js';
-import { resizeHandler } from './resizeHandler.js';
+import { resizeHandler } from './resizer/resizeHandler.js';
 import { interactions } from './interactions.js';
 import { loadTexts } from './loadTexts.js';
 
