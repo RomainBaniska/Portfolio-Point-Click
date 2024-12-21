@@ -18,10 +18,10 @@ export async function loadSprites(app) {
         return sprite;
     }
 
-    // CONTAINER
-    const container = new PIXI.Container();
-    container.sortableChildren = true;
-    app.stage.addChild(container);
+    // houseContainer
+    const houseContainer = new PIXI.Container();
+    houseContainer.sortableChildren = true;
+    app.stage.addChild(houseContainer);
     app.stage.interactive = true;
     app.stage.on("pointermove", moveCrosshair);
     app.renderer.events.cursorStyles.default = "none";
@@ -30,14 +30,14 @@ export async function loadSprites(app) {
     const backgroundTexture = await PIXI.Assets.load('../sprites/homeImproved2.png');
     const background = new PIXI.Sprite(backgroundTexture);
     await PIXI.Assets.load('../sprites/homeImproved2.png');
-    container.addChild(background);
+    houseContainer.addChild(background);
 
     // CROSSHAIR
     const crosshair = await displaySprite('CROSSHAIR/crosshair2.json', 0.08);
     crosshair.play();
     crosshair.interactiveChildren = false;
     crosshair.zIndex = 3;
-    container.addChild(crosshair);
+    houseContainer.addChild(crosshair);
     // Définition de la fonction moveCrosshair après la création de crosshair
     function moveCrosshair(e) {
         let pos = e.data.global;
@@ -48,23 +48,19 @@ export async function loadSprites(app) {
     // FACETALK
     const guybrush = await displaySprite('TALK/romain face talk.json', 0.13);
     guybrush.play();
-    // container.addChild(guybrush);
 
     // WALK RIGHT
     const guybrushWR = await displaySprite('WALK/romain walk right.json', 0.13);
     guybrushWR.play();
-    // container.addChild(guybrushWR);
 
     // LEFT WALK
     const guybrushWL = await displaySprite('WALK/romain walk left.json', 0.13);
     guybrushWL.play();
-     // container.addChild(guybrushWL);
 
     // LAYDOWN / SLEEP
     const guybrushLD = await displaySprite('LAYDOWN/lay down.json', 0.05);
     guybrushLD.play();
     guybrushLD.interactive = true;
-    // container.addChild(guybrushLD);
 
     // GET UP / AWAKENING
     const guybrushGU = await displaySprite('GETUP/get up.json', 0.12);
@@ -96,31 +92,31 @@ export async function loadSprites(app) {
     // ordi.gotoAndPlay(0); 
     ordi.gotoAndStop(0); 
     ordi.interactive = true;
-    container.addChild(ordi);
+    houseContainer.addChild(ordi);
 
     // BUREAU
     const deskSpritesheet = await PIXI.Assets.load('../sprites/ELEMENTS/ordi/desk.png');
     const desk = new PIXI.Sprite(deskSpritesheet);
     desk.anchor.set(0.5); 
     desk.interactive = true;
-    container.addChild(desk);
+    houseContainer.addChild(desk);
 
     // GAMINGCHAIR
     const gcSpritesheet = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
     const gamingChair = new PIXI.Sprite(gcSpritesheet);
     gamingChair.anchor.set(0.5); 
     gamingChair.interactive = true;
-    container.addChild(gamingChair);
+    houseContainer.addChild(gamingChair);
     // GAMINGCHAIR Armrest
     const gcARSpritesheet = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchairarmrest.png');
     const gamingChairAR = new PIXI.Sprite(gcARSpritesheet);
     gamingChairAR.anchor.set(0.5); 
     gamingChairAR.interactive = true;
     gamingChairAR.zIndex = 2;
-    // container.addChild(gamingChairAR);
+    // houseContainer.addChild(gamingChairAR);
 
     return {
-        container,
+        houseContainer,
         background,
         crosshair,
         guybrush,
