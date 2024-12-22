@@ -204,7 +204,6 @@ export async function loadSprites(app) {
     menuButtonHover(menuButton7, menuButton7Sprite, menuButton7SpriteActive);
     menuButtonHover(menuButton8, menuButton8Sprite, menuButton8SpriteActive);
     menuButtonHover(menuButton9, menuButton9Sprite, menuButton9SpriteActive);
-     
 
     return {
         houseContainer,

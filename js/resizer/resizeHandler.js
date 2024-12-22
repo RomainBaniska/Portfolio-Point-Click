@@ -7,7 +7,7 @@ export async function resizeHandler(app, sprites, texts) {
 function adjustCanvasSize() {
     app.renderer.resize(window.innerWidth, window.innerHeight);
 
-    // METHODE DE POSITIONNEMENT DU SPRITE    
+    // METHODE DE POSITIONNEMENT DU SPRITE IMMOBILE  
     function setSpritePositionAndScale(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
         sprite.x = houseSprite.width  * positionXFactor;
         sprite.y = houseSprite.height * positionYFactor;
@@ -20,7 +20,16 @@ function adjustCanvasSize() {
         sprite.scale.set(scaleFactor);
     }
 
-     // Déclaration des constantes
+    function setMovingSpriteScale(sprite, scaleWidthFactor, scaleHeightFactor) {
+        // Ajustement de l'échelle proportionnelle
+        const scaleFactor = Math.min(
+            houseSprite.width / scaleWidthFactor,
+            houseSprite.height / scaleHeightFactor
+        );
+        sprite.scale.set(scaleFactor);
+    }
+
+     // CONSTANTES HOUSECONTAINER & SCREEN
      const houseMaxHeight = 1024;
      const houseMaxWidth = 1440;
      const screenHeight = app.screen.height;
@@ -34,7 +43,7 @@ function adjustCanvasSize() {
     houseSprite.x = (screenWidth - houseSprite.width) / 2;
     houseSprite.y = 0;
 
-    // Action Menu
+    // ACTION MENU
     // Sprite menuContainer : La hauteur occupe 26% de l'écran / même largeur houseContainer
     menuSprite.height = app.screen.height * 0.26;
     menuSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
@@ -42,6 +51,7 @@ function adjustCanvasSize() {
     // Le menu commence lorsque la maison termine
     menuSprite.y = houseSprite.height;
 
+    // CONSTANTES MENU
     const menuHeight = menuSprite.height
     const menuWidth = menuSprite.width;
     const menuXPosition = menuSprite.x;
@@ -73,52 +83,53 @@ function adjustMenuButtonPosition(button, column, row) {
     adjustMenuButtonPosition(menuButton9, 2, 2);
 
 
-    // Sprite, Position X, Position Y, Largeur, Hauteur des éléments
+    // sprite, scaleWidthFactor, scaleHeightFactor
 
     // Position du Crosshair
-    setSpritePositionAndScale(crosshair, 0.5, 0.8, 2000, 1200);
+    setMovingSpriteScale(crosshair, 1300, 800);
 
     // Position Guybrush qui parle
-    setSpritePositionAndScale(guybrush, 0.5, 0.83, 1000, 600);
+    setMovingSpriteScale(guybrush, 1000, 600);
 
     // Position Guybrush qui marche à droite
-    setSpritePositionAndScale(guybrushWR, 0.25, 0.827, 850, 600);
+    setMovingSpriteScale(guybrushWR, 850, 600);
 
     // Position qui marche à gauche
-    setSpritePositionAndScale(guybrushWL, 0.74, 0.83, 850, 600);
+    setMovingSpriteScale(guybrushWL, 850, 600);
 
     // Position qui dort
-    setSpritePositionAndScale(guybrushLD, 0.74, 0.849, 850, 600);
+    setMovingSpriteScale(guybrushLD, 850, 600);
 
     // Position qui se réveille et se lève
-    setSpritePositionAndScale(guybrushGU, 0.74, 0.83, 850, 600);
+    setMovingSpriteScale(guybrushGU, 850, 600);
 
     // Position qui travaille sur ordi
-    setSpritePositionAndScale(guybrushSO, 0.29, 0.84, 850, 1250);
+    setMovingSpriteScale(guybrushSO, 850, 1250);
 
     // Position qui parle sur ordi
-    setSpritePositionAndScale(guybrushSOT, 0.298, 0.84, 850, 1250);
+    setMovingSpriteScale(guybrushSOT, 850, 1250);
 
     // Position idle qui tend la main à gauche
-    setSpritePositionAndScale(guybrushIUL, 0.25, 0.827, 850, 570);
+    setMovingSpriteScale(guybrushIUL, 850, 570);
 
     // Position idle qui tend la main à droite
-    setSpritePositionAndScale(guybrushIUR, 0.298, 0.84, 600, 800);
+    setMovingSpriteScale(guybrushIUR, 600, 800);
 
     /// ELEMENTS & OBJECTS ///
+    // sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor
 
     // Position Ordinateur
-    setSpritePositionAndScale(ordi, 0.2, 0.73, 770, 790);
-    setSpritePositionAndScale(ordiRun, 0.2, 0.73, 770, 790);
+    setSpritePositionAndScale(ordi, 0.4, 0.73, 770, 790);
+    setSpritePositionAndScale(ordiRun, 0.4, 0.73, 770, 790);
    
     // Position Bureau
-    setSpritePositionAndScale(desk, 0.22, 0.89, 800, 780);
+    setSpritePositionAndScale(desk, 0.42, 0.89, 800, 780);
 
     // Position GamingChair
-    setSpritePositionAndScale(gamingChair, 0.328, 0.885, 900, 1000);
+    setSpritePositionAndScale(gamingChair, 0.52, 0.885, 900, 1000);
 
     // Position GamingChair ArmRest
-    setSpritePositionAndScale(gamingChairAR, 0.328, 0.885, 900, 1000);
+    setSpritePositionAndScale(gamingChairAR, 0.52, 0.885, 900, 1000);
 }
 
 // Applique le redimensionnement à chaque événement 'resize'
