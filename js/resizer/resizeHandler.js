@@ -1,14 +1,14 @@
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuButtonsInteractive, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR } = sprites;
+    const { houseSprite, menuButtonsInteractive, menuSprite, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
     app.renderer.resize(window.innerWidth, window.innerHeight);
 
+    // METHODE DE POSITIONNEMENT DU SPRITE    
     function setSpritePositionAndScale(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
-        // Positionnement du sprite
         sprite.x = houseSprite.width  * positionXFactor;
         sprite.y = houseSprite.height * positionYFactor;
     
@@ -35,7 +35,42 @@ function adjustCanvasSize() {
     houseSprite.y = 0;
 
     // Action Menu
-    
+    // Sprite menuContainer : La hauteur occupe 26% de l'écran / même largeur houseContainer
+    menuSprite.height = app.screen.height * 0.26;
+    menuSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
+    menuSprite.x = (screenWidth - menuSprite.width) / 2;
+    // Le menu commence lorsque la maison termine
+    menuSprite.y = houseSprite.height;
+
+    const menuHeight = menuSprite.height
+    const menuWidth = menuSprite.width;
+    const menuXPosition = menuSprite.x;
+    const menuYPosition = menuSprite.y;
+
+// Fonction pour positionner les boutons (NOTE : Logique détaillée dans 'old JS/logiquePositionMenuButtons.js')
+function adjustMenuButtonPosition(button, column, row) {
+    const buttonWidth = menuWidth * (1 / 6);
+    const buttonHeight = menuHeight * 0.3;
+
+    button.width = buttonWidth;
+    button.height = buttonHeight;
+
+    button.x = menuXPosition + column * buttonWidth;
+    button.y = menuYPosition + menuHeight * 0.1 + row * buttonHeight;
+}
+
+// POSITION DES BOUTONS (3 colonnes de 3 boutons)
+    adjustMenuButtonPosition(menuButton, 0, 0);
+    adjustMenuButtonPosition(menuButton2, 0, 1);
+    adjustMenuButtonPosition(menuButton3, 0, 2);
+
+    adjustMenuButtonPosition(menuButton4, 1, 0);
+    adjustMenuButtonPosition(menuButton5, 1, 1);
+    adjustMenuButtonPosition(menuButton6, 1, 2);
+
+    adjustMenuButtonPosition(menuButton7, 2, 0);
+    adjustMenuButtonPosition(menuButton8, 2, 1);
+    adjustMenuButtonPosition(menuButton9, 2, 2);
 
 
     // Sprite, Position X, Position Y, Largeur, Hauteur des éléments
