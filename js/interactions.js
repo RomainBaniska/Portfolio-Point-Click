@@ -11,7 +11,7 @@ export async function interactions(app, sprites, texts) {
     // Guybrush se réveille
     guybrushLD.on('click', wakeUp);
     function wakeUp() {
-        setPosition(guybrushGU, 0.9, 0.85);
+        setPosition(guybrushGU, 0.9, 0.82);
         spriteSwap(houseContainer, guybrushLD, guybrushGU); 
         guybrushGU.gotoAndPlay(0);
         guybrushGU.loop = false;
@@ -20,12 +20,12 @@ export async function interactions(app, sprites, texts) {
                                     await delay(1000);
 
                                     // Se déplace vers la gauche
-                                    setPosition(guybrushWL, 0.9, 0.85);
+                                    setPosition(guybrushWL, 0.9, 0.82);
                                     spriteSwap(houseContainer, guybrushGU, guybrushWL);
-                                    await walkLeft(0.5);
+                                    await walkLeft(0.7);
 
                                     // S'arrête et parle de face
-                                    setPosition(guybrush, 0.5, 0.85);
+                                    setPosition(guybrush, 0.7, 0.82);
                                     spriteSwap(houseContainer, guybrushWL, guybrush); 
                 
                                     // Texte 1
@@ -44,27 +44,28 @@ export async function interactions(app, sprites, texts) {
                                     await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);
 
                                     // Se déplace vers la gauche
-                                    setPosition(guybrushWL, 0.5, 0.85);
+                                    setPosition(guybrushWL, 0.7, 0.82);
                                     spriteSwap(houseContainer, guybrush, guybrushWL);
-                                    await walkLeft(0.25);
+                                    await walkLeft(0.45);
 
                                     // Allume le pc
-                                    setPosition(guybrushIUL, 0.25, 0.85);
+                                    setPosition(guybrushIUL, 0.45, 0.82);
                                     spriteSwap(houseContainer, guybrushWL, guybrushIUL);
                                     guybrushIUL.gotoAndPlay(0);
                                     guybrushIUL.loop = false;
                                     // Attend 1 seconde
                                     await delay(1000);
-                                    // Change la séquence de sprite de l'ordi
+                                    // Change la séquence de sprite de l'ordi & ajoute armrest
                                     spriteSwap(houseContainer, ordi, ordiRun);
+                                    houseContainer.addChild(gamingChairAR);
                                     
                                     // Se retourne vers le fauteuil
-                                    setPosition(guybrushWR, 0.25, 0.85);
+                                    setPosition(guybrushWR, 0.45, 0.82);
                                     spriteSwap(houseContainer, guybrushIUL, guybrushWR);
-                                    await walkRight(0.328);
+                                    await walkRight(0.5);
 
                                     // S'assoie sur la chaise de bureau & ajout de l'accoudoir
-                                    setPosition(guybrushSO, 0.328, 0.85);
+                                    setPosition(guybrushSO, 0.5, 0.82);
                                     spriteSwap(houseContainer, guybrushWR, guybrushSO);   
                                     };
                        }

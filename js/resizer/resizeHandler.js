@@ -126,10 +126,10 @@ function adjustMenuButtonPosition(button, column, row) {
     setSpritePositionAndScale(desk, 0.42, 0.89, 800, 780);
 
     // Position GamingChair
-    setSpritePositionAndScale(gamingChair, 0.52, 0.885, 900, 1000);
+    setSpritePositionAndScale(gamingChair, 0.54, 0.875, 900, 1000);
 
     // Position GamingChair ArmRest
-    setSpritePositionAndScale(gamingChairAR, 0.52, 0.885, 900, 1000);
+    setSpritePositionAndScale(gamingChairAR, 0.54, 0.875, 900, 1000);
 }
 
 // Applique le redimensionnement à chaque événement 'resize'
