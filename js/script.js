@@ -27,17 +27,17 @@
     const houseContainer = new PIXI.Container();
     houseContainer.sortableChildren = true;
     app.stage.addChild(houseContainer);
-    const houseSprite = await PIXI.Assets.load('../sprites/homeImproved.png');
-    const house = new PIXI.Sprite(houseSprite);
-    houseContainer.addChild(house);
+    const houseAsset = await PIXI.Assets.load('../sprites/homeImproved.png');
+    const houseSprite = new PIXI.Sprite(houseAsset);
+    houseContainer.addChild(houseSprite);
 
     // MENU CONTAINER & Texture
     const menuContainer = new PIXI.Container();
     menuContainer.sortableChildren = true;
     app.stage.addChild(menuContainer);
-    const menuSprite = await PIXI.Assets.load('../sprites/test sprite menu.png');
-    const menu = new PIXI.Sprite(menuSprite);
-    menuContainer.addChild(menu);
+    const menuAsset = await PIXI.Assets.load('../sprites/test sprite menu.png');
+    const menuSprite = new PIXI.Sprite(menuAsset);
+    menuContainer.addChild(menuSprite);
 
     // MENU BUTTONS Textures
     const menuButtonSprite = await displaySprite('MENU/inactive/button.json');
@@ -139,24 +139,24 @@
         const screenWidth = app.screen.width;
 
         // Sprite houseContainer : Hauteur occupe 74% de l'écran / Largeur 60% de l'écran
-        house.height = screenHeight * 0.74;
-        house.width = (house.height / houseMaxHeight) * houseMaxWidth * 1.4;
+        houseSprite.height = screenHeight * 0.74;
+        houseSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
 
         // Position du sprite houseContainer
-        house.x = (screenWidth - house.width) / 2;
-        house.y = 0;
+        houseSprite.x = (screenWidth - houseSprite.width) / 2;
+        houseSprite.y = 0;
     
         // Sprite menuContainer : La hauteur occupe 26% de l'écran / même largeur houseContainer
-        menu.height = app.screen.height * 0.26;
-        menu.width = (house.height / houseMaxHeight) * houseMaxWidth * 1.4;
-        menu.x = (screenWidth - menu.width) / 2;
+        menuSprite.height = app.screen.height * 0.26;
+        menuSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
+        menuSprite.x = (screenWidth - menuSprite.width) / 2;
         // Le menu commence lorsque la maison termine
-        menu.y = house.height;
+        menuSprite.y = houseSprite.height;
 
-        const menuHeight = menu.height
-        const menuWidth = menu.width;
-        const menuXPosition = menu.x;
-        const menuYPosition = menu.y;
+        const menuHeight = menuSprite.height
+        const menuWidth = menuSprite.width;
+        const menuXPosition = menuSprite.x;
+        const menuYPosition = menuSprite.y;
 
     // Fonction pour positionner les boutons (NOTE : Logique détaillée dans 'old JS/logiquePositionMenuButtons.js')
     function adjustMenuButtonPosition(button, column, row) {

@@ -1,6 +1,6 @@
 export async function interactions(app, sprites, texts) {
 
-    const { houseContainer, background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun } = sprites;
+    const { houseContainer, houseSprite, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 

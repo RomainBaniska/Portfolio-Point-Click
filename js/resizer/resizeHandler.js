@@ -1,36 +1,42 @@
 export async function resizeHandler(app, sprites, texts) {
 
-    const { background, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR } = sprites;
+    const { houseSprite, menuButtonsInteractive, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
-
-    // function setTextPositionAndScale(textToResize) {
-    //     textToResize.position.set(app.screen.width / 2, app.screen.height / 2);
-    // };
-
-    // setTextPositionAndScale(wakeUpText);
-    // setTextPositionAndScale(wakeUpText2);
-    // setTextPositionAndScale(wakeUpText3);
+    app.renderer.resize(window.innerWidth, window.innerHeight);
 
     function setSpritePositionAndScale(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
         // Positionnement du sprite
-        sprite.x = app.screen.width * positionXFactor;
-        sprite.y = app.screen.height * positionYFactor;
+        sprite.x = houseSprite.width  * positionXFactor;
+        sprite.y = houseSprite.height * positionYFactor;
     
         // Ajustement de l'échelle proportionnelle
         const scaleFactor = Math.min(
-            app.screen.width / scaleWidthFactor,
-            app.screen.height / scaleHeightFactor
+            houseSprite.width / scaleWidthFactor,
+            houseSprite.height / scaleHeightFactor
         );
         sprite.scale.set(scaleFactor);
     }
 
-    // Redimensionne le canvas & ajuste la taille du background
-    app.renderer.resize(window.innerWidth, window.innerHeight);
-    background.width = app.screen.width;
-    background.height = app.screen.height;
+     // Déclaration des constantes
+     const houseMaxHeight = 1024;
+     const houseMaxWidth = 1440;
+     const screenHeight = app.screen.height;
+     const screenWidth = app.screen.width;
+
+    // Sprite houseContainer : Hauteur occupe 74% de l'écran / Largeur 60% de l'écran
+    houseSprite.height = screenHeight * 0.74;
+    houseSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4; // à changer 
+
+    // Position du sprite houseContainer
+    houseSprite.x = (screenWidth - houseSprite.width) / 2;
+    houseSprite.y = 0;
+
+    // Action Menu
+    
+
 
     // Sprite, Position X, Position Y, Largeur, Hauteur des éléments
 
