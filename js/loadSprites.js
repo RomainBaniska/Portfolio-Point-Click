@@ -101,6 +101,18 @@ export async function loadSprites(app) {
     desk.interactive = true;
     houseContainer.addChild(desk);
 
+    // TABLE DE NUIT ET REVEIL
+    const reveil = await displaySprite('ELEMENTS/tablereveil/reveil.json', 0.12);
+    reveil.play(0);
+    reveil.interactive = true;
+    houseContainer.addChild(reveil);
+    reveil.zIndex = 2;
+    const table = await displaySprite('ELEMENTS/tablereveil/table.json', 0.12);
+    table.play(0);
+    table.interactive = true;
+    houseContainer.addChild(table);
+    table.zIndex = 2;
+
     // GAMINGCHAIR
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
     const gamingChair = new PIXI.Sprite(gcAsset);
@@ -182,28 +194,57 @@ export async function loadSprites(app) {
          menuButton9
      );
 
+     let currentlyActiveButton = null;
+
      // Méthode un changement de texture du menuButton lors du hover sur les boutons
-    function menuButtonHover(button, sprite, activeSprite) {
+    function menuButtonActivation(button, sprite, activeSprite) {
+
         button.interactive = true;
+        button.isActive = false;
         
         button.on('pointerover', () => {
-            button.texture = activeSprite.texture;  
+            if (button.isActive === false) {
+                button.texture = activeSprite.texture; 
+            } 
         });
         button.on('pointerout', () => {
+            if (button.isActive === false) {
             button.texture = sprite.texture; 
+            }
         });
+        button.on('click', () => {
+        // Si un autre bouton est actif, désactiver son état et restaurer sa texture normale
+        if (currentlyActiveButton && currentlyActiveButton !== button) {
+            currentlyActiveButton.texture = currentlyActiveButton.sprite.texture;
+            currentlyActiveButton.isActive = false;
+        }
+
+        if (button.isActive === true) {
+            button.texture = sprite.texture;
+            button.isActive = false;
+            currentlyActiveButton = null;
+            console.log("désactivé");  
+        } else {
+            button.texture = activeSprite.texture;
+            button.isActive = true;
+            currentlyActiveButton = button;
+            console.log("activé");  
+        }
+        });
+        button.sprite = sprite; 
+        button.activeSprite = activeSprite;
     }
  
-    // On applique menuButtonHover pour chaque bouton
-    menuButtonHover(menuButton, menuButtonSprite, menuButtonSpriteActive);
-    menuButtonHover(menuButton2, menuButton2Sprite, menuButton2SpriteActive);
-    menuButtonHover(menuButton3, menuButton3Sprite, menuButton3SpriteActive);
-    menuButtonHover(menuButton4, menuButton4Sprite, menuButton4SpriteActive);
-    menuButtonHover(menuButton5, menuButton5Sprite, menuButton5SpriteActive);
-    menuButtonHover(menuButton6, menuButton6Sprite, menuButton6SpriteActive);
-    menuButtonHover(menuButton7, menuButton7Sprite, menuButton7SpriteActive);
-    menuButtonHover(menuButton8, menuButton8Sprite, menuButton8SpriteActive);
-    menuButtonHover(menuButton9, menuButton9Sprite, menuButton9SpriteActive);
+    // On applique menuButtonActivation pour chaque bouton
+    menuButtonActivation(menuButton, menuButtonSprite, menuButtonSpriteActive);
+    menuButtonActivation(menuButton2, menuButton2Sprite, menuButton2SpriteActive);
+    menuButtonActivation(menuButton3, menuButton3Sprite, menuButton3SpriteActive);
+    menuButtonActivation(menuButton4, menuButton4Sprite, menuButton4SpriteActive);
+    menuButtonActivation(menuButton5, menuButton5Sprite, menuButton5SpriteActive);
+    menuButtonActivation(menuButton6, menuButton6Sprite, menuButton6SpriteActive);
+    menuButtonActivation(menuButton7, menuButton7Sprite, menuButton7SpriteActive);
+    menuButtonActivation(menuButton8, menuButton8Sprite, menuButton8SpriteActive);
+    menuButtonActivation(menuButton9, menuButton9Sprite, menuButton9SpriteActive);
 
     return {
         houseContainer,
@@ -224,6 +265,8 @@ export async function loadSprites(app) {
         desk,
         gamingChair,
         gamingChairAR,
+        reveil,
+        table,
         // ACTIONS MENU
         menuContainer,
         menuSprite,

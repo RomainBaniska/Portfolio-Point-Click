@@ -1,6 +1,6 @@
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuButtonsInteractive, menuSprite, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR } = sprites;
+    const { houseSprite, menuButtonsInteractive, menuSprite, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -124,6 +124,10 @@ function adjustMenuButtonPosition(button, column, row) {
    
     // Position Bureau
     setSpritePositionAndScale(desk, 0.42, 0.89, 800, 780);
+
+    // Position Table et réveil
+    setSpritePositionAndScale(reveil, 0.98, 0.92, 800, 780);
+    setSpritePositionAndScale(table, 0.98, 0.92, 800, 780);
 
     // Position GamingChair
     setSpritePositionAndScale(gamingChair, 0.54, 0.875, 900, 1000);
