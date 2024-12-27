@@ -246,6 +246,58 @@ export async function loadSprites(app) {
     menuButtonActivation(menuButton8, menuButton8Sprite, menuButton8SpriteActive);
     menuButtonActivation(menuButton9, menuButton9Sprite, menuButton9SpriteActive);
 
+
+    // Variable globale pour garder une référence au texte actuellement affiché
+    let currentText = null;
+    let currentButton = null;
+    // Fonction pour associer le texte à l'action
+    function menuButtonActionText(button, actionText) {
+        button.addEventListener('click', () => {
+            if (currentButton === button) {
+                if (currentText) {
+                    app.stage.removeChild(currentText);
+                    currentText.destroy();
+                    currentText = null;
+                    currentButton = null; 
+                }
+            } else {
+                if (currentText) {
+                    app.stage.removeChild(currentText);
+                    currentText.destroy();
+                    currentText = null;
+                }
+                currentText = new PIXI.Text(actionText, {
+                    fontFamily: 'MonkeyIslandMenu',
+                    fontSize: 11,
+                    fill: 0x772a76,
+                    align: 'center',
+                    fontWeight: 'bold'
+                });
+
+                app.stage.addChild(currentText);
+                currentText.x = app.screen.width / 2;
+                currentText.y = houseSprite.height + 2;
+
+                currentButton = button;
+            }
+        });
+    }
+
+
+    
+    menuButtonActionText(menuButton, 'Donner');
+    menuButtonActionText(menuButton2, 'Ouvrir');
+    menuButtonActionText(menuButton3, 'Fermer');
+    menuButtonActionText(menuButton4, 'Prendre');
+    menuButtonActionText(menuButton5, 'Regarder');
+    menuButtonActionText(menuButton6, 'Parler à');
+    menuButtonActionText(menuButton7, 'Utiliser');
+    menuButtonActionText(menuButton8, 'Pousser');
+    menuButtonActionText(menuButton9, 'Tirer');
+
+
+
+
     return {
         houseContainer,
         houseSprite,

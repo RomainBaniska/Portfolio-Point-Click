@@ -17,3 +17,8 @@ html, body {
     font-family: 'MonkeyIsland';
     src: url('../font/MonkeyIsland-1991-refined.ttf');
 }
+
+@font-face {
+    font-family: 'MonkeyIslandMenu';
+    src: url('../font/lucasarts-scumm-menu-solid.ttf');
+}
