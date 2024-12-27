@@ -106,7 +106,7 @@ export async function loadSprites(app) {
     reveil.play(0);
     reveil.interactive = true;
     houseContainer.addChild(reveil);
-    reveil.zIndex = 2;
+    reveil.zIndex = 3;
     const table = await displaySprite('ELEMENTS/tablereveil/table.json', 0.12);
     table.play(0);
     table.interactive = true;
@@ -123,7 +123,7 @@ export async function loadSprites(app) {
     const gcARAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchairarmrest.png');
     const gamingChairAR = new PIXI.Sprite(gcARAsset);
     gamingChairAR.anchor.set(0.5); 
-    gamingChairAR.interactive = true;
+    gamingChairAR.interactive = false;
     gamingChairAR.zIndex = 2;
 
     //////////////////////////////////////// ACTIONS MENU ////////////////////////////////
@@ -247,26 +247,26 @@ export async function loadSprites(app) {
     menuButtonActivation(menuButton9, menuButton9Sprite, menuButton9SpriteActive);
 
 
-    // Variable globale pour garder une référence au texte actuellement affiché
-    let currentText = null;
+    // Méthode pour associer un texte à une action (exemple : utiliser)
+    let currentMenuText = null;
     let currentButton = null;
     // Fonction pour associer le texte à l'action
     function menuButtonActionText(button, actionText) {
         button.addEventListener('click', () => {
             if (currentButton === button) {
-                if (currentText) {
-                    app.stage.removeChild(currentText);
-                    currentText.destroy();
-                    currentText = null;
+                if (currentMenuText) {
+                    app.stage.removeChild(currentMenuText);
+                    currentMenuText.destroy();
+                    currentMenuText = null;
                     currentButton = null; 
                 }
             } else {
-                if (currentText) {
-                    app.stage.removeChild(currentText);
-                    currentText.destroy();
-                    currentText = null;
+                if (currentMenuText) {
+                    app.stage.removeChild(currentMenuText);
+                    currentMenuText.destroy();
+                    currentMenuText = null;
                 }
-                currentText = new PIXI.Text(actionText, {
+                currentMenuText = new PIXI.Text(actionText, {
                     fontFamily: 'MonkeyIslandMenu',
                     fontSize: 11,
                     fill: 0x772a76,
@@ -274,17 +274,15 @@ export async function loadSprites(app) {
                     fontWeight: 'bold'
                 });
 
-                app.stage.addChild(currentText);
-                currentText.x = app.screen.width / 2;
-                currentText.y = houseSprite.height + 2;
+                app.stage.addChild(currentMenuText);
+                currentMenuText.x = app.screen.width / 2;
+                currentMenuText.y = houseSprite.height + 2;
 
                 currentButton = button;
             }
         });
     }
 
-
-    
     menuButtonActionText(menuButton, 'Donner');
     menuButtonActionText(menuButton2, 'Ouvrir');
     menuButtonActionText(menuButton3, 'Fermer');
@@ -296,7 +294,51 @@ export async function loadSprites(app) {
     menuButtonActionText(menuButton9, 'Tirer');
 
 
+    const offset = app.screen.width * 0.04;
+    let currentSpriteText = null;
+    // Méthode pour associer un texte à un sprite (hover et clic)
+    function spriteActionText(sprite, actionText) {
+        sprite.addEventListener('mouseover', () => {
+            currentSpriteText = new PIXI.Text(actionText, {
+                fontFamily: 'MonkeyIslandMenu',
+                fontSize: 11,
+                fill: 0x772a76,
+                align: 'center',
+                fontWeight: 'bold'
+            });
+            if (currentMenuText) {
+                currentMenuText.x = app.screen.width / 2 - offset;
+                currentSpriteText.x = app.screen.width / 2 + offset;
+            } else {
+                currentSpriteText.x = app.screen.width / 2;
+            }
+            
+            currentSpriteText.y = houseSprite.height + 2;
+            app.stage.addChild(currentSpriteText);
 
+        });
+        sprite.addEventListener('mouseout', () => {
+            if (currentMenuText) {
+                currentMenuText.x = app.screen.width / 2;
+                app.stage.removeChild(currentSpriteText);
+                currentSpriteText.destroy();   
+            }
+            app.stage.removeChild(currentSpriteText);
+            currentSpriteText.destroy();   
+        });
+
+        // if (!houseContainer.contains(sprite)) {
+        //     // Si le sprite n'est plus dans le houseContainer, supprime le texte
+        //     app.stage.removeChild(currentSpriteText);
+        // }
+    }
+
+    spriteActionText(guybrushLD, "Romain");
+    spriteActionText(ordi, "ordinateur");
+    spriteActionText(reveil, "réveil matin");
+    spriteActionText(table, "table de nuit");
+    spriteActionText(gamingChair, "chaise de bureau");
+    
 
     return {
         houseContainer,
