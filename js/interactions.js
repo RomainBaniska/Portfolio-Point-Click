@@ -1,6 +1,6 @@
 export async function interactions(app, sprites, texts) {
 
-    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun } = sprites;
+    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -57,6 +57,7 @@ export async function interactions(app, sprites, texts) {
                                     await delay(1000);
                                     // Change la séquence de sprite de l'ordi & ajoute armrest
                                     spriteSwap(houseContainer, ordi, ordiRun);
+                                    ordiRun.interactive = true;
                                     houseContainer.addChild(gamingChairAR);
                                     
                                     // Se retourne vers le fauteuil
@@ -71,6 +72,16 @@ export async function interactions(app, sprites, texts) {
                        }
 
                        console.log("tout s'est bien déclenché dans interactions");
+
+    toilePoulie.on('click', unroll);
+    function unroll() {
+        houseContainer.removeChild(toilePoulie);
+        houseContainer.addChild(toilePoulieRun);
+        toilePoulieRun.animationSpeed = 0.035;
+        toilePoulieRun.interactive = true;
+        toilePoulieRun.gotoAndPlay(0);
+        toilePoulieRun.loop = false;
+    }
         
 /////////////////////////////// DEPLACEMENTS METHODS ///////////////////////////////
                        

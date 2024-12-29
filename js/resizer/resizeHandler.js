@@ -1,6 +1,6 @@
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuButtonsInteractive, menuSprite, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table } = sprites;
+    const { houseSprite, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -56,6 +56,12 @@ function adjustCanvasSize() {
     const menuWidth = menuSprite.width;
     const menuXPosition = menuSprite.x;
     const menuYPosition = menuSprite.y;
+
+    // CONSTANTES MENUCOVER (pour les dialogues)
+    menuCoverDialogue.height = menuHeight;
+    menuCoverDialogue.width = menuWidth;
+    menuCoverDialogue.x = menuXPosition;
+    menuCoverDialogue.y = menuYPosition;
 
 // Fonction pour positionner les boutons (NOTE : Logique détaillée dans 'old JS/logiquePositionMenuButtons.js')
 function adjustMenuButtonPosition(button, column, row) {
@@ -121,6 +127,10 @@ function adjustMenuButtonPosition(button, column, row) {
     // Position Ordinateur
     setSpritePositionAndScale(ordi, 0.4, 0.73, 770, 790);
     setSpritePositionAndScale(ordiRun, 0.4, 0.73, 770, 790);
+
+    // Position Poulie&Toile
+    setSpritePositionAndScale(toilePoulie, 0.66, 0.58, 770, 700);
+    setSpritePositionAndScale(toilePoulieRun, 0.66, 0.58, 770, 700);
    
     // Position Bureau
     setSpritePositionAndScale(desk, 0.42, 0.89, 800, 780);

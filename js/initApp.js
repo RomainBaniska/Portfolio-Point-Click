@@ -3,6 +3,8 @@ export async function initializeApp() {
     // Création d'une nouvelle application
     const app = new PIXI.Application();
 
+    globalThis.__PIXI_APP__ = app;
+
     // Configuration de la largeur maximale adaptée à la taille de l'écran si plus petit
     const maxWidth = 1440;
     const width = Math.min(window.innerWidth, maxWidth);

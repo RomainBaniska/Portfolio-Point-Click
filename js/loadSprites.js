@@ -2,6 +2,8 @@
 // Set the texture's scale mode to nearest to preserve pixelation
 // texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
 
+// https://pixijs.download/v4.8.9/docs/PIXI.interaction.InteractionManager.html
+
 export async function loadSprites(app) {
     try {
 
@@ -126,6 +128,17 @@ export async function loadSprites(app) {
     gamingChairAR.interactive = false;
     gamingChairAR.zIndex = 2;
 
+    //TOILEPOULIE
+    const toilePoulie = await displaySprite('ELEMENTS/toilepoulie/toilepoulie.json', 0.12);
+    const toilePoulieRun = await displaySprite('ELEMENTS/toilepoulie/toilepoulieRun.json', 0.12);
+    // ordi.play();
+    // ordi.gotoAndPlay(0); 
+    toilePoulie.gotoAndStop(0); 
+    toilePoulie.interactive = true;
+    toilePoulie.zIndex = 3;
+    houseContainer.addChild(toilePoulie);
+
+
     //////////////////////////////////////// ACTIONS MENU ////////////////////////////////
 
     async function displaySpriteButton(path) {
@@ -142,7 +155,13 @@ export async function loadSprites(app) {
      const menuAsset = await PIXI.Assets.load('../sprites/test sprite menu.png');
      const menuSprite = new PIXI.Sprite(menuAsset);
      menuContainer.addChild(menuSprite);
- 
+
+     // MENU RESPONSES COVER
+     const menuCoverDialogueAsset = await PIXI.Assets.load('../sprites/cover menu dialogue.jpg');
+     const menuCoverDialogue = new PIXI.Sprite(menuCoverDialogueAsset);
+     menuCoverDialogue.zIndex = 3;
+    //  menuContainer.addChild(menuCoverDialogue);
+     
      // MENU BUTTONS Textures
      const menuButtonSprite = await displaySpriteButton('MENU/inactive/button.json');
      const menuButtonSpriteActive = await displaySpriteButton('MENU/active/button active.json');
@@ -297,8 +316,9 @@ export async function loadSprites(app) {
     const offset = app.screen.width * 0.04;
     let currentSpriteText = null;
     // Méthode pour associer un texte à un sprite (hover et clic)
+    // Au lieu d'utiliser des addEventListener, on fait un sprite".on"
     function spriteActionText(sprite, actionText) {
-        sprite.addEventListener('mouseover', () => {
+        sprite.on('pointerover', () => {
             currentSpriteText = new PIXI.Text(actionText, {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: 11,
@@ -313,28 +333,39 @@ export async function loadSprites(app) {
                 currentSpriteText.x = app.screen.width / 2;
             }
             
-            currentSpriteText.y = houseSprite.height + 2;
+            currentSpriteText.y = houseSprite.height + 2; // 2px pour ajuster la hauteur
             app.stage.addChild(currentSpriteText);
 
         });
-        sprite.addEventListener('mouseout', () => {
-            if (currentMenuText) {
-                currentMenuText.x = app.screen.width / 2;
-                app.stage.removeChild(currentSpriteText);
-                currentSpriteText.destroy();   
-            }
-            app.stage.removeChild(currentSpriteText);
-            currentSpriteText.destroy();   
-        });
 
-        // if (!houseContainer.contains(sprite)) {
-        //     // Si le sprite n'est plus dans le houseContainer, supprime le texte
-        //     app.stage.removeChild(currentSpriteText);
-        // }
+        sprite.on('pointerout', () => {
+            cleanupText();
+        });
+        sprite.on('removed', () => {
+            cleanupText();
+        });
+            function cleanupText() {
+                if (currentSpriteText) {
+                    app.stage.removeChild(currentSpriteText);
+                    currentSpriteText.destroy();
+                    currentSpriteText = null;
+                }
+        
+                if (currentMenuText) {
+                    currentMenuText.x = app.screen.width / 2;
+                }
+        }
     }
 
     spriteActionText(guybrushLD, "Romain");
+    spriteActionText(guybrush, "Romain");
+    spriteActionText(guybrushGU, "Romain");
+    spriteActionText(guybrushWL, "Romain");
+    spriteActionText(guybrushWR, "Romain");
     spriteActionText(ordi, "ordinateur");
+    spriteActionText(ordiRun, "ordinateur");
+    spriteActionText(toilePoulie, "toile");
+    spriteActionText(toilePoulieRun, "toile");
     spriteActionText(reveil, "réveil matin");
     spriteActionText(table, "table de nuit");
     spriteActionText(gamingChair, "chaise de bureau");
@@ -361,6 +392,8 @@ export async function loadSprites(app) {
         gamingChairAR,
         reveil,
         table,
+        toilePoulie,
+        toilePoulieRun,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
@@ -373,6 +406,8 @@ export async function loadSprites(app) {
         menuButton7,
         menuButton8,
         menuButton9,
+        // MENU DIALOGUE
+        menuCoverDialogue,
     };
 
 } catch (error) {
