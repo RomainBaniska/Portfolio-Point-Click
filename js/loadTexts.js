@@ -6,7 +6,6 @@ export async function loadTexts(app) {
 
     function textConfig(textContent) {
         const guybrushText = new PIXI.Text(textContent, dialogueStyle);
-        guybrushText.position.set(app.screen.width * 0.5, app.screen.height * 0.5);
         guybrushText.anchor.set(0.5);
         return guybrushText; 
     }
@@ -17,15 +16,17 @@ export async function loadTexts(app) {
 
     // Doit retourner un array
     function responseConfig(responseContent) {
-        const playerResponse = new PIXI.Text(responseContent, dialogueStyle);
-        playerResponse.position.set(app.screen.width * 0.5, app.screen.height * 0.5);
+        const playerResponse = new PIXI.Text(responseContent, responseStyle);
         return playerResponse; 
     }
+
+    const response1 = responseConfig('OK c\'est good !');
 
     return {
         wakeUpText,
         wakeUpText2,
-        wakeUpText3
+        wakeUpText3,
+        response1
     };
 
 }

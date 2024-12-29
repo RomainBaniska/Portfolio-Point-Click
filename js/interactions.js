@@ -1,7 +1,7 @@
 export async function interactions(app, sprites, texts) {
 
-    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
+    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuCoverDialogue } = sprites;
+    const { wakeUpText, wakeUpText2, wakeUpText3, response1 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Guybrush dort sur le lit
@@ -31,6 +31,7 @@ export async function interactions(app, sprites, texts) {
                                     // Texte 1
                                     guybrush.addChild(wakeUpText);
                                     textFollowSprite(guybrush, wakeUpText);
+                                    textOnCover(response1);
                                     await skipDialogue(houseContainer, guybrush, wakeUpText, 4000);
 
                                     // Texte 2
@@ -145,6 +146,13 @@ function textFollowSprite(sprite, textObject) {
     sprite.addChild(textObject);
     textObject.x = 0.1 * sprite.width;
     textObject.y = -0.8 * sprite.height;
+}
+
+// METHODE POUR QUE LES REPONSES SOIENT SUPERPOSEES SUR LA COVER DU MENU
+function textOnCover(reponseObject) {
+    menuCoverDialogue.addChild(reponseObject);
+    textObject.x = menuCoverDialogue.x;
+    textObject.y = menuCoverDialogue.y;
 }
 
 // METHODE POUR SKIPPER UNE LIGNE DE DIALOGUE
