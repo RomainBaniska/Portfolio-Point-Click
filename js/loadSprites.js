@@ -149,15 +149,17 @@ export async function loadSprites(app) {
         return sprite;
     }
 
-     // MENU CONTAINER & Texture
+     // MENU CONTAINER 
      const menuContainer = new PIXI.Container();
      menuContainer.sortableChildren = true;
      app.stage.addChild(menuContainer);
+
+     // MENU TEXTURE
      const menuAsset = await PIXI.Assets.load('../sprites/test sprite menu.png');
      const menuSprite = new PIXI.Sprite(menuAsset);
      menuContainer.addChild(menuSprite);
 
-     // MENU RESPONSES COVER
+     // MENU COVER TEXTURE (Dialogues)
      const menuCoverDialogueAsset = await PIXI.Assets.load('../sprites/cover menu dialogue.jpg');
      const menuCoverDialogue = new PIXI.Sprite(menuCoverDialogueAsset);
      menuCoverDialogue.zIndex = 3;
@@ -275,14 +277,14 @@ export async function loadSprites(app) {
         button.addEventListener('click', () => {
             if (currentButton === button) {
                 if (currentMenuText) {
-                    app.stage.removeChild(currentMenuText);
+                    menuContainer.removeChild(currentMenuText);
                     currentMenuText.destroy();
                     currentMenuText = null;
                     currentButton = null; 
                 }
             } else {
                 if (currentMenuText) {
-                    app.stage.removeChild(currentMenuText);
+                    menuContainer.removeChild(currentMenuText);
                     currentMenuText.destroy();
                     currentMenuText = null;
                 }
@@ -294,7 +296,7 @@ export async function loadSprites(app) {
                     fontWeight: 'bold'
                 });
 
-                app.stage.addChild(currentMenuText);
+                menuContainer.addChild(currentMenuText);
                 currentMenuText.x = app.screen.width / 2;
                 currentMenuText.y = houseSprite.height + 2;
 
@@ -335,7 +337,7 @@ export async function loadSprites(app) {
             }
             
             currentSpriteText.y = houseSprite.height + 2; // 2px pour ajuster la hauteur
-            app.stage.addChild(currentSpriteText);
+            menuContainer.addChild(currentSpriteText);
 
         });
 

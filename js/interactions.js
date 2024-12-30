@@ -11,6 +11,7 @@ export async function interactions(app, sprites, texts) {
     // Guybrush se réveille
     guybrushLD.on('click', wakeUp);
     function wakeUp() {
+        menuContainer.addChild(menuCoverDialogue);
         setPosition(guybrushGU, 0.9, 0.82);
         spriteSwap(houseContainer, guybrushLD, guybrushGU); 
         guybrushGU.gotoAndPlay(0);
@@ -46,7 +47,7 @@ export async function interactions(app, sprites, texts) {
                                     await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);
 
                                     // TEST RESPONSES ZONE TEST
-                                    menuContainer.addChild(menuCoverDialogue);
+
                                     displayResponses(menuCoverDialogue, wakeUpResponses);
 
                                     // Se déplace vers la gauche
