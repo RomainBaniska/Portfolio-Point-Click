@@ -176,7 +176,7 @@ function displayResponses(menuCoverDialogue, responses) {
         responseText.y = index * 40;
 
         responseText.on('pointerdown', () => {
-            console.log(`Réponse ${index + 1} cliquée : ${response.text}`);
+            // console.log(`Réponse ${index + 1} cliquée : ${response.action}`);
             response.action(); 
             responseText.style.fill = '#b23fb1';
             // menuCoverDialogue.removeChild(responseText); 

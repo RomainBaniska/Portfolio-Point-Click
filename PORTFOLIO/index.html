@@ -13,13 +13,28 @@
             },
             active:e=>{
                 console.log("font loaded!");
-                // now start setting up your PixiJS (or canvas) stuff!
             }
         });
     </script>
 
     <script src="https://pixijs.download/release/pixi.js"></script>
-    <script type="module" src="../js/script2.js"></script>
+
+    <script type="module">
+        import { initializeApp } from '../js/initApp.js';
+        import { loadSprites } from '../js/loadSprites.js';
+        import { resizeHandler } from '../js/resizeHandler.js';
+        import { interactions } from '../js/interactions.js';
+        import { loadTexts } from '../js/loadTexts.js';
+
+        (async () => {
+            const app = await initializeApp();
+            const sprites = await loadSprites(app); 
+            const texts = await loadTexts(); 
+            await resizeHandler(app, sprites, texts);
+            await interactions(app, sprites, texts);
+        })();
+    </script>
+
 </head>
 <body>
 </body>
