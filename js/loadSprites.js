@@ -136,6 +136,7 @@ export async function loadSprites(app) {
     toilePoulie.gotoAndStop(0); 
     toilePoulie.interactive = true;
     toilePoulie.zIndex = 3;
+    toilePoulieRun.zIndex = 3;
     houseContainer.addChild(toilePoulie);
 
 
@@ -160,7 +161,7 @@ export async function loadSprites(app) {
      const menuCoverDialogueAsset = await PIXI.Assets.load('../sprites/cover menu dialogue.jpg');
      const menuCoverDialogue = new PIXI.Sprite(menuCoverDialogueAsset);
      menuCoverDialogue.zIndex = 3;
-     menuContainer.addChild(menuCoverDialogue);
+    //  menuContainer.addChild(menuCoverDialogue);
      
      // MENU BUTTONS Textures
      const menuButtonSprite = await displaySpriteButton('MENU/inactive/button.json');

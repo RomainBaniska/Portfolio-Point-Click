@@ -7,7 +7,7 @@ import { loadTexts } from './loadTexts.js';
 (async () => {
     const app = await initializeApp();
     const sprites = await loadSprites(app); 
-    const texts = await loadTexts(app); 
+    const texts = await loadTexts(sprites); 
     await resizeHandler(app, sprites, texts);
     await interactions(app, sprites, texts);
 })();

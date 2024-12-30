@@ -1,7 +1,7 @@
 export async function interactions(app, sprites, texts) {
 
-    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuCoverDialogue } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, response1, response2 } = texts;
+    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue } = sprites;
+    const { wakeUpText, wakeUpText2, wakeUpText3, responses, wakeUpResponses} = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Guybrush dort sur le lit
@@ -31,8 +31,8 @@ export async function interactions(app, sprites, texts) {
                                     // Texte 1
                                     guybrush.addChild(wakeUpText);
                                     textFollowSprite(guybrush, wakeUpText);
-                                    textOnCover(response1);
-                                    textOnCover(response2);
+                                    // textOnCover(response1);
+                                    // textOnCover(response2);
                                     await skipDialogue(houseContainer, guybrush, wakeUpText, 4000);
 
                                     // Texte 2
@@ -44,6 +44,10 @@ export async function interactions(app, sprites, texts) {
                                     guybrush.addChild(wakeUpText3);
                                     textFollowSprite(guybrush, wakeUpText3);
                                     await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);
+
+                                    // TEST RESPONSES ZONE TEST
+                                    menuContainer.addChild(menuCoverDialogue);
+                                    displayResponses(menuCoverDialogue, wakeUpResponses);
 
                                     // Se déplace vers la gauche
                                     setPosition(guybrushWL, 0.7, 0.82);
@@ -153,8 +157,32 @@ function textFollowSprite(sprite, textObject) {
 }
 
 // METHODE POUR QUE LES REPONSES SOIENT SUPERPOSEES SUR LA COVER DU MENU
-function textOnCover(reponseObject) {
-    menuCoverDialogue.addChild(reponseObject);
+// function textOnCover(reponseObject) {
+//     menuCoverDialogue.addChild(reponseObject);
+// }
+
+// Fonction pour afficher les réponses
+function displayResponses(menuCoverDialogue, responses) {
+    responses.forEach((response, index) => {
+        const responseText = new PIXI.Text(response.text, {fontFamily: 'arial', fontSize: 25, fill: '#772a76', stroke: 'black', strokeThickness: 6, wordWrap: true, wordWrapWidth: 800, lineHeight: 40
+        });
+
+        responseText.interactive = true;
+        responseText.buttonMode = true;
+
+        // Position dynamique des réponses (vertical spacing)
+        responseText.x = 0;
+        responseText.y = index * 40;
+
+        responseText.on('pointerdown', () => {
+            console.log(`Réponse ${index + 1} cliquée : ${response.text}`);
+            response.action(); 
+            responseText.style.fill = '#b23fb1';
+            // menuCoverDialogue.removeChild(responseText); 
+        });
+
+        menuCoverDialogue.addChild(responseText); 
+    });
 }
 
 // METHODE POUR SKIPPER UNE LIGNE DE DIALOGUE
