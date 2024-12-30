@@ -15,18 +15,21 @@ export async function loadTexts(app) {
     const wakeUpText3 = textConfig('Bon si on a fini, moi j\'ai du travail');
 
     // Doit retourner un array
-    function responseConfig(responseContent) {
+    function responseConfig(responseContent, yPosition) {
         const playerResponse = new PIXI.Text(responseContent, responseStyle);
+        playerResponse.y = yPosition;
         return playerResponse; 
     }
 
-    const response1 = responseConfig('OK c\'est good !');
+    const response1 = responseConfig('OK c\'est good !', 0);
+    const response2 = responseConfig('Non je ne suis pas d\'accord', response1.height + 5);
 
     return {
         wakeUpText,
         wakeUpText2,
         wakeUpText3,
-        response1
+        response1,
+        response2
     };
 
 }

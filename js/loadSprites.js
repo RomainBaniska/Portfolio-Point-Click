@@ -17,6 +17,8 @@ export async function loadSprites(app) {
         sprite.animationSpeed = speed;
         sprite.play();
         sprite.anchor.set(0.5);
+        sprite.sortableChildren = true;
+        sprite.zIndex = 4;
         return sprite;
     }
 
@@ -37,7 +39,7 @@ export async function loadSprites(app) {
     const crosshair = await displaySprite('CROSSHAIR/crosshair2.json', 0.08);
     crosshair.play();
     crosshair.interactiveChildren = false;
-    crosshair.zIndex = 3;
+    crosshair.zIndex = 99;
     // à changer pour un child de "app"
     app.stage.addChild(crosshair);
     // Définition de la fonction moveCrosshair après la création de crosshair
@@ -108,12 +110,12 @@ export async function loadSprites(app) {
     reveil.play(0);
     reveil.interactive = true;
     houseContainer.addChild(reveil);
-    reveil.zIndex = 3;
+    reveil.zIndex = 5;
     const table = await displaySprite('ELEMENTS/tablereveil/table.json', 0.12);
     table.play(0);
     table.interactive = true;
     houseContainer.addChild(table);
-    table.zIndex = 2;
+    table.zIndex = 5;
 
     // GAMINGCHAIR
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
@@ -126,13 +128,11 @@ export async function loadSprites(app) {
     const gamingChairAR = new PIXI.Sprite(gcARAsset);
     gamingChairAR.anchor.set(0.5); 
     gamingChairAR.interactive = false;
-    gamingChairAR.zIndex = 2;
+    gamingChairAR.zIndex = 5;
 
     //TOILEPOULIE
     const toilePoulie = await displaySprite('ELEMENTS/toilepoulie/toilepoulie.json', 0.12);
     const toilePoulieRun = await displaySprite('ELEMENTS/toilepoulie/toilepoulieRun.json', 0.12);
-    // ordi.play();
-    // ordi.gotoAndPlay(0); 
     toilePoulie.gotoAndStop(0); 
     toilePoulie.interactive = true;
     toilePoulie.zIndex = 3;
