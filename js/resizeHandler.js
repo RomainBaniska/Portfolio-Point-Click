@@ -1,3 +1,5 @@
+// import { loadSprites as default sprites} from './loadSprites.js';
+
 export async function resizeHandler(app, sprites, texts) {
 
     const { houseSprite, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun } = sprites;

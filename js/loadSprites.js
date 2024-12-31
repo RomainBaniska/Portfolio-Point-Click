@@ -1,11 +1,4 @@
-// règle intéressante :
-// Set the texture's scale mode to nearest to preserve pixelation
-// texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
-
-// https://pixijs.download/v4.8.9/docs/PIXI.interaction.InteractionManager.html
-
 export async function loadSprites(app) {
-    try {
 
     const SPRITE_PATH_PREFIX = '../sprites/';
 
@@ -412,10 +405,5 @@ export async function loadSprites(app) {
         // MENU DIALOGUE
         menuCoverDialogue,
     };
-
-} catch (error) {
-    console.error('Erreur de chargement des sprites:', error);
-}
-
 }
 
