@@ -1,7 +1,7 @@
 export async function interactions(app, sprites, texts) {
 
     const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, OkText, responseStyle} = texts;
+    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle} = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // GUYBRUSH START SETUP (Sleeping)

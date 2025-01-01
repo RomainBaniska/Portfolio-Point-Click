@@ -16,7 +16,6 @@ export async function loadTexts(sprites) {
     const wakeUpText = textConfig('Non mais je rêve');
     const wakeUpText2 = textConfig('T\'es qui toi ? Et pourquoi tu fais sonner mon réveil si tôt ?');
     const wakeUpText3 = textConfig('Bon si on a fini, moi j\'ai du travail');
-    const OkText = textConfig('Ok !');
 
 
     let responseText = null;
@@ -54,12 +53,35 @@ export async function loadTexts(sprites) {
         },
         {
             text: "Pourquoi je suis encore ici ?",
-            action: () => console.log("Action : Guybrush se pose des questions existentielles"),
+            action: () => {
+                if (responseText) {
+                    responseText.destroy();
+                    responseText = null;
+                }
+                responseText = textConfig("Attends tu plaisantes ? tu débarques chez moi et tu te permets de dire ça!");
+                responseText.zIndex = 4;
+                responseText.x = guybrushSO.x;
+                responseText.y = guybrushSO.y - guybrushSO.height;
+                houseContainer.addChild(responseText);
+            },
         },
         {
             text: "Bye bye zobi",
-            action: () => console.log("Action : Guybrush se pose des questions existentielles"),
+            action: () => {
+                if (responseText) {
+                    responseText.destroy();
+                    responseText = null;
+                }
+                responseText = textConfig("C\'est ça, à plus tard");
+                responseText.zIndex = 4;
+                responseText.x = guybrushSO.x;
+                responseText.y = guybrushSO.y - guybrushSO.height;
+                houseContainer.addChild(responseText);
+                // Remove les réponses pour éviter les comportements inattendus
+                menuCoverDialogue.removeChild(wakeUpResponses);
+                menuContainer.removeChild(menuCoverDialogue);
         },
+    }
     ];
 
 
@@ -68,7 +90,6 @@ export async function loadTexts(sprites) {
         wakeUpText2,
         wakeUpText3,
         wakeUpResponses,
-        OkText,
         responseStyle,
     };
 
