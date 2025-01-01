@@ -1,16 +1,17 @@
 export async function interactions(app, sprites, texts) {
 
     const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, OkText} = texts;
+    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, OkText, responseStyle} = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    // Guybrush dort sur le lit
+    // GUYBRUSH START SETUP (Sleeping)
     setPosition(guybrushLD, 0.9, 0.85);
     houseContainer.addChild(guybrushLD);
 
-    // Guybrush se réveille
-    guybrushLD.on('click', wakeUp);
-    function wakeUp() {
+    // GUYBRUSH WAKEUP ANIMATION
+    let wakeUpAnimationCompleted = false;
+    // Lorsqu'on clique sur Guybrush, lance l'animation du wakeup
+    guybrushLD.on('click', () => {
         menuContainer.addChild(menuCoverDialogue);
         setPosition(guybrushGU, 0.9, 0.82);
         spriteSwap(houseContainer, guybrushLD, guybrushGU); 
@@ -69,29 +70,25 @@ export async function interactions(app, sprites, texts) {
                                     // S'assoie sur la chaise de bureau & ajout de l'accoudoir
                                     setPosition(guybrushSO, 0.5, 0.82);
                                     spriteSwap(houseContainer, guybrushWR, guybrushSO);   
-                                    };
-
 
                                     // TEST RESPONSES ZONE TEST
-                                    displayResponses(menuCoverDialogue, wakeUpResponses);
-
-                                    // Si clique sur Objet n°1 du tableau -> 
-                                    // textFollowSprite guybrush SOT, DiscussionText1 (ou n° d'objet du tableau de réponse
-                                    // textFollowSprite guybrush SOT, DiscussionText1 (ou n° d'objet du tableau de réponse)
-                                    // ensuite skipDialogue avec housecontainer, guybrushSOT, DiscussionText1, 4000
-                                    // Factorisation possible avec une méthode ?
+                                     await displayResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
                                     
-                                    // wakeUpResponses[0].addEventListener("click", () => {
-                                    //     textFollowSprite(guybrush, OkText);
-                                    //     wakeUpResponses[0].pop();
-                                    // });
+                                    // MARK ANIMATION AS COMPLETED
+                                    wakeUpAnimationCompleted = true;
+                                    if (wakeUpAnimationCompleted) {
+                                    // FREE SOME MEMORY :
+                                    wakeUpText.destroy();
+                                    wakeUpText2.destroy();
+                                    wakeUpText3.destroy();
+                                    guybrushLD.destroy();
+                                    guybrushGU.destroy();
+                                    console.log("L'animation de réveil s'est bien déroulée et les ressources détruites");
+                                        }
+                                    };
+                                });
 
-                                    // console.log(wakeUpResponses[0]);
-
-                       }
-
-                       console.log("tout s'est bien déclenché dans interactions");
-
+    // BLANK SCREEN UNROLLING ON CLICK
     toilePoulie.on('click', unroll);
     function unroll() {
         houseContainer.removeChild(toilePoulie);
@@ -162,7 +159,6 @@ function spriteSwap(houseContainer, sprite1, sprite2) {
 // METHODE POUR QUE LE TEXTE FOLLOW LE SPRITE
 function textFollowSprite(sprite, textObject) {
     sprite.addChild(textObject);
-    // houseContainer.addChild(textObject);
     textObject.zIndex = 4;
 
     textObject.x = 0.5 * sprite.width;
@@ -170,15 +166,13 @@ function textFollowSprite(sprite, textObject) {
 }
 
 // METHODE POUR AFFICHER LES REPONSES DU JOUEUR - TABLEAU EN PARAMETRE
-function displayResponses(menuCoverDialogue, playerResponses) {
+function displayResponses(menuCoverDialogue, playerResponses, style) {
 
+    // On commence par vider tous les éléments textes s'il y en a
     menuCoverDialogue.removeChildren();
-
-    // On parcourt le tableau des réponses du joueur
+    // On parcourt le tableau des réponses du joueur et on les affiche. On récupère l'index de chaque réponse
     playerResponses.forEach((response, index) => {
-        // Chaque réponse du tableau est affichée, on conserve l'index pour le positionnement
-        const responseText = new PIXI.Text(response.text, {fontFamily: 'arial', fontSize: 25, fill: '#772a76', stroke: 'black', strokeThickness: 6, wordWrap: true, wordWrapWidth: 800, lineHeight: 40
-        });
+        const responseText = new PIXI.Text(response.text, responseStyle);
         responseText.interactive = true;
         responseText.x = 0;
         responseText.y = index * 40;
@@ -201,7 +195,6 @@ function displayResponses(menuCoverDialogue, playerResponses) {
             }
 
             // Décale les réponses suivantes
-
             refreshResponses(menuCoverDialogue, playerResponses);
 
             // Retire l'élément de l'affichage
