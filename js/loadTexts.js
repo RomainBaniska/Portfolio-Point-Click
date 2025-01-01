@@ -4,7 +4,7 @@ export async function loadTexts(sprites) {
     const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue } = sprites;
 
     const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: 'black', strokeThickness: 6, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
-    const responseStyle = { fontFamily: 'arial', fontSize: 25, fill: '#772a76', stroke: 'black', strokeThickness: 6, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
+    const responseStyle = { fontFamily: 'arial', fontSize: 20, fill: '#772a76', stroke: 'black', strokeThickness: 6, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
 
 
     function textConfig(textContent) {
@@ -19,6 +19,8 @@ export async function loadTexts(sprites) {
     const OkText = textConfig('Ok !');
 
 
+    let responseText = null;
+
     // TABLEAUX DES REPONSES DE GUYBRUSH
     const wakeUpResponses = [
         {
@@ -26,28 +28,28 @@ export async function loadTexts(sprites) {
             action: () => {
                 if (responseText) {
                     responseText.destroy();
+                    responseText = null;
                 }
-                let responseText = textConfig("Ok !");
+                
+                responseText = textConfig("Ok !");
                 responseText.zIndex = 4;
-                responseText.x = 0.5 * guybrushSO.width;
-                responseText.y = -1.3 * guybrushSO.height;
-                responseText.fontSize = 50;
-                guybrushSO.addChild(responseText);
-                console.log(responseText.fontSize);
+                responseText.x = guybrushSO.x;
+                responseText.y = guybrushSO.y - guybrushSO.height;
+                houseContainer.addChild(responseText);
             },
         },
         {
             text: "Je suis ici pour voir un portfolio, qu'as-tu à me montrer ?",
             action: () => {
-
-                const responseText = new PIXI.Text("CAGOLE", { fontFamily: 'MonkeyIsland, arial', fontSize: 22, fill: '#31ACD3', stroke: 'black', strokeThickness: 6, wordWrap: true, wordWrapWidth: 800, lineHeight: 40});
-
-                // let responseText = textConfig("M'enfous !");
-                responseText.zIndex = 5;
-                responseText.x = guybrushSO.x - 30;
-                responseText.y = guybrushSO.y - 150;
+                if (responseText) {
+                    responseText.destroy();
+                    responseText = null;
+                }
+                responseText = textConfig("Rien à foutre !");
+                responseText.zIndex = 4;
+                responseText.x = guybrushSO.x;
+                responseText.y = guybrushSO.y - guybrushSO.height;
                 houseContainer.addChild(responseText);
-                console.log(responseText.fontSize);
             },
         },
         {

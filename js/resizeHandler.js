@@ -4,7 +4,7 @@ export async function resizeHandler(app, sprites, texts) {
 
     const { houseSprite, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun } = sprites;
 
-    // const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
+    const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
     app.renderer.resize(window.innerWidth, window.innerHeight);

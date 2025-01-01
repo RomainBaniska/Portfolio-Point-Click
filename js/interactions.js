@@ -69,7 +69,9 @@ export async function interactions(app, sprites, texts) {
 
                                     // S'assoie sur la chaise de bureau & ajout de l'accoudoir
                                     setPosition(guybrushSO, 0.5, 0.82);
-                                    spriteSwap(houseContainer, guybrushWR, guybrushSO);   
+                                    spriteSwap(houseContainer, guybrushWR, guybrushSO); 
+                                    textFollowSprite(guybrushSO, wakeUpText);  
+                                    await skipDialogue(houseContainer, guybrushSO, wakeUpText, 4000); 
 
                                     // TEST RESPONSES ZONE TEST
                                      await displayResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
@@ -158,11 +160,10 @@ function spriteSwap(houseContainer, sprite1, sprite2) {
 
 // METHODE POUR QUE LE TEXTE FOLLOW LE SPRITE
 function textFollowSprite(sprite, textObject) {
-    sprite.addChild(textObject);
+    houseContainer.addChild(textObject);
     textObject.zIndex = 4;
-
-    textObject.x = 0.5 * sprite.width;
-    textObject.y = -1.3 * sprite.height;
+    textObject.x = sprite.x;
+    textObject.y = sprite.y - sprite.height;
 }
 
 // METHODE POUR AFFICHER LES REPONSES DU JOUEUR - TABLEAU EN PARAMETRE
@@ -264,7 +265,7 @@ function skipDialogue(houseContainer, textParent, textDialogue, duration) {
         function onClick() {
             if (!clicked) {
                 clicked = true;
-                textParent.removeChild(textDialogue);
+                houseContainer.removeChild(textDialogue);
                 houseContainer.interactive = false;
                 houseContainer.removeEventListener('click', onClick);
                 resolve();
@@ -273,7 +274,7 @@ function skipDialogue(houseContainer, textParent, textDialogue, duration) {
         houseContainer.addEventListener('click', onClick);
         setTimeout(() => {
             if (!clicked) {
-                textParent.removeChild(textDialogue);
+                houseContainer.removeChild(textDialogue);
                 houseContainer.interactive = false;
                 houseContainer.removeEventListener('click', onClick);
                 resolve();
