@@ -1,7 +1,7 @@
 export async function interactions(app, sprites, texts) {
 
     const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, responses, wakeUpResponses} = texts;
+    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, OkText} = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Guybrush dort sur le lit
@@ -32,8 +32,6 @@ export async function interactions(app, sprites, texts) {
                                     // Texte 1
                                     guybrush.addChild(wakeUpText);
                                     textFollowSprite(guybrush, wakeUpText);
-                                    // textOnCover(response1);
-                                    // textOnCover(response2);
                                     await skipDialogue(houseContainer, guybrush, wakeUpText, 4000);
 
                                     // Texte 2
@@ -44,11 +42,7 @@ export async function interactions(app, sprites, texts) {
                                     // Texte 3
                                     guybrush.addChild(wakeUpText3);
                                     textFollowSprite(guybrush, wakeUpText3);
-                                    await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);
-
-                                    // TEST RESPONSES ZONE TEST
-
-                                    displayResponses(menuCoverDialogue, wakeUpResponses);
+                                    await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);                                
 
                                     // Se déplace vers la gauche
                                     setPosition(guybrushWL, 0.7, 0.82);
@@ -76,6 +70,24 @@ export async function interactions(app, sprites, texts) {
                                     setPosition(guybrushSO, 0.5, 0.82);
                                     spriteSwap(houseContainer, guybrushWR, guybrushSO);   
                                     };
+
+
+                                    // TEST RESPONSES ZONE TEST
+                                    displayResponses(menuCoverDialogue, wakeUpResponses);
+
+                                    // Si clique sur Objet n°1 du tableau -> 
+                                    // textFollowSprite guybrush SOT, DiscussionText1 (ou n° d'objet du tableau de réponse
+                                    // textFollowSprite guybrush SOT, DiscussionText1 (ou n° d'objet du tableau de réponse)
+                                    // ensuite skipDialogue avec housecontainer, guybrushSOT, DiscussionText1, 4000
+                                    // Factorisation possible avec une méthode ?
+                                    
+                                    // wakeUpResponses[0].addEventListener("click", () => {
+                                    //     textFollowSprite(guybrush, OkText);
+                                    //     wakeUpResponses[0].pop();
+                                    // });
+
+                                    // console.log(wakeUpResponses[0]);
+
                        }
 
                        console.log("tout s'est bien déclenché dans interactions");
@@ -157,34 +169,98 @@ function textFollowSprite(sprite, textObject) {
     textObject.y = -1.3 * sprite.height;
 }
 
-// METHODE POUR QUE LES REPONSES SOIENT SUPERPOSEES SUR LA COVER DU MENU
-// function textOnCover(reponseObject) {
-//     menuCoverDialogue.addChild(reponseObject);
-// }
+// METHODE POUR AFFICHER LES REPONSES DU JOUEUR - TABLEAU EN PARAMETRE
+function displayResponses(menuCoverDialogue, playerResponses) {
 
-// Fonction pour afficher les réponses
-function displayResponses(menuCoverDialogue, responses) {
-    responses.forEach((response, index) => {
+    menuCoverDialogue.removeChildren();
+
+    // On parcourt le tableau des réponses du joueur
+    playerResponses.forEach((response, index) => {
+        // Chaque réponse du tableau est affichée, on conserve l'index pour le positionnement
         const responseText = new PIXI.Text(response.text, {fontFamily: 'arial', fontSize: 25, fill: '#772a76', stroke: 'black', strokeThickness: 6, wordWrap: true, wordWrapWidth: 800, lineHeight: 40
         });
-
         responseText.interactive = true;
-        responseText.buttonMode = true;
-
-        // Position dynamique des réponses (vertical spacing)
         responseText.x = 0;
         responseText.y = index * 40;
 
-        responseText.on('pointerdown', () => {
-            // console.log(`Réponse ${index + 1} cliquée : ${response.action}`);
-            response.action(); 
+        responseText.on('pointerover', () => {
             responseText.style.fill = '#b23fb1';
-            // menuCoverDialogue.removeChild(responseText); 
+        });
+        responseText.on('pointerout', () => {
+            responseText.style.fill = '#772a76';
+        });
+
+        responseText.on('pointerdown', () => {
+            // On appelle la propriété action de l'objet playerResponses
+            response.action(); 
+
+            // On supprime la réponse du tableau
+            const responseIndex = playerResponses.indexOf(response);
+            if (responseIndex !== -1) {
+                playerResponses.splice(responseIndex, 1);
+            }
+
+            // Décale les réponses suivantes
+
+            refreshResponses(menuCoverDialogue, playerResponses);
+
+            // Retire l'élément de l'affichage
+            menuCoverDialogue.removeChild(responseText);
         });
 
         menuCoverDialogue.addChild(responseText); 
     });
 }
+
+// METHODE POUR METTRE A JOUR LA POSITION DES REPONSES APRES SUPPRESSION
+
+function refreshResponses(menuCoverDialogue, playerResponses) {
+    menuCoverDialogue.removeChildren(); // Retirer tous les enfants pour réajuster tout
+    playerResponses.forEach((response, index) => {
+        const responseText = new PIXI.Text(response.text, {
+            fontFamily: 'arial',
+            fontSize: 25,
+            fill: '#772a76',
+            stroke: 'black',
+            strokeThickness: 6,
+            wordWrap: true,
+            wordWrapWidth: 800,
+            lineHeight: 40
+        });
+
+        responseText.interactive = true;
+        responseText.x = 0;
+        responseText.y = index * 40;
+
+        responseText.on('pointerover', () => {
+            responseText.style.fill = '#b23fb1';
+        });
+
+        responseText.on('pointerout', () => {
+            responseText.style.fill = '#772a76';
+        });
+
+        responseText.on('pointerdown', () => {
+            // Exécute l'action associée
+            response.action();
+
+            // Supprime la réponse du tableau
+            const responseIndex = playerResponses.indexOf(response);
+            if (responseIndex !== -1) {
+                playerResponses.splice(responseIndex, 1);
+            }
+
+            // Retire l'élément de l'affichage
+            menuCoverDialogue.removeChild(responseText);
+
+            // Recalcule la position des réponses restantes
+            refreshResponses(menuCoverDialogue, playerResponses);
+        });
+
+        menuCoverDialogue.addChild(responseText);
+    });
+}
+
 
 // METHODE POUR SKIPPER UNE LIGNE DE DIALOGUE
 function skipDialogue(houseContainer, textParent, textDialogue, duration) {

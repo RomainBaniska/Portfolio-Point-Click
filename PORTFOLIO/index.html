@@ -29,7 +29,7 @@
         (async () => {
             const app = await initializeApp();
             const sprites = await loadSprites(app); 
-            const texts = await loadTexts(); 
+            const texts = await loadTexts(sprites); 
             await resizeHandler(app, sprites, texts);
             await interactions(app, sprites, texts);
         })();
