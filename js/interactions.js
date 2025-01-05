@@ -187,18 +187,20 @@ function textFollowSprite(sprite, textObject) {
 }
 
 // METHODE POUR AFFICHER LES REPONSES DU JOUEUR - TABLEAU EN PARAMETRE
-// Stocker les réponses originales pour les restaurer après avoir quitté le dialogue
-const originalResponses = [...playerResponses];
 function displayResponses(menuCoverDialogue, playerResponses, style) {
 
     // On commence par vider tous les éléments textes s'il y en a
     menuCoverDialogue.removeChildren();
-    // On parcourt le tableau des réponses du joueur et on les affiche. On récupère l'index de chaque réponse
-    playerResponses.forEach((response, index) => {
+
+    // On parcourt le tableau des réponses du joueur de manière classique (sans `forEach`)
+    for (let i = 0; i < playerResponses.length; i++) {
+        const response = playerResponses[i]; // L'élément actuel (réponse)
+        const index = i; // L'index actuel
+
         const responseText = new PIXI.Text(response.text, style);
         responseText.interactive = true;
         responseText.x = 0;
-        responseText.y = index * 40;
+        responseText.y = index * 40; // Décalage de la position verticale
 
         responseText.on('pointerover', () => {
             responseText.style.fill = '#b23fb1';
@@ -208,74 +210,110 @@ function displayResponses(menuCoverDialogue, playerResponses, style) {
         });
 
         responseText.on('pointerdown', () => {
-            // On appelle la propriété action de l'objet playerResponses
-            response.action(); 
-
-            // On supprime la réponse du tableau
-            const responseIndex = playerResponses.indexOf(response);
-            if (responseIndex !== -1) {
-                playerResponses.splice(responseIndex, 1);
-            }
-
-            // Décale les réponses suivantes
-            refreshResponses(menuCoverDialogue, playerResponses);
-
-            // Retire l'élément de l'affichage
-            menuCoverDialogue.removeChild(responseText);
-        });
-
-        menuCoverDialogue.addChild(responseText); 
-    });
-}
-
-// METHODE POUR METTRE A JOUR LA POSITION DES REPONSES APRES SUPPRESSION (DECALAGE DES REPONSES)
-
-function refreshResponses(menuCoverDialogue, playerResponses) {
-    menuCoverDialogue.removeChildren(); // Retirer tous les enfants pour réajuster tout
-    playerResponses.forEach((response, index) => {
-        const responseText = new PIXI.Text(response.text, {
-            fontFamily: 'arial',
-            fontSize: 25,
-            fill: '#772a76',
-            stroke: 'black',
-            strokeThickness: 6,
-            wordWrap: true,
-            wordWrapWidth: 800,
-            lineHeight: 40
-        });
-
-        responseText.interactive = true;
-        responseText.x = 0;
-        responseText.y = index * 40;
-
-        responseText.on('pointerover', () => {
-            responseText.style.fill = '#b23fb1';
-        });
-
-        responseText.on('pointerout', () => {
-            responseText.style.fill = '#772a76';
-        });
-
-        responseText.on('pointerdown', () => {
-            // Exécute l'action associée
+            // Appel de l'action associée à la réponse
             response.action();
 
             // Supprime la réponse du tableau
-            const responseIndex = playerResponses.indexOf(response);
-            if (responseIndex !== -1) {
-                playerResponses.splice(responseIndex, 1);
-            }
+            playerResponses.splice(index, 1);
 
             // Retire l'élément de l'affichage
             menuCoverDialogue.removeChild(responseText);
 
-            // Recalcule la position des réponses restantes
-            refreshResponses(menuCoverDialogue, playerResponses);
+            // Décale les autres éléments vers le haut
+            displayResponses(menuCoverDialogue, playerResponses, style);
         });
 
-        menuCoverDialogue.addChild(responseText);
-    });
+        menuCoverDialogue.addChild(responseText); // Ajout du texte à l'affichage
+    }
 }
+
+// function displayResponses(menuCoverDialogue, playerResponses, style) {
+
+//     // On commence par vider tous les éléments textes s'il y en a
+//     menuCoverDialogue.removeChildren();
+//     // On parcourt le tableau des réponses du joueur et on les affiche. On récupère l'index de chaque réponse
+//     playerResponses.forEach((response, index) => {
+//         const responseText = new PIXI.Text(response.text, style);
+//         responseText.interactive = true;
+//         responseText.x = 0;
+//         responseText.y = index * 40;
+
+//         responseText.on('pointerover', () => {
+//             responseText.style.fill = '#b23fb1';
+//         });
+//         responseText.on('pointerout', () => {
+//             responseText.style.fill = '#772a76';
+//         });
+
+//         responseText.on('pointerdown', () => {
+//             // On appelle la propriété action de l'objet playerResponses
+//             response.action(); 
+
+//             // On supprime la réponse du tableau
+//             const responseIndex = playerResponses.indexOf(response);
+//             if (responseIndex !== -1) {
+//                 playerResponses.splice(responseIndex, 1);
+//             }
+
+//             // Décale les réponses suivantes
+//             refreshResponses(menuCoverDialogue, playerResponses);
+
+//             // Retire l'élément de l'affichage
+//             menuCoverDialogue.removeChild(responseText);
+//         });
+
+//         menuCoverDialogue.addChild(responseText); 
+//     });
+// }
+
+// // METHODE POUR METTRE A JOUR LA POSITION DES REPONSES APRES SUPPRESSION (DECALAGE DES REPONSES)
+
+// function refreshResponses(menuCoverDialogue, playerResponses) {
+//     menuCoverDialogue.removeChildren(); // Retirer tous les enfants pour réajuster tout
+//     playerResponses.forEach((response, index) => {
+//         const responseText = new PIXI.Text(response.text, {
+//             fontFamily: 'arial',
+//             fontSize: 25,
+//             fill: '#772a76',
+//             stroke: 'black',
+//             strokeThickness: 6,
+//             wordWrap: true,
+//             wordWrapWidth: 800,
+//             lineHeight: 40
+//         });
+
+//         responseText.interactive = true;
+//         responseText.x = 0;
+//         responseText.y = index * 40;
+
+//         responseText.on('pointerover', () => {
+//             responseText.style.fill = '#b23fb1';
+//         });
+
+//         responseText.on('pointerout', () => {
+//             responseText.style.fill = '#772a76';
+//         });
+
+//         responseText.on('pointerdown', () => {
+//             // Exécute l'action associée
+//             response.action();
+
+//             // Supprime la réponse du tableau
+//             const responseIndex = playerResponses.indexOf(response);
+//             if (responseIndex !== -1) {
+//                 playerResponses.splice(responseIndex, 1);
+//             }
+
+//             // Retire l'élément de l'affichage
+//             menuCoverDialogue.removeChild(responseText);
+
+//             // Recalcule la position des réponses restantes
+//             refreshResponses(menuCoverDialogue, playerResponses);
+//         });
+
+//         menuCoverDialogue.addChild(responseText);
+//     });
+// }
 
 
 // METHODE POUR SKIPPER UNE LIGNE DE DIALOGUE
