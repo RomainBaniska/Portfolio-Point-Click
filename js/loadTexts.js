@@ -24,7 +24,7 @@ export async function loadTexts(sprites) {
     const wakeUpText = textConfig('Non mais je rêve', dialogueStyle);
     const wakeUpText2 = textConfig('T\'es qui toi ? Et pourquoi tu fais sonner mon réveil si tôt ?', dialogueStyle);
     const wakeUpText3 = textConfig('Bon si on a fini, moi j\'ai du travail', dialogueStyle);
-
+    const startDialogue = textConfig('Oui ?', dialogueStyle);
 
     let responseText = null;
 
@@ -125,6 +125,7 @@ export async function loadTexts(sprites) {
         wakeUpText,
         wakeUpText2,
         wakeUpText3,
+        startDialogue,
         wakeUpResponses,
         responseStyle,
     };

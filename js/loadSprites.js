@@ -70,7 +70,7 @@ export async function loadSprites(app) {
 
     // SIT ORDI TALK
     const guybrushSOT = await displaySprite('SITORDI/sitorditalk.json', 0.12);
-    guybrushSOT.play();
+    // guybrushSOT.play();
 
     // IDLE - USE LEFT
     const guybrushIUL = await displaySprite('IDLEUSE/utilisemiddleleft.json', 0.05);
@@ -114,13 +114,13 @@ export async function loadSprites(app) {
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
     const gamingChair = new PIXI.Sprite(gcAsset);
     gamingChair.anchor.set(0.5); 
-    gamingChair.interactive = true;
+    // gamingChair.interactive = true;
     houseContainer.addChild(gamingChair);
     // GAMINGCHAIR Armrest
     const gcARAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchairarmrest.png');
     const gamingChairAR = new PIXI.Sprite(gcARAsset);
     gamingChairAR.anchor.set(0.5); 
-    gamingChairAR.interactive = false;
+    // gamingChairAR.interactive = false;
     gamingChairAR.zIndex = 5;
 
     //TOILEPOULIE
@@ -358,13 +358,14 @@ export async function loadSprites(app) {
     spriteActionText(guybrushGU, "Romain");
     spriteActionText(guybrushWL, "Romain");
     spriteActionText(guybrushWR, "Romain");
+    spriteActionText(guybrushSO, "Romain");
     spriteActionText(ordi, "ordinateur");
     spriteActionText(ordiRun, "ordinateur");
     spriteActionText(toilePoulie, "toile");
     spriteActionText(toilePoulieRun, "toile");
     spriteActionText(reveil, "réveil matin");
     spriteActionText(table, "table de nuit");
-    spriteActionText(gamingChair, "chaise de bureau");
+    // spriteActionText(gamingChair, "chaise de bureau");
     
 
     return {

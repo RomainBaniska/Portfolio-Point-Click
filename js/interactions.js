@@ -1,7 +1,7 @@
 export async function interactions(app, sprites, texts) {
 
-    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle} = texts;
+    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9 } = sprites;
+    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue} = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // GUYBRUSH START SETUP (Sleeping)
@@ -70,6 +70,7 @@ export async function interactions(app, sprites, texts) {
                                     // S'assoie sur la chaise de bureau & ajout de l'accoudoir
                                     setPosition(guybrushSO, 0.5, 0.82);
                                     spriteSwap(houseContainer, guybrushWR, guybrushSO); 
+                                    guybrushSO.interactive = true;
                                     textFollowSprite(guybrushSO, wakeUpText);  
                                     await skipDialogue(houseContainer, guybrushSO, wakeUpText, 4000); 
 
@@ -100,7 +101,26 @@ export async function interactions(app, sprites, texts) {
         toilePoulieRun.gotoAndPlay(0);
         toilePoulieRun.loop = false;
     }
+
+   
+    // Si on veut relancer le dialogue avec Romain après l'intro
+    guybrushSO.on('click', async () => {
+        if (menuButton6.isActive) {
+            spriteSwap(houseContainer, guybrushSO, guybrushSOT);
+            guybrushSOT.play();
+            guybrushSOT.x = guybrushSO.x + 10;
+            guybrushSOT.y = guybrushSO.y;
+
+            textFollowSprite(guybrushSOT, startDialogue);
+            menuContainer.addChild(menuCoverDialogue);
+            await displayResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
+            console.log("Ok swaped");
+        }  
+        console.log("NOOO !");
+    });
         
+
+
 /////////////////////////////// DEPLACEMENTS METHODS ///////////////////////////////
                        
 // METHODE POUR DEPLACER A GAUCHE
@@ -167,13 +187,15 @@ function textFollowSprite(sprite, textObject) {
 }
 
 // METHODE POUR AFFICHER LES REPONSES DU JOUEUR - TABLEAU EN PARAMETRE
+// Stocker les réponses originales pour les restaurer après avoir quitté le dialogue
+const originalResponses = [...playerResponses];
 function displayResponses(menuCoverDialogue, playerResponses, style) {
 
     // On commence par vider tous les éléments textes s'il y en a
     menuCoverDialogue.removeChildren();
     // On parcourt le tableau des réponses du joueur et on les affiche. On récupère l'index de chaque réponse
     playerResponses.forEach((response, index) => {
-        const responseText = new PIXI.Text(response.text, responseStyle);
+        const responseText = new PIXI.Text(response.text, style);
         responseText.interactive = true;
         responseText.x = 0;
         responseText.y = index * 40;
@@ -206,7 +228,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style) {
     });
 }
 
-// METHODE POUR METTRE A JOUR LA POSITION DES REPONSES APRES SUPPRESSION
+// METHODE POUR METTRE A JOUR LA POSITION DES REPONSES APRES SUPPRESSION (DECALAGE DES REPONSES)
 
 function refreshResponses(menuCoverDialogue, playerResponses) {
     menuCoverDialogue.removeChildren(); // Retirer tous les enfants pour réajuster tout
