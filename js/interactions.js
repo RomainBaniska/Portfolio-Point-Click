@@ -1,7 +1,7 @@
 export async function interactions(app, sprites, texts) {
 
     const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9 } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue} = texts;
+    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // GUYBRUSH START SETUP (Sleeping)
@@ -92,29 +92,34 @@ export async function interactions(app, sprites, texts) {
                                 });
 
     // BLANK SCREEN UNROLLING ON CLICK
-    toilePoulie.on('click', unroll);
-    function unroll() {
+    toilePoulie.on('click', () => {
         houseContainer.removeChild(toilePoulie);
         houseContainer.addChild(toilePoulieRun);
         toilePoulieRun.animationSpeed = 0.035;
         toilePoulieRun.interactive = true;
         toilePoulieRun.gotoAndPlay(0);
         toilePoulieRun.loop = false;
-    }
+    });
 
    
     // Si on veut relancer le dialogue avec Romain après l'intro
-    guybrushSO.on('click', async () => {
+    guybrushSO.on('click', () => {
         if (menuButton6.isActive) {
             spriteSwap(houseContainer, guybrushSO, guybrushSOT);
             guybrushSOT.play();
             guybrushSOT.x = guybrushSO.x + 10;
             guybrushSOT.y = guybrushSO.y;
+            // On enclenche le dialogue ("Oui ?")
+            textFollowSprite(guybrushSOT, startDialogue);  
 
-            textFollowSprite(guybrushSOT, startDialogue);
             menuContainer.addChild(menuCoverDialogue);
-            await displayResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
-            console.log("Ok swaped");
+            console.log("Dialogue réenclenché");
+
+            displayResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
+
+            setTimeout(() => {
+                spriteSwap(houseContainer, guybrushSOT, guybrushSO);
+            }, 2000);
         }  
         console.log("NOOO !");
     });
@@ -186,134 +191,67 @@ function textFollowSprite(sprite, textObject) {
     textObject.y = sprite.y - sprite.height;
 }
 
+
+
+
+
 // METHODE POUR AFFICHER LES REPONSES DU JOUEUR - TABLEAU EN PARAMETRE
 function displayResponses(menuCoverDialogue, playerResponses, style) {
 
-    // On commence par vider tous les éléments textes s'il y en a
+    // Dupliquer le tableau de réponses pour le réinitialiser plus tard
+    // const originalResponses = [...playerResponses];
+    // const originalResponses = playerResponses.map(response => ({ ...response }));
+    // MIEUX : STRUCTURED CLONE
+    // const originalResponses = structuredClone(playerResponses);
+    // LODASH Deep clone
+    const originalResponses = _.cloneDeep(playerResponses);
+
+    // On commence par vider tous les éléments textes (indispensable pour pas créer des doublons de réponses car la fonction va être réappelée à chaque fois qu'une réponse est cliquée, sauf la réponse exit)
     menuCoverDialogue.removeChildren();
 
     // On parcourt le tableau des réponses du joueur de manière classique (sans `forEach`)
     for (let i = 0; i < playerResponses.length; i++) {
-        const response = playerResponses[i]; // L'élément actuel (réponse)
-        const index = i; // L'index actuel
+            const response = playerResponses[i];
+            const index = i;
 
-        const responseText = new PIXI.Text(response.text, style);
-        responseText.interactive = true;
-        responseText.x = 0;
-        responseText.y = index * 40; // Décalage de la position verticale
+            const responseText = new PIXI.Text(response.text, style);
+            menuCoverDialogue.addChild(responseText);
+            responseText.interactive = true;
+            responseText.x = 0;
+            responseText.y = index * 40;
 
-        responseText.on('pointerover', () => {
-            responseText.style.fill = '#b23fb1';
-        });
-        responseText.on('pointerout', () => {
-            responseText.style.fill = '#772a76';
-        });
+            responseText.on('pointerover', () => {
+                responseText.style.fill = '#b23fb1';
+            });
+            responseText.on('pointerout', () => {
+                responseText.style.fill = '#772a76';
+            });
+            responseText.on('pointerdown', () => {
+                // On enclenche l'action de l'objet
+                response.action();
 
-        responseText.on('pointerdown', () => {
-            // Appel de l'action associée à la réponse
-            response.action();
+                // Si propriété `exit: true`, réinitialiser les réponses et quitter
+                if (response.exit) {
 
-            // Supprime la réponse du tableau
-            playerResponses.splice(index, 1);
+                    // Vide le menuContainer du menuCoverDialogue
+                    menuContainer.removeChild(menuCoverDialogue);
+                    playerResponses.splice(0, playerResponses.length, ...originalResponses);
 
-            // Retire l'élément de l'affichage
-            menuCoverDialogue.removeChild(responseText);
+                    console.log(playerResponses);
+                    console.log(originalResponses);
+                    return; 
+                }
 
-            // Décale les autres éléments vers le haut
-            displayResponses(menuCoverDialogue, playerResponses, style);
-        });
+                // Supprime la réponse du tableau et on retire son affichage
+                playerResponses.splice(index, 1);
+                // menuCoverDialogue.removeChild(responseText);
 
-        menuCoverDialogue.addChild(responseText); // Ajout du texte à l'affichage
+                // Décale les autres éléments vers le haut
+                displayResponses(menuCoverDialogue, playerResponses, style);
+
+            });
     }
 }
-
-// function displayResponses(menuCoverDialogue, playerResponses, style) {
-
-//     // On commence par vider tous les éléments textes s'il y en a
-//     menuCoverDialogue.removeChildren();
-//     // On parcourt le tableau des réponses du joueur et on les affiche. On récupère l'index de chaque réponse
-//     playerResponses.forEach((response, index) => {
-//         const responseText = new PIXI.Text(response.text, style);
-//         responseText.interactive = true;
-//         responseText.x = 0;
-//         responseText.y = index * 40;
-
-//         responseText.on('pointerover', () => {
-//             responseText.style.fill = '#b23fb1';
-//         });
-//         responseText.on('pointerout', () => {
-//             responseText.style.fill = '#772a76';
-//         });
-
-//         responseText.on('pointerdown', () => {
-//             // On appelle la propriété action de l'objet playerResponses
-//             response.action(); 
-
-//             // On supprime la réponse du tableau
-//             const responseIndex = playerResponses.indexOf(response);
-//             if (responseIndex !== -1) {
-//                 playerResponses.splice(responseIndex, 1);
-//             }
-
-//             // Décale les réponses suivantes
-//             refreshResponses(menuCoverDialogue, playerResponses);
-
-//             // Retire l'élément de l'affichage
-//             menuCoverDialogue.removeChild(responseText);
-//         });
-
-//         menuCoverDialogue.addChild(responseText); 
-//     });
-// }
-
-// // METHODE POUR METTRE A JOUR LA POSITION DES REPONSES APRES SUPPRESSION (DECALAGE DES REPONSES)
-
-// function refreshResponses(menuCoverDialogue, playerResponses) {
-//     menuCoverDialogue.removeChildren(); // Retirer tous les enfants pour réajuster tout
-//     playerResponses.forEach((response, index) => {
-//         const responseText = new PIXI.Text(response.text, {
-//             fontFamily: 'arial',
-//             fontSize: 25,
-//             fill: '#772a76',
-//             stroke: 'black',
-//             strokeThickness: 6,
-//             wordWrap: true,
-//             wordWrapWidth: 800,
-//             lineHeight: 40
-//         });
-
-//         responseText.interactive = true;
-//         responseText.x = 0;
-//         responseText.y = index * 40;
-
-//         responseText.on('pointerover', () => {
-//             responseText.style.fill = '#b23fb1';
-//         });
-
-//         responseText.on('pointerout', () => {
-//             responseText.style.fill = '#772a76';
-//         });
-
-//         responseText.on('pointerdown', () => {
-//             // Exécute l'action associée
-//             response.action();
-
-//             // Supprime la réponse du tableau
-//             const responseIndex = playerResponses.indexOf(response);
-//             if (responseIndex !== -1) {
-//                 playerResponses.splice(responseIndex, 1);
-//             }
-
-//             // Retire l'élément de l'affichage
-//             menuCoverDialogue.removeChild(responseText);
-
-//             // Recalcule la position des réponses restantes
-//             refreshResponses(menuCoverDialogue, playerResponses);
-//         });
-
-//         menuCoverDialogue.addChild(responseText);
-//     });
-// }
 
 
 // METHODE POUR SKIPPER UNE LIGNE DE DIALOGUE

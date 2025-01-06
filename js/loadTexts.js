@@ -32,6 +32,8 @@ export async function loadTexts(sprites) {
     const wakeUpResponses = [
         {
             text: "Qui es-tu ?",
+            reset: true,
+            exit: false,
             action: () => {
                 if (responseText) {
                     responseText.destroy();
@@ -54,6 +56,8 @@ export async function loadTexts(sprites) {
         },
         {
             text: "Je suis ici pour voir un portfolio, qu'as-tu à me montrer ?",
+            reset: true,
+            exit: false,
             action: () => {
                 if (responseText) {
                     responseText.destroy();
@@ -75,6 +79,8 @@ export async function loadTexts(sprites) {
         },
         {
             text: "Pourquoi je suis encore ici ?",
+            reset: true,
+            exit: false,
             action: () => {
                 if (responseText) {
                     responseText.destroy();
@@ -96,6 +102,8 @@ export async function loadTexts(sprites) {
         },
         {
             text: "Bye bye zobi",
+            reset: true,
+            exit: true,
             action: () => {
                 if (responseText) {
                     responseText.destroy();
@@ -107,14 +115,15 @@ export async function loadTexts(sprites) {
                 responseText.y = guybrushSO.y - guybrushSO.height;
                 houseContainer.addChild(responseText);
                 // Remove les réponses pour éviter les comportements inattendus
-                menuCoverDialogue.removeChild(wakeUpResponses);
-                menuContainer.removeChild(menuCoverDialogue);
+                // menuCoverDialogue.removeChild(wakeUpResponses);
+                // menuContainer.removeChild(menuCoverDialogue);
 
                 setTimeout(() => {
                     if (responseText) {
                         responseText.destroy();
                         responseText = null;
                     }
+                    // displayResponses(menuCoverDialogue, wakeUpResponses, dialogueStyle);
                 }, 2000);
         },
     }
@@ -128,6 +137,8 @@ export async function loadTexts(sprites) {
         startDialogue,
         wakeUpResponses,
         responseStyle,
+        dialogueStyle,
+        dialogueStyle2,
     };
 
 }
