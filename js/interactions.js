@@ -170,6 +170,12 @@ function walkRight(positionFactor) {
 
 /////////////////////////////// MISC METHODS ///////////////////////////////
 
+// COPIE DE LA METHODE TEXTCONFIG
+    function textConfig(textContent, style) {
+        const guybrushText = new PIXI.Text(textContent, style);
+        guybrushText.anchor.set(0.5);
+        return guybrushText; 
+    }
 
 // METHODE POUR POSITIONNER UN SPRITE
  function setPosition(sprite, xPos, yPos) {
@@ -199,12 +205,7 @@ function textFollowSprite(sprite, textObject) {
 function displayResponses(menuCoverDialogue, playerResponses, style) {
 
     // Dupliquer le tableau de réponses pour le réinitialiser plus tard
-    // const originalResponses = [...playerResponses];
-    // const originalResponses = playerResponses.map(response => ({ ...response }));
-    // MIEUX : STRUCTURED CLONE
-    // const originalResponses = structuredClone(playerResponses);
-    // LODASH Deep clone
-    const originalResponses = _.cloneDeep(playerResponses);
+    const originalResponses = [...playerResponses];
 
     // On commence par vider tous les éléments textes (indispensable pour pas créer des doublons de réponses car la fonction va être réappelée à chaque fois qu'une réponse est cliquée, sauf la réponse exit)
     menuCoverDialogue.removeChildren();
@@ -214,7 +215,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style) {
             const response = playerResponses[i];
             const index = i;
 
-            const responseText = new PIXI.Text(response.text, style);
+            let responseText = new PIXI.Text(response.text, style);
             menuCoverDialogue.addChild(responseText);
             responseText.interactive = true;
             responseText.x = 0;
@@ -228,7 +229,37 @@ function displayResponses(menuCoverDialogue, playerResponses, style) {
             });
             responseText.on('pointerdown', () => {
                 // On enclenche l'action de l'objet
-                response.action();
+                // response.action();
+                    if (responseText) {
+                        responseText.destroy();
+                        responseText = null;
+                    }
+                    // responseText = textConfig(responseText.guybrushResponse, dialogueStyle);
+                    // responseText.zIndex = 4;
+                    // responseText.x = guybrushSO.x;
+                    // responseText.y = guybrushSO.y - guybrushSO.height;
+                    
+                    // setTimeout(() => {
+                    //     if (responseText) {
+                    //         responseText.destroy();
+                    //         responseText = null;
+                    //     }
+                    // }, 2000);
+
+                    // Créer une nouvelle réponse affichant `guybrushResponse`
+                    const guybrushResponseText = new PIXI.Text(response.guybrushResponse, dialogueStyle);
+                    guybrushResponseText.zIndex = 4;
+                    guybrushResponseText.x = guybrushSO.x;
+                    guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
+
+                    houseContainer.addChild(guybrushResponseText);
+
+                    // Supprimer la réponse après un délai
+                    setTimeout(() => {
+                        if (guybrushResponseText) {
+                            guybrushResponseText.destroy();
+                        }
+                    }, 2000);
 
                 // Si propriété `exit: true`, réinitialiser les réponses et quitter
                 if (response.exit) {

@@ -32,101 +32,28 @@ export async function loadTexts(sprites) {
     const wakeUpResponses = [
         {
             text: "Qui es-tu ?",
+            guybrushResponse: "Moi c'est Romain Cabanis, enchanté. Ou du moins son avatar",
             reset: true,
             exit: false,
-            action: () => {
-                if (responseText) {
-                    responseText.destroy();
-                    responseText = null;
-                }
-                
-                responseText = textConfig("Ok !", dialogueStyle);
-                responseText.zIndex = 4;
-                responseText.x = guybrushSO.x;
-                responseText.y = guybrushSO.y - guybrushSO.height;
-                houseContainer.addChild(responseText);
-
-                setTimeout(() => {
-                    if (responseText) {
-                        responseText.destroy();
-                        responseText = null;
-                    }
-                }, 2000);
-            },
         },
         {
             text: "Je suis ici pour voir un portfolio, qu'as-tu à me montrer ?",
+            guybrushResponse: "Attends je vais dérouler l'écran tu vas comprendre",
             reset: true,
             exit: false,
-            action: () => {
-                if (responseText) {
-                    responseText.destroy();
-                    responseText = null;
-                }
-                responseText = textConfig("Rien à foutre !", dialogueStyle);
-                responseText.zIndex = 4;
-                responseText.x = guybrushSO.x;
-                responseText.y = guybrushSO.y - guybrushSO.height;
-                houseContainer.addChild(responseText);
-                
-                setTimeout(() => {
-                    if (responseText) {
-                        responseText.destroy();
-                        responseText = null;
-                    }
-                }, 2000);
-            },
         },
         {
-            text: "Pourquoi je suis encore ici ?",
+            text: "Etrange comme Portfolio, pourquoi ça ressemble à un jeu vidéo ?",
+            guybrushResponse: "C'est pas tes oignons",
             reset: true,
             exit: false,
-            action: () => {
-                if (responseText) {
-                    responseText.destroy();
-                    responseText = null;
-                }
-                responseText = textConfig("Attends tu plaisantes ? tu débarques chez moi et tu te permets de dire ça!", dialogueStyle);
-                responseText.zIndex = 4;
-                responseText.x = guybrushSO.x;
-                responseText.y = guybrushSO.y - guybrushSO.height;
-                houseContainer.addChild(responseText);
-
-                setTimeout(() => {
-                    if (responseText) {
-                        responseText.destroy();
-                        responseText = null;
-                    }
-                }, 2000);
-            },
         },
         {
             text: "Bye bye zobi",
+            guybrushResponse: "Ouais ouais à plus tard",
             reset: true,
             exit: true,
-            action: () => {
-                if (responseText) {
-                    responseText.destroy();
-                    responseText = null;
-                }
-                responseText = textConfig("C\'est ça, à plus tard", dialogueStyle);
-                responseText.zIndex = 4;
-                responseText.x = guybrushSO.x;
-                responseText.y = guybrushSO.y - guybrushSO.height;
-                houseContainer.addChild(responseText);
-                // Remove les réponses pour éviter les comportements inattendus
-                // menuCoverDialogue.removeChild(wakeUpResponses);
-                // menuContainer.removeChild(menuCoverDialogue);
-
-                setTimeout(() => {
-                    if (responseText) {
-                        responseText.destroy();
-                        responseText = null;
-                    }
-                    // displayResponses(menuCoverDialogue, wakeUpResponses, dialogueStyle);
-                }, 2000);
-        },
-    }
+        }
     ];
 
 
