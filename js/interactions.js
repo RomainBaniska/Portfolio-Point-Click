@@ -75,7 +75,8 @@ export async function interactions(app, sprites, texts) {
                                     await skipDialogue(houseContainer, guybrushSO, wakeUpText, 4000); 
 
                                     // TEST RESPONSES ZONE TEST
-                                     await displayResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
+                                     await initResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
+                                     
                                     
                                     // MARK ANIMATION AS COMPLETED
                                     wakeUpAnimationCompleted = true;
@@ -115,8 +116,8 @@ export async function interactions(app, sprites, texts) {
             menuContainer.addChild(menuCoverDialogue);
             console.log("Dialogue réenclenché");
 
-            displayResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
-
+            initResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
+            
             setTimeout(() => {
                 spriteSwap(houseContainer, guybrushSOT, guybrushSO);
             }, 2000);
@@ -170,13 +171,6 @@ function walkRight(positionFactor) {
 
 /////////////////////////////// MISC METHODS ///////////////////////////////
 
-// COPIE DE LA METHODE TEXTCONFIG
-    function textConfig(textContent, style) {
-        const guybrushText = new PIXI.Text(textContent, style);
-        guybrushText.anchor.set(0.5);
-        return guybrushText; 
-    }
-
 // METHODE POUR POSITIONNER UN SPRITE
  function setPosition(sprite, xPos, yPos) {
     sprite.x = houseSprite.width * xPos;
@@ -198,14 +192,21 @@ function textFollowSprite(sprite, textObject) {
 }
 
 
+function initResponses(menuCoverDialogue, playerResponses, style) {
+    // Effectuer une copie profonde à l'initialisation
+    // const originalResponses = playerResponses.map(response => ({ ...response }));
+    const originalResponses = structuredClone(playerResponses);
+
+    // à ce stade, originalResponses est BIEN le clone de playerResponses, si on essaye de changer la valeur de playerresponse ça reste la même
+    console.log("originalResponses dans displayResponses : ", originalResponses);
 
 
+    // Appeler la méthode d'affichage
+    displayResponses(menuCoverDialogue, playerResponses, style, originalResponses);
+}
 
 // METHODE POUR AFFICHER LES REPONSES DU JOUEUR - TABLEAU EN PARAMETRE
-function displayResponses(menuCoverDialogue, playerResponses, style) {
-
-    // Dupliquer le tableau de réponses pour le réinitialiser plus tard
-    const originalResponses = [...playerResponses];
+function displayResponses(menuCoverDialogue, playerResponses, style, originalResponses) {
 
     // On commence par vider tous les éléments textes (indispensable pour pas créer des doublons de réponses car la fonction va être réappelée à chaque fois qu'une réponse est cliquée, sauf la réponse exit)
     menuCoverDialogue.removeChildren();
@@ -215,6 +216,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style) {
             const response = playerResponses[i];
             const index = i;
 
+            // Affiche les réponses que le joueur peut sélectionner
             let responseText = new PIXI.Text(response.text, style);
             menuCoverDialogue.addChild(responseText);
             responseText.interactive = true;
@@ -228,58 +230,34 @@ function displayResponses(menuCoverDialogue, playerResponses, style) {
                 responseText.style.fill = '#772a76';
             });
             responseText.on('pointerdown', () => {
-                // On enclenche l'action de l'objet
-                // response.action();
-                    if (responseText) {
-                        responseText.destroy();
-                        responseText = null;
+                // Configuration et ajouts des réponses que va répondre Guybrush
+                const guybrushResponseText = new PIXI.Text(response.guybrushResponse, dialogueStyle);
+                guybrushResponseText.anchor.set(0.5);
+                guybrushResponseText.zIndex = 4;
+                guybrushResponseText.x = guybrushSO.x;
+                guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
+                houseContainer.addChild(guybrushResponseText);
+
+                // Supprimer la réponse après un délai
+                setTimeout(() => {
+                    if (guybrushResponseText) {
+                        guybrushResponseText.destroy();
                     }
-                    // responseText = textConfig(responseText.guybrushResponse, dialogueStyle);
-                    // responseText.zIndex = 4;
-                    // responseText.x = guybrushSO.x;
-                    // responseText.y = guybrushSO.y - guybrushSO.height;
-                    
-                    // setTimeout(() => {
-                    //     if (responseText) {
-                    //         responseText.destroy();
-                    //         responseText = null;
-                    //     }
-                    // }, 2000);
+                }, 2000);
 
-                    // Créer une nouvelle réponse affichant `guybrushResponse`
-                    const guybrushResponseText = new PIXI.Text(response.guybrushResponse, dialogueStyle);
-                    guybrushResponseText.zIndex = 4;
-                    guybrushResponseText.x = guybrushSO.x;
-                    guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
-
-                    houseContainer.addChild(guybrushResponseText);
-
-                    // Supprimer la réponse après un délai
-                    setTimeout(() => {
-                        if (guybrushResponseText) {
-                            guybrushResponseText.destroy();
-                        }
-                    }, 2000);
-
-                // Si propriété `exit: true`, réinitialiser les réponses et quitter
+                // Si la réponse du JOUEUR a une propriété "exit: true", réinitialiser les réponses et quitter
                 if (response.exit) {
-
                     // Vide le menuContainer du menuCoverDialogue
                     menuContainer.removeChild(menuCoverDialogue);
+                    // Rerempli le tableau "playerResponses" par son clone qui n'a pas bougé
                     playerResponses.splice(0, playerResponses.length, ...originalResponses);
-
-                    console.log(playerResponses);
-                    console.log(originalResponses);
                     return; 
                 }
-
-                // Supprime la réponse du tableau et on retire son affichage
+                // Si la réponse du JOUEUR n'a pas de propriété "exit: true", on continue la discussion
+                // Supprime la réponse cliquée du tableau playerResponses et on retire son affichage
                 playerResponses.splice(index, 1);
-                // menuCoverDialogue.removeChild(responseText);
-
                 // Décale les autres éléments vers le haut
-                displayResponses(menuCoverDialogue, playerResponses, style);
-
+                displayResponses(menuCoverDialogue, playerResponses, style, originalResponses);
             });
     }
 }

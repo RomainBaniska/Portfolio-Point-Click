@@ -34,25 +34,25 @@ export async function loadTexts(sprites) {
             text: "Qui es-tu ?",
             guybrushResponse: "Moi c'est Romain Cabanis, enchanté. Ou du moins son avatar",
             reset: true,
-            exit: false,
+            exit: false
         },
         {
             text: "Je suis ici pour voir un portfolio, qu'as-tu à me montrer ?",
             guybrushResponse: "Attends je vais dérouler l'écran tu vas comprendre",
             reset: true,
-            exit: false,
+            exit: false
         },
         {
             text: "Etrange comme Portfolio, pourquoi ça ressemble à un jeu vidéo ?",
             guybrushResponse: "C'est pas tes oignons",
             reset: true,
-            exit: false,
+            exit: false
         },
         {
             text: "Bye bye zobi",
             guybrushResponse: "Ouais ouais à plus tard",
             reset: true,
-            exit: true,
+            exit: true
         }
     ];
 
