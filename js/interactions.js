@@ -92,15 +92,6 @@ export async function interactions(app, sprites, texts) {
                                     };
                                 });
 
-    // BLANK SCREEN UNROLLING ON CLICK
-    toilePoulie.on('click', () => {
-        houseContainer.removeChild(toilePoulie);
-        houseContainer.addChild(toilePoulieRun);
-        toilePoulieRun.animationSpeed = 0.035;
-        toilePoulieRun.interactive = true;
-        toilePoulieRun.gotoAndPlay(0);
-        toilePoulieRun.loop = false;
-    });
 
    
     // Si on veut relancer le dialogue avec Romain après l'intro
@@ -168,6 +159,17 @@ function walkRight(positionFactor) {
             });
         });
 }
+
+// METHODE POUR DEROULER L'ECRAN DE PROJECTION
+function unroll() {
+    houseContainer.removeChild(toilePoulie);
+        houseContainer.addChild(toilePoulieRun);
+        toilePoulieRun.animationSpeed = 0.035;
+        toilePoulieRun.interactive = true;
+        toilePoulieRun.gotoAndPlay(0);
+        toilePoulieRun.loop = false;
+}
+toilePoulie.on('click', unroll);
 
 /////////////////////////////// MISC METHODS ///////////////////////////////
 
@@ -248,7 +250,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                         // et l'animation
                         spriteSwap(houseContainer, guybrushSOT, guybrushSO); 
                     }
-                }, 4000);
+                }, 3000);
 
                 // Si la réponse du JOUEUR a une propriété "exit: true", réinitialiser les réponses et quitter
                 if (response.exit) {
@@ -259,6 +261,13 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                     return; 
                 }
                 // Si la réponse du JOUEUR n'a pas de propriété "exit: true", on continue la discussion
+
+                if (response.unrollScreen) {
+                    setTimeout(() => {
+                        unroll();  
+                    }, 3000);
+                }
+
                 // Supprime la réponse cliquée du tableau playerResponses et on retire son affichage
                 playerResponses.splice(index, 1);
                 // Décale les autres éléments vers le haut

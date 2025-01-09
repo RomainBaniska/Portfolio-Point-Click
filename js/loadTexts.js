@@ -39,6 +39,7 @@ export async function loadTexts(sprites) {
         {
             text: "Je suis ici pour voir un portfolio, qu'as-tu à me montrer ?",
             guybrushResponse: "Attends je vais dérouler l'écran tu vas comprendre",
+            unrollScreen: true,
             reset: true,
             exit: false
         },
