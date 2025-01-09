@@ -108,11 +108,10 @@ export async function interactions(app, sprites, texts) {
         if (menuButton6.isActive) {
             spriteSwap(houseContainer, guybrushSO, guybrushSOT);
             guybrushSOT.play();
-            guybrushSOT.x = guybrushSO.x + 10;
+            guybrushSOT.x = guybrushSO.x + 7;
             guybrushSOT.y = guybrushSO.y;
             // On enclenche le dialogue ("Oui ?")
-            textFollowSprite(guybrushSOT, startDialogue);  
-
+            textFollowSprite(guybrushSOT, startDialogue); 
             menuContainer.addChild(menuCoverDialogue);
             console.log("Dialogue réenclenché");
 
@@ -120,6 +119,7 @@ export async function interactions(app, sprites, texts) {
             
             setTimeout(() => {
                 spriteSwap(houseContainer, guybrushSOT, guybrushSO);
+                houseContainer.removeChild(startDialogue); 
             }, 2000);
         }  
         console.log("NOOO !");
@@ -198,7 +198,7 @@ function initResponses(menuCoverDialogue, playerResponses, style) {
     const originalResponses = structuredClone(playerResponses);
 
     // à ce stade, originalResponses est BIEN le clone de playerResponses, si on essaye de changer la valeur de playerresponse ça reste la même
-    console.log("originalResponses dans displayResponses : ", originalResponses);
+    // console.log("originalResponses dans displayResponses : ", originalResponses);
 
 
     // Appeler la méthode d'affichage
@@ -236,14 +236,19 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 guybrushResponseText.zIndex = 4;
                 guybrushResponseText.x = guybrushSO.x;
                 guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
-                houseContainer.addChild(guybrushResponseText);
+                houseContainer.addChild(guybrushResponseText)
+                spriteSwap(houseContainer, guybrushSO, guybrushSOT);
+                guybrushSOT.x = guybrushSO.x + 7;
+                guybrushSOT.y = guybrushSO.y;
 
                 // Supprimer la réponse après un délai
                 setTimeout(() => {
                     if (guybrushResponseText) {
                         guybrushResponseText.destroy();
+                        // et l'animation
+                        spriteSwap(houseContainer, guybrushSOT, guybrushSO); 
                     }
-                }, 2000);
+                }, 4000);
 
                 // Si la réponse du JOUEUR a une propriété "exit: true", réinitialiser les réponses et quitter
                 if (response.exit) {

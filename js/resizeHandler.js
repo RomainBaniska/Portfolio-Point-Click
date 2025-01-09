@@ -115,7 +115,7 @@ function adjustMenuButtonPosition(button, column, row) {
     setMovingSpriteScale(guybrushSO, 850, 1250);
 
     // Position qui parle sur ordi
-    setMovingSpriteScale(guybrushSOT, 850, 1250);
+    setMovingSpriteScale(guybrushSOT, 830, 1230);
 
     // Position idle qui tend la main à gauche
     setMovingSpriteScale(guybrushIUL, 850, 570);
