@@ -1,6 +1,6 @@
 export async function interactions(app, sprites, texts) {
 
-    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9 } = sprites;
+    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9 } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -231,7 +231,33 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
             responseText.on('pointerout', () => {
                 responseText.style.fill = '#772a76';
             });
-            responseText.on('pointerdown', () => {
+            responseText.on('pointerdown', async () => {
+                // Promesse
+                await new Promise((resolve) => {
+                // On masque les réponses avec un overlay
+                menuContainer.addChild(menuCoverDialogueOverlay);
+
+                // Une fois la réponse cliquée (pointerdown), le joueur répète la réponse
+                const playerResponsdingText = new PIXI.Text(response.text, dialogueStyle2);
+                playerResponsdingText.anchor.set(0.5);
+                playerResponsdingText.zIndex = 4;
+                playerResponsdingText.x = houseSprite.x + (houseSprite.width / 2);
+                playerResponsdingText.y = houseSprite.y + (houseSprite.height * 0.3);
+                houseContainer.addChild(playerResponsdingText)
+                // Supprimer la réponse après un délai
+                setTimeout(() => {
+                    if (playerResponsdingText) {
+                        playerResponsdingText.destroy();
+                        menuContainer.removeChild(menuCoverDialogueOverlay);
+                    }
+                    resolve();
+                }, 2000);
+                });
+
+                // 2eme promesse
+                await new Promise((resolve) => {
+                // On masque les réponses avec un overlay
+                menuContainer.addChild(menuCoverDialogueOverlay);
                 // Configuration et ajouts des réponses que va répondre Guybrush
                 const guybrushResponseText = new PIXI.Text(response.guybrushResponse, dialogueStyle);
                 guybrushResponseText.anchor.set(0.5);
@@ -248,9 +274,13 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                     if (guybrushResponseText) {
                         guybrushResponseText.destroy();
                         // et l'animation
-                        spriteSwap(houseContainer, guybrushSOT, guybrushSO); 
-                    }
+                        spriteSwap(houseContainer, guybrushSOT, guybrushSO);
+                        // Et bien sûr l'Overlay
+                        menuContainer.removeChild(menuCoverDialogueOverlay); 
+                    } 
+                    resolve();
                 }, 3000);
+            });
 
                 // Si la réponse du JOUEUR a une propriété "exit: true", réinitialiser les réponses et quitter
                 if (response.exit) {
@@ -265,7 +295,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 if (response.unrollScreen) {
                     setTimeout(() => {
                         unroll();  
-                    }, 3000);
+                    }, 1000);
                 }
 
                 // Supprime la réponse cliquée du tableau playerResponses et on retire son affichage

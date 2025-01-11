@@ -156,7 +156,9 @@ export async function loadSprites(app) {
      const menuCoverDialogueAsset = await PIXI.Assets.load('../sprites/cover menu dialogue.jpg');
      const menuCoverDialogue = new PIXI.Sprite(menuCoverDialogueAsset);
      menuCoverDialogue.zIndex = 3;
-    //  menuContainer.addChild(menuCoverDialogue);
+    //  Surcouche du menuCoverDialogue
+    const menuCoverDialogueOverlay = new PIXI.Sprite(menuCoverDialogueAsset);
+    menuCoverDialogueOverlay.zIndex = 10;
      
      // MENU BUTTONS Textures
      const menuButtonSprite = await displaySpriteButton('MENU/inactive/button.json');
@@ -405,6 +407,7 @@ export async function loadSprites(app) {
         menuButton9,
         // MENU DIALOGUE
         menuCoverDialogue,
+        menuCoverDialogueOverlay
     };
 }
 
