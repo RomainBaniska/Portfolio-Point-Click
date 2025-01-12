@@ -12,6 +12,7 @@ export async function loadSprites(app) {
         sprite.anchor.set(0.5);
         sprite.sortableChildren = true;
         sprite.zIndex = 4;
+        // Ajout du comportement "clicked" en "false" par défaut
         return sprite;
     }
 
@@ -58,6 +59,7 @@ export async function loadSprites(app) {
     const guybrushLD = await displaySprite('LAYDOWN/lay down.json', 0.05);
     guybrushLD.play();
     guybrushLD.interactive = true;
+    guybrushLD.clicked = false;
 
     // GET UP / AWAKENING
     const guybrushGU = await displaySprite('GETUP/get up.json', 0.12);
@@ -67,6 +69,7 @@ export async function loadSprites(app) {
     // SIT ORDI
     const guybrushSO = await displaySprite('SITORDI/sitordi.json', 0.12);
     guybrushSO.play();
+    guybrushSO.clicked = false;
 
     // SIT ORDI TALK
     const guybrushSOT = await displaySprite('SITORDI/sitorditalk.json', 0.12);
@@ -89,6 +92,9 @@ export async function loadSprites(app) {
     // ordi.gotoAndPlay(0); 
     ordi.gotoAndStop(0); 
     ordi.interactive = true;
+    ordi.clicked = false;
+    ordiRun.interactive = true;
+    ordiRun.clicked = false;
     houseContainer.addChild(ordi);
 
     // BUREAU
@@ -102,6 +108,7 @@ export async function loadSprites(app) {
     const reveil = await displaySprite('ELEMENTS/tablereveil/reveil.json', 0.12);
     reveil.play(0);
     reveil.interactive = true;
+    reveil.interactive = false;
     houseContainer.addChild(reveil);
     reveil.zIndex = 5;
     const table = await displaySprite('ELEMENTS/tablereveil/table.json', 0.12);
@@ -128,8 +135,10 @@ export async function loadSprites(app) {
     const toilePoulieRun = await displaySprite('ELEMENTS/toilepoulie/toilepoulieRun.json', 0.12);
     toilePoulie.gotoAndStop(0); 
     toilePoulie.interactive = true;
+    toilePoulie.interactive = false;
     toilePoulie.zIndex = 3;
     toilePoulieRun.zIndex = 3;
+    toilePoulieRun.interactive = false;
     houseContainer.addChild(toilePoulie);
 
 
@@ -368,7 +377,9 @@ export async function loadSprites(app) {
     spriteActionText(reveil, "réveil matin");
     spriteActionText(table, "table de nuit");
     // spriteActionText(gamingChair, "chaise de bureau");
+
     
+
 
     return {
         houseContainer,

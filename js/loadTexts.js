@@ -5,7 +5,17 @@ export async function loadTexts(sprites) {
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Sprites
-    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue } = sprites;
+    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue,
+        menuButton,
+        menuButton2,
+        menuButton3,
+        menuButton4,
+        menuButton5,
+        menuButton6,
+        menuButton7,
+        menuButton8,
+        menuButton9,
+     } = sprites;
 
     // Constantes style texte
     // Guybrush Style
@@ -56,6 +66,44 @@ export async function loadTexts(sprites) {
             exit: true
         }
     ];
+
+    // REPONSES DU JOUEUR LORS DE CLICK SUR UN SPRITE AVEC ACTION
+
+    const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9];
+    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun];
+
+    interactableSprites.forEach(sprite => {
+        sprite.clicked = false;
+    
+        sprite.on('pointerdown', () => {
+            sprite.clicked = true;
+            console.log("sprite cliqué");
+            spriteActionPlayerText();
+            textConfig("",dialogueStyle2)
+
+            setTimeout(() => {
+            sprite.clicked = false;
+            }, 100);
+        });
+    });
+
+    function spriteActionPlayerText() {
+        // Si un bouton d'action (n'importe lequel) est true et qu'on clique sur un sprite
+        if ((menuButtonsArray.some(button => button.isActive)) && interactableSprites.some(sprite => sprite.clicked)) {
+        // Comportement du joueur par défaut "Non, ça ne marchera pas"
+            console.log("Non, ça ne marchera pas");
+            let negativeResponse = new PIXI.Text("Non, ça ne marchera pas", dialogueStyle2);
+            negativeResponse.anchor.set(0.5);
+            negativeResponse.x = houseSprite.x + (houseSprite.width / 2);
+            negativeResponse.y = houseSprite.y + (houseSprite.height * 0.3);
+            houseContainer.addChild(negativeResponse);
+            setTimeout(() => {
+                houseContainer.removeChild(negativeResponse)
+            }, 2000);
+        } else {
+            console.log("Aucun bouton n'est actif.");
+        }
+    }
 
 
     return {
