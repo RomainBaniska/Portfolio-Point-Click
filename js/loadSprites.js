@@ -25,7 +25,7 @@ export async function loadSprites(app) {
     app.renderer.events.cursorStyles.default = "none";
 
     // HOUSE SPRITE
-    const houseAsset = await PIXI.Assets.load('../sprites/homeImproved2.png');
+    const houseAsset = await PIXI.Assets.load('../sprites/homeImproved3.png');
     const houseSprite = new PIXI.Sprite(houseAsset);
     houseContainer.addChild(houseSprite);
 
@@ -105,17 +105,16 @@ export async function loadSprites(app) {
     houseContainer.addChild(desk);
 
     // TABLE DE NUIT ET REVEIL
-    const reveil = await displaySprite('ELEMENTS/tablereveil/reveil.json', 0.12);
-    reveil.play(0);
-    reveil.interactive = true;
-    reveil.interactive = false;
-    houseContainer.addChild(reveil);
-    reveil.zIndex = 5;
     const table = await displaySprite('ELEMENTS/tablereveil/table.json', 0.12);
     table.play(0);
     table.interactive = true;
     houseContainer.addChild(table);
     table.zIndex = 5;
+    const reveil = await displaySprite('ELEMENTS/tablereveil/reveil.json', 0.12);
+    reveil.play(0);
+    reveil.interactive = true;
+    houseContainer.addChild(reveil);
+    reveil.zIndex = 6;
 
     // GAMINGCHAIR
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
@@ -377,6 +376,27 @@ export async function loadSprites(app) {
     spriteActionText(reveil, "réveil matin");
     spriteActionText(table, "table de nuit");
     // spriteActionText(gamingChair, "chaise de bureau");
+
+    // On va assigner un ensemble de propriétés aux sprites clés pour les interactions (à repositionner dans chaque élément de sprite)
+    guybrushSO.name = "guybrushSO";
+    guybrushLD.name = "guybrushLD";
+    toilePoulie.name = "toilePoulie";
+    toilePoulieRun.name = "toilePoulieRun";
+    reveil.name = "reveil";
+    ordi.name = "ordi";
+    ordiRun.name = "ordiRun";
+
+    // Idem pour les Boutons :
+    // Boutons
+    menuButton.action = "donner";
+    menuButton2.action = "ouvrir";
+    menuButton3.action = "fermer";
+    menuButton4.action = "prendre";
+    menuButton5.action = "regarder";
+    menuButton6.action = "parler";
+    menuButton7.action = "utiliser";
+    menuButton8.action = "pousser";
+    menuButton9.action = "tirer";
 
     
 
