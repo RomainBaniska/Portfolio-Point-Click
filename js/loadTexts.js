@@ -4,8 +4,14 @@ export async function loadTexts(sprites) {
     // Promesse "délai"
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+    // Heure actuelle
+    const currentDate = new Date();
+    const currentHour =  currentDate.getHours();
+    const currentMinutes =  currentDate.getMinutes();
+    const currentTimeHourMinutes = `${currentHour}:${currentMinutes}`;
+
     // Sprites
-    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue,
+    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue,
         menuButton,
         menuButton2,
         menuButton3,
@@ -28,6 +34,7 @@ export async function loadTexts(sprites) {
     function textConfig(textContent, style) {
         const guybrushText = new PIXI.Text(textContent, style);
         guybrushText.anchor.set(0.5);
+        guybrushText.zIndex = 99;
         return guybrushText; 
     }
 
@@ -70,45 +77,65 @@ export async function loadTexts(sprites) {
     // REPONSES DU JOUEUR LORS DE CLICK SUR UN SPRITE AVEC ACTION
 
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; // Pas de menuButton5
-    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun];
+    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair];
     
     const spriteBehaviors = {
         guybrushSO: {
-            regarder: "C'est un gars plutôt charmant.",
+            regarder: ["Il semble être le maître de ces lieux", "De toute évidence il est extrêmement musclé", "Pourtant, je ne vois aucune haltère dans cette maison", "Curieux..."],
             parler: ""
         },
         toilePoulieRun: {
             prendre: "Si je lui déchire son petit home cinéma, il risque de pas être très content.",
             regarder: [
-            "Voyons ce portfolio d'un peu plus près...",
-            "On dirait qu'il y a beaucoup de détails !",
-            "Il semble vraiment travailler dur sur ce projet."
+            "Voyons voir...",
+            "Hey Romain, si j'ai une question tu es là ?"
         ]
         },
         ordiRun: {
             ouvrir: "L'ordinateur s'allume avec un bruit de ventilateur.",
             utiliser: "Tu lances une application qui affiche : 'Portfolio'.",
             fermer: "Pas sûr qu'il apprécie",
-            regarder: "Je rêve ou il code sur un minitel ?",
+            regarder: "Sous l'écran il y a une interstice qui semble pouvoir accueillir une disquette",
             prendre: [
                 "Trimballer cette épave ? Non merci.",
-                "Cette machine a au moins 40 ans, même un Minitel me semble plus performant",
-                "Il parvient vraiment à coder là-dessus ??"
+                "Cette machine date de Mathusalem, même sur leboncoin j'en tire pas 40 balles",
+                "Comment fait-il pour coder là-dessus ??"
             ]
         },
         ordi: {
             utiliser: "Tu lances une application qui affiche : 'Portfolio'.",
             ouvrir: "L'ordinateur s'allume avec un bruit de ventilateur.",
             fermer: "L'ordinateur est déjà éteint",
-            regarder: "L'ordinateur est éteint. On dirait qu'il y a une petite interstice pouvant accueillir une disquette",
+            regarder: ["L'ordinateur est éteint", "Sous l'écran il y a une interstice qui semble pouvoir accueillir une disquette", "Mais de quand date ce truc ?"],
             prendre:
             [
                 "Trimballer cette épave ? Non merci.",
-                "Cette machine a au moins 40 ans, même un Minitel semble plus performant",
-                "Il parvient vraiment à coder là-dessus ??"
+                "Cette machine date de Mathusalem, même sur leboncoin j'en tire pas 40 balles",
+                "Comment fait-il pour coder là-dessus ??"
             ]
+        },
+        reveil: {
+            utiliser: "Eh t'as assez ronflé coco !",
+            regarder:  [
+                `Le réveil-matin indique ${currentTimeHourMinutes}`,
+                "L'alarme est réglée pour sonner à 9h du matin",
+                "Eh ben mon pote c'est pas en te levant à cette heure que tu vas trouver du boulot"
+            ]
+        },
+        gamingChair: {
+            utiliser: [
+                "Non merci",
+                "Savoir que l'individu qui habite cette cabane passe littéralement TOUTES ses journées les fesses collées sur ce fauteuil ne me tente pas du tout."
+            ],
+            regarder:  [
+                "À en juger par son allure, la bête n'est plus toute jeune",
+                "Le dossier du fauteuil est tellement usé qu'il en tombe des miettes de skaï sur le sol"
+            ],
+            pousser:  "Je le trouve déjà très bien là où il est",
+            tirer:  "Je le trouve déjà très bien là où il est",
         }
     };
+
 
     interactableSprites.forEach(sprite => {
         sprite.clicked = false;
@@ -118,7 +145,6 @@ export async function loadTexts(sprites) {
             console.log("sprite cliqué");
 
             spriteActionPlayerText();
-            textConfig("",dialogueStyle2)
 
             setTimeout(() => {
             sprite.clicked = false;
@@ -136,6 +162,7 @@ export async function loadTexts(sprites) {
             // Récupère le comportement spécifique pour ce sprite et cette action
             const spriteName = clickedSprite.name;
             const action = activeButton.action;
+
             
             // (lors du clic) Si on constate que dans l'objet spriteBehaviors, il existe le sprite et qu'il possède une action, alors on affiche cette réponse (ou méthode) 
             if (spriteBehaviors[spriteName] && spriteBehaviors[spriteName][action]) {
@@ -144,14 +171,14 @@ export async function loadTexts(sprites) {
                 // On utilise la fonction pour afficher le texte
                 if (Array.isArray(response)) {
                     // Si c'est une liste de dialogues, les afficher en séquence
-                    displayDialogueSequence(response, 3000);
+                    displayDialogueSequence(response, 4000);
                 } else {
                     // Sinon, afficher un seul dialogue
                     displayDialogue(response, 3000);
                 }
             } else {
                 // Comportement par défaut si aucune action définie
-                displayDialogue("Non, ça ne marchera pas.");
+                displayDialogue("Non, ça ne marchera pas.", 3000);
             }
         } else {
             // console.log("Aucun bouton actif ou aucun sprite cliqué.");
@@ -159,16 +186,27 @@ export async function loadTexts(sprites) {
         }
     }
 
+    
+    let dialogue = null;
     // METHODE QUI AFFICHE LE DIALOGUE DU JOUEUR (A ROMAIN et DANS SA TÊTE)
     function displayDialogue(text, time) {
         return new Promise(resolve => {
-        let dialogue = new PIXI.Text(text, dialogueStyle2);
+
+            if (dialogue) {
+                dialogue.destroy();
+                dialogue = null; 
+                console.log("destroyed");
+            }
+
+        dialogue = new PIXI.Text(text, dialogueStyle2);
         dialogue.anchor.set(0.5);
+        dialogue.zIndex = 99;
         dialogue.x = houseSprite.x + (houseSprite.width / 2);
         dialogue.y = houseSprite.y + (houseSprite.height * 0.3);
         houseContainer.addChild(dialogue);
         setTimeout(() => {
-            houseContainer.removeChild(dialogue);
+            dialogue.destroy();
+            dialogue = null; 
             resolve();
         }, time);
     });

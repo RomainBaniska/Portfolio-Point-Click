@@ -120,7 +120,7 @@ export async function loadSprites(app) {
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
     const gamingChair = new PIXI.Sprite(gcAsset);
     gamingChair.anchor.set(0.5); 
-    // gamingChair.interactive = true;
+    gamingChair.interactive = true;
     houseContainer.addChild(gamingChair);
     // GAMINGCHAIR Armrest
     const gcARAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchairarmrest.png');
@@ -371,6 +371,7 @@ export async function loadSprites(app) {
     spriteActionText(guybrushSO, "Romain");
     spriteActionText(ordi, "ordinateur");
     spriteActionText(ordiRun, "ordinateur");
+    spriteActionText(gamingChair, "chaise de bureau");
     spriteActionText(toilePoulie, "toile");
     spriteActionText(toilePoulieRun, "toile");
     spriteActionText(reveil, "réveil matin");
@@ -385,6 +386,7 @@ export async function loadSprites(app) {
     reveil.name = "reveil";
     ordi.name = "ordi";
     ordiRun.name = "ordiRun";
+    gamingChair.name = "gamingChair";
 
     // Idem pour les Boutons :
     // Boutons
