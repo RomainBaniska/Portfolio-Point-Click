@@ -150,8 +150,8 @@ export async function loadSprites(app) {
     terminal.anchor.set(0.5, 0);
     terminalbgSprite.zIndex = 10;
     terminal.zIndex = 11;
-    app.stage.addChild(terminalbgSprite);
-    app.stage.addChild(terminal);
+    // app.stage.addChild(terminalbgSprite);
+    // app.stage.addChild(terminal);
 
     // const password = new TextInput({
     //     background: Sprite.from('input.png'),
