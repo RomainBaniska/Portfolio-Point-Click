@@ -2,7 +2,7 @@
 
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun } = sprites;
+    const { houseSprite, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, terminal, terminalbgSprite } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -44,6 +44,16 @@ function adjustCanvasSize() {
     // Position du sprite houseContainer
     houseSprite.x = (screenWidth - houseSprite.width) / 2;
     houseSprite.y = 0;
+
+    // (A DEPLACER) Positionnement du Terminal - Special Screen
+    terminal.x = screenWidth  * 0.5;
+    terminal.y = 0;
+    terminal.height = screenHeight;
+    terminal.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth;
+    terminalbgSprite.x = screenWidth * 0.5;
+    terminalbgSprite.y = 0;
+    terminalbgSprite.height = screenHeight;
+    terminalbgSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
 
     // ACTION MENU
     // Sprite menuContainer : La hauteur occupe 26% de l'écran / même largeur houseContainer

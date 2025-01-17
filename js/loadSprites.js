@@ -25,7 +25,7 @@ export async function loadSprites(app) {
     app.renderer.events.cursorStyles.default = "none";
 
     // HOUSE SPRITE
-    const houseAsset = await PIXI.Assets.load('../sprites/homeImproved3.png');
+    const houseAsset = await PIXI.Assets.load('../sprites/homeImproved2.png');
     const houseSprite = new PIXI.Sprite(houseAsset);
     houseContainer.addChild(houseSprite);
 
@@ -139,6 +139,31 @@ export async function loadSprites(app) {
     toilePoulieRun.zIndex = 3;
     toilePoulieRun.interactive = false;
     houseContainer.addChild(toilePoulie);
+
+    //////////////////////////////////////// SPECIAL SCREENS ////////////////////////////////
+
+    // TERMINAL SCREEN
+    const terminal = await displaySprite('TERMINAL/terminal.json', 0.12);
+    const terminalbgAsset = await PIXI.Assets.load('../sprites/TERMINAL/terminalbg.png');
+    const terminalbgSprite = new PIXI.Sprite(terminalbgAsset);
+    terminalbgSprite.anchor.set(0.5, 0);
+    terminal.anchor.set(0.5, 0);
+    terminalbgSprite.zIndex = 10;
+    terminal.zIndex = 11;
+    app.stage.addChild(terminalbgSprite);
+    app.stage.addChild(terminal);
+
+    // const password = new TextInput({
+    //     background: Sprite.from('input.png'),
+    //     placeholder: 'Enter text',
+    //     padding: {
+    //      top: 11,
+    //      right: 11,
+    //      bottom: 11,
+    //      left: 11
+    //     } // alternatively you can use [11, 11, 11, 11] or [11, 11] or just 11
+    // });
+    // password.zIndex = 99;
 
 
     //////////////////////////////////////// ACTIONS MENU ////////////////////////////////
@@ -440,7 +465,10 @@ export async function loadSprites(app) {
         menuButton9,
         // MENU DIALOGUE
         menuCoverDialogue,
-        menuCoverDialogueOverlay
+        menuCoverDialogueOverlay,
+        // SPECIAL SCREENS
+        terminal,
+        terminalbgSprite
     };
 }
 

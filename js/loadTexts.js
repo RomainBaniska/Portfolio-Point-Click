@@ -92,8 +92,8 @@ export async function loadTexts(sprites) {
         ]
         },
         ordiRun: {
-            ouvrir: "L'ordinateur s'allume avec un bruit de ventilateur.",
-            utiliser: "Tu lances une application qui affiche : 'Portfolio'.",
+            ouvrir: "L'ordinateur est déjà démarré",
+            utiliser: "Voyons voir...",
             fermer: "Pas sûr qu'il apprécie",
             regarder: "Sous l'écran il y a une interstice qui semble pouvoir accueillir une disquette",
             prendre: [
@@ -103,7 +103,7 @@ export async function loadTexts(sprites) {
             ]
         },
         ordi: {
-            utiliser: "Tu lances une application qui affiche : 'Portfolio'.",
+            utiliser: "Je dois d'abord l'allumer",
             ouvrir: "L'ordinateur s'allume avec un bruit de ventilateur.",
             fermer: "L'ordinateur est déjà éteint",
             regarder: ["L'ordinateur est éteint", "Sous l'écran il y a une interstice qui semble pouvoir accueillir une disquette", "Mais de quand date ce truc ?"],

@@ -1,0 +1,46 @@
+{ "frames": {
+   "vieil écran mdp2 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 500, "h": 500 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 500, "h": 500 },
+    "sourceSize": { "w": 500, "h": 500 },
+    "duration": 9000
+   },
+   "vieil écran mdp2 1.aseprite": {
+    "frame": { "x": 500, "y": 0, "w": 500, "h": 500 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 500, "h": 500 },
+    "sourceSize": { "w": 500, "h": 500 },
+    "duration": 50
+   },
+   "vieil écran mdp2 2.aseprite": {
+    "frame": { "x": 1000, "y": 0, "w": 500, "h": 500 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 500, "h": 500 },
+    "sourceSize": { "w": 500, "h": 500 },
+    "duration": 50
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.11-x64",
+  "image": "terminal.png",
+  "format": "RGBA8888",
+  "size": { "w": 1500, "h": 500 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "bg", "opacity": 255, "blendMode": "normal" },
+   { "name": "ordiscreen", "opacity": 255, "blendMode": "normal" },
+   { "name": "dots", "opacity": 255, "blendMode": "normal" },
+   { "name": "enter", "opacity": 255, "blendMode": "normal" },
+   { "name": "enigma", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
