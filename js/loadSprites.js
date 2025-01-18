@@ -132,11 +132,11 @@ export async function loadSprites(app) {
 
     // VERRE D'EAU RENVERSE (ACTION)
     const waterpouring = await displaySprite('ELEMENTS/glasswater/waterpouring.json', 0.13);
-    houseContainer.addChild(waterpouring);
-    waterpouring.play();
+    // houseContainer.addChild(waterpouring);
+    // waterpouring.play();
     waterpouring.zIndex = 7;
-
-
+    // waterpouring.loop = false;
+   
 
 
     // GAMINGCHAIR
