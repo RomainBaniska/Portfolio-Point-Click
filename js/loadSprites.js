@@ -153,17 +153,30 @@ export async function loadSprites(app) {
     // app.stage.addChild(terminalbgSprite);
     // app.stage.addChild(terminal);
 
-    // const password = new TextInput({
-    //     background: Sprite.from('input.png'),
-    //     placeholder: 'Enter text',
-    //     padding: {
-    //      top: 11,
-    //      right: 11,
-    //      bottom: 11,
-    //      left: 11
-    //     } // alternatively you can use [11, 11, 11, 11] or [11, 11] or just 11
-    // });
-    // password.zIndex = 99;
+
+    // QUESTIONMARK & HELP SCREEN
+    const questionMark = await displaySprite('SPECIAL/questionMark.json', 0.12);
+    const questionMarkActive = await displaySprite('SPECIAL/questionMark.json', 0.12);
+    const spriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/questionMark.json');
+    const frames = Object.keys(spriteAsset.textures);
+    questionMark.texture = spriteAsset.textures[frames[0]];
+    questionMarkActive.texture = spriteAsset.textures[frames[1]];
+    questionMark.anchor.set(0.5);
+    questionMark.interactive = true;
+    questionMark.stop();
+    questionMarkActive.anchor.set(0.5);
+    questionMarkActive.interactive = true;
+    questionMarkActive.stop();
+    houseContainer.addChild(questionMark);
+    // houseContainer.addChild(questionMarkActive);
+
+    // HOVER ET CLIC
+    questionMark.on('pointerover', () => {
+        questionMark.texture = questionMarkActive.texture; // Texture de survol
+    });
+    questionMark.on('pointerout', () => {
+        questionMark.texture = spriteAsset.textures[frames[0]]; // Texture initiale
+    });
 
 
     //////////////////////////////////////// ACTIONS MENU ////////////////////////////////
@@ -468,7 +481,9 @@ export async function loadSprites(app) {
         menuCoverDialogueOverlay,
         // SPECIAL SCREENS
         terminal,
-        terminalbgSprite
+        terminalbgSprite,
+        questionMark,
+        questionMarkActive,
     };
 }
 
