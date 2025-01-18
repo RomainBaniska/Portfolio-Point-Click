@@ -11,7 +11,7 @@ export async function loadTexts(sprites) {
     const currentTimeHourMinutes = `${currentHour}:${currentMinutes}`;
 
     // Sprites
-    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue,
+    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater,
         menuButton,
         menuButton2,
         menuButton3,
@@ -77,7 +77,7 @@ export async function loadTexts(sprites) {
     // REPONSES DU JOUEUR LORS DE CLICK SUR UN SPRITE AVEC ACTION
 
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; // Pas de menuButton5
-    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair];
+    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater];
     
     const spriteBehaviors = {
         guybrushSO: {
@@ -121,6 +121,11 @@ export async function loadTexts(sprites) {
                 "L'alarme est réglée pour sonner à 9h du matin",
                 "Eh ben mon pote c'est pas en te levant à cette heure que tu vas trouver du boulot"
             ]
+        },
+        glasswater: {
+            utiliser: "Non merci je n'ai pas soif",
+            regarder: "Le verre est rempli d'eau",
+            prendre: "Je vais prendre ça"
         },
         gamingChair: {
             utiliser: [

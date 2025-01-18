@@ -116,6 +116,20 @@ export async function loadSprites(app) {
     houseContainer.addChild(reveil);
     reveil.zIndex = 6;
 
+    // VERRE D'EAU
+    const glasswater = await displaySprite('ELEMENTS/glasswater/glasswater.json', 0.12);
+    const glasswaterActive = await displaySprite('ELEMENTS/glasswater/glasswater.json', 0.12);
+    const glasswaterspriteAsset = await PIXI.Assets.load('../sprites/ELEMENTS/glasswater/glasswater.json');
+    const glasswaterframes = Object.keys(glasswaterspriteAsset.textures);
+    glasswater.texture = glasswaterspriteAsset.textures[glasswaterframes[0]];
+    glasswaterActive.texture = glasswaterspriteAsset.textures[glasswaterframes[1]];
+    glasswater.zIndex = 7;
+    glasswater.interactive = true;
+    glasswater.stop();
+    glasswater.anchor.set(0.5); 
+    houseContainer.addChild(glasswater);
+    // houseContainer.addChild(glasswaterActive);
+
     // GAMINGCHAIR
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
     const gamingChair = new PIXI.Sprite(gcAsset);
@@ -453,6 +467,7 @@ export async function loadSprites(app) {
     spriteActionText(toilePoulieRun, "toile");
     spriteActionText(reveil, "réveil matin");
     spriteActionText(table, "table de nuit");
+    spriteActionText(glasswater, "verre");
     // spriteActionText(gamingChair, "chaise de bureau");
 
     // On va assigner un ensemble de propriétés aux sprites clés pour les interactions (à repositionner dans chaque élément de sprite)
@@ -461,6 +476,7 @@ export async function loadSprites(app) {
     toilePoulie.name = "toilePoulie";
     toilePoulieRun.name = "toilePoulieRun";
     reveil.name = "reveil";
+    glasswater.name = "glasswater";
     ordi.name = "ordi";
     ordiRun.name = "ordiRun";
     gamingChair.name = "gamingChair";
@@ -503,6 +519,7 @@ export async function loadSprites(app) {
         table,
         toilePoulie,
         toilePoulieRun,
+        glasswater,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
