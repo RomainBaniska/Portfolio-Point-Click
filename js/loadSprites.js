@@ -184,6 +184,7 @@ export async function loadSprites(app) {
     });
     questionMark.on('click', () => {
         app.stage.addChild(noPanik);
+        questionMark.texture = questionMarkspriteAsset.textures[questionMarkframes[0]]; 
     });
 
     // ARROW ON HELP SCREEN
@@ -210,6 +211,7 @@ export async function loadSprites(app) {
     });
     arrow.on('click', () => {
         app.stage.removeChild(noPanik);
+        arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
     });
 
 
