@@ -118,17 +118,26 @@ export async function loadSprites(app) {
 
     // VERRE D'EAU
     const glasswater = await displaySprite('ELEMENTS/glasswater/glasswater.json', 0.12);
-    const glasswaterActive = await displaySprite('ELEMENTS/glasswater/glasswater.json', 0.12);
+    const glasswaterEmpty = await displaySprite('ELEMENTS/glasswater/glasswater.json', 0.12);
     const glasswaterspriteAsset = await PIXI.Assets.load('../sprites/ELEMENTS/glasswater/glasswater.json');
     const glasswaterframes = Object.keys(glasswaterspriteAsset.textures);
     glasswater.texture = glasswaterspriteAsset.textures[glasswaterframes[0]];
-    glasswaterActive.texture = glasswaterspriteAsset.textures[glasswaterframes[1]];
+    glasswaterEmpty.texture = glasswaterspriteAsset.textures[glasswaterframes[1]];
     glasswater.zIndex = 7;
     glasswater.interactive = true;
     glasswater.stop();
     glasswater.anchor.set(0.5); 
     houseContainer.addChild(glasswater);
-    // houseContainer.addChild(glasswaterActive);
+    // houseContainer.addChild(glasswaterEmpty);
+
+    // VERRE D'EAU RENVERSE (ACTION)
+    const waterpouring = await displaySprite('ELEMENTS/glasswater/waterpouring.json', 0.13);
+    houseContainer.addChild(waterpouring);
+    waterpouring.play();
+    waterpouring.zIndex = 7;
+
+
+
 
     // GAMINGCHAIR
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
@@ -520,6 +529,7 @@ export async function loadSprites(app) {
         toilePoulie,
         toilePoulieRun,
         glasswater,
+        waterpouring,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
