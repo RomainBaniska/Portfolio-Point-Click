@@ -157,10 +157,10 @@ export async function loadSprites(app) {
     // QUESTIONMARK & HELP SCREEN
     const questionMark = await displaySprite('SPECIAL/questionMark.json', 0.12);
     const questionMarkActive = await displaySprite('SPECIAL/questionMark.json', 0.12);
-    const spriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/questionMark.json');
-    const frames = Object.keys(spriteAsset.textures);
-    questionMark.texture = spriteAsset.textures[frames[0]];
-    questionMarkActive.texture = spriteAsset.textures[frames[1]];
+    const questionMarkspriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/questionMark.json');
+    const questionMarkframes = Object.keys(questionMarkspriteAsset.textures);
+    questionMark.texture = questionMarkspriteAsset.textures[questionMarkframes[0]];
+    questionMarkActive.texture = questionMarkspriteAsset.textures[questionMarkframes[1]];
     questionMark.anchor.set(0.5);
     questionMark.interactive = true;
     questionMark.stop();
@@ -169,14 +169,51 @@ export async function loadSprites(app) {
     questionMarkActive.stop();
     houseContainer.addChild(questionMark);
     // houseContainer.addChild(questionMarkActive);
+    const noPanikAsset = await PIXI.Assets.load('../sprites/SPECIAL/noPanik.png');
+    const noPanik = new PIXI.Sprite(noPanikAsset);
+    noPanik.anchor.set(0, 0);
+    noPanik.zIndex = 95; 
+    // app.stage.addChild(noPanik);
 
-    // HOVER ET CLIC
-    questionMark.on('pointerover', () => {
-        questionMark.texture = questionMarkActive.texture; // Texture de survol
+     // HOVER ET CLIC QUESTIONMARK
+     questionMark.on('pointerover', () => {
+        questionMark.texture = questionMarkActive.texture;
     });
     questionMark.on('pointerout', () => {
-        questionMark.texture = spriteAsset.textures[frames[0]]; // Texture initiale
+        questionMark.texture = questionMarkspriteAsset.textures[questionMarkframes[0]]; 
     });
+    questionMark.on('click', () => {
+        app.stage.addChild(noPanik);
+    });
+
+    // ARROW ON HELP SCREEN
+    const arrow = await displaySprite('SPECIAL/arrow.json', 0.12);
+    const arrowActive = await displaySprite('SPECIAL/arrow.json', 0.12);
+    const arrowspriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/arrow.json');
+    const arrowframes = Object.keys(arrowspriteAsset.textures);
+
+    arrow.interactive = true;
+    arrowActive.interactive = true;
+    arrow.stop();
+    arrowActive.stop();
+    
+    arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
+    arrowActive.texture = arrowspriteAsset.textures[arrowframes[1]];
+    noPanik.addChild(arrow);
+
+    // HOVER ET CLIC ARROW
+    arrow.on('pointerover', () => {
+        arrow.texture = arrowActive.texture; 
+    });
+    arrow.on('pointerout', () => {
+        arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
+    });
+    arrow.on('click', () => {
+        app.stage.removeChild(noPanik);
+    });
+
+
+   
 
 
     //////////////////////////////////////// ACTIONS MENU ////////////////////////////////
@@ -484,6 +521,8 @@ export async function loadSprites(app) {
         terminalbgSprite,
         questionMark,
         questionMarkActive,
+        noPanik,
+        arrow,
     };
 }
 

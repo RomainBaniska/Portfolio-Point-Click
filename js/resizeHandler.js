@@ -2,7 +2,7 @@
 
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, terminal, terminalbgSprite, questionMark } = sprites;
+    const { houseSprite, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, terminal, terminalbgSprite, questionMark, noPanik, arrow } = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -54,6 +54,11 @@ function adjustCanvasSize() {
     terminalbgSprite.y = 0;
     terminalbgSprite.height = screenHeight;
     terminalbgSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
+    // (A DEPLACER AUSSI) - POSITIONNEMENT DU HELP SCREEN - Special Screen
+    noPanik.x = houseSprite.x;
+    noPanik.y = 0;
+    noPanik.height = screenHeight;
+    noPanik.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
 
     // ACTION MENU
     // Sprite menuContainer : La hauteur occupe 26% de l'écran / même largeur houseContainer
@@ -164,6 +169,9 @@ function adjustMenuButtonPosition(button, column, row) {
     /// SPECIAL ///
     // Position GamingChair ArmRest
     setSpritePositionAndScale(questionMark, 1.15, 0.08, 300, 2300);
+
+    // Position GamingChair ArmRest
+    setSpritePositionAndScale(arrow, 1, 1.385, 300, 2300);
 }
 
 // Applique le redimensionnement à chaque événement 'resize'
