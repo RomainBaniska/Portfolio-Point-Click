@@ -96,6 +96,18 @@ function adjustMenuButtonPosition(button, column, row) {
     button.y = menuYPosition + menuHeight * 0.1 + row * buttonHeight;
 }
 
+// Fonction pour positionner les items
+function adjustMenuItemsPosition(item, column, row) {
+    const itemWidth = menuWidth * (1 / 8);
+    const itemHeight = menuHeight * 0.3;
+
+    item.width = itemWidth;
+    item.height = itemHeight;
+
+    item.x = menuXPosition + column * itemWidth;
+    item.y = menuYPosition + menuHeight * 0.1 + row * itemHeight;
+}
+
 // POSITION DES BOUTONS (3 colonnes de 3 boutons)
     adjustMenuButtonPosition(menuButton, 0, 0);
     adjustMenuButtonPosition(menuButton2, 0, 1);

@@ -269,40 +269,40 @@ export async function loadSprites(app) {
     menuCoverDialogueOverlay.zIndex = 10;
      
      // MENU BUTTONS Textures
-     const menuButtonSprite = await displaySpriteButton('MENU/inactive/button.json');
-     const menuButtonSpriteActive = await displaySpriteButton('MENU/active/button active.json');
+     const menuButtonSprite = await displaySpriteButton('MENUACTION/inactive/button.json');
+     const menuButtonSpriteActive = await displaySpriteButton('MENUACTION/active/button active.json');
      const menuButton = new PIXI.Sprite(menuButtonSprite);
  
-     const menuButton2Sprite = await displaySpriteButton('MENU/inactive/button2.json');
-     const menuButton2SpriteActive = await displaySpriteButton('MENU/active/button2 active.json');
+     const menuButton2Sprite = await displaySpriteButton('MENUACTION/inactive/button2.json');
+     const menuButton2SpriteActive = await displaySpriteButton('MENUACTION/active/button2 active.json');
      const menuButton2 = new PIXI.Sprite(menuButton2Sprite);
  
-     const menuButton3Sprite = await displaySpriteButton('MENU/inactive/button3.json');
-     const menuButton3SpriteActive = await displaySpriteButton('MENU/active/button3 active.json');
+     const menuButton3Sprite = await displaySpriteButton('MENUACTION/inactive/button3.json');
+     const menuButton3SpriteActive = await displaySpriteButton('MENUACTION/active/button3 active.json');
      const menuButton3 = new PIXI.Sprite(menuButton3Sprite);
  
-     const menuButton4Sprite = await displaySpriteButton('MENU/inactive/button4.json');
-     const menuButton4SpriteActive = await displaySpriteButton('MENU/active/button4 active.json');
+     const menuButton4Sprite = await displaySpriteButton('MENUACTION/inactive/button4.json');
+     const menuButton4SpriteActive = await displaySpriteButton('MENUACTION/active/button4 active.json');
      const menuButton4 = new PIXI.Sprite(menuButton4Sprite);
  
-     const menuButton5Sprite = await displaySpriteButton('MENU/inactive/button5.json');
-     const menuButton5SpriteActive = await displaySpriteButton('MENU/active/button5 active.json');
+     const menuButton5Sprite = await displaySpriteButton('MENUACTION/inactive/button5.json');
+     const menuButton5SpriteActive = await displaySpriteButton('MENUACTION/active/button5 active.json');
      const menuButton5 = new PIXI.Sprite(menuButton5Sprite);
  
-     const menuButton6Sprite = await displaySpriteButton('MENU/inactive/button6.json');
-     const menuButton6SpriteActive = await displaySpriteButton('MENU/active/button6 active.json');
+     const menuButton6Sprite = await displaySpriteButton('MENUACTION/inactive/button6.json');
+     const menuButton6SpriteActive = await displaySpriteButton('MENUACTION/active/button6 active.json');
      const menuButton6 = new PIXI.Sprite(menuButton6Sprite);
  
-     const menuButton7Sprite = await displaySpriteButton('MENU/inactive/button7.json');
-     const menuButton7SpriteActive = await displaySpriteButton('MENU/active/button7 active.json');
+     const menuButton7Sprite = await displaySpriteButton('MENUACTION/inactive/button7.json');
+     const menuButton7SpriteActive = await displaySpriteButton('MENUACTION/active/button7 active.json');
      const menuButton7 = new PIXI.Sprite(menuButton7Sprite);
  
-     const menuButton8Sprite = await displaySpriteButton('MENU/inactive/button8.json');
-     const menuButton8SpriteActive = await displaySpriteButton('MENU/active/button8 active.json');
+     const menuButton8Sprite = await displaySpriteButton('MENUACTION/inactive/button8.json');
+     const menuButton8SpriteActive = await displaySpriteButton('MENUACTION/active/button8 active.json');
      const menuButton8 = new PIXI.Sprite(menuButton8Sprite);
  
-     const menuButton9Sprite = await displaySpriteButton('MENU/inactive/button9.json');
-     const menuButton9SpriteActive = await displaySpriteButton('MENU/active/button9 active.json');
+     const menuButton9Sprite = await displaySpriteButton('MENUACTION/inactive/button9.json');
+     const menuButton9SpriteActive = await displaySpriteButton('MENUACTION/active/button9 active.json');
      const menuButton9 = new PIXI.Sprite(menuButton9Sprite);
  
  
