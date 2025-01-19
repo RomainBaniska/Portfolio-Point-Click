@@ -132,12 +132,7 @@ export async function loadSprites(app) {
 
     // VERRE D'EAU RENVERSE (ACTION)
     const waterpouring = await displaySprite('ELEMENTS/glasswater/waterpouring.json', 0.13);
-    // houseContainer.addChild(waterpouring);
-    // waterpouring.play();
     waterpouring.zIndex = 7;
-    // waterpouring.loop = false;
-   
-
 
     // GAMINGCHAIR
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
@@ -264,64 +259,73 @@ export async function loadSprites(app) {
      const menuCoverDialogueAsset = await PIXI.Assets.load('../sprites/cover menu dialogue.jpg');
      const menuCoverDialogue = new PIXI.Sprite(menuCoverDialogueAsset);
      menuCoverDialogue.zIndex = 3;
-    //  Surcouche du menuCoverDialogue
+     //  Surcouche du menuCoverDialogue
     const menuCoverDialogueOverlay = new PIXI.Sprite(menuCoverDialogueAsset);
     menuCoverDialogueOverlay.zIndex = 10;
-     
-     // MENU BUTTONS Textures
-     const menuButtonSprite = await displaySpriteButton('MENUACTION/inactive/button.json');
-     const menuButtonSpriteActive = await displaySpriteButton('MENUACTION/active/button active.json');
-     const menuButton = new PIXI.Sprite(menuButtonSprite);
- 
-     const menuButton2Sprite = await displaySpriteButton('MENUACTION/inactive/button2.json');
-     const menuButton2SpriteActive = await displaySpriteButton('MENUACTION/active/button2 active.json');
-     const menuButton2 = new PIXI.Sprite(menuButton2Sprite);
- 
-     const menuButton3Sprite = await displaySpriteButton('MENUACTION/inactive/button3.json');
-     const menuButton3SpriteActive = await displaySpriteButton('MENUACTION/active/button3 active.json');
-     const menuButton3 = new PIXI.Sprite(menuButton3Sprite);
- 
-     const menuButton4Sprite = await displaySpriteButton('MENUACTION/inactive/button4.json');
-     const menuButton4SpriteActive = await displaySpriteButton('MENUACTION/active/button4 active.json');
-     const menuButton4 = new PIXI.Sprite(menuButton4Sprite);
- 
-     const menuButton5Sprite = await displaySpriteButton('MENUACTION/inactive/button5.json');
-     const menuButton5SpriteActive = await displaySpriteButton('MENUACTION/active/button5 active.json');
-     const menuButton5 = new PIXI.Sprite(menuButton5Sprite);
- 
-     const menuButton6Sprite = await displaySpriteButton('MENUACTION/inactive/button6.json');
-     const menuButton6SpriteActive = await displaySpriteButton('MENUACTION/active/button6 active.json');
-     const menuButton6 = new PIXI.Sprite(menuButton6Sprite);
- 
-     const menuButton7Sprite = await displaySpriteButton('MENUACTION/inactive/button7.json');
-     const menuButton7SpriteActive = await displaySpriteButton('MENUACTION/active/button7 active.json');
-     const menuButton7 = new PIXI.Sprite(menuButton7Sprite);
- 
-     const menuButton8Sprite = await displaySpriteButton('MENUACTION/inactive/button8.json');
-     const menuButton8SpriteActive = await displaySpriteButton('MENUACTION/active/button8 active.json');
-     const menuButton8 = new PIXI.Sprite(menuButton8Sprite);
- 
-     const menuButton9Sprite = await displaySpriteButton('MENUACTION/inactive/button9.json');
-     const menuButton9SpriteActive = await displaySpriteButton('MENUACTION/active/button9 active.json');
-     const menuButton9 = new PIXI.Sprite(menuButton9Sprite);
- 
- 
-     // Ajout des boutons au Menu Container
-     menuContainer.addChild(
-         menuButton, 
-         menuButton2, 
-         menuButton3, 
-         menuButton4, 
-         menuButton5, 
-         menuButton6, 
-         menuButton7, 
-         menuButton8, 
-         menuButton9
-     );
 
-     let currentlyActiveButton = null;
+    // MENU ITEMS Textures
+    const menuItemGlassWaterAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItem.png');
+    const menuItemGlassWater = new PIXI.Sprite(menuItemGlassWaterAsset);
+    menuContainer.addChild(menuItemGlassWater);
+    menuItemGlassWater.zIndex = 99;
+    // menuItemGlassWater.anchor.set(0);
+    // menuSprite.addChild(menuItemGlassWater);
+    //...
+    
+    // MENU BUTTONS Textures
+    const menuButtonSprite = await displaySpriteButton('MENUACTION/inactive/button.json');
+    const menuButtonSpriteActive = await displaySpriteButton('MENUACTION/active/button active.json');
+    const menuButton = new PIXI.Sprite(menuButtonSprite);
 
-     // Méthode un changement de texture du menuButton lors du hover sur les boutons
+    const menuButton2Sprite = await displaySpriteButton('MENUACTION/inactive/button2.json');
+    const menuButton2SpriteActive = await displaySpriteButton('MENUACTION/active/button2 active.json');
+    const menuButton2 = new PIXI.Sprite(menuButton2Sprite);
+
+    const menuButton3Sprite = await displaySpriteButton('MENUACTION/inactive/button3.json');
+    const menuButton3SpriteActive = await displaySpriteButton('MENUACTION/active/button3 active.json');
+    const menuButton3 = new PIXI.Sprite(menuButton3Sprite);
+
+    const menuButton4Sprite = await displaySpriteButton('MENUACTION/inactive/button4.json');
+    const menuButton4SpriteActive = await displaySpriteButton('MENUACTION/active/button4 active.json');
+    const menuButton4 = new PIXI.Sprite(menuButton4Sprite);
+
+    const menuButton5Sprite = await displaySpriteButton('MENUACTION/inactive/button5.json');
+    const menuButton5SpriteActive = await displaySpriteButton('MENUACTION/active/button5 active.json');
+    const menuButton5 = new PIXI.Sprite(menuButton5Sprite);
+
+    const menuButton6Sprite = await displaySpriteButton('MENUACTION/inactive/button6.json');
+    const menuButton6SpriteActive = await displaySpriteButton('MENUACTION/active/button6 active.json');
+    const menuButton6 = new PIXI.Sprite(menuButton6Sprite);
+
+    const menuButton7Sprite = await displaySpriteButton('MENUACTION/inactive/button7.json');
+    const menuButton7SpriteActive = await displaySpriteButton('MENUACTION/active/button7 active.json');
+    const menuButton7 = new PIXI.Sprite(menuButton7Sprite);
+
+    const menuButton8Sprite = await displaySpriteButton('MENUACTION/inactive/button8.json');
+    const menuButton8SpriteActive = await displaySpriteButton('MENUACTION/active/button8 active.json');
+    const menuButton8 = new PIXI.Sprite(menuButton8Sprite);
+
+    const menuButton9Sprite = await displaySpriteButton('MENUACTION/inactive/button9.json');
+    const menuButton9SpriteActive = await displaySpriteButton('MENUACTION/active/button9 active.json');
+    const menuButton9 = new PIXI.Sprite(menuButton9Sprite);
+ 
+ 
+    // Ajout des boutons au Menu Container
+    menuContainer.addChild(
+        menuButton, 
+        menuButton2, 
+        menuButton3, 
+        menuButton4, 
+        menuButton5, 
+        menuButton6, 
+        menuButton7, 
+        menuButton8, 
+        menuButton9,
+    );
+
+    let currentlyActiveButton = null;
+
+    // Méthode un changement de texture du menuButton lors du hover sur les boutons
     function menuButtonActivation(button, sprite, activeSprite) {
 
         button.interactive = true;
@@ -542,6 +546,8 @@ export async function loadSprites(app) {
         menuButton7,
         menuButton8,
         menuButton9,
+        // ITEMS
+        menuItemGlassWater,
         // MENU DIALOGUE
         menuCoverDialogue,
         menuCoverDialogueOverlay,

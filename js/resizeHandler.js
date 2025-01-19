@@ -2,7 +2,7 @@
 
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring} = sprites;
+    const { houseSprite, menuItemGlassWater, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring} = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -104,9 +104,11 @@ function adjustMenuItemsPosition(item, column, row) {
     item.width = itemWidth;
     item.height = itemHeight;
 
-    item.x = menuXPosition + column * itemWidth;
+    item.x = menuSprite.x + (menuSprite.width / 2) + column * itemWidth;
     item.y = menuYPosition + menuHeight * 0.1 + row * itemHeight;
 }
+
+
 
 // POSITION DES BOUTONS (3 colonnes de 3 boutons)
     adjustMenuButtonPosition(menuButton, 0, 0);
@@ -120,6 +122,10 @@ function adjustMenuItemsPosition(item, column, row) {
     adjustMenuButtonPosition(menuButton7, 2, 0);
     adjustMenuButtonPosition(menuButton8, 2, 1);
     adjustMenuButtonPosition(menuButton9, 2, 2);
+
+// POSITION DES ITEMS (4 colonnes de 3 boutons)
+    adjustMenuItemsPosition(menuItemGlassWater, 0, 0);
+    // adjustMenuItemsPosition(menuItemGlassWater, 0, 1);
 
 
     // sprite, scaleWidthFactor, scaleHeightFactor
