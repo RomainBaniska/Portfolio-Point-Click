@@ -266,8 +266,9 @@ export async function loadSprites(app) {
     // MENU ITEMS Textures
     const menuItemGlassWaterAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItem.png');
     const menuItemGlassWater = new PIXI.Sprite(menuItemGlassWaterAsset);
+    menuItemGlassWater.interactive = true;
     menuContainer.addChild(menuItemGlassWater);
-    menuItemGlassWater.zIndex = 99;
+    // menuItemGlassWater.zIndex = 99;
     // menuItemGlassWater.anchor.set(0);
     // menuSprite.addChild(menuItemGlassWater);
     //...
@@ -481,6 +482,7 @@ export async function loadSprites(app) {
     spriteActionText(reveil, "réveil matin");
     spriteActionText(table, "table de nuit");
     spriteActionText(glasswater, "verre");
+    spriteActionText(menuItemGlassWater, "verre");
     // spriteActionText(gamingChair, "chaise de bureau");
 
     // On va assigner un ensemble de propriétés aux sprites clés pour les interactions (à repositionner dans chaque élément de sprite)
