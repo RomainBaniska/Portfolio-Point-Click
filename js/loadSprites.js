@@ -469,42 +469,38 @@ export async function loadSprites(app) {
         });
 
          // Rajoute une condition : si le sprite est un item, alors cliquer sur le sprite enclenche une action
-         if (sprite.item) {
-            sprite.on('click', () => {
-
-                if(itemClicked) {
+         sprite.on('click', () => {
+            if (sprite.item && currentButton != null) {
+                if (itemClicked) {
                     app.stage.removeChild(currentItemText);
                     currentItemText.destroy();
                     currentItemText = null;
                     itemClicked = false;
                 } else {
-                    
-
-                // On définit itemClicked comme étant true
-                itemClicked = true;
-                // On clean le texte du pointerover
-                cleanupText();
-                // Affiche l'actionText (le nom de l'objet/sprite) et concatène avec "avec"
-                // currentSpriteText = new PIXI.Text(`${actionText} avec `, {
-                currentItemText = new PIXI.Text(`${actionText} avec `, {
-                    fontFamily: 'MonkeyIslandMenu',
-                    fontSize: 11,
-                    fill: 0x772a76,
-                    align: 'center',
-                    fontWeight: 'bold'
-                });
-                if (currentMenuText) {
-                    currentMenuText.x = app.screen.width / 2 - offset;
-                    currentItemText.x = app.screen.width / 2 + offset;
-                } else {
-                    currentItemText.x = app.screen.width / 2;
+                    itemClicked = true;
+                    cleanupText();
+        
+                    // Création du texte pour l'item cliqué
+                    currentItemText = new PIXI.Text(`${actionText} avec `, {
+                        fontFamily: 'MonkeyIslandMenu',
+                        fontSize: 11,
+                        fill: 0x772a76,
+                        align: 'center',
+                        fontWeight: 'bold',
+                    });
+        
+                    if (currentMenuText) {
+                        currentMenuText.x = app.screen.width / 2 - offset;
+                        currentItemText.x = app.screen.width / 2 + offset;
+                    } else {
+                        currentItemText.x = app.screen.width / 2;
+                    }
+        
+                    currentItemText.y = houseSprite.height + 2;
+                    menuContainer.addChild(currentItemText);
                 }
-                currentItemText.y = houseSprite.height + 2; // 2px pour ajuster la hauteur
-                menuContainer.addChild(currentItemText);
-                
             }
-            });
-        }
+        });
 
             function cleanupText() {
                 if (currentSpriteText) {
