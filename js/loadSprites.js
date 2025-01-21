@@ -428,12 +428,13 @@ export async function loadSprites(app) {
     const offset = app.screen.width * 0.04;
     const offset2 = app.screen.width * 0.15;
     let currentSpriteText = null;
+    let currentItemText = null;
     let itemClicked = false;
     // Méthode pour associer un texte à un sprite (hover et clic)
     // Au lieu d'utiliser des addEventListener, on fait un sprite".on"
     function spriteActionText(sprite, actionText) {
         sprite.on('pointerover', () => {
-
+            cleanupText();
             currentSpriteText = new PIXI.Text(actionText, {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: 11,
@@ -470,12 +471,22 @@ export async function loadSprites(app) {
          // Rajoute une condition : si le sprite est un item, alors cliquer sur le sprite enclenche une action
          if (sprite.item) {
             sprite.on('click', () => {
+
+                if(itemClicked) {
+                    app.stage.removeChild(currentItemText);
+                    currentItemText.destroy();
+                    currentItemText = null;
+                    itemClicked = false;
+                } else {
+                    
+
                 // On définit itemClicked comme étant true
                 itemClicked = true;
                 // On clean le texte du pointerover
                 cleanupText();
                 // Affiche l'actionText (le nom de l'objet/sprite) et concatène avec "avec"
-                currentSpriteText = new PIXI.Text(`${actionText} avec `, {
+                // currentSpriteText = new PIXI.Text(`${actionText} avec `, {
+                currentItemText = new PIXI.Text(`${actionText} avec `, {
                     fontFamily: 'MonkeyIslandMenu',
                     fontSize: 11,
                     fill: 0x772a76,
@@ -484,12 +495,14 @@ export async function loadSprites(app) {
                 });
                 if (currentMenuText) {
                     currentMenuText.x = app.screen.width / 2 - offset;
-                    currentSpriteText.x = app.screen.width / 2 + offset;
+                    currentItemText.x = app.screen.width / 2 + offset;
                 } else {
-                    currentSpriteText.x = app.screen.width / 2;
+                    currentItemText.x = app.screen.width / 2;
                 }
-                currentSpriteText.y = houseSprite.height + 2; // 2px pour ajuster la hauteur
-                menuContainer.addChild(currentSpriteText);
+                currentItemText.y = houseSprite.height + 2; // 2px pour ajuster la hauteur
+                menuContainer.addChild(currentItemText);
+                
+            }
             });
         }
 
