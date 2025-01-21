@@ -267,6 +267,7 @@ export async function loadSprites(app) {
     const menuItemGlassWaterAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItem.png');
     const menuItemGlassWater = new PIXI.Sprite(menuItemGlassWaterAsset);
     menuItemGlassWater.interactive = true;
+    menuItemGlassWater.item = true;
     menuContainer.addChild(menuItemGlassWater);
     // menuItemGlassWater.zIndex = 99;
     // menuItemGlassWater.anchor.set(0);
@@ -425,11 +426,14 @@ export async function loadSprites(app) {
 
 
     const offset = app.screen.width * 0.04;
+    const offset2 = app.screen.width * 0.15;
     let currentSpriteText = null;
+    let itemClicked = false;
     // Méthode pour associer un texte à un sprite (hover et clic)
     // Au lieu d'utiliser des addEventListener, on fait un sprite".on"
     function spriteActionText(sprite, actionText) {
         sprite.on('pointerover', () => {
+
             currentSpriteText = new PIXI.Text(actionText, {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: 11,
@@ -438,23 +442,57 @@ export async function loadSprites(app) {
                 fontWeight: 'bold'
             });
             if (currentMenuText) {
+
+                    if (itemClicked) {
+                        currentMenuText.x = app.screen.width / 2 - offset;
+                        currentSpriteText.x = app.screen.width / 2 + offset2;
+                    }else {
                 currentMenuText.x = app.screen.width / 2 - offset;
                 currentSpriteText.x = app.screen.width / 2 + offset;
+            }
             } else {
                 currentSpriteText.x = app.screen.width / 2;
             }
-            
             currentSpriteText.y = houseSprite.height + 2; // 2px pour ajuster la hauteur
             menuContainer.addChild(currentSpriteText);
-
         });
 
         sprite.on('pointerout', () => {
-            cleanupText();
+            if (!itemClicked) {
+                cleanupText();
+            }
+            // Rajouter des conditions pour effacement
         });
         sprite.on('removed', () => {
             cleanupText();
         });
+
+         // Rajoute une condition : si le sprite est un item, alors cliquer sur le sprite enclenche une action
+         if (sprite.item) {
+            sprite.on('click', () => {
+                // On définit itemClicked comme étant true
+                itemClicked = true;
+                // On clean le texte du pointerover
+                cleanupText();
+                // Affiche l'actionText (le nom de l'objet/sprite) et concatène avec "avec"
+                currentSpriteText = new PIXI.Text(`${actionText} avec `, {
+                    fontFamily: 'MonkeyIslandMenu',
+                    fontSize: 11,
+                    fill: 0x772a76,
+                    align: 'center',
+                    fontWeight: 'bold'
+                });
+                if (currentMenuText) {
+                    currentMenuText.x = app.screen.width / 2 - offset;
+                    currentSpriteText.x = app.screen.width / 2 + offset;
+                } else {
+                    currentSpriteText.x = app.screen.width / 2;
+                }
+                currentSpriteText.y = houseSprite.height + 2; // 2px pour ajuster la hauteur
+                menuContainer.addChild(currentSpriteText);
+            });
+        }
+
             function cleanupText() {
                 if (currentSpriteText) {
                     app.stage.removeChild(currentSpriteText);
