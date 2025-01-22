@@ -443,7 +443,6 @@ export async function loadSprites(app) {
                 fontWeight: 'bold'
             });
             if (currentMenuText) {
-
                     if (itemClicked) {
                         currentMenuText.x = app.screen.width / 2 - offset;
                         currentSpriteText.x = app.screen.width / 2 + offset2;
@@ -479,7 +478,6 @@ export async function loadSprites(app) {
                 } else {
                     itemClicked = true;
                     cleanupText();
-        
                     // Création du texte pour l'item cliqué
                     currentItemText = new PIXI.Text(`${actionText} avec `, {
                         fontFamily: 'MonkeyIslandMenu',
@@ -488,21 +486,46 @@ export async function loadSprites(app) {
                         align: 'center',
                         fontWeight: 'bold',
                     });
-        
-                    if (currentMenuText) {
+                        if (currentMenuText) {
                         currentMenuText.x = app.screen.width / 2 - offset;
                         currentItemText.x = app.screen.width / 2 + offset;
-                    } else {
+                        } else {
                         currentItemText.x = app.screen.width / 2;
-                    }
-        
+                         }
                     currentItemText.y = houseSprite.height + 2;
                     menuContainer.addChild(currentItemText);
                 }
             }
         });
 
-            function cleanupText() {
+         // Ajout d'une action du clic-droit censé tout déselectionner :
+        app.stage.on('rightdown', () => {
+            // document.addEventListener('contextmenu', (event) => {
+            //     event.preventDefault();
+            // });
+            // Déselection d'un item si itemclicked = true.
+                if (itemClicked) {
+
+                    // if (currentButton) {
+                    //     currentButton.click(); // Déclenche l'événement 'click' lié au bouton
+                    // }
+                        itemClicked = false;
+                        app.stage.removeChild(currentItemText);
+                        currentItemText.destroy();
+                        currentItemText = null;
+                        // Passage du currentButton à null (déselection du bouton action)
+                       
+                        currentButton = null;
+                        menuContainer.removeChild(currentMenuText);
+                        currentMenuText.destroy();
+                    }
+            console.log('Clic droit détecté sur le sprite !');
+            console.log(itemClicked);
+            console.log(currentButton);
+            console.log(currentMenuText);
+        });
+        
+        function cleanupText() {
                 if (currentSpriteText) {
                     app.stage.removeChild(currentSpriteText);
                     currentSpriteText.destroy();
@@ -514,6 +537,8 @@ export async function loadSprites(app) {
                 }
         }
     }
+    
+   
 
     spriteActionText(guybrushLD, "Romain");
     spriteActionText(guybrush, "Romain");
