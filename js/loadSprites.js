@@ -266,6 +266,8 @@ export async function loadSprites(app) {
     // MENU ITEMS Textures
     const menuItemGlassWaterAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItem.png');
     const menuItemGlassWater = new PIXI.Sprite(menuItemGlassWaterAsset);
+    const menuItemGlassWaterEmptyAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItemempty.png');
+    const menuItemGlassWaterEmpty = new PIXI.Sprite(menuItemGlassWaterEmptyAsset);
     menuItemGlassWater.interactive = true;
     menuItemGlassWater.item = true;
     // menuContainer.addChild(menuItemGlassWater);
@@ -665,8 +667,9 @@ export async function loadSprites(app) {
         menuButton8,
         menuButton9,
         // ITEMS
-        itemClicked,
+        // itemClicked,
         menuItemGlassWater,
+        menuItemGlassWaterEmpty,
         // MENU DIALOGUE
         menuCoverDialogue,
         menuCoverDialogueOverlay,
