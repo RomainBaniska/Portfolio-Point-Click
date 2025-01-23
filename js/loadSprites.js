@@ -268,7 +268,7 @@ export async function loadSprites(app) {
     const menuItemGlassWater = new PIXI.Sprite(menuItemGlassWaterAsset);
     menuItemGlassWater.interactive = true;
     menuItemGlassWater.item = true;
-    menuContainer.addChild(menuItemGlassWater);
+    // menuContainer.addChild(menuItemGlassWater);
     // menuItemGlassWater.zIndex = 99;
     // menuItemGlassWater.anchor.set(0);
     // menuSprite.addChild(menuItemGlassWater);
@@ -377,6 +377,33 @@ export async function loadSprites(app) {
     menuButtonActivation(menuButton8, menuButton8Sprite, menuButton8SpriteActive);
     menuButtonActivation(menuButton9, menuButton9Sprite, menuButton9SpriteActive);
 
+    // Méthode d'activation de statut actif lors du clic sur l'item
+
+    let currentlyActiveItem = null;
+    function menuItemActivation(item) {
+        // item.interactive = true;
+        item.isActive = false;
+        item.on('click', () => {
+            // Si un autre bouton est actif, désactiver son état et restaurer sa texture normale
+            if (currentlyActiveItem && currentlyActiveItem !== item) {
+                currentlyActiveItem.isActive = false;
+                console.log("item activé");
+            }
+    
+            if (item.isActive === true) {
+                item.isActive = false;
+                currentlyActiveItem = null;
+                console.log("item désactivé");  
+            } else {
+                item.isActive = true;
+                currentlyActiveItem = item;
+                console.log("activé");  
+            }
+            });
+    }
+    menuItemActivation(menuItemGlassWater);
+    // console.log(menuItemGlassWater.isActive);
+
 
     // Méthode pour associer un texte à une action (exemple : utiliser)
     let currentMenuText = null;
@@ -476,6 +503,7 @@ export async function loadSprites(app) {
                     itemClicked = false;
                 } else {
                     itemClicked = true;
+                    console.log("item cliqué");
                     cleanupText();
                     // Création du texte pour l'item cliqué
                     currentItemText = new PIXI.Text(`${actionText} avec `, {
@@ -511,6 +539,7 @@ export async function loadSprites(app) {
                             currentItemText = null;
                         }
                         itemClicked = false;
+                        console.log("décliqué");
                        
                         if (currentButton) {
                             currentButton.texture = currentButton.sprite.texture;
@@ -586,6 +615,18 @@ export async function loadSprites(app) {
     menuButton9.action = "tirer";
 
 
+    // guybrushLD.on('click', () => {
+
+    //     console.log(itemClicked);
+    //     console.log(menuButton7);
+
+    //     if (menuButton7.isActive && itemClicked) {
+    //         console.log("ok");
+    //         houseContainer.removeChild(guybrushLD);
+    //         guybrushLD.destroy();
+    //     }
+    // });
+
     return {
         houseContainer,
         houseSprite,
@@ -624,6 +665,7 @@ export async function loadSprites(app) {
         menuButton8,
         menuButton9,
         // ITEMS
+        itemClicked,
         menuItemGlassWater,
         // MENU DIALOGUE
         menuCoverDialogue,

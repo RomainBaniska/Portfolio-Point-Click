@@ -1,6 +1,6 @@
 export async function interactions(app, sprites, texts) {
 
-    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9 } = sprites;
+    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemGlassWater, itemClicked } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -8,10 +8,28 @@ export async function interactions(app, sprites, texts) {
     setPosition(guybrushLD, 0.9, 0.85);
     houseContainer.addChild(guybrushLD);
 
+    // Prendre le verre
+    // Si le bouton menuButton4 est actif et qu'on clique sur le sprite "glasswater" on destroy le sprite glasswater et on ajoute l'item glasswateritem
+    glasswater.on('click', () => {
+        if (menuButton4.isActive) {
+            houseContainer.removeChild(glasswater);
+            glasswater.destroy();
+            menuContainer.addChild(menuItemGlassWater);
+
+            console.log(itemClicked);
+        }
+    });
+    
     // GUYBRUSH WAKEUP ANIMATION
     let wakeUpAnimationCompleted = false;
     // Lorsqu'on clique sur Guybrush, lance l'animation du wakeup
     guybrushLD.on('click', () => {
+
+        if (menuButton7.isActive && menuItemGlassWater.isActive) {
+            console.log("ok");
+
+
+
         menuContainer.addChild(menuCoverDialogue);
 
         houseContainer.addChild(waterpouring);
@@ -97,6 +115,7 @@ export async function interactions(app, sprites, texts) {
                                             }
                                         };
                                     };
+                                }
                                     });
                                     
 
