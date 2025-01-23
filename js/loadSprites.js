@@ -461,7 +461,6 @@ export async function loadSprites(app) {
             if (!itemClicked) {
                 cleanupText();
             }
-            // Rajouter des conditions pour effacement
         });
         sprite.on('removed', () => {
             cleanupText();
@@ -500,24 +499,30 @@ export async function loadSprites(app) {
 
          // Ajout d'une action du clic-droit censé tout déselectionner :
         app.stage.on('rightdown', () => {
-            // document.addEventListener('contextmenu', (event) => {
-            //     event.preventDefault();
-            // });
+            // A DECOMMENTER
+            document.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
+            }, { once: true });
             // Déselection d'un item si itemclicked = true.
                 if (itemClicked) {
-
-                    // if (currentButton) {
-                    //     currentButton.click(); // Déclenche l'événement 'click' lié au bouton
-                    // }
+                        if (currentItemText) {
+                            app.stage.removeChild(currentItemText);
+                            currentItemText.destroy();
+                            currentItemText = null;
+                        }
                         itemClicked = false;
-                        app.stage.removeChild(currentItemText);
-                        currentItemText.destroy();
-                        currentItemText = null;
-                        // Passage du currentButton à null (déselection du bouton action)
                        
-                        currentButton = null;
-                        menuContainer.removeChild(currentMenuText);
-                        currentMenuText.destroy();
+                        if (currentButton) {
+                            currentButton.texture = currentButton.sprite.texture;
+                            currentButton.isActive = false; 
+                            currentlyActiveButton = null;
+                            currentButton = null; 
+                        }
+                        if (currentMenuText) {
+                            menuContainer.removeChild(currentMenuText);
+                            currentMenuText.destroy();
+                            currentMenuText = null;
+                        }
                     }
             console.log('Clic droit détecté sur le sprite !');
             console.log(itemClicked);
@@ -579,8 +584,6 @@ export async function loadSprites(app) {
     menuButton7.action = "utiliser";
     menuButton8.action = "pousser";
     menuButton9.action = "tirer";
-
-    
 
 
     return {
