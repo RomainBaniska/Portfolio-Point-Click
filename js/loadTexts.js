@@ -11,7 +11,7 @@ export async function loadTexts(sprites) {
     const currentTimeHourMinutes = `${currentHour}:${currentMinutes}`;
 
     // Sprites
-    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater,
+    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGlassWaterEmpty, menuItemGlassWater,
         menuButton,
         menuButton2,
         menuButton3,
@@ -77,7 +77,7 @@ export async function loadTexts(sprites) {
     // REPONSES DU JOUEUR LORS DE CLICK SUR UN SPRITE AVEC ACTION
 
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; // Pas de menuButton5
-    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater];
+    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty];
     
     const spriteBehaviors = {
         guybrushSO: {
@@ -138,6 +138,16 @@ export async function loadTexts(sprites) {
             ],
             pousser:  "Je le trouve déjà très bien là où il est",
             tirer:  "Je le trouve déjà très bien là où il est",
+        },
+        menuItemGlassWater: {
+            utiliser: "Non, je n'ai pas soif",
+            regarder: "Le verre est rempli d'eau",
+            item: true,
+        },
+        menuItemGlassWaterEmpty: {
+            utiliser: "Non, je n'ai pas soif",
+            regarder: "Le verre est vide",
+            item: true,
         }
     };
 
@@ -199,7 +209,6 @@ export async function loadTexts(sprites) {
 
             if (dialogue) {
                 dialogue.destroy();
-                dialogue = null; 
                 console.log("destroyed");
             }
 
@@ -211,7 +220,6 @@ export async function loadTexts(sprites) {
         houseContainer.addChild(dialogue);
         setTimeout(() => {
             dialogue.destroy();
-            dialogue = null; 
             resolve();
         }, time);
     });

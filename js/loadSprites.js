@@ -162,7 +162,6 @@ export async function loadSprites(app) {
     const chest = await displaySprite('ELEMENTS/chest/chest.json', 0.12);
     chest.gotoAndStop(0); 
     chest.interactive = true;
-    chest.interactive = false;
     chest.zIndex = 3;
     houseContainer.addChild(chest);
 
@@ -336,7 +335,6 @@ export async function loadSprites(app) {
     );
 
     let currentlyActiveButton = null;
-
     // Méthode un changement de texture du menuButton lors du hover sur les boutons
     function menuButtonActivation(button, sprite, activeSprite) {
 
@@ -360,6 +358,16 @@ export async function loadSprites(app) {
             currentlyActiveButton.isActive = false;
         }
 
+          // Si un item est actif, désélectionne-le et supprime son texte
+        if (itemClicked) {
+            if (currentItemText) {
+                app.stage.removeChild(currentItemText);
+                currentItemText.destroy();
+                currentItemText = null;
+            }
+            itemClicked = false;
+        }
+
         if (button.isActive === true) {
             button.texture = sprite.texture;
             button.isActive = false;
@@ -371,6 +379,7 @@ export async function loadSprites(app) {
             currentlyActiveButton = button;
             console.log("activé");  
         }
+        
         });
         button.sprite = sprite; 
         button.activeSprite = activeSprite;
@@ -414,55 +423,63 @@ export async function loadSprites(app) {
     menuItemActivation(menuItemGlassWater);
     // console.log(menuItemGlassWater.isActive);
 
-
     // Méthode pour associer un texte à une action (exemple : utiliser)
+    // On crée un tableau associant chaque bouton aveà une action
+    const buttonActions = [
+    { button: menuButton, text: 'Donner' },
+    { button: menuButton2, text: 'Ouvrir' },
+    { button: menuButton3, text: 'Fermer' },
+    { button: menuButton4, text: 'Prendre' },
+    { button: menuButton5, text: 'Regarder' },
+    { button: menuButton6, text: 'Parler à' },
+    { button: menuButton7, text: 'Utiliser' },
+    { button: menuButton8, text: 'Pousser' },
+    { button: menuButton9, text: 'Tirer' }
+    ];
+    // Variables globales partagées
     let currentMenuText = null;
     let currentButton = null;
-    // Fonction pour associer le texte à l'action
-    function menuButtonActionText(button, actionText) {
-        button.addEventListener('click', () => {
-            if (currentButton === button) {
-                if (currentMenuText) {
-                    if (itemClicked) {
-                        console.log("tebboune");
-                    }
-                    menuContainer.removeChild(currentMenuText);
-                    currentMenuText.destroy();
-                    currentMenuText = null;
-                    currentButton = null; 
-                }
-            } else {
-                if (currentMenuText) {
-                    menuContainer.removeChild(currentMenuText);
-                    currentMenuText.destroy();
-                    currentMenuText = null;
-                }
-                currentMenuText = new PIXI.Text(actionText, {
-                    fontFamily: 'MonkeyIslandMenu',
-                    fontSize: 11,
-                    fill: 0x772a76,
-                    align: 'center',
-                    fontWeight: 'bold'
-                });
 
-                menuContainer.addChild(currentMenuText);
-                currentMenuText.x = app.screen.width / 2;
-                currentMenuText.y = houseSprite.height + 2;
-
-                currentButton = button;
+    // Fonction d'association, appliquée à chaque bouton
+    buttonActions.forEach(({ button, text }) => {
+    button.on('click', () => {
+        if (currentButton === button) {
+            // Si le bouton est déjà sélectionné
+            if (currentMenuText) {
+                if (itemClicked) {
+                    itemClicked = false;
+                    console.log("tebboune");
+                }
+                menuContainer.removeChild(currentMenuText);
+                currentMenuText.destroy();
+                currentMenuText = null;
+                currentButton = null; 
             }
-        });
-    }
+        } else {
+            // Si un autre bouton est sélectionné
+            if (currentMenuText) {
+                menuContainer.removeChild(currentMenuText);
+                currentMenuText.destroy();
+                currentMenuText = null;
+            }
 
-    menuButtonActionText(menuButton, 'Donner');
-    menuButtonActionText(menuButton2, 'Ouvrir');
-    menuButtonActionText(menuButton3, 'Fermer');
-    menuButtonActionText(menuButton4, 'Prendre');
-    menuButtonActionText(menuButton5, 'Regarder');
-    menuButtonActionText(menuButton6, 'Parler à');
-    menuButtonActionText(menuButton7, 'Utiliser');
-    menuButtonActionText(menuButton8, 'Pousser');
-    menuButtonActionText(menuButton9, 'Tirer');
+            currentMenuText = new PIXI.Text(text, {
+                fontFamily: 'MonkeyIslandMenu',
+                fontSize: 11,
+                fill: 0x772a76,
+                align: 'center',
+                fontWeight: 'bold'
+            });
+
+            menuContainer.addChild(currentMenuText);
+            currentMenuText.x = app.screen.width / 2;
+            currentMenuText.y = houseSprite.height + 2;
+
+            currentButton = button;
+        }
+    });
+});
+
 
 
     const offset = app.screen.width * 0.04;
@@ -511,7 +528,8 @@ export async function loadSprites(app) {
 
          // Rajoute une condition : si le sprite est un item, alors cliquer sur le sprite enclenche une action
          sprite.on('click', () => {
-            if (sprite.item && currentButton != null) {
+            // menuButton7 équivaut à "utiliser"
+            if (sprite.item && (currentButton == menuButton7 || currentButton == menuButton)) {
                 if (itemClicked) {
                     app.stage.removeChild(currentItemText);
                     currentItemText.destroy();
@@ -522,19 +540,29 @@ export async function loadSprites(app) {
                     console.log("item cliqué");
                     cleanupText();
                     // Création du texte pour l'item cliqué
-                    currentItemText = new PIXI.Text(`${actionText} avec `, {
+                    if (currentButton == menuButton7) { 
+                        currentItemText = new PIXI.Text(`${actionText} avec `, {
                         fontFamily: 'MonkeyIslandMenu',
                         fontSize: 11,
                         fill: 0x772a76,
                         align: 'center',
                         fontWeight: 'bold',
-                    });
-                        if (currentMenuText) {
-                        currentMenuText.x = app.screen.width / 2 - offset;
-                        currentItemText.x = app.screen.width / 2 + offset;
-                        } else {
-                        currentItemText.x = app.screen.width / 2;
-                         }
+                         });
+                         } else { 
+                        currentItemText = new PIXI.Text(`${actionText} à `, {
+                        fontFamily: 'MonkeyIslandMenu',
+                        fontSize: 11,
+                        fill: 0x772a76,
+                        align: 'center',
+                        fontWeight: 'bold',
+                        });
+                    }
+                    if (currentMenuText) {
+                    currentMenuText.x = app.screen.width / 2 - offset;
+                    currentItemText.x = app.screen.width / 2 + offset;
+                    } else {
+                    currentItemText.x = app.screen.width / 2;
+                        }
                     currentItemText.y = houseSprite.height + 2;
                     menuContainer.addChild(currentItemText);
                 }
@@ -548,7 +576,7 @@ export async function loadSprites(app) {
                 event.preventDefault();
             }, { once: true });
             // Déselection d'un item si itemclicked = true.
-                if (itemClicked) {
+                // if (itemClicked) {
                         if (currentItemText) {
                             cleanupText();
                             app.stage.removeChild(currentItemText);
@@ -564,30 +592,13 @@ export async function loadSprites(app) {
                             currentlyActiveButton = null;
                             currentButton = null; 
 
-                            // Rajouter la suppression du texte de sprite si on désélectionne
-                            // currentButton.on('click', () => {
-                            //     if (currentButton.isActive) {
-                            //         if (itemClicked) {
-                            //             if (currentItemText) {
-                            //                 cleanupText();
-                            //                 app.stage.removeChild(currentItemText);
-                            //                 currentItemText.destroy();
-                            //                 currentItemText = null;
-                            //             }
-                            //             itemClicked = false;
-                            //             console.log("décliqué");
-                            //         }
-                            //     }
-                            // });
-
                         }
                         if (currentMenuText) {
                             menuContainer.removeChild(currentMenuText);
                             currentMenuText.destroy();
                             currentMenuText = null;
                         }
-                    }
-            console.log('Clic droit détecté sur le sprite !');
+            console.log('Clic droit détecté!');
         });
         
         function cleanupText() {
@@ -618,6 +629,7 @@ export async function loadSprites(app) {
     spriteActionText(toilePoulieRun, "toile");
     spriteActionText(reveil, "réveil matin");
     spriteActionText(table, "table de nuit");
+    spriteActionText(chest, "coffre en métal");
     spriteActionText(glasswater, "verre");
     menuItemGlassWater.itemName = "verre"
     spriteActionText(menuItemGlassWater, menuItemGlassWater.itemName);
