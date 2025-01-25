@@ -15,6 +15,7 @@ export async function interactions(app, sprites, texts) {
             houseContainer.removeChild(glasswater);
             glasswater.destroy();
             menuContainer.addChild(menuItemGlassWater);
+            console.log(menuItemGlassWater.name);
         }
     });
     
