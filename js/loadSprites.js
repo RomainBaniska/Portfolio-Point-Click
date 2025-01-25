@@ -571,12 +571,9 @@ export async function loadSprites(app) {
 
          // Ajout d'une action du clic-droit censé tout déselectionner :
         app.stage.on('rightdown', () => {
-            // A DECOMMENTER
             document.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
             }, { once: true });
-            // Déselection d'un item si itemclicked = true.
-                // if (itemClicked) {
                         if (currentItemText) {
                             cleanupText();
                             app.stage.removeChild(currentItemText);
@@ -608,32 +605,33 @@ export async function loadSprites(app) {
                     currentSpriteText.destroy();
                     currentSpriteText = null;
                 }
-            // Si le texte de l'action (ex : utilisé) existe, on le repositionne au milieu de l'écran
-                // if (currentMenuText) {
-                //     currentMenuText.x = app.screen.width / 2;
-                // }
         }
     }
 
- 
-    spriteActionText(guybrushLD, "Romain");
-    spriteActionText(guybrush, "Romain");
-    spriteActionText(guybrushGU, "Romain");
-    spriteActionText(guybrushWL, "Romain");
-    spriteActionText(guybrushWR, "Romain");
-    spriteActionText(guybrushSO, "Romain");
-    spriteActionText(ordi, "ordinateur");
-    spriteActionText(ordiRun, "ordinateur");
-    spriteActionText(gamingChair, "chaise de bureau");
-    spriteActionText(toilePoulie, "toile");
-    spriteActionText(toilePoulieRun, "toile");
-    spriteActionText(reveil, "réveil matin");
-    spriteActionText(table, "table de nuit");
-    spriteActionText(chest, "coffre en métal");
-    spriteActionText(glasswater, "verre");
-    menuItemGlassWater.itemName = "verre"
-    spriteActionText(menuItemGlassWater, menuItemGlassWater.itemName);
-    // spriteActionText(gamingChair, "chaise de bureau");
+    // On rassemble les sprites dans un tableau
+    const spriteActions = [
+        { sprite: guybrushLD, actionText: "Romain" },
+        { sprite: guybrush, actionText: "Romain" },
+        { sprite: guybrushGU, actionText: "Romain" },
+        { sprite: guybrushWL, actionText: "Romain" },
+        { sprite: guybrushWR, actionText: "Romain" },
+        { sprite: guybrushSO, actionText: "Romain" },
+        { sprite: ordi, actionText: "ordinateur" },
+        { sprite: ordiRun, actionText: "ordinateur" },
+        { sprite: gamingChair, actionText: "chaise de bureau" },
+        { sprite: toilePoulie, actionText: "toile" },
+        { sprite: toilePoulieRun, actionText: "toile" },
+        { sprite: reveil, actionText: "réveil matin" },
+        { sprite: table, actionText: "table de nuit" },
+        { sprite: chest, actionText: "coffre en métal" },
+        { sprite: glasswater, actionText: "verre" },
+        { sprite: menuItemGlassWater, actionText: "verre"}
+    ];
+
+    // On applique le spriteActionText à chaque sprite du tableau
+    spriteActions.forEach(({ sprite, actionText }) => {
+        spriteActionText(sprite, actionText);
+    });
 
     // On va assigner un ensemble de propriétés aux sprites clés pour les interactions (à repositionner dans chaque élément de sprite)
     guybrushSO.name = "guybrushSO";
@@ -645,6 +643,9 @@ export async function loadSprites(app) {
     ordi.name = "ordi";
     ordiRun.name = "ordiRun";
     gamingChair.name = "gamingChair";
+    menuItemGlassWater.name ="verre"
+    // menuItemGlassWater.name ="verre vide"
+    
 
     // Idem pour les Boutons :
     // Boutons
