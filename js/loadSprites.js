@@ -456,13 +456,16 @@ export async function loadSprites(app) {
 
     const offset = app.screen.width * 0.04;
     const offset2 = app.screen.width * 0.15;
+    // Le nom du sprite
     let currentSpriteText = null;
+    // Le nom de l'item
     let currentItemText = null;
+    // Dit si l'item a été déjà cliqué
     let itemClicked = false;
-    // Méthode pour associer un texte à un sprite (hover et clic)
-    // Au lieu d'utiliser des addEventListener, on fait un sprite".on"
+    // Méthode pour associer un texte sur le menuContainer relatif au nom d'un item ou d'un sprite (hover et clic)
     function spriteActionText(sprite, actionText) {
         sprite.on('pointerover', () => {
+            // lors du hover d'un sprite on clean le champs quoi qu'il arrive
             cleanupText();
             currentSpriteText = new PIXI.Text(actionText, {
                 fontFamily: 'MonkeyIslandMenu',
@@ -536,6 +539,7 @@ export async function loadSprites(app) {
             // Déselection d'un item si itemclicked = true.
                 if (itemClicked) {
                         if (currentItemText) {
+                            cleanupText();
                             app.stage.removeChild(currentItemText);
                             currentItemText.destroy();
                             currentItemText = null;
@@ -556,21 +560,19 @@ export async function loadSprites(app) {
                         }
                     }
             console.log('Clic droit détecté sur le sprite !');
-            console.log(itemClicked);
-            console.log(currentButton);
-            console.log(currentMenuText);
         });
         
         function cleanupText() {
+            // Si le nom du sprite existe on le détruit
                 if (currentSpriteText) {
                     app.stage.removeChild(currentSpriteText);
                     currentSpriteText.destroy();
                     currentSpriteText = null;
                 }
-        
-                if (currentMenuText) {
-                    currentMenuText.x = app.screen.width / 2;
-                }
+            // Si le texte de l'action (ex : utilisé) existe, on le repositionne au milieu de l'écran
+                // if (currentMenuText) {
+                //     currentMenuText.x = app.screen.width / 2;
+                // }
         }
     }
     
@@ -590,7 +592,8 @@ export async function loadSprites(app) {
     spriteActionText(reveil, "réveil matin");
     spriteActionText(table, "table de nuit");
     spriteActionText(glasswater, "verre");
-    spriteActionText(menuItemGlassWater, "verre");
+    menuItemGlassWater.itemName = "verre"
+    spriteActionText(menuItemGlassWater, menuItemGlassWater.itemName);
     // spriteActionText(gamingChair, "chaise de bureau");
 
     // On va assigner un ensemble de propriétés aux sprites clés pour les interactions (à repositionner dans chaque élément de sprite)

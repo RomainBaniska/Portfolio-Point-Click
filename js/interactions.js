@@ -28,6 +28,8 @@ export async function interactions(app, sprites, texts) {
         if (menuButton7.isActive && menuItemGlassWater.isActive) {
         
         menuItemGlassWater.texture = menuItemGlassWaterEmpty.texture;
+        menuItemGlassWater.itemName = "verre vide";
+        console.log(menuItemGlassWater.itemName);
         menuContainer.addChild(menuCoverDialogue);
 
         houseContainer.addChild(waterpouring);
