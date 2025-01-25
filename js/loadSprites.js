@@ -643,7 +643,8 @@ export async function loadSprites(app) {
     ordi.name = "ordi";
     ordiRun.name = "ordiRun";
     gamingChair.name = "gamingChair";
-    menuItemGlassWater.name ="verre"
+    menuItemGlassWater.name ="menuItemGlassWater"
+    menuItemGlassWaterEmpty.name ="menuItemGlassWaterEmpty"
     // menuItemGlassWater.name ="verre vide"
     
 
