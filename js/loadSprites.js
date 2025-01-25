@@ -158,6 +158,14 @@ export async function loadSprites(app) {
     toilePoulieRun.interactive = false;
     houseContainer.addChild(toilePoulie);
 
+    //COFFRE
+    const chest = await displaySprite('ELEMENTS/chest/chest.json', 0.12);
+    chest.gotoAndStop(0); 
+    chest.interactive = true;
+    chest.interactive = false;
+    chest.zIndex = 3;
+    houseContainer.addChild(chest);
+
     //////////////////////////////////////// SPECIAL SCREENS ////////////////////////////////
 
     // TERMINAL SCREEN
@@ -415,6 +423,9 @@ export async function loadSprites(app) {
         button.addEventListener('click', () => {
             if (currentButton === button) {
                 if (currentMenuText) {
+                    if (itemClicked) {
+                        console.log("tebboune");
+                    }
                     menuContainer.removeChild(currentMenuText);
                     currentMenuText.destroy();
                     currentMenuText = null;
@@ -490,9 +501,9 @@ export async function loadSprites(app) {
         });
 
         sprite.on('pointerout', () => {
-            if (!itemClicked) {
+            // if (!itemClicked) {
                 cleanupText();
-            }
+            // }
         });
         sprite.on('removed', () => {
             cleanupText();
@@ -552,6 +563,23 @@ export async function loadSprites(app) {
                             currentButton.isActive = false; 
                             currentlyActiveButton = null;
                             currentButton = null; 
+
+                            // Rajouter la suppression du texte de sprite si on désélectionne
+                            // currentButton.on('click', () => {
+                            //     if (currentButton.isActive) {
+                            //         if (itemClicked) {
+                            //             if (currentItemText) {
+                            //                 cleanupText();
+                            //                 app.stage.removeChild(currentItemText);
+                            //                 currentItemText.destroy();
+                            //                 currentItemText = null;
+                            //             }
+                            //             itemClicked = false;
+                            //             console.log("décliqué");
+                            //         }
+                            //     }
+                            // });
+
                         }
                         if (currentMenuText) {
                             menuContainer.removeChild(currentMenuText);
@@ -575,9 +603,8 @@ export async function loadSprites(app) {
                 // }
         }
     }
-    
-   
 
+ 
     spriteActionText(guybrushLD, "Romain");
     spriteActionText(guybrush, "Romain");
     spriteActionText(guybrushGU, "Romain");
@@ -657,6 +684,7 @@ export async function loadSprites(app) {
         toilePoulieRun,
         glasswater,
         waterpouring,
+        chest,
         // ACTIONS MENU
         menuContainer,
         menuSprite,

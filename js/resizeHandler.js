@@ -2,7 +2,7 @@
 
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuItemGlassWater, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring} = sprites;
+    const { houseSprite, menuItemGlassWater, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest} = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -183,6 +183,9 @@ function adjustMenuItemsPosition(item, column, row) {
 
     // Position GamingChair ArmRest
     setSpritePositionAndScale(gamingChairAR, 0.54, 0.875, 900, 1000);
+
+    // Position Coffre
+    setSpritePositionAndScale(chest, 0.54, 0.355, 500, 700);
 
     // Position verre d'eau
     setSpritePositionAndScale(glasswater, 0.9972, 0.882, 900, 6000);
