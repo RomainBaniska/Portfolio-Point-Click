@@ -140,12 +140,12 @@ export async function loadTexts(sprites) {
             tirer:  "Je le trouve déjà très bien là où il est",
         },
         menuItemGlassWater: {
-            utiliser: "Non, je n'ai pas soif",
+            utiliser: "",
             regarder: "Le verre est rempli d'eau",
             item: true,
         },
         menuItemGlassWaterEmpty: {
-            utiliser: "Non, je n'ai pas soif",
+            utiliser: ".",
             regarder: "Le verre est vide",
             item: true,
         }
@@ -180,7 +180,7 @@ export async function loadTexts(sprites) {
 
             
             // (lors du clic) Si on constate que dans l'objet spriteBehaviors, il existe le sprite et qu'il possède une action, alors on affiche cette réponse (ou méthode) 
-            if (spriteBehaviors[spriteName] && spriteBehaviors[spriteName][action]) {
+            if (spriteBehaviors[spriteName] && (spriteBehaviors[spriteName][action] || spriteBehaviors[spriteName][action] === "")) {
                 // Action définie pour ce sprite
                 const response = spriteBehaviors[spriteName][action];
                 // On utilise la fonction pour afficher le texte
@@ -192,8 +192,11 @@ export async function loadTexts(sprites) {
                     displayDialogue(response, 3000);
                 }
             } else {
-                // Comportement par défaut si aucune action définie
-                displayDialogue("Non, ça ne marchera pas.", 3000);
+                // if (spriteBehaviors[spriteName][action] === "") {
+                //     console.log('nein'); // Si la réponse est une chaîne vide, rien ne se passe.
+                // } else {
+                    displayDialogue("Non, ça ne marchera pas.", 3000); // Sinon, afficher un dialogue par défaut.
+                // }
             }
         } else {
             // console.log("Aucun bouton actif ou aucun sprite cliqué.");
