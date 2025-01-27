@@ -1,9 +1,6 @@
 
 export async function loadTexts(sprites) {
 
-    // Promesse "délai"
-    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
     // Heure actuelle
     const currentDate = new Date();
     const currentHour =  currentDate.getHours();
@@ -42,8 +39,6 @@ export async function loadTexts(sprites) {
     const wakeUpText2 = textConfig('T\'es qui toi ? Et pourquoi tu fais sonner mon réveil si tôt ?', dialogueStyle);
     const wakeUpText3 = textConfig('Bon si on a fini, moi j\'ai du travail', dialogueStyle);
     const startDialogue = textConfig('Oui ?', dialogueStyle);
-
-    let responseText = null;
 
     // TABLEAUX DES REPONSES DE GUYBRUSH
     const wakeUpResponses = [
@@ -185,11 +180,13 @@ export async function loadTexts(sprites) {
                         interactableSprite.clicked = true;
                         // Puis on applique la série d'instructions de la méthode qui gère les différentes réactions
                         try {
-                                // Annuler la séquence en cours
-                                if (currentDialogueSequence) {
-                                    currentDialogueSequence.canceled = true; // Annule la séquence en cours
-                                }
-                            await spriteActionPlayerText();
+                            // Si une séquence en cours existe, on l'annule 
+                             if (currentReactionSequence) {
+                                 currentReactionSequence.canceled = true; // Annule la séquence en cours
+                             }
+                        await spriteActionPlayerText();
+                        } catch (error) {
+                            console.error("Erreur lors de l'exécution de l'action du sprite", error);
                         } finally {
 
                         interactableSprite.clicked = false;
@@ -209,9 +206,9 @@ export async function loadTexts(sprites) {
             const action = activeButton.action;
 
         // Annulation d'une ancienne séquence
-        if (currentDialogueSequence) {
-            currentDialogueSequence.canceled = true;
-            currentDialogueSequence = null;  // Réinitialisation après annulation
+        if (currentReactionSequence) {
+            currentReactionSequence.canceled = true;
+            currentReactionSequence = null;  // Réinitialisation après annulation
         }
             
             // (lors du clic) Si on constate que dans l'objet spriteBehaviors, il existe le sprite et qu'il possède une action, alors on affiche cette réponse (ou méthode) 
@@ -222,18 +219,18 @@ export async function loadTexts(sprites) {
                 if (typeof response === "function") {
                     // Exécute la fonction et récupère son résultat
                     const result = response();
-                    await displayDialogue(result, 3000);
+                    await displayReaction(result, 3000);
 
                 // On utilise la fonction pour afficher le texte
                 } else if (Array.isArray(response)) {
                     // Si c'est une liste de dialogues, les afficher en séquence
-                    await displayDialogueSequence(response, 4000);
+                    await displayReactionSequence(response, 4000);
                 } else {
                     // Sinon, afficher un seul dialogue
-                    await displayDialogue(response, 3000);
+                    await displayReaction(response, 3000);
                 }
             } else {
-                    await displayDialogue("Non, ça ne marchera pas.", 3000); // Sinon, afficher un dialogue par défaut.
+                    await displayReaction("Non, ça ne marchera pas.", 3000); // Sinon, afficher un dialogue par défaut.
             }
         } else {
             // console.log("Aucun bouton actif ou aucun sprite cliqué.");
@@ -243,9 +240,9 @@ export async function loadTexts(sprites) {
 
     // Références globales de ligne de dialogue (réaction) et séquences de dialogues (réactions)
     let dialogue = null;
-    let currentDialogueSequence = null;
+    let currentReactionSequence = null;
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR 
-    function displayDialogue(text, time) {
+    function displayReaction(text, time) {
         return new Promise(resolve => {
 
             // Détruit la précédente ligne de réaction (Seulement Ok s'il n'y a qu'une ligne de réaction)
@@ -269,21 +266,21 @@ export async function loadTexts(sprites) {
     }
 
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR SI IL Y EN A PLUS D'UNE
-    async function displayDialogueSequence(dialogues, delay = 3000) {
+    async function displayReactionSequence(dialogues, delay = 3000) {
         // Création d'une référence unique pour la séquence
-        currentDialogueSequence = { canceled: false };
+        currentReactionSequence = { canceled: false };
 
         for (const text of dialogues) {
                 // Si une nouvelle séquence est démarrée, arrêter l'ancienne
-                if (currentDialogueSequence.canceled) {
+                if (currentReactionSequence.canceled) {
                     console.log("Séquence annulée.");
                     return;
                 }
 
-            await displayDialogue(text, delay);
+            await displayReaction(text, delay);
         }
         // Séquence terminée
-        currentDialogueSequence = null;
+        currentReactionSequence = null;
     }
 
     return {
