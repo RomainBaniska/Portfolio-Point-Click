@@ -11,7 +11,7 @@ export async function loadTexts(sprites) {
     const currentTimeHourMinutes = `${currentHour}:${currentMinutes}`;
 
     // Sprites
-    const { houseContainer, houseSprite, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGlassWaterEmpty, menuItemGlassWater,
+    const { houseContainer, houseSprite, itemClicked, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGlassWaterEmpty, menuItemGlassWater,
         menuButton,
         menuButton2,
         menuButton3,
@@ -84,6 +84,27 @@ export async function loadTexts(sprites) {
             regarder: ["Il semble être le maître de ces lieux", "De toute évidence il est extrêmement musclé", "Pourtant, je ne vois aucune haltère dans cette maison", "Curieux..."],
             parler: ""
         },
+
+        guybrushLD: {
+            regarder: "il dort profondément",
+            parler: ["Eh ho !",
+                "Rien à faire, il dort comme une enclume"
+            ],
+            pousser: ["Si je le bouscule un peu trop, j'ai peur qu'il le prenne mal à son réveil",
+                "Et puis avec autant de muscles il doit peser au moins une tonne"
+            ],
+            tirer: ["Si je le bouscule un peu trop, j'ai peur qu'il le prenne mal à son réveil",
+                "Et puis avec autant de muscles il doit peser au moins une tonne"
+            ],
+            utiliser: () => {
+                console.log(itemClicked);
+                if (!itemClicked) {
+                    return "Hmmm... Pas possible de lui parler s'il n'est pas réveillé";
+                } else {
+                    return "";
+                }
+            }
+        },
         toilePoulieRun: {
             prendre: "Si je lui déchire son petit home cinéma, il risque de pas être très content.",
             regarder: [
@@ -145,31 +166,40 @@ export async function loadTexts(sprites) {
             item: true,
         },
         menuItemGlassWaterEmpty: {
-            utiliser: ".",
+            utiliser: "",
             regarder: "Le verre est vide",
             item: true,
         }
     };
 
+    // Pour tous les éléments du tableau des sprites interactifs
+    interactableSprites.forEach(interactableSprite => {
+                    // On définit les sprites en "non cliqué" par défaut
+                    interactableSprite.clicked = false;
 
-    interactableSprites.forEach(sprite => {
-        sprite.clicked = false;
-    
-        sprite.on('pointerdown', () => {
-            sprite.clicked = true;
-            console.log("sprite cliqué");
+                    // lors du clic sur le sprite, il devient cliqué
+                    interactableSprite.on('click', async () => {
+                        // On empêche plusieurs clics simultanés
+                        if (interactableSprite.clicked) return;
 
-            spriteActionPlayerText();
+                        interactableSprite.clicked = true;
+                        // Puis on applique la série d'instructions de la méthode qui gère les différentes réactions
+                        try {
+                                // Annuler la séquence en cours
+                                if (currentDialogueSequence) {
+                                    currentDialogueSequence.canceled = true; // Annule la séquence en cours
+                                }
+                            await spriteActionPlayerText();
+                        } finally {
 
-            setTimeout(() => {
-            sprite.clicked = false;
-            }, 100);
-        });
+                        interactableSprite.clicked = false;
+                        }
+                    });
     });
 
+    // Méthode permettant d'ajouter divers dialogues en fonction du sprite cliqué
+    async function spriteActionPlayerText() {
 
-    function spriteActionPlayerText() {
-       
         const activeButton = menuButtonsArray.find(button => button.isActive);
         const clickedSprite = interactableSprites.find(sprite => sprite.clicked);
     
@@ -178,25 +208,32 @@ export async function loadTexts(sprites) {
             const spriteName = clickedSprite.name;
             const action = activeButton.action;
 
+        // Annulation d'une ancienne séquence
+        if (currentDialogueSequence) {
+            currentDialogueSequence.canceled = true;
+            currentDialogueSequence = null;  // Réinitialisation après annulation
+        }
             
             // (lors du clic) Si on constate que dans l'objet spriteBehaviors, il existe le sprite et qu'il possède une action, alors on affiche cette réponse (ou méthode) 
             if (spriteBehaviors[spriteName] && (spriteBehaviors[spriteName][action] || spriteBehaviors[spriteName][action] === "")) {
                 // Action définie pour ce sprite
                 const response = spriteBehaviors[spriteName][action];
+
+                if (typeof response === "function") {
+                    // Exécute la fonction et récupère son résultat
+                    const result = response();
+                    await displayDialogue(result, 3000);
+
                 // On utilise la fonction pour afficher le texte
-                if (Array.isArray(response)) {
+                } else if (Array.isArray(response)) {
                     // Si c'est une liste de dialogues, les afficher en séquence
-                    displayDialogueSequence(response, 4000);
+                    await displayDialogueSequence(response, 4000);
                 } else {
                     // Sinon, afficher un seul dialogue
-                    displayDialogue(response, 3000);
+                    await displayDialogue(response, 3000);
                 }
             } else {
-                // if (spriteBehaviors[spriteName][action] === "") {
-                //     console.log('nein'); // Si la réponse est une chaîne vide, rien ne se passe.
-                // } else {
-                    displayDialogue("Non, ça ne marchera pas.", 3000); // Sinon, afficher un dialogue par défaut.
-                // }
+                    await displayDialogue("Non, ça ne marchera pas.", 3000); // Sinon, afficher un dialogue par défaut.
             }
         } else {
             // console.log("Aucun bouton actif ou aucun sprite cliqué.");
@@ -204,12 +241,14 @@ export async function loadTexts(sprites) {
         }
     }
 
-    
+    // Références globales de ligne de dialogue (réaction) et séquences de dialogues (réactions)
     let dialogue = null;
-    // METHODE QUI AFFICHE LE DIALOGUE DU JOUEUR (A ROMAIN et DANS SA TÊTE)
+    let currentDialogueSequence = null;
+    // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR 
     function displayDialogue(text, time) {
         return new Promise(resolve => {
 
+            // Détruit la précédente ligne de réaction (Seulement Ok s'il n'y a qu'une ligne de réaction)
             if (dialogue) {
                 dialogue.destroy();
                 console.log("destroyed");
@@ -222,17 +261,29 @@ export async function loadTexts(sprites) {
         dialogue.y = houseSprite.y + (houseSprite.height * 0.3);
         houseContainer.addChild(dialogue);
         setTimeout(() => {
+            console.log(`${dialogue.text} ...... terminé`);
             dialogue.destroy();
             resolve();
         }, time);
     });
     }
 
-    // METHODE QUI AFFICHE LES LIGNES DE DIALOGUE DU JOUEUR SI IL Y EN A PLUS D'UNE
+    // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR SI IL Y EN A PLUS D'UNE
     async function displayDialogueSequence(dialogues, delay = 3000) {
+        // Création d'une référence unique pour la séquence
+        currentDialogueSequence = { canceled: false };
+
         for (const text of dialogues) {
+                // Si une nouvelle séquence est démarrée, arrêter l'ancienne
+                if (currentDialogueSequence.canceled) {
+                    console.log("Séquence annulée.");
+                    return;
+                }
+
             await displayDialogue(text, delay);
         }
+        // Séquence terminée
+        currentDialogueSequence = null;
     }
 
     return {

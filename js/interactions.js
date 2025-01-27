@@ -158,7 +158,6 @@ function walkLeft (positionFactor) {
             guybrushWL.x -= speed; 
             if (guybrushWL.x <= stopPosition) {
                 moving = false;
-                console.log("Arrêt atteint à :", guybrushWL.x);
                 resolve();
                 }
             }
@@ -178,7 +177,6 @@ function walkRight(positionFactor) {
             guybrushWR.x += speed; 
             if (guybrushWR.x >= stopPosition) {
                 moving = false;
-                console.log('Position finale:', guybrushWR.x);
                 resolve();
                 }
                 }

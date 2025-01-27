@@ -356,6 +356,8 @@ export async function loadSprites(app) {
         if (currentlyActiveButton && currentlyActiveButton !== button) {
             currentlyActiveButton.texture = currentlyActiveButton.sprite.texture;
             currentlyActiveButton.isActive = false;
+            console.log (`${currentlyActiveButton} désactivé`);
+            console.log (`${button.button} activé`);
         }
 
           // Si un item est actif, désélectionne-le et supprime son texte
@@ -396,18 +398,18 @@ export async function loadSprites(app) {
     menuButtonActivation(menuButton8, menuButton8Sprite, menuButton8SpriteActive);
     menuButtonActivation(menuButton9, menuButton9Sprite, menuButton9SpriteActive);
 
-    // Méthode d'activation de statut actif lors du clic sur l'item
-
+    // Méthode d'activation de statut actif lors du clic sur l'item (menu droit)
     let currentlyActiveItem = null;
     function menuItemActivation(item) {
         // item.interactive = true;
         item.isActive = false;
         item.on('click', () => {
             // Si un autre bouton est actif, désactiver son état et restaurer sa texture normale
-            if (currentlyActiveItem && currentlyActiveItem !== item) {
-                currentlyActiveItem.isActive = false;
-                console.log("item activé");
-            }
+            
+            // if (currentlyActiveItem && currentlyActiveItem !== item) {
+            //     currentlyActiveItem.isActive = false;
+            //     console.log("item activé");
+            // }
     
             if (item.isActive === true) {
                 item.isActive = false;
