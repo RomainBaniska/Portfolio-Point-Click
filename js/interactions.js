@@ -1,6 +1,6 @@
 export async function interactions(app, sprites, texts) {
 
-    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty } = sprites;
+    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -15,6 +15,7 @@ export async function interactions(app, sprites, texts) {
             houseContainer.removeChild(glasswater);
             glasswater.destroy();
             menuContainer.addChild(menuItemGlassWater);
+            console.log(menuItemGlassWater.isActive);
             console.log(menuItemGlassWater.name);
         }
     });
@@ -26,9 +27,13 @@ export async function interactions(app, sprites, texts) {
 
         if (menuButton7.isActive && menuItemGlassWater.isActive) {
         
-        menuItemGlassWater.texture = menuItemGlassWaterEmpty.texture;
-        // menuItemGlassWater.name = "verre vide";
-        // console.log(menuItemGlassWater.itemName);
+        console.log ("Action verre d'eau - Romain réussie");
+        // On génère un clic droit sur "app.stage" qui va désactiver les items et le bouton et supprimer les textes d'action et d'item.
+        app.stage.emit('rightdown');
+
+         // On swap l'item "verre" par "verre vide" et on n'oublie pas de bien désactiver l'item   
+        spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
+
         menuContainer.addChild(menuCoverDialogue);
 
         houseContainer.addChild(waterpouring);

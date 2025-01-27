@@ -271,17 +271,27 @@ export async function loadSprites(app) {
     menuCoverDialogueOverlay.zIndex = 10;
 
     // MENU ITEMS Textures
+    // Verre
     const menuItemGlassWaterAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItem.png');
     const menuItemGlassWater = new PIXI.Sprite(menuItemGlassWaterAsset);
-    const menuItemGlassWaterEmptyAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItemempty.png');
-    const menuItemGlassWaterEmpty = new PIXI.Sprite(menuItemGlassWaterEmptyAsset);
     menuItemGlassWater.interactive = true;
     menuItemGlassWater.item = true;
-    // menuContainer.addChild(menuItemGlassWater);
-    // menuItemGlassWater.zIndex = 99;
-    // menuItemGlassWater.anchor.set(0);
-    // menuSprite.addChild(menuItemGlassWater);
-    //...
+    // Verre Sélectionné
+    const menuItemGlassWaterSelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItemSelected.png');
+    const menuItemGlassWaterSelected = new PIXI.Sprite(menuItemGlassWaterSelectedAsset);
+    menuItemGlassWaterSelected.interactive = true;
+    menuItemGlassWaterSelected.item = true;
+
+    // Verre vide
+    const menuItemGlassWaterEmptyAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItemempty.png');
+    const menuItemGlassWaterEmpty = new PIXI.Sprite(menuItemGlassWaterEmptyAsset);
+    menuItemGlassWaterEmpty.interactive = true;
+    menuItemGlassWaterEmpty.item = true;
+    // Verre vide Sélectionné
+    const menuItemGlassWaterEmptySelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItemEmptySelected.png');
+    const menuItemGlassWaterEmptySelected = new PIXI.Sprite(menuItemGlassWaterEmptySelectedAsset);
+    menuItemGlassWaterEmptySelected.interactive = true;
+    menuItemGlassWaterEmptySelected.item = true;
     
     // MENU BUTTONS Textures
     const menuButtonSprite = await displaySpriteButton('MENUACTION/inactive/button.json');
@@ -335,7 +345,7 @@ export async function loadSprites(app) {
     );
 
     let currentlyActiveButton = null;
-    // Méthode un changement de texture du menuButton lors du hover sur les boutons
+    // Méthode un changement de texture du menuButton lors du hover et clic des boutons d'action
     function menuButtonActivation(button, sprite, activeSprite) {
 
         button.interactive = true;
@@ -353,36 +363,37 @@ export async function loadSprites(app) {
         });
         button.on('click', () => {
         // Si un autre bouton est actif, désactiver son état et restaurer sa texture normale
-        if (currentlyActiveButton && currentlyActiveButton !== button) {
-            currentlyActiveButton.texture = currentlyActiveButton.sprite.texture;
-            currentlyActiveButton.isActive = false;
-            console.log (`${currentlyActiveButton} désactivé`);
-            console.log (`${button.button} activé`);
-        }
-
-          // Si un item est actif, désélectionne-le et supprime son texte
-        if (itemClicked) {
-            if (currentItemText) {
-                app.stage.removeChild(currentItemText);
-                currentItemText.destroy();
-                currentItemText = null;
+            if (currentlyActiveButton && currentlyActiveButton !== button) {
+                currentlyActiveButton.texture = currentlyActiveButton.sprite.texture;
+                currentlyActiveButton.isActive = false;
+                console.log (`${currentlyActiveButton} désactivé`);
+                console.log (`${button.button} activé`);
             }
-            itemClicked = false;
-        }
-
-        if (button.isActive === true) {
-            button.texture = sprite.texture;
-            button.isActive = false;
-            currentlyActiveButton = null;
-            console.log("désactivé");  
-        } else {
-            button.texture = activeSprite.texture;
-            button.isActive = true;
-            currentlyActiveButton = button;
-            console.log("activé");  
-        }
-        
+            // Si un item est actif, désélectionne-le et supprime son texte
+            if (itemClicked) {
+                if (currentItemText) {
+                    app.stage.removeChild(currentItemText);
+                    currentItemText.destroy();
+                    currentItemText = null;
+                }
+                itemClicked = false;
+                ////// ATTENTION TEST FOIREUX A RETIRER
+                menuItemGlassWater.texture = menuItemGlassWaterSelected.texture;
+            }
+            if (button.isActive === true) {
+                button.texture = sprite.texture;
+                button.isActive = false;
+                currentlyActiveButton = null;
+                console.log("désactivé");  
+            } else {
+                button.texture = activeSprite.texture;
+                button.isActive = true;
+                currentlyActiveButton = button;
+                console.log("activé");  
+            }
+            
         });
+
         button.sprite = sprite; 
         button.activeSprite = activeSprite;
     }
@@ -400,29 +411,30 @@ export async function loadSprites(app) {
 
     // Méthode d'activation de statut actif lors du clic sur l'item (menu droit)
     let currentlyActiveItem = null;
-    function menuItemActivation(item) {
+    function menuItemActivation(item, defaultTexture, selectedTexture) {
         // item.interactive = true;
         item.isActive = false;
         item.on('click', () => {
-            // Si un autre bouton est actif, désactiver son état et restaurer sa texture normale
-            
-            // if (currentlyActiveItem && currentlyActiveItem !== item) {
-            //     currentlyActiveItem.isActive = false;
-            //     console.log("item activé");
-            // }
-    
             if (item.isActive === true) {
                 item.isActive = false;
+                item.texture = defaultTexture;
                 currentlyActiveItem = null;
                 console.log("item désactivé");  
             } else {
+                // Désactiver l'item actif précédent (si existant)
+                if (currentlyActiveItem) {
+                    currentlyActiveItem.isActive = false;
+                    currentlyActiveItem.texture = defaultTexture;
+                }
                 item.isActive = true;
+                item.texture = selectedTexture;
                 currentlyActiveItem = item;
-                console.log("activé");  
+                console.log("item activé");  
             }
             });
     }
-    menuItemActivation(menuItemGlassWater);
+    menuItemActivation(menuItemGlassWater, menuItemGlassWater.texture, menuItemGlassWaterSelected.texture);
+    menuItemActivation(menuItemGlassWaterEmpty, menuItemGlassWaterEmpty.texture, menuItemGlassWaterEmptySelected.texture);
     // console.log(menuItemGlassWater.isActive);
 
     // Méthode pour associer un texte à une action (exemple : utiliser)
@@ -627,7 +639,8 @@ export async function loadSprites(app) {
         { sprite: table, actionText: "table de nuit" },
         { sprite: chest, actionText: "coffre en métal" },
         { sprite: glasswater, actionText: "verre" },
-        { sprite: menuItemGlassWater, actionText: "verre"}
+        { sprite: menuItemGlassWater, actionText: "verre"},
+        { sprite: menuItemGlassWaterEmpty, actionText: "verre vide"}
     ];
 
     // On applique le spriteActionText à chaque sprite du tableau
@@ -661,19 +674,6 @@ export async function loadSprites(app) {
     menuButton7.action = "utiliser";
     menuButton8.action = "pousser";
     menuButton9.action = "tirer";
-
-
-    // guybrushLD.on('click', () => {
-
-    //     console.log(itemClicked);
-    //     console.log(menuButton7);
-
-    //     if (menuButton7.isActive && itemClicked) {
-    //         console.log("ok");
-    //         houseContainer.removeChild(guybrushLD);
-    //         guybrushLD.destroy();
-    //     }
-    // });
 
     return {
         houseContainer,
@@ -716,7 +716,9 @@ export async function loadSprites(app) {
         // ITEMS
         // itemClicked,
         menuItemGlassWater,
+        menuItemGlassWaterSelected,
         menuItemGlassWaterEmpty,
+        menuItemGlassWaterEmptySelected,
         // MENU DIALOGUE
         menuCoverDialogue,
         menuCoverDialogueOverlay,
