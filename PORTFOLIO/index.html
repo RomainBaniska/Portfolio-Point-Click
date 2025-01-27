@@ -27,11 +27,13 @@
         import { resizeHandler } from '../js/resizeHandler.js';
         import { interactions } from '../js/interactions.js';
         import { loadTexts } from '../js/loadTexts.js';
+        import { loadSounds } from '../js/loadSounds.js';
 
         (async () => {
             const app = await initializeApp();
             const sprites = await loadSprites(app); 
-            const texts = await loadTexts(sprites); 
+            const texts = await loadTexts(sprites);
+            const sounds = await loadSounds(); 
             await resizeHandler(app, sprites, texts);
             await interactions(app, sprites, texts);
         })();
