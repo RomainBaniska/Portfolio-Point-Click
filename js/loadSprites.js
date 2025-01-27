@@ -346,7 +346,7 @@ export async function loadSprites(app) {
 
     let currentlyActiveButton = null;
     // Méthode un changement de texture du menuButton lors du hover et clic des boutons d'action
-    function menuButtonActivation(button, sprite, activeSprite) {
+    function menuButtonActivation(button, inactiveSprite, activeSprite) {
 
         button.interactive = true;
         button.isActive = false;
@@ -358,7 +358,7 @@ export async function loadSprites(app) {
         });
         button.on('pointerout', () => {
             if (button.isActive === false) {
-            button.texture = sprite.texture; 
+            button.texture = inactiveSprite.texture; 
             }
         });
         button.on('click', () => {
@@ -381,7 +381,7 @@ export async function loadSprites(app) {
                 menuItemGlassWater.texture = menuItemGlassWaterSelected.texture;
             }
             if (button.isActive === true) {
-                button.texture = sprite.texture;
+                button.texture = inactiveSprite.texture;
                 button.isActive = false;
                 currentlyActiveButton = null;
                 console.log("désactivé");  
@@ -394,7 +394,7 @@ export async function loadSprites(app) {
             
         });
 
-        button.sprite = sprite; 
+        button.sprite = inactiveSprite; 
         button.activeSprite = activeSprite;
     }
  
