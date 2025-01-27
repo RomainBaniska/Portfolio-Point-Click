@@ -454,29 +454,34 @@ export async function loadSprites(app) {
     let currentMenuText = null;
     let currentButton = null;
 
-    // Fonction d'association, appliquée à chaque bouton
+    // On parcourt le tableau des boutons d'actions
     buttonActions.forEach(({ button, text }) => {
     button.on('click', () => {
+        // Si le bouton sur lequel on clique (button) est déjà actif
         if (currentButton === button) {
-            // Si le bouton est déjà sélectionné
+            // S'il y a déjà un texte d'action
             if (currentMenuText) {
-                if (itemClicked) {
-                    itemClicked = false;
-                    console.log("tebboune");
-                }
+                // On retire/détruit le texte d'action et on désactive le bouton actuel
                 menuContainer.removeChild(currentMenuText);
                 currentMenuText.destroy();
                 currentMenuText = null;
                 currentButton = null; 
+                // S'il y a déjà un item cliqué, on passe la valeur itemClicked en false
+                if (itemClicked) {
+                    itemClicked = false;
+                }
+                // Rajouter la propriété isactive false à l'item cliqué
             }
         } else {
             // Si un autre bouton est sélectionné
             if (currentMenuText) {
+            // On détruit le texte
                 menuContainer.removeChild(currentMenuText);
                 currentMenuText.destroy();
                 currentMenuText = null;
             }
 
+            // Et on marque le texte du nouveau bouton d'action sélectionné
             currentMenuText = new PIXI.Text(text, {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: 11,
