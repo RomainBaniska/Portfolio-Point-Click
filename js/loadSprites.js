@@ -346,9 +346,8 @@ export async function loadSprites(app) {
 
     let currentlyActiveButton = null;
     // Méthode un changement de texture du menuButton lors du hover et clic des boutons d'action
-    function menuButtonActivation(button, inactiveSprite, activeSprite) {
+    function menuButtonActivation(button, sprite, activeSprite) {
 
-        // Par défaut les boutons sont inactifs (mais toujours interactifs)
         button.interactive = true;
         button.isActive = false;
         
@@ -359,43 +358,43 @@ export async function loadSprites(app) {
         });
         button.on('pointerout', () => {
             if (button.isActive === false) {
-            button.texture = inactiveSprite.texture; 
+            button.texture = sprite.texture; 
             }
         });
         button.on('click', () => {
-        // Si lors du clic, un bouton d'action est déjà actif et qu'on clique sur un autre bouton d'action, le premier bouton va être désactivé et on restaure sa texture "inactive"
+        // Si un autre bouton est actif, désactiver son état et restaurer sa texture normale
             if (currentlyActiveButton && currentlyActiveButton !== button) {
-                
-                currentlyActiveButton.texture = currentlyActiveButton.inactiveSprite.texture;
+                currentlyActiveButton.texture = currentlyActiveButton.sprite.texture;
                 currentlyActiveButton.isActive = false;
-                console.log("Changement de bouton d'action");
+                console.log (`${currentlyActiveButton} désactivé`);
+                console.log (`${button.button} activé`);
             }
-        // Si lors du clic un bouton d'action est déjà actif (un autre ou le même) et qu'un item est déjà actif (sélectionné), on le désactive l'item et on remet sa texture "inactive"
-            if (currentlyActiveButton && currentlyActiveButton !== button && itemClicked) {
-                console.log (`Etat de itemClicked : ${itemClicked}`);
-                itemClicked = false;
-                console.log (`Etat de itemClicked : ${itemClicked}`);
+            // Si un item est actif, désélectionne-le et supprime son texte
+            if (itemClicked) {
                 if (currentItemText) {
                     app.stage.removeChild(currentItemText);
                     currentItemText.destroy();
                     currentItemText = null;
                 }
+                itemClicked = false;
+                ////// ATTENTION TEST FOIREUX A RETIRER
+                menuItemGlassWater.texture = menuItemGlassWaterSelected.texture;
             }
             if (button.isActive === true) {
-                button.texture = inactiveSprite.texture;
+                button.texture = sprite.texture;
                 button.isActive = false;
                 currentlyActiveButton = null;
-                console.log("Bouton de menu d'action désactivé");  
+                console.log("désactivé");  
             } else {
                 button.texture = activeSprite.texture;
                 button.isActive = true;
                 currentlyActiveButton = button;
-                console.log("Bouton de menu d'action activé");  
+                console.log("activé");  
             }
             
         });
 
-        button.inactiveSprite = inactiveSprite; 
+        button.sprite = sprite; 
         button.activeSprite = activeSprite;
     }
  
@@ -533,7 +532,9 @@ export async function loadSprites(app) {
         });
 
         sprite.on('pointerout', () => {
+            // if (!itemClicked) {
                 cleanupText();
+            // }
         });
         sprite.on('removed', () => {
             cleanupText();

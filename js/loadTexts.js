@@ -258,7 +258,7 @@ export async function loadTexts(sprites) {
         dialogue.y = houseSprite.y + (houseSprite.height * 0.3);
         houseContainer.addChild(dialogue);
         setTimeout(() => {
-            // console.log(`${dialogue.text} ...... terminé`);
+            console.log(`${dialogue.text} ...... terminé`);
             dialogue.destroy();
             resolve();
         }, time);
