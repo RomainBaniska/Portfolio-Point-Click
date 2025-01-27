@@ -15,8 +15,6 @@ export async function interactions(app, sprites, texts) {
             houseContainer.removeChild(glasswater);
             glasswater.destroy();
             menuContainer.addChild(menuItemGlassWater);
-            console.log(menuItemGlassWater.isActive);
-            console.log(menuItemGlassWater.name);
         }
     });
     
@@ -29,7 +27,7 @@ export async function interactions(app, sprites, texts) {
         
         console.log ("Action verre d'eau - Romain réussie");
         // On génère un clic droit sur "app.stage" qui va désactiver les items et le bouton et supprimer les textes d'action et d'item.
-        app.stage.emit('rightdown');
+        // app.stage.emit('rightdown');
 
          // On swap l'item "verre" par "verre vide" et on n'oublie pas de bien désactiver l'item   
         spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
@@ -115,7 +113,6 @@ export async function interactions(app, sprites, texts) {
                                         wakeUpText3.destroy();
                                         guybrushLD.destroy();
                                         guybrushGU.destroy();
-                                        console.log("L'animation de réveil s'est bien déroulée et les ressources détruites");
                                             }
                                         };
                                     };
@@ -135,7 +132,6 @@ export async function interactions(app, sprites, texts) {
             // On enclenche le dialogue ("Oui ?")
             textFollowSprite(guybrushSOT, startDialogue); 
             menuContainer.addChild(menuCoverDialogue);
-            console.log("Dialogue réenclenché");
 
             initResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
             
@@ -144,7 +140,6 @@ export async function interactions(app, sprites, texts) {
                 houseContainer.removeChild(startDialogue); 
             }, 2000);
         }  
-        console.log("NOOO !");
     });
         
 
@@ -225,12 +220,7 @@ function textFollowSprite(sprite, textObject) {
 
 function initResponses(menuCoverDialogue, playerResponses, style) {
     // Effectuer une copie profonde à l'initialisation
-    // const originalResponses = playerResponses.map(response => ({ ...response }));
     const originalResponses = structuredClone(playerResponses);
-
-    // à ce stade, originalResponses est BIEN le clone de playerResponses, si on essaye de changer la valeur de playerresponse ça reste la même
-    // console.log("originalResponses dans displayResponses : ", originalResponses);
-
 
     // Appeler la méthode d'affichage
     displayResponses(menuCoverDialogue, playerResponses, style, originalResponses);

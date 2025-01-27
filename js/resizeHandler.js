@@ -206,6 +206,4 @@ window.addEventListener('resize', adjustCanvasSize);
 
 // Redimensionnement dès le chargement initial
 adjustCanvasSize();
-
-console.log("tout s'est bien déclenché");
 }
