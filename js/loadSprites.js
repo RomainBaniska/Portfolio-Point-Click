@@ -362,12 +362,10 @@ export async function loadSprites(app) {
             }
         });
         actionButton.on('click', () => {
-        // Si un autre bouton est actif, désactiver son état et restaurer sa texture normale
+        // Si lors du clic sur le bouton d'action un autre bouton d'action est actif, on repasse l'ancien bouton actif sur "inactif" et on lui rend sa texture "inactif".
             if (currentlyActiveButton && currentlyActiveButton !== actionButton) {
                 currentlyActiveButton.texture = currentlyActiveButton.sprite.texture;
                 currentlyActiveButton.isActive = false;
-                console.log (`${currentlyActiveButton} désactivé`);
-                console.log (`${actionButton.button} activé`);
             }
             // Si un item est actif, désélectionne-le et supprime son texte
             if (itemClicked) {
@@ -377,8 +375,6 @@ export async function loadSprites(app) {
                     currentItemText = null;
                 }
                 itemClicked = false;
-                ////// ATTENTION TEST FOIREUX A RETIRER
-                menuItemGlassWater.texture = menuItemGlassWaterSelected.texture;
             }
             if (actionButton.isActive === true) {
                 actionButton.texture = inactiveSprite.texture;
@@ -435,7 +431,6 @@ export async function loadSprites(app) {
     }
     menuItemActivation(menuItemGlassWater, menuItemGlassWater.texture, menuItemGlassWaterSelected.texture);
     menuItemActivation(menuItemGlassWaterEmpty, menuItemGlassWaterEmpty.texture, menuItemGlassWaterEmptySelected.texture);
-    // console.log(menuItemGlassWater.isActive);
 
     // Méthode pour associer un texte à une action (exemple : utiliser)
     // On crée un tableau associant chaque bouton aveà une action
@@ -609,7 +604,7 @@ export async function loadSprites(app) {
                             currentMenuText.destroy();
                             currentMenuText = null;
                         }
-            console.log('Clic droit détecté!');
+            console.log("Clic droit détecté - tout est déselectionné");
         });
         
         function cleanupText() {
