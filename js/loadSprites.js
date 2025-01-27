@@ -422,13 +422,14 @@ export async function loadSprites(app) {
     menuButtonActivation(menuButton8, menuButton8Sprite, menuButton8SpriteActive);
     menuButtonActivation(menuButton9, menuButton9Sprite, menuButton9SpriteActive);
 
+    // Méthode pour l'activation du statut actif lors du clic sur l'item et sa surbrillance
+    // On crée un tableau des items avec leur texture de surbrillance respective
     const menuItems = [
         { item: menuItemGlassWater, defaultTexture: menuItemGlassWater.texture, selectedTexture: menuItemGlassWaterSelected.texture },
         { item: menuItemGlassWaterEmpty, defaultTexture: menuItemGlassWaterEmpty.texture, selectedTexture: menuItemGlassWaterEmptySelected.texture },
     ];
-
-    // On parcourt le tableau des items pour l'activation du statut actif lors du clic sur l'item et sa surbrillance
-    // Méthode 
+    
+    // On parcourt le tableau des items
     menuItems.forEach(({ item, defaultTexture, selectedTexture }) => {
         // On définit l'item comme inactif par défaut
         item.isActive = false;
@@ -513,15 +514,15 @@ export async function loadSprites(app) {
 });
 
 
-
     const offset = app.screen.width * 0.04;
     const offset2 = app.screen.width * 0.15;
     // Méthode pour associer un texte sur le menuContainer relatif au nom d'un item ou d'un sprite (hover et clic)
-    function spriteActionText(sprite, actionText) {
+    function spriteActionText(sprite, spriteName) {
         sprite.on('pointerover', () => {
             // lors du hover d'un sprite on clean le champs quoi qu'il arrive
             cleanupText();
-            currentSpriteText = new PIXI.Text(actionText, {
+            // Et on rajoute le nom du sprite 
+            currentSpriteText = new PIXI.Text(spriteName, {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: 11,
                 fill: 0x772a76,
@@ -565,7 +566,7 @@ export async function loadSprites(app) {
                     cleanupText();
                     // Création du texte pour l'item cliqué
                     if (currentButton == menuButton7) { 
-                        currentItemText = new PIXI.Text(`${actionText} avec `, {
+                        currentItemText = new PIXI.Text(`${spriteName} avec `, {
                         fontFamily: 'MonkeyIslandMenu',
                         fontSize: 11,
                         fill: 0x772a76,
@@ -573,7 +574,7 @@ export async function loadSprites(app) {
                         fontWeight: 'bold',
                          });
                          } else { 
-                        currentItemText = new PIXI.Text(`${actionText} à `, {
+                        currentItemText = new PIXI.Text(`${spriteName} à `, {
                         fontFamily: 'MonkeyIslandMenu',
                         fontSize: 11,
                         fill: 0x772a76,
@@ -634,28 +635,28 @@ export async function loadSprites(app) {
 
     // On rassemble les sprites dans un tableau
     const spriteActions = [
-        { sprite: guybrushLD, actionText: "Romain" },
-        { sprite: guybrush, actionText: "Romain" },
-        { sprite: guybrushGU, actionText: "Romain" },
-        { sprite: guybrushWL, actionText: "Romain" },
-        { sprite: guybrushWR, actionText: "Romain" },
-        { sprite: guybrushSO, actionText: "Romain" },
-        { sprite: ordi, actionText: "ordinateur" },
-        { sprite: ordiRun, actionText: "ordinateur" },
-        { sprite: gamingChair, actionText: "chaise de bureau" },
-        { sprite: toilePoulie, actionText: "toile" },
-        { sprite: toilePoulieRun, actionText: "toile" },
-        { sprite: reveil, actionText: "réveil matin" },
-        { sprite: table, actionText: "table de nuit" },
-        { sprite: chest, actionText: "coffre en métal" },
-        { sprite: glasswater, actionText: "verre" },
-        { sprite: menuItemGlassWater, actionText: "verre"},
-        { sprite: menuItemGlassWaterEmpty, actionText: "verre vide"}
+        { sprite: guybrushLD, spriteName: "Romain" },
+        { sprite: guybrush, spriteName: "Romain" },
+        { sprite: guybrushGU, spriteName: "Romain" },
+        { sprite: guybrushWL, spriteName: "Romain" },
+        { sprite: guybrushWR, spriteName: "Romain" },
+        { sprite: guybrushSO, spriteName: "Romain" },
+        { sprite: ordi, spriteName: "ordinateur" },
+        { sprite: ordiRun, spriteName: "ordinateur" },
+        { sprite: gamingChair, spriteName: "chaise de bureau" },
+        { sprite: toilePoulie, spriteName: "toile" },
+        { sprite: toilePoulieRun, spriteName: "toile" },
+        { sprite: reveil, spriteName: "réveil matin" },
+        { sprite: table, spriteName: "table de nuit" },
+        { sprite: chest, spriteName: "coffre en métal" },
+        { sprite: glasswater, spriteName: "verre" },
+        { sprite: menuItemGlassWater, spriteName: "verre"},
+        { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"}
     ];
 
     // On applique le spriteActionText à chaque sprite du tableau
-    spriteActions.forEach(({ sprite, actionText }) => {
-        spriteActionText(sprite, actionText);
+    spriteActions.forEach(({ sprite, spriteName }) => {
+        spriteActionText(sprite, spriteName);
     });
 
     // On va assigner un ensemble de propriétés aux sprites clés pour les interactions (à repositionner dans chaque élément de sprite)
