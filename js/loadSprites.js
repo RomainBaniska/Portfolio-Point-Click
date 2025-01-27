@@ -346,28 +346,28 @@ export async function loadSprites(app) {
 
     let currentlyActiveButton = null;
     // Méthode un changement de texture du menuButton lors du hover et clic des boutons d'action
-    function menuButtonActivation(button, inactiveSprite, activeSprite) {
+    function menuButtonActivation(actionButton, inactiveSprite, activeSprite) {
 
-        button.interactive = true;
-        button.isActive = false;
+        actionButton.interactive = true;
+        actionButton.isActive = false;
         
-        button.on('pointerover', () => {
-            if (button.isActive === false) {
-                button.texture = activeSprite.texture; 
+        actionButton.on('pointerover', () => {
+            if (actionButton.isActive === false) {
+                actionButton.texture = activeSprite.texture; 
             } 
         });
-        button.on('pointerout', () => {
-            if (button.isActive === false) {
-            button.texture = inactiveSprite.texture; 
+        actionButton.on('pointerout', () => {
+            if (actionButton.isActive === false) {
+                actionButton.texture = inactiveSprite.texture; 
             }
         });
-        button.on('click', () => {
+        actionButton.on('click', () => {
         // Si un autre bouton est actif, désactiver son état et restaurer sa texture normale
-            if (currentlyActiveButton && currentlyActiveButton !== button) {
+            if (currentlyActiveButton && currentlyActiveButton !== actionButton) {
                 currentlyActiveButton.texture = currentlyActiveButton.sprite.texture;
                 currentlyActiveButton.isActive = false;
                 console.log (`${currentlyActiveButton} désactivé`);
-                console.log (`${button.button} activé`);
+                console.log (`${actionButton.button} activé`);
             }
             // Si un item est actif, désélectionne-le et supprime son texte
             if (itemClicked) {
@@ -380,22 +380,22 @@ export async function loadSprites(app) {
                 ////// ATTENTION TEST FOIREUX A RETIRER
                 menuItemGlassWater.texture = menuItemGlassWaterSelected.texture;
             }
-            if (button.isActive === true) {
-                button.texture = inactiveSprite.texture;
-                button.isActive = false;
+            if (actionButton.isActive === true) {
+                actionButton.texture = inactiveSprite.texture;
+                actionButton.isActive = false;
                 currentlyActiveButton = null;
                 console.log("désactivé");  
             } else {
-                button.texture = activeSprite.texture;
-                button.isActive = true;
-                currentlyActiveButton = button;
+                actionButton.texture = activeSprite.texture;
+                actionButton.isActive = true;
+                currentlyActiveButton = actionButton;
                 console.log("activé");  
             }
             
         });
 
-        button.sprite = inactiveSprite; 
-        button.activeSprite = activeSprite;
+        actionButton.sprite = inactiveSprite; 
+        actionButton.activeSprite = activeSprite;
     }
  
     // On applique menuButtonActivation pour chaque bouton
