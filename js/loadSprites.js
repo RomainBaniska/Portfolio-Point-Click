@@ -2,6 +2,23 @@ export async function loadSprites(app) {
 
     const SPRITE_PATH_PREFIX = '../sprites/';
 
+    // VARIABLES GLOBALES 
+
+       // Le nom du sprite qui s'affiche lors du hover
+       let currentSpriteText = null;
+       // Le nom de l'item qui s'affiche lors du hover
+       let currentItemText = null;
+       // Valeur qui indique si l'item a été déjà cliqué
+       let itemClicked = false;
+       // Le nom du bouton d'action qui s'affiche lorsqu'il est cliqué
+       let currentMenuText = null;
+       // Le bouton d'action (inactif ?)
+       let currentButton = null;
+       // Le bouton d'action actif
+       let currentlyActiveButton = null;
+       // l'item actif
+       let currentlyActiveItem = null;
+
     // Fonction D'affichage des sprites
     async function displaySprite(path, speed) {
         const spriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + path);
@@ -88,8 +105,6 @@ export async function loadSprites(app) {
     // ORDINATEUR
     const ordi = await displaySprite('ELEMENTS/ordi/ordi.json', 0.12);
     const ordiRun = await displaySprite('ELEMENTS/ordi/ordiRun.json', 0.12);
-    // ordi.play();
-    // ordi.gotoAndPlay(0); 
     ordi.gotoAndStop(0); 
     ordi.interactive = true;
     ordi.clicked = false;
@@ -193,7 +208,6 @@ export async function loadSprites(app) {
     questionMarkActive.interactive = true;
     questionMarkActive.stop();
     houseContainer.addChild(questionMark);
-    // houseContainer.addChild(questionMarkActive);
     const noPanikAsset = await PIXI.Assets.load('../sprites/SPECIAL/noPanik.png');
     const noPanik = new PIXI.Sprite(noPanikAsset);
     noPanik.anchor.set(0, 0);
@@ -344,7 +358,6 @@ export async function loadSprites(app) {
         menuButton9,
     );
 
-    let currentlyActiveButton = null;
     // Méthode un changement de texture du menuButton lors du hover et clic des boutons d'action
     function menuButtonActivation(button, inactiveSprite, activeSprite) {
 
@@ -409,12 +422,18 @@ export async function loadSprites(app) {
     menuButtonActivation(menuButton8, menuButton8Sprite, menuButton8SpriteActive);
     menuButtonActivation(menuButton9, menuButton9Sprite, menuButton9SpriteActive);
 
-    // Méthode d'activation de statut actif lors du clic sur l'item (menu droit)
-    let currentlyActiveItem = null;
-    function menuItemActivation(item, defaultTexture, selectedTexture) {
-        // item.interactive = true;
+    const menuItems = [
+        { item: menuItemGlassWater, defaultTexture: menuItemGlassWater.texture, selectedTexture: menuItemGlassWaterSelected.texture },
+        { item: menuItemGlassWaterEmpty, defaultTexture: menuItemGlassWaterEmpty.texture, selectedTexture: menuItemGlassWaterEmptySelected.texture },
+    ];
+
+    // On parcourt le tableau des items pour l'activation du statut actif lors du clic sur l'item et sa surbrillance
+    // Méthode 
+    menuItems.forEach(({ item, defaultTexture, selectedTexture }) => {
+        // On définit l'item comme inactif par défaut
         item.isActive = false;
         item.on('click', () => {
+            // Si l'item est actif, on le passe en inactif et prend la texture du sprite inactif
             if (item.isActive === true) {
                 item.isActive = false;
                 item.texture = defaultTexture;
@@ -432,10 +451,7 @@ export async function loadSprites(app) {
                 console.log("item activé");  
             }
             });
-    }
-    menuItemActivation(menuItemGlassWater, menuItemGlassWater.texture, menuItemGlassWaterSelected.texture);
-    menuItemActivation(menuItemGlassWaterEmpty, menuItemGlassWaterEmpty.texture, menuItemGlassWaterEmptySelected.texture);
-    // console.log(menuItemGlassWater.isActive);
+    });
 
     // Méthode pour associer un texte à une action (exemple : utiliser)
     // On crée un tableau associant chaque bouton aveà une action
@@ -450,9 +466,6 @@ export async function loadSprites(app) {
     { button: menuButton8, text: 'Pousser' },
     { button: menuButton9, text: 'Tirer' }
     ];
-    // Variables globales partagées
-    let currentMenuText = null;
-    let currentButton = null;
 
     // On parcourt le tableau des boutons d'actions
     buttonActions.forEach(({ button, text }) => {
@@ -503,12 +516,6 @@ export async function loadSprites(app) {
 
     const offset = app.screen.width * 0.04;
     const offset2 = app.screen.width * 0.15;
-    // Le nom du sprite
-    let currentSpriteText = null;
-    // Le nom de l'item
-    let currentItemText = null;
-    // Dit si l'item a été déjà cliqué
-    let itemClicked = false;
     // Méthode pour associer un texte sur le menuContainer relatif au nom d'un item ou d'un sprite (hover et clic)
     function spriteActionText(sprite, actionText) {
         sprite.on('pointerover', () => {
@@ -537,9 +544,7 @@ export async function loadSprites(app) {
         });
 
         sprite.on('pointerout', () => {
-            // if (!itemClicked) {
                 cleanupText();
-            // }
         });
         sprite.on('removed', () => {
             cleanupText();
