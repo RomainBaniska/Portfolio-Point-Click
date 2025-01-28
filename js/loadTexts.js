@@ -91,14 +91,7 @@ export async function loadTexts(sprites) {
             tirer: ["Si je le bouscule un peu trop, j'ai peur qu'il le prenne mal à son réveil",
                 "Et puis avec autant de muscles il doit peser au moins une tonne"
             ],
-            utiliser: () => {
-                console.log(itemClicked);
-                if (!itemClicked) {
-                    return "Hmmm... Pas possible de lui parler s'il n'est pas réveillé";
-                } else {
-                    return "";
-                }
-            }
+            utiliser: "",
         },
         toilePoulieRun: {
             prendre: "Si je lui déchire son petit home cinéma, il risque de pas être très content.",
