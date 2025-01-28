@@ -359,16 +359,16 @@ export async function loadSprites(app) {
     );
 
     const menuActionButtons = [
-        { menuAction: menuButton, defaultTexture: menuButtonSprite, selectedTexture: menuButtonSpriteActive },
-        { menuAction: menuButton2, defaultTexture: menuButton2Sprite, selectedTexture: menuButton2SpriteActive },
-        { menuAction: menuButton3, defaultTexture: menuButton3Sprite, selectedTexture: menuButton3SpriteActive },
-        { menuAction: menuButton4, defaultTexture: menuButton4Sprite, selectedTexture: menuButton4SpriteActive },
-        { menuAction: menuButton5, defaultTexture: menuButton5Sprite, selectedTexture: menuButton5SpriteActive },
-        { menuAction: menuButton6, defaultTexture: menuButton6Sprite, selectedTexture: menuButton6SpriteActive },
-        { menuAction: menuButton7, defaultTexture: menuButton7Sprite, selectedTexture: menuButton7SpriteActive },
-        { menuAction: menuButton8, defaultTexture: menuButton8Sprite, selectedTexture: menuButton8SpriteActive },
-        { menuAction: menuButton9, defaultTexture: menuButton9Sprite, selectedTexture: menuButton9SpriteActive },
-    ];
+        { menuAction: menuButton, defaultTexture: menuButtonSprite, selectedTexture: menuButtonSpriteActive, text: 'Donner' },
+        { menuAction: menuButton2, defaultTexture: menuButton2Sprite, selectedTexture: menuButton2SpriteActive, text: 'Ouvrir' },
+        { menuAction: menuButton3, defaultTexture: menuButton3Sprite, selectedTexture: menuButton3SpriteActive, text: 'Fermer' },
+        { menuAction: menuButton4, defaultTexture: menuButton4Sprite, selectedTexture: menuButton4SpriteActive, text: 'Prendre' },
+        { menuAction: menuButton5, defaultTexture: menuButton5Sprite, selectedTexture: menuButton5SpriteActive, text: 'Regarder' },
+        { menuAction: menuButton6, defaultTexture: menuButton6Sprite, selectedTexture: menuButton6SpriteActive, text: 'Parler à' },
+        { menuAction: menuButton7, defaultTexture: menuButton7Sprite, selectedTexture: menuButton7SpriteActive, text: 'Utiliser' },
+        { menuAction: menuButton8, defaultTexture: menuButton8Sprite, selectedTexture: menuButton8SpriteActive, text: 'Pousser' },
+        { menuAction: menuButton9, defaultTexture: menuButton9Sprite, selectedTexture: menuButton9SpriteActive, text: 'Tirer' },
+    ];    
 
     menuActionButtons.forEach(({ menuAction, defaultTexture, selectedTexture }) => {
         menuAction.interactive = true;
@@ -390,7 +390,6 @@ export async function loadSprites(app) {
                 currentlyActiveButton.texture = currentlyActiveButton.sprite.texture;
                 currentlyActiveButton.isActive = false;
                 console.log (`${currentlyActiveButton} désactivé`);
-                console.log (`${menuAction} activé`);
             }
             // Si un item est actif, désélectionne-le et supprime son texte
             if (itemClicked) {
@@ -401,6 +400,15 @@ export async function loadSprites(app) {
                 }
                 itemClicked = false;
             }
+
+               // Si un item est actif, le désactiver
+            if (currentlyActiveItem) {
+                currentlyActiveItem.texture = currentlyActiveItem.defaultTexture; 
+                currentlyActiveItem.isActive = false;
+                currentlyActiveItem = null;
+                console.log("Item actif désactivé");
+            }
+
             if (menuAction.isActive === true) {
                 menuAction.texture = defaultTexture.texture;
                 menuAction.isActive = false;
@@ -419,20 +427,21 @@ export async function loadSprites(app) {
         // menuAction.selectedTexture = selectedTexture;
     });
 
-
-    // Méthode pour l'activation du statut actif lors du clic sur l'item et sa surbrillance
+  
+      // Méthode pour l'activation du statut actif lors du clic sur l'item et sa surbrillance
     // On crée un tableau des items avec leur texture de surbrillance respective
     const menuItems = [
         { item: menuItemGlassWater, defaultTexture: menuItemGlassWater.texture, selectedTexture: menuItemGlassWaterSelected.texture },
         { item: menuItemGlassWaterEmpty, defaultTexture: menuItemGlassWaterEmpty.texture, selectedTexture: menuItemGlassWaterEmptySelected.texture },
     ];
+
     
     // On parcourt le tableau des items
     menuItems.forEach(({ item, defaultTexture, selectedTexture }) => {
         // On définit l'item comme inactif par défaut
         item.isActive = false;
         item.on('click', () => {
-            // Si aucun bouton n'est sélectionné, on ne fait rien
+            // Si aucun bouton d'action n'est sélectionné, on ne fait rien
             if (!currentActionButton) {
                 console.log("Aucun bouton d'action actif");
                 return;
@@ -459,23 +468,13 @@ export async function loadSprites(app) {
 
     // Méthode pour associer un texte à une action (exemple : utiliser)
     // On crée un tableau associant chaque bouton aveà une action
-    const buttonActions = [
-    { button: menuButton, text: 'Donner' },
-    { button: menuButton2, text: 'Ouvrir' },
-    { button: menuButton3, text: 'Fermer' },
-    { button: menuButton4, text: 'Prendre' },
-    { button: menuButton5, text: 'Regarder' },
-    { button: menuButton6, text: 'Parler à' },
-    { button: menuButton7, text: 'Utiliser' },
-    { button: menuButton8, text: 'Pousser' },
-    { button: menuButton9, text: 'Tirer' }
-    ];
+    // ... Tableau fusionné
 
     // On parcourt le tableau des boutons d'actions
-    buttonActions.forEach(({ button, text }) => {
-    button.on('click', () => {
-        // Si le bouton sur lequel on clique (button) est déjà actif
-        if (currentActionButton === button) {
+    menuActionButtons.forEach(({ menuAction, text }) => {
+        menuAction.on('click', () => {
+        // Si le bouton sur lequel on clique (menuAction) est déjà actif
+        if (currentActionButton === menuAction) {
             // S'il y a déjà un texte d'action
             if (currentMenuText) {
                 // On retire/détruit le texte d'action et on désactive le bouton actuel
@@ -511,7 +510,7 @@ export async function loadSprites(app) {
             currentMenuText.x = app.screen.width / 2;
             currentMenuText.y = houseSprite.height + 2;
 
-            currentActionButton = button;
+            currentActionButton = menuAction;
         }
     });
 });
