@@ -617,6 +617,14 @@ export async function loadSprites(app) {
             document.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
             }, { once: true });
+            
+                        if (currentlyActiveItem) {
+                            currentlyActiveItem.texture = currentlyActiveItem.defaultTexture; 
+                            currentlyActiveItem.isActive = false;
+                            currentlyActiveItem = null;
+                            console.log("Item actif désactivé");
+                        }
+
                         if (currentItemText) {
                             cleanupText();
                             app.stage.removeChild(currentItemText);
