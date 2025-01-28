@@ -432,6 +432,11 @@ export async function loadSprites(app) {
         // On définit l'item comme inactif par défaut
         item.isActive = false;
         item.on('click', () => {
+            // Si aucun bouton n'est sélectionné, on ne fait rien
+            if (!currentActionButton) {
+                console.log("Aucun bouton d'action actif");
+                return;
+            }
             // Si l'item est actif, on le passe en inactif et prend la texture du sprite inactif
             if (item.isActive === true) {
                 item.isActive = false;
