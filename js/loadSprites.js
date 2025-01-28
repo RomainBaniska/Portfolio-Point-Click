@@ -10,8 +10,8 @@ export async function loadSprites(app) {
        let currentItemText = null;
        // Valeur qui indique si l'item a été déjà cliqué
        let itemClicked = false;
-       // Le nom du bouton d'action qui s'affiche lorsqu'il est cliqué
-       let currentMenuText = null;
+       // Le texte qui s'affiche renvoyant au nom du bouton d'action lorsqu'il est cliqué
+       let currentActionText = null;
        // Le bouton d'action (inactif ?)
        let currentActionButton = null;
        // Le bouton d'action actif
@@ -472,11 +472,11 @@ export async function loadSprites(app) {
         // Si le bouton sur lequel on clique (menuAction) est déjà actif
         if (currentActionButton === menuAction) {
             // S'il y a déjà un texte d'action
-            if (currentMenuText) {
+            if (currentActionText) {
                 // On retire/détruit le texte d'action et on désactive le bouton actuel
-                menuContainer.removeChild(currentMenuText);
-                currentMenuText.destroy();
-                currentMenuText = null;
+                menuContainer.removeChild(currentActionText);
+                currentActionText.destroy();
+                currentActionText = null;
                 currentActionButton = null; 
                 // S'il y a déjà un item cliqué, on passe la valeur itemClicked en false
                 if (itemClicked) {
@@ -485,16 +485,16 @@ export async function loadSprites(app) {
                 // Rajouter la propriété isactive false à l'item cliqué
             }
         } else {
-            // Si un autre bouton est sélectionné
-            if (currentMenuText) {
+            // Si un autre bouton est sélectionné et qu'il existe un texte d'action
+            if (currentActionText) {
             // On détruit le texte
-                menuContainer.removeChild(currentMenuText);
-                currentMenuText.destroy();
-                currentMenuText = null;
+                menuContainer.removeChild(currentActionText);
+                currentActionText.destroy();
+                currentActionText = null;
             }
 
             // Et on marque le texte du nouveau bouton d'action sélectionné
-            currentMenuText = new PIXI.Text(text, {
+            currentActionText = new PIXI.Text(text, {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: 11,
                 fill: 0x772a76,
@@ -502,9 +502,9 @@ export async function loadSprites(app) {
                 fontWeight: 'bold'
             });
 
-            menuContainer.addChild(currentMenuText);
-            currentMenuText.x = app.screen.width / 2;
-            currentMenuText.y = houseSprite.height + 2;
+            menuContainer.addChild(currentActionText);
+            currentActionText.x = app.screen.width / 2;
+            currentActionText.y = houseSprite.height + 2;
 
             currentActionButton = menuAction;
         }
@@ -547,12 +547,12 @@ export async function loadSprites(app) {
                 align: 'center',
                 fontWeight: 'bold'
             });
-            if (currentMenuText) {
+            if (currentActionText) {
                     if (itemClicked) {
-                        currentMenuText.x = app.screen.width / 2 - offset;
+                        currentActionText.x = app.screen.width / 2 - offset;
                         currentSpriteText.x = app.screen.width / 2 + offset2;
                     }else {
-                currentMenuText.x = app.screen.width / 2 - offset;
+                currentActionText.x = app.screen.width / 2 - offset;
                 currentSpriteText.x = app.screen.width / 2 + offset;
             }
             } else {
@@ -600,8 +600,8 @@ export async function loadSprites(app) {
                         fontWeight: 'bold',
                         });
                     }
-                    if (currentMenuText) {
-                    currentMenuText.x = app.screen.width / 2 - offset;
+                    if (currentActionText) {
+                    currentActionText.x = app.screen.width / 2 - offset;
                     currentItemText.x = app.screen.width / 2 + offset;
                     } else {
                     currentItemText.x = app.screen.width / 2;
@@ -617,23 +617,25 @@ export async function loadSprites(app) {
             document.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
             }, { once: true });
-            
+                        // On désélectionne l'item actif s'il existe (surbrillance -> default)
                         if (currentlyActiveItem) {
                             currentlyActiveItem.texture = currentlyActiveItem.defaultTexture; 
                             currentlyActiveItem.isActive = false;
                             currentlyActiveItem = null;
                             console.log("Item actif désactivé");
                         }
-
+                        // On clean le texte de l'item s'il existe
                         if (currentItemText) {
                             cleanupText();
                             app.stage.removeChild(currentItemText);
                             currentItemText.destroy();
                             currentItemText = null;
                         }
+                        // On passe "itemClicked" à false
                         itemClicked = false;
                         console.log("décliqué");
                        
+                        // Si un bouton d'action est actif, on le passe en null
                         if (currentActionButton) {
                             currentActionButton.texture = currentActionButton.sprite.texture;
                             currentActionButton.isActive = false; 
@@ -641,10 +643,11 @@ export async function loadSprites(app) {
                             currentActionButton = null; 
 
                         }
-                        if (currentMenuText) {
-                            menuContainer.removeChild(currentMenuText);
-                            currentMenuText.destroy();
-                            currentMenuText = null;
+                        // Si un texte d'action existe, on le clean
+                        if (currentActionText) {
+                            menuContainer.removeChild(currentActionText);
+                            currentActionText.destroy();
+                            currentActionText = null;
                         }
             console.log("Clic droit détecté - tout est déselectionné");
         });
