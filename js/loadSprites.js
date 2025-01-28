@@ -2,6 +2,23 @@ export async function loadSprites(app) {
 
     const SPRITE_PATH_PREFIX = '../sprites/';
 
+    // VARIABLES GLOBALES 
+
+       // Le nom du sprite qui s'affiche lors du hover
+       let currentSpriteText = null;
+       // Le nom de l'item qui s'affiche lors du hover
+       let currentItemText = null;
+       // Valeur qui indique si l'item a été déjà cliqué
+       let itemClicked = false;
+       // Le nom du bouton d'action qui s'affiche lorsqu'il est cliqué
+       let currentMenuText = null;
+       // Le bouton d'action (inactif ?)
+       let currentActionButton = null;
+       // Le bouton d'action actif
+       let currentlyActiveButton = null;
+       // l'item actif
+       let currentlyActiveItem = null;
+
     // Fonction D'affichage des sprites
     async function displaySprite(path, speed) {
         const spriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + path);
@@ -88,8 +105,6 @@ export async function loadSprites(app) {
     // ORDINATEUR
     const ordi = await displaySprite('ELEMENTS/ordi/ordi.json', 0.12);
     const ordiRun = await displaySprite('ELEMENTS/ordi/ordiRun.json', 0.12);
-    // ordi.play();
-    // ordi.gotoAndPlay(0); 
     ordi.gotoAndStop(0); 
     ordi.interactive = true;
     ordi.clicked = false;
@@ -193,7 +208,6 @@ export async function loadSprites(app) {
     questionMarkActive.interactive = true;
     questionMarkActive.stop();
     houseContainer.addChild(questionMark);
-    // houseContainer.addChild(questionMarkActive);
     const noPanikAsset = await PIXI.Assets.load('../sprites/SPECIAL/noPanik.png');
     const noPanik = new PIXI.Sprite(noPanikAsset);
     noPanik.anchor.set(0, 0);
@@ -344,28 +358,39 @@ export async function loadSprites(app) {
         menuButton9,
     );
 
-    let currentlyActiveButton = null;
-    // Méthode un changement de texture du menuButton lors du hover et clic des boutons d'action
-    function menuButtonActivation(actionButton, inactiveSprite, activeSprite) {
+    const menuActionButtons = [
+        { menuAction: menuButton, defaultTexture: menuButtonSprite, selectedTexture: menuButtonSpriteActive },
+        { menuAction: menuButton2, defaultTexture: menuButton2Sprite, selectedTexture: menuButton2SpriteActive },
+        { menuAction: menuButton3, defaultTexture: menuButton3Sprite, selectedTexture: menuButton3SpriteActive },
+        { menuAction: menuButton4, defaultTexture: menuButton4Sprite, selectedTexture: menuButton4SpriteActive },
+        { menuAction: menuButton5, defaultTexture: menuButton5Sprite, selectedTexture: menuButton5SpriteActive },
+        { menuAction: menuButton6, defaultTexture: menuButton6Sprite, selectedTexture: menuButton6SpriteActive },
+        { menuAction: menuButton7, defaultTexture: menuButton7Sprite, selectedTexture: menuButton7SpriteActive },
+        { menuAction: menuButton8, defaultTexture: menuButton8Sprite, selectedTexture: menuButton8SpriteActive },
+        { menuAction: menuButton9, defaultTexture: menuButton9Sprite, selectedTexture: menuButton9SpriteActive },
+    ];
 
-        actionButton.interactive = true;
-        actionButton.isActive = false;
+    menuActionButtons.forEach(({ menuAction, defaultTexture, selectedTexture }) => {
+        menuAction.interactive = true;
+        menuAction.isActive = false;
         
-        actionButton.on('pointerover', () => {
-            if (actionButton.isActive === false) {
-                actionButton.texture = activeSprite.texture; 
+        menuAction.on('pointerover', () => {
+            if (menuAction.isActive === false) {
+                menuAction.texture = selectedTexture.texture; 
             } 
         });
-        actionButton.on('pointerout', () => {
-            if (actionButton.isActive === false) {
-                actionButton.texture = inactiveSprite.texture; 
+        menuAction.on('pointerout', () => {
+            if (menuAction.isActive === false) {
+            menuAction.texture = defaultTexture.texture; 
             }
         });
-        actionButton.on('click', () => {
-        // Si lors du clic sur le bouton d'action un autre bouton d'action est actif, on repasse l'ancien bouton actif sur "inactif" et on lui rend sa texture "inactif".
-            if (currentlyActiveButton && currentlyActiveButton !== actionButton) {
+        menuAction.on('click', () => {
+        // Si un autre bouton est actif, désactiver son état et restaurer sa texture normale
+            if (currentlyActiveButton && currentlyActiveButton !== menuAction) {
                 currentlyActiveButton.texture = currentlyActiveButton.sprite.texture;
                 currentlyActiveButton.isActive = false;
+                console.log (`${currentlyActiveButton} désactivé`);
+                console.log (`${menuAction} activé`);
             }
             // Si un item est actif, désélectionne-le et supprime son texte
             if (itemClicked) {
@@ -376,41 +401,43 @@ export async function loadSprites(app) {
                 }
                 itemClicked = false;
             }
-            if (actionButton.isActive === true) {
-                actionButton.texture = inactiveSprite.texture;
-                actionButton.isActive = false;
+            if (menuAction.isActive === true) {
+                menuAction.texture = defaultTexture.texture;
+                menuAction.isActive = false;
                 currentlyActiveButton = null;
                 console.log("désactivé");  
             } else {
-                actionButton.texture = activeSprite.texture;
-                actionButton.isActive = true;
-                currentlyActiveButton = actionButton;
+                menuAction.texture = selectedTexture.texture;
+                menuAction.isActive = true;
+                currentlyActiveButton = menuAction;
                 console.log("activé");  
             }
             
         });
 
-        actionButton.sprite = inactiveSprite; 
-        actionButton.activeSprite = activeSprite;
-    }
- 
-    // On applique menuButtonActivation pour chaque bouton
-    menuButtonActivation(menuButton, menuButtonSprite, menuButtonSpriteActive);
-    menuButtonActivation(menuButton2, menuButton2Sprite, menuButton2SpriteActive);
-    menuButtonActivation(menuButton3, menuButton3Sprite, menuButton3SpriteActive);
-    menuButtonActivation(menuButton4, menuButton4Sprite, menuButton4SpriteActive);
-    menuButtonActivation(menuButton5, menuButton5Sprite, menuButton5SpriteActive);
-    menuButtonActivation(menuButton6, menuButton6Sprite, menuButton6SpriteActive);
-    menuButtonActivation(menuButton7, menuButton7Sprite, menuButton7SpriteActive);
-    menuButtonActivation(menuButton8, menuButton8Sprite, menuButton8SpriteActive);
-    menuButtonActivation(menuButton9, menuButton9Sprite, menuButton9SpriteActive);
+        menuAction.sprite = defaultTexture; 
+        // menuAction.selectedTexture = selectedTexture;
+    });
 
-    // Méthode d'activation de statut actif lors du clic sur l'item (menu droit)
-    let currentlyActiveItem = null;
-    function menuItemActivation(item, defaultTexture, selectedTexture) {
-        // item.interactive = true;
+
+    // Méthode pour l'activation du statut actif lors du clic sur l'item et sa surbrillance
+    // On crée un tableau des items avec leur texture de surbrillance respective
+    const menuItems = [
+        { item: menuItemGlassWater, defaultTexture: menuItemGlassWater.texture, selectedTexture: menuItemGlassWaterSelected.texture },
+        { item: menuItemGlassWaterEmpty, defaultTexture: menuItemGlassWaterEmpty.texture, selectedTexture: menuItemGlassWaterEmptySelected.texture },
+    ];
+    
+    // On parcourt le tableau des items
+    menuItems.forEach(({ item, defaultTexture, selectedTexture }) => {
+        // On définit l'item comme inactif par défaut
         item.isActive = false;
         item.on('click', () => {
+            // Si aucun bouton n'est sélectionné, on ne fait rien
+            if (!currentActionButton) {
+                console.log("Aucun bouton d'action actif");
+                return;
+            }
+            // Si l'item est actif, on le passe en inactif et prend la texture du sprite inactif
             if (item.isActive === true) {
                 item.isActive = false;
                 item.texture = defaultTexture;
@@ -428,9 +455,7 @@ export async function loadSprites(app) {
                 console.log("item activé");  
             }
             });
-    }
-    menuItemActivation(menuItemGlassWater, menuItemGlassWater.texture, menuItemGlassWaterSelected.texture);
-    menuItemActivation(menuItemGlassWaterEmpty, menuItemGlassWaterEmpty.texture, menuItemGlassWaterEmptySelected.texture);
+    });
 
     // Méthode pour associer un texte à une action (exemple : utiliser)
     // On crée un tableau associant chaque bouton aveà une action
@@ -445,33 +470,35 @@ export async function loadSprites(app) {
     { button: menuButton8, text: 'Pousser' },
     { button: menuButton9, text: 'Tirer' }
     ];
-    // Variables globales partagées
-    let currentMenuText = null;
-    let currentButton = null;
 
-    // Fonction d'association, appliquée à chaque bouton
+    // On parcourt le tableau des boutons d'actions
     buttonActions.forEach(({ button, text }) => {
     button.on('click', () => {
-        if (currentButton === button) {
-            // Si le bouton est déjà sélectionné
+        // Si le bouton sur lequel on clique (button) est déjà actif
+        if (currentActionButton === button) {
+            // S'il y a déjà un texte d'action
             if (currentMenuText) {
-                if (itemClicked) {
-                    itemClicked = false;
-                    console.log("tebboune");
-                }
+                // On retire/détruit le texte d'action et on désactive le bouton actuel
                 menuContainer.removeChild(currentMenuText);
                 currentMenuText.destroy();
                 currentMenuText = null;
-                currentButton = null; 
+                currentActionButton = null; 
+                // S'il y a déjà un item cliqué, on passe la valeur itemClicked en false
+                if (itemClicked) {
+                    itemClicked = false;
+                }
+                // Rajouter la propriété isactive false à l'item cliqué
             }
         } else {
             // Si un autre bouton est sélectionné
             if (currentMenuText) {
+            // On détruit le texte
                 menuContainer.removeChild(currentMenuText);
                 currentMenuText.destroy();
                 currentMenuText = null;
             }
 
+            // Et on marque le texte du nouveau bouton d'action sélectionné
             currentMenuText = new PIXI.Text(text, {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: 11,
@@ -484,27 +511,21 @@ export async function loadSprites(app) {
             currentMenuText.x = app.screen.width / 2;
             currentMenuText.y = houseSprite.height + 2;
 
-            currentButton = button;
+            currentActionButton = button;
         }
     });
 });
 
 
-
     const offset = app.screen.width * 0.04;
     const offset2 = app.screen.width * 0.15;
-    // Le nom du sprite
-    let currentSpriteText = null;
-    // Le nom de l'item
-    let currentItemText = null;
-    // Dit si l'item a été déjà cliqué
-    let itemClicked = false;
     // Méthode pour associer un texte sur le menuContainer relatif au nom d'un item ou d'un sprite (hover et clic)
-    function spriteActionText(sprite, actionText) {
+    function spriteActionText(sprite, spriteName) {
         sprite.on('pointerover', () => {
             // lors du hover d'un sprite on clean le champs quoi qu'il arrive
             cleanupText();
-            currentSpriteText = new PIXI.Text(actionText, {
+            // Et on rajoute le nom du sprite 
+            currentSpriteText = new PIXI.Text(spriteName, {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: 11,
                 fill: 0x772a76,
@@ -527,9 +548,7 @@ export async function loadSprites(app) {
         });
 
         sprite.on('pointerout', () => {
-            // if (!itemClicked) {
                 cleanupText();
-            // }
         });
         sprite.on('removed', () => {
             cleanupText();
@@ -538,7 +557,7 @@ export async function loadSprites(app) {
          // Rajoute une condition : si le sprite est un item, alors cliquer sur le sprite enclenche une action
          sprite.on('click', () => {
             // menuButton7 équivaut à "utiliser"
-            if (sprite.item && (currentButton == menuButton7 || currentButton == menuButton)) {
+            if (sprite.item && (currentActionButton == menuButton7 || currentActionButton == menuButton)) {
                 if (itemClicked) {
                     app.stage.removeChild(currentItemText);
                     currentItemText.destroy();
@@ -549,8 +568,8 @@ export async function loadSprites(app) {
                     console.log("item cliqué");
                     cleanupText();
                     // Création du texte pour l'item cliqué
-                    if (currentButton == menuButton7) { 
-                        currentItemText = new PIXI.Text(`${actionText} avec `, {
+                    if (currentActionButton == menuButton7) { 
+                        currentItemText = new PIXI.Text(`${spriteName} avec `, {
                         fontFamily: 'MonkeyIslandMenu',
                         fontSize: 11,
                         fill: 0x772a76,
@@ -558,7 +577,7 @@ export async function loadSprites(app) {
                         fontWeight: 'bold',
                          });
                          } else { 
-                        currentItemText = new PIXI.Text(`${actionText} à `, {
+                        currentItemText = new PIXI.Text(`${spriteName} à `, {
                         fontFamily: 'MonkeyIslandMenu',
                         fontSize: 11,
                         fill: 0x772a76,
@@ -592,11 +611,11 @@ export async function loadSprites(app) {
                         itemClicked = false;
                         console.log("décliqué");
                        
-                        if (currentButton) {
-                            currentButton.texture = currentButton.sprite.texture;
-                            currentButton.isActive = false; 
+                        if (currentActionButton) {
+                            currentActionButton.texture = currentActionButton.sprite.texture;
+                            currentActionButton.isActive = false; 
                             currentlyActiveButton = null;
-                            currentButton = null; 
+                            currentActionButton = null; 
 
                         }
                         if (currentMenuText) {
@@ -619,28 +638,28 @@ export async function loadSprites(app) {
 
     // On rassemble les sprites dans un tableau
     const spriteActions = [
-        { sprite: guybrushLD, actionText: "Romain" },
-        { sprite: guybrush, actionText: "Romain" },
-        { sprite: guybrushGU, actionText: "Romain" },
-        { sprite: guybrushWL, actionText: "Romain" },
-        { sprite: guybrushWR, actionText: "Romain" },
-        { sprite: guybrushSO, actionText: "Romain" },
-        { sprite: ordi, actionText: "ordinateur" },
-        { sprite: ordiRun, actionText: "ordinateur" },
-        { sprite: gamingChair, actionText: "chaise de bureau" },
-        { sprite: toilePoulie, actionText: "toile" },
-        { sprite: toilePoulieRun, actionText: "toile" },
-        { sprite: reveil, actionText: "réveil matin" },
-        { sprite: table, actionText: "table de nuit" },
-        { sprite: chest, actionText: "coffre en métal" },
-        { sprite: glasswater, actionText: "verre" },
-        { sprite: menuItemGlassWater, actionText: "verre"},
-        { sprite: menuItemGlassWaterEmpty, actionText: "verre vide"}
+        { sprite: guybrushLD, spriteName: "Romain" },
+        { sprite: guybrush, spriteName: "Romain" },
+        { sprite: guybrushGU, spriteName: "Romain" },
+        { sprite: guybrushWL, spriteName: "Romain" },
+        { sprite: guybrushWR, spriteName: "Romain" },
+        { sprite: guybrushSO, spriteName: "Romain" },
+        { sprite: ordi, spriteName: "ordinateur" },
+        { sprite: ordiRun, spriteName: "ordinateur" },
+        { sprite: gamingChair, spriteName: "chaise de bureau" },
+        { sprite: toilePoulie, spriteName: "toile" },
+        { sprite: toilePoulieRun, spriteName: "toile" },
+        { sprite: reveil, spriteName: "réveil matin" },
+        { sprite: table, spriteName: "table de nuit" },
+        { sprite: chest, spriteName: "coffre en métal" },
+        { sprite: glasswater, spriteName: "verre" },
+        { sprite: menuItemGlassWater, spriteName: "verre"},
+        { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"}
     ];
 
     // On applique le spriteActionText à chaque sprite du tableau
-    spriteActions.forEach(({ sprite, actionText }) => {
-        spriteActionText(sprite, actionText);
+    spriteActions.forEach(({ sprite, spriteName }) => {
+        spriteActionText(sprite, spriteName);
     });
 
     // On va assigner un ensemble de propriétés aux sprites clés pour les interactions (à repositionner dans chaque élément de sprite)

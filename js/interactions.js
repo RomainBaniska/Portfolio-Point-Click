@@ -2,6 +2,7 @@ export async function interactions(app, sprites, texts) {
 
     const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
+    // const { unrollSound } = sounds
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // GUYBRUSH START SETUP (Sleeping)
@@ -192,6 +193,8 @@ function walkRight(positionFactor) {
 // METHODE POUR DEROULER L'ECRAN DE PROJECTION
 function unroll() {
     houseContainer.removeChild(toilePoulie);
+        PIXI.sound.play('unroll');
+        console.log('son JOUE');
         houseContainer.addChild(toilePoulieRun);
         toilePoulieRun.animationSpeed = 0.035;
         toilePoulieRun.interactive = true;
