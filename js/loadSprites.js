@@ -381,7 +381,6 @@ export async function loadSprites(app) {
             if (item.isActive === true) {
                 item.isActive = false;
                 item.texture = defaultTexture;
-                console.log(`hahahah YES ! ${item.texture}`);
                 currentlyActiveItem = null;
                 console.log("item désactivé");  
             } else {
@@ -675,6 +674,7 @@ export async function loadSprites(app) {
     ordi.name = "ordi";
     ordiRun.name = "ordiRun";
     gamingChair.name = "gamingChair";
+    chest.name = "chest";
     menuItemGlassWater.name ="menuItemGlassWater"
     menuItemGlassWaterEmpty.name ="menuItemGlassWaterEmpty"    
 

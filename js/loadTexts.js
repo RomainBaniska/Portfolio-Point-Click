@@ -72,7 +72,7 @@ export async function loadTexts(sprites) {
     // REPONSES DU JOUEUR LORS DE CLICK SUR UN SPRITE AVEC ACTION
 
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
-    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty];
+    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest];
     
     const spriteBehaviors = {
         guybrushSO: {
@@ -148,6 +148,20 @@ export async function loadTexts(sprites) {
             pousser:  "Je le trouve déjà très bien là où il est",
             tirer:  "Je le trouve déjà très bien là où il est",
         },
+        chest: {
+            regarder:  [
+                "Eh !",
+                "On dirait un coffre en métal, avec une serrure électronique"
+            ],
+            utiliser: [
+                "Impossible, il est fermé",
+                "Et encore faudrait-il trouver un moyen de l'atteindre"
+            ],
+            ouvrir: "Tant que je n'aurai pas trouvé le moyen de le déverrouiller, je ne pourrai pas l'ouvrir",
+            fermer: "Il est déjà fermé",
+            
+
+        },
         menuItemGlassWater: {
             utiliser: "",
             regarder: "Le verre est rempli d'eau",
@@ -157,7 +171,9 @@ export async function loadTexts(sprites) {
             utiliser: "",
             regarder: "Le verre est vide",
             item: true,
-        }
+        },
+
+
     };
 
     // Pour tous les éléments du tableau des sprites interactifs
