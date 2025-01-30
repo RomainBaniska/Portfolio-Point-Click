@@ -358,6 +358,47 @@ export async function loadSprites(app) {
         menuButton9,
     );
 
+  
+    // Méthode pour l'activation du statut actif lors du clic sur l'item et sa surbrillance
+    // On crée un tableau des items avec leur texture de surbrillance respective
+    const menuItems = [
+        { item: menuItemGlassWater, defaultTexture: menuItemGlassWater.texture, selectedTexture: menuItemGlassWaterSelected.texture },
+        { item: menuItemGlassWaterEmpty, defaultTexture: menuItemGlassWaterEmpty.texture, selectedTexture: menuItemGlassWaterEmptySelected.texture },
+    ];
+
+    // On parcourt le tableau des items
+    menuItems.forEach(({ item, defaultTexture, selectedTexture }) => {
+        item.defaultTexture = defaultTexture;
+        // On définit l'item comme inactif par défaut
+        item.isActive = false;
+        item.on('click', () => {
+            // Si aucun bouton d'action n'est sélectionné, on ne fait rien
+            if (!currentActionButton) {
+                console.log("Aucun bouton d'action actif");
+                return;
+            }
+            // Si l'item est actif, on le passe en inactif et prend la texture du sprite inactif
+            if (item.isActive === true) {
+                item.isActive = false;
+                item.texture = defaultTexture;
+                console.log(`hahahah YES ! ${item.texture}`);
+                currentlyActiveItem = null;
+                console.log("item désactivé");  
+            } else {
+                // Désactiver l'item actif précédent (si existant)
+                if (currentlyActiveItem) {
+                    currentlyActiveItem.isActive = false;
+                    currentlyActiveItem.texture = currentlyActiveItem.defaultTexture;
+                }
+                item.isActive = true;
+                item.texture = selectedTexture;
+                currentlyActiveItem = item;
+                console.log("item activé");  
+            }
+            });
+    });
+
+
     const menuActionButtons = [
         { menuAction: menuButton, defaultTexture: menuButtonSprite, selectedTexture: menuButtonSpriteActive, text: 'Donner' },
         { menuAction: menuButton2, defaultTexture: menuButton2Sprite, selectedTexture: menuButton2SpriteActive, text: 'Ouvrir' },
@@ -381,15 +422,14 @@ export async function loadSprites(app) {
         });
         menuAction.on('pointerout', () => {
             if (menuAction.isActive === false) {
-            menuAction.texture = defaultTexture.texture; 
+                menuAction.texture = defaultTexture.texture; 
             }
         });
         menuAction.on('click', () => {
-        // Si un autre bouton est actif, désactiver son état et restaurer sa texture normale
+        // Si lors du click sur un bouton, un autre bouton est actif, on désactive son état et on restaure sa texture normale
             if (currentlyActiveButton && currentlyActiveButton !== menuAction) {
                 currentlyActiveButton.texture = currentlyActiveButton.sprite.texture;
                 currentlyActiveButton.isActive = false;
-                console.log (`${currentlyActiveButton} désactivé`);
             }
             // Si un item est actif, désélectionne-le et supprime son texte
             if (itemClicked) {
@@ -403,7 +443,7 @@ export async function loadSprites(app) {
 
                // Si un item est actif, le désactiver
             if (currentlyActiveItem) {
-                currentlyActiveItem.texture = currentlyActiveItem.defaultTexture; 
+                currentlyActiveItem.texture = currentlyActiveItem.defaultTexture;
                 currentlyActiveItem.isActive = false;
                 currentlyActiveItem = null;
                 console.log("Item actif désactivé");
@@ -425,44 +465,6 @@ export async function loadSprites(app) {
 
         menuAction.sprite = defaultTexture; 
         // menuAction.selectedTexture = selectedTexture;
-    });
-
-  
-    // Méthode pour l'activation du statut actif lors du clic sur l'item et sa surbrillance
-    // On crée un tableau des items avec leur texture de surbrillance respective
-    const menuItems = [
-        { item: menuItemGlassWater, defaultTexture: menuItemGlassWater.texture, selectedTexture: menuItemGlassWaterSelected.texture },
-        { item: menuItemGlassWaterEmpty, defaultTexture: menuItemGlassWaterEmpty.texture, selectedTexture: menuItemGlassWaterEmptySelected.texture },
-    ];
-
-    // On parcourt le tableau des items
-    menuItems.forEach(({ item, defaultTexture, selectedTexture }) => {
-        // On définit l'item comme inactif par défaut
-        item.isActive = false;
-        item.on('click', () => {
-            // Si aucun bouton d'action n'est sélectionné, on ne fait rien
-            if (!currentActionButton) {
-                console.log("Aucun bouton d'action actif");
-                return;
-            }
-            // Si l'item est actif, on le passe en inactif et prend la texture du sprite inactif
-            if (item.isActive === true) {
-                item.isActive = false;
-                item.texture = defaultTexture;
-                currentlyActiveItem = null;
-                console.log("item désactivé");  
-            } else {
-                // Désactiver l'item actif précédent (si existant)
-                if (currentlyActiveItem) {
-                    currentlyActiveItem.isActive = false;
-                    currentlyActiveItem.texture = defaultTexture;
-                }
-                item.isActive = true;
-                item.texture = selectedTexture;
-                currentlyActiveItem = item;
-                console.log("item activé");  
-            }
-            });
     });
 
     // On associe un texte à un menuAction (exemple : utiliser) visible sur le menuContainer
@@ -573,41 +575,41 @@ export async function loadSprites(app) {
          sprite.on('click', () => {
             // menuButton7 équivaut à "utiliser"
             if (sprite.item && (currentActionButton == menuButton7 || currentActionButton == menuButton)) {
-                if (itemClicked) {
-                    app.stage.removeChild(currentItemText);
-                    currentItemText.destroy();
-                    currentItemText = null;
-                    itemClicked = false;
-                } else {
+                if (!itemClicked) {
                     itemClicked = true;
                     console.log("item cliqué");
                     cleanupText();
                     // Création du texte pour l'item cliqué
-                    if (currentActionButton == menuButton7) { 
-                        currentItemText = new PIXI.Text(`${spriteName} avec `, {
-                        fontFamily: 'MonkeyIslandMenu',
-                        fontSize: 11,
-                        fill: 0x772a76,
-                        align: 'center',
-                        fontWeight: 'bold',
-                         });
-                         } else { 
-                        currentItemText = new PIXI.Text(`${spriteName} à `, {
-                        fontFamily: 'MonkeyIslandMenu',
-                        fontSize: 11,
-                        fill: 0x772a76,
-                        align: 'center',
-                        fontWeight: 'bold',
-                        });
-                    }
-                    if (currentActionText) {
-                    currentActionText.x = app.screen.width / 2 - offset;
-                    currentItemText.x = app.screen.width / 2 + offset;
-                    } else {
-                    currentItemText.x = app.screen.width / 2;
+                        if (currentActionButton == menuButton7) { 
+                            currentItemText = new PIXI.Text(`${spriteName} avec `, {
+                            fontFamily: 'MonkeyIslandMenu',
+                            fontSize: 11,
+                            fill: 0x772a76,
+                            align: 'center',
+                            fontWeight: 'bold',
+                            });
+                        } else { 
+                            currentItemText = new PIXI.Text(`${spriteName} à `, {
+                            fontFamily: 'MonkeyIslandMenu',
+                            fontSize: 11,
+                            fill: 0x772a76,
+                            align: 'center',
+                            fontWeight: 'bold',
+                            });
+                        }
+                        if (currentActionText) {
+                        currentActionText.x = app.screen.width / 2 - offset;
+                        currentItemText.x = app.screen.width / 2 + offset;
+                        } else {
+                        currentItemText.x = app.screen.width / 2;
                         }
                     currentItemText.y = houseSprite.height + 2;
                     menuContainer.addChild(currentItemText);
+                } else {
+                    app.stage.removeChild(currentItemText);
+                    currentItemText.destroy();
+                    currentItemText = null;
+                    itemClicked = false;
                 }
             }
         });
