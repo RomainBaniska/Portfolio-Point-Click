@@ -29,6 +29,7 @@ export async function interactions(app, sprites, texts) {
         if (menuButton7.isActive && menuItemGlassWater.isActive) {
         
         console.log ("Action verre d'eau - Romain réussie");
+        PIXI.sound.play('watersplash');
         // On génère un clic droit sur "app.stage" qui va désactiver les items et le bouton et supprimer les textes d'action et d'item.
         app.stage.emit('rightdown');
 
@@ -145,7 +146,6 @@ export async function interactions(app, sprites, texts) {
                 houseContainer.removeChild(startDialogue); 
             }, 2000);
         }  
-        console.log("NOOO !");
     });
         
 

@@ -8,10 +8,14 @@ export async function loadSounds() {
     daythemeSound.volume = 0.3
     // daythemeSound.loop = true;
 
+    const watersplashSound = PIXI.sound.add('watersplash', '../sounds/watersplash.mp3');
+    watersplashSound.volume = 0.3
+    watersplashSound.speed = 0.9;
 
 
     return {
         unrollSound,
-        daythemeSound
+        daythemeSound,
+        watersplashSound
     };
 }
