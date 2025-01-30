@@ -4,8 +4,14 @@ export async function loadSounds() {
     unrollSound.volume = 0.3;
     unrollSound.speed = 1.3;
 
+    const daythemeSound = PIXI.sound.add('daytheme', '../sounds/daytheme.mp3');
+    daythemeSound.volume = 0.3
+    // daythemeSound.loop = true;
+
+
 
     return {
         unrollSound,
+        daythemeSound
     };
 }

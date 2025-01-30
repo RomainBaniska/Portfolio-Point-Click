@@ -2,7 +2,7 @@
 
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest} = sprites;
+    const { houseSprite, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive} = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -187,6 +187,9 @@ function adjustMenuItemsPosition(item, column, row) {
     // Position Coffre
     setSpritePositionAndScale(chest, 0.54, 0.355, 500, 700);
 
+    // Position Bed
+    setSpritePositionAndScale(bed, 0.90, 0.88, 500, 850);
+
     // Position verre d'eau
     setSpritePositionAndScale(glasswater, 0.9972, 0.882, 900, 6000);
 
@@ -196,6 +199,9 @@ function adjustMenuItemsPosition(item, column, row) {
     /// SPECIAL ///
     // Position QuestionMark
     setSpritePositionAndScale(questionMark, 1.15, 0.08, 300, 2300);
+
+    // Position Note de musique
+    setSpritePositionAndScale(music, 1.15, 0.2, 300, 2300);
 
     // Position Arrow
     setSpritePositionAndScale(arrow, 1, 1.385, 300, 2300);

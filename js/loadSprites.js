@@ -1,4 +1,7 @@
-export async function loadSprites(app) {
+export async function loadSprites(app, sounds) {
+
+
+    const { daythemeSound } = sounds;
 
     const SPRITE_PATH_PREFIX = '../sprites/';
 
@@ -42,7 +45,7 @@ export async function loadSprites(app) {
     app.renderer.events.cursorStyles.default = "none";
 
     // HOUSE SPRITE
-    const houseAsset = await PIXI.Assets.load('../sprites/homeImproved2.png');
+    const houseAsset = await PIXI.Assets.load('../sprites/homeImproved4.png');
     const houseSprite = new PIXI.Sprite(houseAsset);
     houseContainer.addChild(houseSprite);
 
@@ -162,7 +165,7 @@ export async function loadSprites(app) {
     // gamingChairAR.interactive = false;
     gamingChairAR.zIndex = 5;
 
-    //TOILEPOULIE
+    // TOILEPOULIE
     const toilePoulie = await displaySprite('ELEMENTS/toilepoulie/toilepoulie.json', 0.12);
     const toilePoulieRun = await displaySprite('ELEMENTS/toilepoulie/toilepoulieRun.json', 0.12);
     toilePoulie.gotoAndStop(0); 
@@ -173,12 +176,19 @@ export async function loadSprites(app) {
     toilePoulieRun.interactive = false;
     houseContainer.addChild(toilePoulie);
 
-    //COFFRE
+    // COFFRE
     const chest = await displaySprite('ELEMENTS/chest/chest.json', 0.12);
     chest.gotoAndStop(0); 
     chest.interactive = true;
     chest.zIndex = 3;
     houseContainer.addChild(chest);
+
+    // BED
+    const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
+    const bed = new PIXI.Sprite(bedAsset);
+    bed.anchor.set(0.5); 
+    desk.interactive = false;
+    houseContainer.addChild(bed);
 
     //////////////////////////////////////// SPECIAL SCREENS ////////////////////////////////
 
@@ -192,6 +202,65 @@ export async function loadSprites(app) {
     terminal.zIndex = 11;
     // app.stage.addChild(terminalbgSprite);
     // app.stage.addChild(terminal);
+
+    // MUSIC TOGGLE
+    const music = await displaySprite('SPECIAL/musicnote.json', 0.12);
+    const musicActive = await displaySprite('SPECIAL/musicnote.json', 0.12);
+    const musicspriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/musicnote.json');
+    const musicframes = Object.keys(musicspriteAsset.textures);
+    music.texture = musicspriteAsset.textures[musicframes[0]];
+    musicActive.texture = musicspriteAsset.textures[musicframes[1]];
+    music.anchor.set(0.5);
+    music.interactive = true;
+    music.stop();
+    musicActive.anchor.set(0.5);
+    musicActive.interactive = true;
+    musicActive.stop();
+    houseContainer.addChild(music);
+
+    let daythemePLAY = null;
+    let musicToggled = false;
+    // HOVER ET CLIC MUSIC
+    music.on('pointerover', () => {
+        if (musicToggled === false) {
+        if (music.texture === musicspriteAsset.textures[musicframes[0]]) {
+            music.texture = musicspriteAsset.textures[musicframes[1]];
+        } else if (music.texture === musicspriteAsset.textures[musicframes[1]]) {
+            music.texture = musicspriteAsset.textures[musicframes[0]];
+        }
+    }
+    });
+    
+    music.on('pointerout', () => {
+        if (musicToggled === false) {
+        if (music.texture === musicspriteAsset.textures[musicframes[0]]) {
+            music.texture = musicspriteAsset.textures[musicframes[1]];
+        } else if (music.texture === musicspriteAsset.textures[musicframes[1]]) {
+            music.texture = musicspriteAsset.textures[musicframes[0]];
+        }
+    }
+       
+    });
+    
+    music.on('click', () => {
+        // Sprites
+        // Si la musique n'est pas jouée on la passe en true
+        if (!musicToggled) {
+        musicToggled = true;
+        // Si la musique est jouée on la passe en false
+        } else if (musicToggled) {
+            musicToggled = false
+        }
+
+
+        // Musique
+        if (!daythemePLAY) {
+            daythemePLAY = PIXI.sound.play('daytheme', { loop: true });
+        } else {
+            daythemeSound.muted = !daythemeSound.muted;
+        }
+    });
+
 
 
     // QUESTIONMARK & HELP SCREEN
@@ -719,6 +788,7 @@ export async function loadSprites(app) {
         glasswater,
         waterpouring,
         chest,
+        bed,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
@@ -747,6 +817,8 @@ export async function loadSprites(app) {
         questionMarkActive,
         noPanik,
         arrow,
+        music,
+        musicActive,
     };
 }
 
