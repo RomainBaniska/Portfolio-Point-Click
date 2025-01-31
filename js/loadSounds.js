@@ -13,7 +13,7 @@ export async function loadSounds() {
     watersplashSound.speed = 0.9;
 
     const wipeeyesSound = PIXI.sound.add('wipeeyes', '../sounds/wipeeyes2.mp3');
-    wipeeyesSound.volume = 1;
+    wipeeyesSound.volume = 0.9;
     wipeeyesSound.speed = 1;
 
     const pickupSound = PIXI.sound.add('pickup', '../sounds/pickup2.mp3');
