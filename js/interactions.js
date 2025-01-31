@@ -13,6 +13,7 @@ export async function interactions(app, sprites, texts) {
     // Si le bouton menuButton4 est actif et qu'on clique sur le sprite "glasswater" on destroy le sprite glasswater et on ajoute l'item glasswateritem
     glasswater.on('click', () => {
         if (menuButton4.isActive) {
+            PIXI.sound.play('pickup');
             houseContainer.removeChild(glasswater);
             glasswater.destroy();
             menuContainer.addChild(menuItemGlassWater);
