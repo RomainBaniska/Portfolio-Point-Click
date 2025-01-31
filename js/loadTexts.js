@@ -65,7 +65,8 @@ export async function loadTexts(sprites) {
             text: "Bye bye zobi",
             guybrushResponse: "Ouais ouais à plus tard",
             reset: true,
-            exit: true
+            exit: true,
+            rerollScreen: true,
         }
     ];
 

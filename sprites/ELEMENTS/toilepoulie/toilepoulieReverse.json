@@ -1,0 +1,75 @@
+{ "frames": {
+   "toilepoulieReverse 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 323, "h": 210 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 323, "h": 210 },
+    "sourceSize": { "w": 323, "h": 210 },
+    "duration": 200
+   },
+   "toilepoulieReverse 1.aseprite": {
+    "frame": { "x": 323, "y": 0, "w": 323, "h": 210 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 323, "h": 210 },
+    "sourceSize": { "w": 323, "h": 210 },
+    "duration": 200
+   },
+   "toilepoulieReverse 2.aseprite": {
+    "frame": { "x": 646, "y": 0, "w": 323, "h": 210 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 323, "h": 210 },
+    "sourceSize": { "w": 323, "h": 210 },
+    "duration": 200
+   },
+   "toilepoulieReverse 3.aseprite": {
+    "frame": { "x": 969, "y": 0, "w": 323, "h": 210 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 323, "h": 210 },
+    "sourceSize": { "w": 323, "h": 210 },
+    "duration": 200
+   },
+   "toilepoulieReverse 4.aseprite": {
+    "frame": { "x": 1292, "y": 0, "w": 323, "h": 210 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 323, "h": 210 },
+    "sourceSize": { "w": 323, "h": 210 },
+    "duration": 200
+   },
+   "toilepoulieReverse 5.aseprite": {
+    "frame": { "x": 1615, "y": 0, "w": 323, "h": 210 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 323, "h": 210 },
+    "sourceSize": { "w": 323, "h": 210 },
+    "duration": 200
+   },
+   "toilepoulieReverse 6.aseprite": {
+    "frame": { "x": 1938, "y": 0, "w": 323, "h": 210 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 323, "h": 210 },
+    "sourceSize": { "w": 323, "h": 210 },
+    "duration": 200
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.12-x64",
+  "image": "toilepoulieReverse.png",
+  "format": "RGBA8888",
+  "size": { "w": 2261, "h": 210 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "toile", "opacity": 255, "blendMode": "normal" },
+   { "name": "poulie", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

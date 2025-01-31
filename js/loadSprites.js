@@ -175,6 +175,10 @@ export async function loadSprites(app, sounds) {
     toilePoulieRun.zIndex = 3;
     toilePoulieRun.interactive = false;
     houseContainer.addChild(toilePoulie);
+    // TOILEPOULIE - Reverse
+    const toilePoulieReverse = await displaySprite('ELEMENTS/toilepoulie/toilepoulieReverse.json', 0.12);
+    toilePoulieReverse.zIndex = 3;
+    toilePoulieReverse.interactive = false;
 
     // COFFRE
     const chest = await displaySprite('ELEMENTS/chest/chest.json', 0.12);
@@ -785,6 +789,7 @@ export async function loadSprites(app, sounds) {
         table,
         toilePoulie,
         toilePoulieRun,
+        toilePoulieReverse,
         glasswater,
         waterpouring,
         chest,
