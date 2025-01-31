@@ -2,10 +2,10 @@
 export async function loadTexts(sprites) {
 
     // Heure actuelle
-    const currentDate = new Date();
-    const currentHour =  currentDate.getHours();
-    const currentMinutes =  currentDate.getMinutes();
-    const currentTimeHourMinutes = `${currentHour}:${currentMinutes}`;
+    let currentDate = null;
+    let currentHour =  null;
+    let currentMinutes =  null;
+    let currentTimeHourMinutes = "";
 
     // Sprites
     const { houseContainer, houseSprite, itemClicked, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGlassWaterEmpty, menuItemGlassWater,
@@ -126,11 +126,7 @@ export async function loadTexts(sprites) {
         },
         reveil: {
             utiliser: "Eh t'as assez ronflé coco !",
-            regarder:  [
-                `Le réveil-matin indique ${currentTimeHourMinutes}`,
-                "L'alarme est réglée pour sonner à 9h du matin",
-                "Eh ben mon pote c'est pas en te levant à cette heure que tu vas trouver du boulot"
-            ]
+            regarder:  ["1"]
         },
         glasswater: {
             utiliser: "Non merci je n'ai pas soif",
@@ -223,6 +219,21 @@ export async function loadTexts(sprites) {
             
             // (lors du clic) Si on constate que dans l'objet spriteBehaviors, il existe le sprite et qu'il possède une action, alors on affiche cette réponse (ou méthode) 
             if (spriteBehaviors[spriteName] && (spriteBehaviors[spriteName][action] || spriteBehaviors[spriteName][action] === "")) {
+          
+                // Exception de comportement pour le réveil-matin
+                if (spriteBehaviors[spriteName][action] === spriteBehaviors.reveil.regarder) {
+                currentDate = new Date();
+                currentHour =  currentDate.getHours();
+                currentMinutes =  currentDate.getMinutes();
+                currentTimeHourMinutes = `${currentHour}:${currentMinutes}`;
+                
+                spriteBehaviors.reveil.regarder =                 [
+                    `Le réveil-matin indique ${currentTimeHourMinutes}`,
+                    "L'alarme est réglée pour sonner à 9h du matin",
+                    "Eh ben mon pote c'est pas en te levant à cette heure que tu vas trouver du boulot"
+                ]
+                }
+
                 // Action définie pour ce sprite
                 const response = spriteBehaviors[spriteName][action];
 
