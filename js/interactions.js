@@ -30,6 +30,9 @@ export async function interactions(app, sprites, texts) {
         
         console.log ("Action verre d'eau - Romain réussie");
         PIXI.sound.play('watersplash');
+        setTimeout(() => {
+            PIXI.sound.play('wipeeyes');
+        }, 2200);
         // On génère un clic droit sur "app.stage" qui va désactiver les items et le bouton et supprimer les textes d'action et d'item.
         app.stage.emit('rightdown');
 

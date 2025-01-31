@@ -12,10 +12,15 @@ export async function loadSounds() {
     watersplashSound.volume = 0.3
     watersplashSound.speed = 0.9;
 
+    const wipeeyesSound = PIXI.sound.add('wipeeyes', '../sounds/wipeeyes.mp3');
+    wipeeyesSound.volume = 1
+    wipeeyesSound.speed = 1;
+
 
     return {
         unrollSound,
         daythemeSound,
-        watersplashSound
+        watersplashSound,
+        wipeeyesSound
     };
 }
