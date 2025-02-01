@@ -2,7 +2,7 @@
 
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive} = sprites;
+    const { houseSprite, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected} = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -126,6 +126,7 @@ function adjustMenuItemsPosition(item, column, row) {
 // POSITION DES ITEMS (4 colonnes de 3 boutons)
     adjustMenuItemsPosition(menuItemGlassWater, 0, 0);
     adjustMenuItemsPosition(menuItemGlassWaterEmpty, 0, 0);
+    adjustMenuItemsPosition(menuItemGoldKey, 1, 0);
 
 
     // sprite, scaleWidthFactor, scaleHeightFactor
@@ -190,6 +191,9 @@ function adjustMenuItemsPosition(item, column, row) {
 
     // Position Bed
     setSpritePositionAndScale(bed, 0.90, 0.88, 500, 850);
+
+    // Position Goldkey
+    setSpritePositionAndScale(goldkey, 0.92, 0.65, 500, 850);
 
     // Position verre d'eau
     setSpritePositionAndScale(glasswater, 0.9972, 0.882, 900, 6000);

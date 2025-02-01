@@ -45,7 +45,7 @@ export async function loadSprites(app, sounds) {
     app.renderer.events.cursorStyles.default = "none";
 
     // HOUSE SPRITE
-    const houseAsset = await PIXI.Assets.load('../sprites/homeImproved4.png');
+    const houseAsset = await PIXI.Assets.load('../sprites/homeImproved5.png');
     const houseSprite = new PIXI.Sprite(houseAsset);
     houseContainer.addChild(houseSprite);
 
@@ -121,6 +121,13 @@ export async function loadSprites(app, sounds) {
     desk.anchor.set(0.5); 
     desk.interactive = true;
     houseContainer.addChild(desk);
+
+    // GOLD KEY
+    const goldkeyAsset = await PIXI.Assets.load('../sprites/ELEMENTS/goldkey/goldkey.png');
+    const goldkey = new PIXI.Sprite(goldkeyAsset);
+    goldkey.anchor.set(0.5); 
+    goldkey.interactive = true;
+    houseContainer.addChild(goldkey);
 
     // TABLE DE NUIT ET REVEIL
     const table = await displaySprite('ELEMENTS/tablereveil/table.json', 0.12);
@@ -369,6 +376,18 @@ export async function loadSprites(app, sounds) {
     menuItemGlassWaterSelected.interactive = true;
     menuItemGlassWaterSelected.item = true;
 
+    // Clé en or
+    const menuItemGoldKeyAsset = await PIXI.Assets.load('../sprites/MENUITEM/goldkeyItem.png');
+    const menuItemGoldKey = new PIXI.Sprite(menuItemGoldKeyAsset);
+    menuItemGoldKey.interactive = true;
+    menuItemGoldKey.item = true;
+
+    // Clé en or Sélectionnée
+    const menuItemGoldKeySelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/goldkeyItemSelected.png');
+    const menuItemGoldKeySelected = new PIXI.Sprite(menuItemGoldKeySelectedAsset);
+    menuItemGoldKeySelected.interactive = true;
+    menuItemGoldKeySelected.item = true;
+
     // Verre vide
     const menuItemGlassWaterEmptyAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItemempty.png');
     const menuItemGlassWaterEmpty = new PIXI.Sprite(menuItemGlassWaterEmptyAsset);
@@ -437,6 +456,7 @@ export async function loadSprites(app, sounds) {
     const menuItems = [
         { item: menuItemGlassWater, defaultTexture: menuItemGlassWater.texture, selectedTexture: menuItemGlassWaterSelected.texture },
         { item: menuItemGlassWaterEmpty, defaultTexture: menuItemGlassWaterEmpty.texture, selectedTexture: menuItemGlassWaterEmptySelected.texture },
+        { item: menuItemGoldKey, defaultTexture: menuItemGoldKey.texture, selectedTexture: menuItemGoldKeySelected.texture },
     ];
 
     // On parcourt le tableau des items
@@ -602,6 +622,8 @@ export async function loadSprites(app, sounds) {
         { sprite: table, spriteName: "table de nuit" },
         { sprite: chest, spriteName: "coffre en métal" },
         { sprite: glasswater, spriteName: "verre" },
+        { sprite: goldkey, spriteName: "clé" },
+        { sprite: menuItemGoldKey, spriteName: "clé"},
         { sprite: menuItemGlassWater, spriteName: "verre"},
         { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"}
     ];
@@ -748,6 +770,8 @@ export async function loadSprites(app, sounds) {
     ordiRun.name = "ordiRun";
     gamingChair.name = "gamingChair";
     chest.name = "chest";
+    goldkey.name = "goldkey"
+    menuItemGoldKey.name = "goldkey";
     menuItemGlassWater.name ="menuItemGlassWater"
     menuItemGlassWaterEmpty.name ="menuItemGlassWaterEmpty"    
 
@@ -794,6 +818,7 @@ export async function loadSprites(app, sounds) {
         waterpouring,
         chest,
         bed,
+        goldkey,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
@@ -812,6 +837,8 @@ export async function loadSprites(app, sounds) {
         menuItemGlassWaterSelected,
         menuItemGlassWaterEmpty,
         menuItemGlassWaterEmptySelected,
+        menuItemGoldKey,
+        menuItemGoldKeySelected,
         // MENU DIALOGUE
         menuCoverDialogue,
         menuCoverDialogueOverlay,
