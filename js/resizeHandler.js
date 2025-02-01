@@ -2,7 +2,7 @@
 
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected} = sprites;
+    const { houseSprite, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected} = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -177,8 +177,9 @@ function adjustMenuItemsPosition(item, column, row) {
     setSpritePositionAndScale(desk, 0.42, 0.89, 800, 780);
 
     // Position Table et réveil
-    setSpritePositionAndScale(reveil, 0.98, 0.92, 800, 780);
-    setSpritePositionAndScale(table, 0.98, 0.92, 800, 780);
+    setSpritePositionAndScale(reveil, 0.98, 0.871, 800, 780);
+    setSpritePositionAndScale(table, 0.98, 0.94, 800, 750);
+    setSpritePositionAndScale(tableOpen, 0.98, 0.94, 800, 750);
 
     // Position GamingChair
     setSpritePositionAndScale(gamingChair, 0.54, 0.875, 900, 1000);
@@ -190,7 +191,7 @@ function adjustMenuItemsPosition(item, column, row) {
     setSpritePositionAndScale(chest, 0.54, 0.355, 500, 700);
 
     // Position Bed
-    setSpritePositionAndScale(bed, 0.90, 0.88, 500, 850);
+    setSpritePositionAndScale(bed, 0.90, 0.883, 500, 850);
 
     // Position Goldkey
     setSpritePositionAndScale(goldkey, 0.92, 0.65, 500, 850);

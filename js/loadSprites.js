@@ -130,16 +130,25 @@ export async function loadSprites(app, sounds) {
     houseContainer.addChild(goldkey);
 
     // TABLE DE NUIT ET REVEIL
-    const table = await displaySprite('ELEMENTS/tablereveil/table.json', 0.12);
-    table.play(0);
+    const reveilAsset = await PIXI.Assets.load('../sprites/ELEMENTS/tablereveil/splitted/reveil.png');
+    const reveil = new PIXI.Sprite(reveilAsset);
+    reveil.anchor.set(0.5); 
+    reveil.interactive = true;
+    reveil.zIndex = 7;
+    houseContainer.addChild(reveil);
+
+    const table = await displaySprite('ELEMENTS/tablereveil/splitted/table.json', 0.12);
+    table.gotoAndStop(0);
     table.interactive = true;
     houseContainer.addChild(table);
-    table.zIndex = 5;
-    const reveil = await displaySprite('ELEMENTS/tablereveil/reveil.json', 0.12);
-    reveil.play(0);
-    reveil.interactive = true;
-    houseContainer.addChild(reveil);
-    reveil.zIndex = 6;
+    table.zIndex = 6;
+    const tableOpen = await displaySprite('ELEMENTS/tablereveil/splitted/table.json', 0.12);
+    tableOpen.play(1);
+    tableOpen.gotoAndStop(1);
+    tableOpen.interactive = true;
+    tableOpen.zIndex = 6;
+    // houseContainer.addChild(tableOpen);
+   
 
     // VERRE D'EAU
     const glasswater = await displaySprite('ELEMENTS/glasswater/glasswater.json', 0.12);
@@ -465,8 +474,9 @@ export async function loadSprites(app, sounds) {
         // On définit l'item comme inactif par défaut
         item.isActive = false;
         item.on('click', () => {
+            console.log(currentActionButton.action);
             // Si aucun bouton d'action n'est sélectionné, on ne fait rien
-            if (!currentActionButton) {
+            if (!currentActionButton || (currentActionButton.action !== "donner" && currentActionButton.action !== "utiliser")) {
                 console.log("Aucun bouton d'action actif");
                 return;
             }
@@ -619,6 +629,8 @@ export async function loadSprites(app, sounds) {
         { sprite: toilePoulie, spriteName: "toile" },
         { sprite: toilePoulieRun, spriteName: "toile" },
         { sprite: reveil, spriteName: "réveil matin" },
+        { sprite: table, spriteName: "table de nuit" },
+        { sprite: tableOpen, spriteName: "tiroir" },
         { sprite: table, spriteName: "table de nuit" },
         { sprite: chest, spriteName: "coffre en métal" },
         { sprite: glasswater, spriteName: "verre" },
@@ -811,6 +823,7 @@ export async function loadSprites(app, sounds) {
         gamingChairAR,
         reveil,
         table,
+        tableOpen,
         toilePoulie,
         toilePoulieRun,
         toilePoulieReverse,
