@@ -136,7 +136,6 @@ export async function loadSprites(app, sounds) {
     reveil.interactive = true;
     reveil.zIndex = 7;
     houseContainer.addChild(reveil);
-
     const table = await displaySprite('ELEMENTS/tablereveil/splitted/table.json', 0.12);
     table.gotoAndStop(0);
     table.interactive = true;
@@ -145,9 +144,6 @@ export async function loadSprites(app, sounds) {
     const tableOpen = await displaySprite('ELEMENTS/tablereveil/splitted/table.json', 0.12);
     tableOpen.play(1);
     tableOpen.gotoAndStop(1);
-    tableOpen.interactive = true;
-    tableOpen.zIndex = 6;
-    // houseContainer.addChild(tableOpen);
    
 
     // VERRE D'EAU
@@ -162,7 +158,6 @@ export async function loadSprites(app, sounds) {
     glasswater.stop();
     glasswater.anchor.set(0.5); 
     houseContainer.addChild(glasswater);
-    // houseContainer.addChild(glasswaterEmpty);
 
     // VERRE D'EAU RENVERSE (ACTION)
     const waterpouring = await displaySprite('ELEMENTS/glasswater/waterpouring.json', 0.13);
@@ -373,7 +368,8 @@ export async function loadSprites(app, sounds) {
     const menuCoverDialogueOverlay = new PIXI.Sprite(menuCoverDialogueAsset);
     menuCoverDialogueOverlay.zIndex = 10;
 
-    // MENU ITEMS Textures
+    // MENU ITEMS
+    
     // Verre
     const menuItemGlassWaterAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItem.png');
     const menuItemGlassWater = new PIXI.Sprite(menuItemGlassWaterAsset);
@@ -396,6 +392,19 @@ export async function loadSprites(app, sounds) {
     const menuItemGoldKeySelected = new PIXI.Sprite(menuItemGoldKeySelectedAsset);
     menuItemGoldKeySelected.interactive = true;
     menuItemGoldKeySelected.item = true;
+
+    // Tablette de comprimés
+    const menuItemTabletPackAsset = await PIXI.Assets.load('../sprites/MENUITEM/tabletpackItem.png');
+    const menuItemTabletPack = new PIXI.Sprite(menuItemTabletPackAsset);
+    menuItemTabletPack.interactive = true;
+    menuItemTabletPack.item = true;
+
+    // Tablette de comprimés Sélectionnée
+    const menuItemTabletPackSelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/tabletpackItemSelected.png');
+    const menuItemTabletPackSelected = new PIXI.Sprite(menuItemTabletPackSelectedAsset);
+    menuItemTabletPackSelected.interactive = true;
+    menuItemTabletPackSelected.item = true;
+
 
     // Verre vide
     const menuItemGlassWaterEmptyAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItemempty.png');
@@ -466,6 +475,7 @@ export async function loadSprites(app, sounds) {
         { item: menuItemGlassWater, defaultTexture: menuItemGlassWater.texture, selectedTexture: menuItemGlassWaterSelected.texture },
         { item: menuItemGlassWaterEmpty, defaultTexture: menuItemGlassWaterEmpty.texture, selectedTexture: menuItemGlassWaterEmptySelected.texture },
         { item: menuItemGoldKey, defaultTexture: menuItemGoldKey.texture, selectedTexture: menuItemGoldKeySelected.texture },
+        { item: menuItemTabletPack, defaultTexture: menuItemTabletPack.texture, selectedTexture: menuItemTabletPackSelected.texture },
     ];
 
     // On parcourt le tableau des items
@@ -637,7 +647,8 @@ export async function loadSprites(app, sounds) {
         { sprite: goldkey, spriteName: "clé" },
         { sprite: menuItemGoldKey, spriteName: "clé"},
         { sprite: menuItemGlassWater, spriteName: "verre"},
-        { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"}
+        { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"},
+        { sprite: menuItemTabletPack, spriteName: "Comprimés"}
     ];
     
     const offset = app.screen.width * 0.04;
@@ -786,6 +797,7 @@ export async function loadSprites(app, sounds) {
     menuItemGoldKey.name = "goldkey";
     menuItemGlassWater.name ="menuItemGlassWater"
     menuItemGlassWaterEmpty.name ="menuItemGlassWaterEmpty"    
+    menuItemTabletPack.name ="menuItemTabletPack"    
 
     // Idem pour les Boutons :
     // Boutons
@@ -852,6 +864,7 @@ export async function loadSprites(app, sounds) {
         menuItemGlassWaterEmptySelected,
         menuItemGoldKey,
         menuItemGoldKeySelected,
+        menuItemTabletPack,
         // MENU DIALOGUE
         menuCoverDialogue,
         menuCoverDialogueOverlay,

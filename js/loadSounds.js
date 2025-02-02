@@ -20,12 +20,22 @@ export async function loadSounds() {
     pickupSound.volume = 1;
     pickupSound.speed = 1;
 
+    const drawerOpen = PIXI.sound.add('drawerOpen', '../sounds/drawerOpen.mp3');
+    drawerOpen.volume = 0.35;
+    drawerOpen.speed = 2;
+
+    const drawerClose = PIXI.sound.add('drawerClose', '../sounds/drawerClose.mp3');
+    drawerClose.volume = 0.35;
+    drawerClose.speed = 2;
+
 
     return {
         unrollSound,
         daythemeSound,
         watersplashSound,
         wipeeyesSound,
-        pickupSound
+        pickupSound,
+        drawerClose,
+        drawerOpen
     };
 }
