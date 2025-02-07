@@ -218,6 +218,19 @@ export async function loadSprites(app, sounds) {
     // app.stage.addChild(terminalbgSprite);
     // app.stage.addChild(terminal);
 
+    // TOILE SCREEN
+    const toileScreenAsset = await PIXI.Assets.load('../sprites/SPECIAL/toileScreen.png');
+    const toileScreen = new PIXI.Sprite(toileScreenAsset);
+    // toileScreen.texture = await PIXI.Assets.load('https://pixijs.com/assets/video.mp4');
+    toileScreen.zIndex = 10;
+    // app.stage.addChild(toileScreen);
+    // Film 1
+    // const film1Asset = await PIXI.Assets.load('https://pixijs.com/assets/video.mp4');
+    // const film1 = new PIXI.Sprite(film1Asset);
+    // film1.anchor.set(0.5);
+    // film1.zIndex = 11;
+    // app.stage.addChild(film1);
+
     // MUSIC TOGGLE
     const music = await displaySprite('SPECIAL/musicnote.json', 0.12);
     const musicActive = await displaySprite('SPECIAL/musicnote.json', 0.12);
@@ -871,6 +884,8 @@ export async function loadSprites(app, sounds) {
         // SPECIAL SCREENS
         terminal,
         terminalbgSprite,
+        toileScreen,
+        // film1,
         questionMark,
         questionMarkActive,
         noPanik,

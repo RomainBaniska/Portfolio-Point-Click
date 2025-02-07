@@ -1,6 +1,6 @@
 export async function interactions(app, sprites, texts) {
 
-    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen } = sprites;
+    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
     // const { unrollSound } = sounds
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -185,6 +185,26 @@ export async function interactions(app, sprites, texts) {
             }, 2000);
         }  
     });
+
+    // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
+    toilePoulieRun.on('click', async () => {
+        if (menuButton5.isActive) {
+            app.stage.addChild(toileScreen);
+
+            // On charge l'asset hors de spriteload pour qu'elle démarre dès qu'elle est créée
+            const film1Asset = await PIXI.Assets.load('https://pixijs.com/assets/video.mp4');
+            const film1 = new PIXI.Sprite(film1Asset);
+            film1.anchor.set(0.5);
+            film1.zIndex = 11;
+            film1.x = app.screen.width / 2;
+            film1.y = app.screen.height / 2;
+            film1.height = app.screen.height * 0.85;
+            film1.width = ((houseSprite.height / 1024) * 1440 * 1.4) * 0.85;
+
+            app.stage.addChild(film1);
+           
+        }
+    });
         
 
 
@@ -239,7 +259,8 @@ function unroll() {
         toilePoulieRun.gotoAndPlay(0);
         toilePoulieRun.loop = false;
 }
-// toilePoulie.on('click', unroll);
+toilePoulie.interactive = true;
+toilePoulie.on('click', unroll);
 
 // METHODE POUR REENROULER L'ECRAN DE PROJECTION
 function reroll() {
@@ -376,12 +397,13 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 // Si la réponse du JOUEUR a une propriété "exit: true", réinitialiser les réponses et quitter
                 if (response.exit) {
                     // Si la toile a déjà été déroulée
-                    if (response.rerollScreen === true && unrolled === true) {
-                        setTimeout(() => {
-                            reroll();  
-                        }, 1000);
-                        console.log('ok çaaaa maaaarche');
-                    }
+                    // à Décommenter !!!!
+                    // if (response.rerollScreen === true && unrolled === true) {
+                    //     setTimeout(() => {
+                    //         reroll();  
+                    //     }, 1000);
+                    //     console.log('ok çaaaa maaaarche');
+                    // }
                     // Vide le menuContainer du menuCoverDialogue
                     menuContainer.removeChild(menuCoverDialogue);
                     // Rerempli le tableau "playerResponses" par son clone qui n'a pas bougé

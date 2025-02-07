@@ -2,7 +2,7 @@
 
 export async function resizeHandler(app, sprites, texts) {
 
-    const { houseSprite, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected} = sprites;
+    const { houseSprite, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected, toileScreen, film1} = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -59,6 +59,17 @@ function adjustCanvasSize() {
     noPanik.y = 0;
     noPanik.height = screenHeight;
     noPanik.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
+    // (A DEPLACER AUSSI) - POSITIONNEMENT DU TOILESCREEN - Special Screen
+    toileScreen.x = houseSprite.x;
+    toileScreen.y = 0;
+    toileScreen.height = screenHeight;
+    toileScreen.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
+    // (A DEPLACER AUSSI) - Positionnement du Film 1 - Special Screen
+    // film1.x = app.screen.width / 2;
+    // film1.y = app.screen.height / 2;
+    // film1.height = screenHeight * 0.85;
+    // film1.width = ((houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4) * 0.85;
+
 
     // ACTION MENU
     // Sprite menuContainer : La hauteur occupe 26% de l'écran / même largeur houseContainer
