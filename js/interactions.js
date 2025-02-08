@@ -24,6 +24,7 @@ export async function interactions(apps, sprites, texts) {
     // Prendre la clé en or
     goldkey.on('click', () => {
         if (menuButton4.isActive) {
+            // glasswater.isActive = false;
             PIXI.sound.play('pickup');
             houseContainer.removeChild(goldkey);
             goldkey.destroy();
@@ -399,12 +400,12 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 if (response.exit) {
                     // Si la toile a déjà été déroulée
                     // à Décommenter !!!!
-                    // if (response.rerollScreen === true && unrolled === true) {
-                    //     setTimeout(() => {
-                    //         reroll();  
-                    //     }, 1000);
-                    //     console.log('ok çaaaa maaaarche');
-                    // }
+                    if (response.rerollScreen === true && unrolled === true) {
+                        setTimeout(() => {
+                            reroll();  
+                        }, 1000);
+                        console.log('ok çaaaa maaaarche');
+                    }
                     // Vide le menuContainer du menuCoverDialogue
                     menuContainer.removeChild(menuCoverDialogue);
                     // Rerempli le tableau "playerResponses" par son clone qui n'a pas bougé

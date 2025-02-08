@@ -807,7 +807,7 @@ export async function loadSprites(apps, sounds) {
     gamingChair.name = "gamingChair";
     chest.name = "chest";
     goldkey.name = "goldkey"
-    menuItemGoldKey.name = "goldkey";
+    menuItemGoldKey.name = "menuItemGoldKey";
     menuItemGlassWater.name ="menuItemGlassWater"
     menuItemGlassWaterEmpty.name ="menuItemGlassWaterEmpty"    
     menuItemTabletPack.name ="menuItemTabletPack"    

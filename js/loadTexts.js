@@ -8,7 +8,7 @@ export async function loadTexts(sprites) {
     let currentTimeHourMinutes = "";
 
     // Sprites
-    const { houseContainer, houseSprite, itemClicked, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGlassWaterEmpty, menuItemGlassWater,
+    const { houseContainer, houseSprite, itemClicked, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater,
         menuButton,
         menuButton2,
         menuButton3,
@@ -73,7 +73,7 @@ export async function loadTexts(sprites) {
     // REPONSES DU JOUEUR LORS DE CLICK SUR UN SPRITE AVEC ACTION
 
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
-    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest];
+    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest, goldkey, menuItemGoldKey];
     
     const spriteBehaviors = {
         guybrushSO: {
@@ -156,8 +156,18 @@ export async function loadTexts(sprites) {
             ],
             ouvrir: "Tant que je n'aurai pas trouvé le moyen de le déverrouiller, je ne pourrai pas l'ouvrir",
             fermer: "Il est déjà fermé",
-            
-
+        },
+        goldkey: {
+            regarder: "une petite clé dorée est posée sur l'armoire",
+            prendre: [
+                "Toi, dans ma poche",
+                "Je me demande ce qu'elle peut bien ouvrir ?"
+            ],
+        },
+        menuItemGoldKey: {
+            utiliser: "",
+            regarder: "Je me demande ce qu'elle peut bien ouvrir ?",
+            item: true,
         },
         menuItemGlassWater: {
             utiliser: "",
