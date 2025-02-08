@@ -261,7 +261,7 @@ export async function loadTexts(sprites) {
                     await displayReaction(response, 3000);
                 }
             } else {
-                    await displayReaction("Non, ça ne marchera pas.", 3000); // Sinon, afficher un dialogue par défaut.
+                    await displayReaction("Non, ça ne marchera pas.", 3000); 
             }
         } else {
             // console.log("Aucun bouton actif ou aucun sprite cliqué.");
