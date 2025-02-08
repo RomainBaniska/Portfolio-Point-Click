@@ -21,5 +21,16 @@ export async function initializeApp() {
     // Ajout du canvas de l'app au body
     document.body.appendChild(app.canvas);
 
-return app;
-}
+      // BLACK SCREEN
+      const blackScreen = new PIXI.Graphics();
+      blackScreen.beginFill(0x000000);
+      blackScreen.drawRect(0, 0, window.innerWidth, window.innerHeight);
+      blackScreen.endFill();
+      blackScreen.alpha = 1;
+      blackScreen.zIndex = 99;
+      app.stage.addChild(blackScreen);
+
+return {app,
+    blackScreen
+    }
+};

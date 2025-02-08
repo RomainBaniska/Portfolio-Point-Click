@@ -8,14 +8,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
     <!-- Lodash pour le Deep Cloning des dialogues -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script> -->
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
     <script>
         WebFont.load({
             google: {
                 families: ['MonkeyIsland', 'MonkeyIslandMenu']
-            },
-            active:e=>{
-                console.log("font loaded!");
             }
+            // ,
+            // active:e=>{
+            //     console.log("font loaded!");
+            // }
         });
     </script>
 
@@ -33,12 +38,12 @@
         import { loadSounds } from '../js/loadSounds.js';
 
         (async () => {
-            const app = await initializeApp();
+            const apps = await initializeApp();
             const sounds = await loadSounds(); 
-            const sprites = await loadSprites(app, sounds); 
+            const sprites = await loadSprites(apps, sounds); 
             const texts = await loadTexts(sprites);
-            await resizeHandler(app, sprites, texts);
-            await interactions(app, sprites, texts);
+            await resizeHandler(apps, sprites, texts);
+            await interactions(apps, sprites, texts);
         })();
     </script>
 

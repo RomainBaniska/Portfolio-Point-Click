@@ -1,7 +1,8 @@
 // import { loadSprites as default sprites} from './loadSprites.js';
 
-export async function resizeHandler(app, sprites, texts) {
+export async function resizeHandler(apps, sprites, texts) {
 
+    const { app, blackScreen } = apps;
     const { houseSprite, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected, toileScreen, film1} = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
