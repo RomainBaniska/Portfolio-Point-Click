@@ -163,9 +163,10 @@ export async function loadTexts(sprites) {
                 "Toi, dans ma poche",
                 "Je me demande ce qu'elle peut bien ouvrir ?"
             ],
+            utiliser : "omagad",
         },
         menuItemGoldKey: {
-            utiliser: "",
+            utiliser: "booga",
             regarder: "Je me demande ce qu'elle peut bien ouvrir ?",
             item: true,
         },
@@ -200,6 +201,10 @@ export async function loadTexts(sprites) {
                              if (currentReactionSequence) {
                                  currentReactionSequence.canceled = true; // Annule la séquence en cours
                              }
+
+                        // Déplacé avant l'appel à la méthode pour éviter les conflits
+                        // interactableSprite.clicked = false;     
+
                         await spriteActionPlayerText();
                         } catch (error) {
                             console.error("Erreur lors de l'exécution de l'action du sprite", error);
