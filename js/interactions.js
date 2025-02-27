@@ -194,7 +194,8 @@ export async function interactions(apps, sprites, texts) {
             app.stage.addChild(toileScreen);
 
             // On charge l'asset hors de spriteload pour qu'elle démarre dès qu'elle est créée
-            const film1Asset = await PIXI.Assets.load('https://pixijs.com/assets/video.mp4');
+            // const film1Asset = await PIXI.Assets.load('https://pixijs.com/assets/video.mp4');
+            const film1Asset = await PIXI.Assets.load('../videos/RebatierePF.mp4');
             const film1 = new PIXI.Sprite(film1Asset);
             film1.anchor.set(0.5);
             film1.zIndex = 11;

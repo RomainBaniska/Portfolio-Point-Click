@@ -5,6 +5,11 @@ export async function initializeApp() {
 
     globalThis.__PIXI_APP__ = app;
 
+    // DEVTOOL
+    // window.__PIXI_DEVTOOLS__ = {
+    //     app
+    //   };
+
     // Configuration de la largeur maximale adaptée à la taille de l'écran si plus petit
     const maxWidth = 1440;
     const width = Math.min(window.innerWidth, maxWidth);
