@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, stopVideo } = sprites;
+    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
     // const { unrollSound } = sounds
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -190,36 +190,6 @@ export async function interactions(apps, sprites, texts) {
 
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
-        // if (menuButton5.isActive) {
-        //     app.stage.addChild(toileScreen);
-
-        //     // Création de l'élément vidéo
-        //     const video = document.createElement("video");
-        //     video.src = "../videos/RebatierePF.mp4"; 
-        //     video.id = "video";
-
-        //     // Création du bouton
-        //     let btn = document.createElement("button");
-        //     btn.id = "playPauseBtn";
-        //     btn.classList.add("play-pause-btn");
-
-
-        //     // Création de la div custom controls 
-        //     let img = document.createElement("img");
-        //     img.src = "../sprites/SPECIAL/toileAlerts/start.png";
-        //     img.alt = "Play";
-        
-        //     btn.appendChild(img);
-        
-        //     let div = document.createElement("div");
-        //     div.classList.add("custom-controls");
-        //     div.appendChild(btn);
-        
-        //     // document.body.append(video, div);
-        //     app.stage.addChild(video, div);
-           
-        // }
-
         // Quand on clique sur la toile
         if (menuButton5.isActive) {
             app.stage.addChild(toileScreen);
@@ -228,59 +198,57 @@ export async function interactions(apps, sprites, texts) {
             let existingVideo = document.getElementById("pixi-video");
             if (existingVideo) return;
     
-            // 🔹 Création de la vidéo
+            // 🔹 Génération de la vidéo dans le DOM
             const video = document.createElement("video");
             video.id = "pixi-video";
             video.src = "../videos/RebatierePF.mp4";
             video.autoplay = true;
             video.controls = false;
-            video.style.position = "absolute";
-            video.style.top = "50px"; // Ajuste selon ton besoin
-            video.style.left = "100px"; // Ajuste selon ton besoin
-            video.style.width = "800px"; // Ajuste selon ton besoin
-            video.style.height = "450px";
-            video.style.zIndex = "10"; // Au-dessus du canvas
+            video.style.zIndex = "10";
+
+            // Ajout de la video au DOM
             document.body.appendChild(video);
     
-            // 🔹 Création du bouton Play/Pause
-            let btn = document.createElement("button");
-            btn.id = "playPauseBtn";
-            btn.classList.add("play-pause-btn");
-    
-            let img = document.createElement("img");
-            img.src = "../sprites/SPECIAL/toileAlerts/start.png";
-            img.alt = "Play";
-            btn.appendChild(img);
-    
-            let div = document.createElement("div");
-            div.classList.add("custom-controls");
-            div.style.position = "absolute";
-            div.style.top = "520px"; // Ajuste selon ton besoin
-            div.style.left = "100px"; // Ajuste selon ton besoin
-            div.style.zIndex = "11"; // Devant la vidéo
-            div.appendChild(btn);
-            document.body.appendChild(div);
-    
-            // 🔹 Gestion du bouton Play/Pause
-            const playImg = "../sprites/SPECIAL/toileAlerts/start.png";
-            const pauseImg = "../sprites/SPECIAL/toileAlerts/stop.png";
-    
-            btn.addEventListener("click", () => {
-                if (video.paused) {
-                    video.play();
-                    img.src = pauseImg;
-                } else {
-                    video.pause();
-                    img.src = playImg;
-                }
+            // Ajout de playVideo au conteneur des boutons
+            app.stage.addChild(playVideo);
+
+            // 🔹 Gestion des événements Play
+            playVideo.on('pointerover', () => {
+                playVideo.texture = playVideoActive.texture;
             });
-    
+
+            playVideo.on('pointerout', () => {
+                playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]];
+            });
+
+            playVideo.on('click', () => {
+                video.play();
+                app.stage.removeChild(playVideo);
+                app.stage.addChild(stopVideo);
+            });
+
+            // 🔹 Gestion des événements Stop
+            stopVideo.on('pointerover', () => {
+                stopVideo.texture = stopVideoActive.texture;
+            });
+
+            stopVideo.on('pointerout', () => {
+                stopVideo.texture = stopVideospriteAsset.textures[stopVideoframes[0]];
+            });
+
+            stopVideo.on('click', () => {
+                video.pause();
+                app.stage.removeChild(stopVideo);
+                app.stage.addChild(playVideo);
+            });
+
             // 🔹 Supprimer la vidéo quand on ferme l'écran
             toileScreen.on("removed", () => {
                 video.remove();
-                div.remove();
+                app.stage.removeChild(playVideo);
+                app.stage.removeChild(stopVideo);
             });
-        }
+            }
     });
         
 
