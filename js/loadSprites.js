@@ -173,6 +173,7 @@ export async function loadSprites(apps, sounds) {
     const gcARAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchairarmrest.png');
     const gamingChairAR = new PIXI.Sprite(gcARAsset);
     gamingChairAR.anchor.set(0.5); 
+    gamingChairAR.eventMode = "none";
     // gamingChairAR.interactive = false;
     gamingChairAR.zIndex = 5;
 
