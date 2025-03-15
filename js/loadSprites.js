@@ -223,6 +223,50 @@ export async function loadSprites(apps, sounds) {
     const toileScreen = new PIXI.Sprite(toileScreenAsset);
     // toileScreen.texture = await PIXI.Assets.load('https://pixijs.com/assets/video.mp4');
     toileScreen.zIndex = 10;
+    // TOILE SCREEN ALERTS
+    // PLAY VIDEO ALERT
+    const playVideo = await displaySprite('SPECIAL/toileAlerts/startHover.json', 0.12);
+    const playVideoActive = await displaySprite('SPECIAL/toileAlerts/startHover.json', 0.12);
+    const playVideospriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/toileAlerts/startHover.json');
+    const playVideoframes = Object.keys(playVideospriteAsset.textures);
+    playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]];
+    playVideoActive.texture = playVideospriteAsset.textures[playVideoframes[1]];
+    playVideo.zIndex = 11;
+    playVideo.anchor.set(0.5);
+    playVideo.interactive = true;
+    playVideo.stop();
+    playVideoActive.anchor.set(0.5);
+    playVideoActive.interactive = true;
+    playVideoActive.stop();
+    // STOP VIDEO ALERT
+    const stopVideo = await displaySprite('SPECIAL/toileAlerts/pauseHover.json', 0.12);
+    const stopVideoActive = await displaySprite('SPECIAL/toileAlerts/pauseHover.json', 0.12);
+    const stopVideospriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/toileAlerts/pauseHover.json');
+    const stopVideoframes = Object.keys(stopVideospriteAsset.textures);
+    stopVideo.texture = stopVideospriteAsset.textures[stopVideoframes[0]];
+    stopVideoActive.texture = stopVideospriteAsset.textures[stopVideoframes[1]];
+    stopVideo.zIndex = 11;
+    stopVideo.anchor.set(0.5);
+    stopVideo.interactive = true;
+    stopVideo.stop();
+    stopVideoActive.anchor.set(0.5);
+    stopVideoActive.interactive = true;
+    stopVideoActive.stop();
+
+    // HOVER ET CLIC PLAYVIDEO
+    playVideo.on('pointerover', () => {
+        playVideo.texture = playVideoActive.texture;
+    });
+    playVideo.on('pointerout', () => {
+        playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]]; 
+    });
+    playVideo.on('click', () => {
+        // + Ajouter action "play"
+        app.stage.removeChild(playVideo);
+        app.stage.addChild(stopVideo);
+        playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]]; 
+    });
+
     // app.stage.addChild(toileScreen);
     // Film 1
     // const film1Asset = await PIXI.Assets.load('https://pixijs.com/assets/video.mp4');
@@ -894,6 +938,8 @@ export async function loadSprites(apps, sounds) {
         terminal,
         terminalbgSprite,
         toileScreen,
+        playVideo,
+        stopVideo,
         // film1,
         questionMark,
         questionMarkActive,
