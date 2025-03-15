@@ -266,6 +266,19 @@ export async function loadSprites(apps, sounds) {
         app.stage.addChild(stopVideo);
         playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]]; 
     });
+    // HOVER ET CLIC STOPVIDEO
+    stopVideo.on('pointerover', () => {
+        stopVideo.texture = stopVideoActive.texture;
+    });
+    stopVideo.on('pointerout', () => {
+        stopVideo.texture = stopVideospriteAsset.textures[stopVideoframes[0]]; 
+    });
+    stopVideo.on('click', () => {
+        // + Ajouter action "play"
+        app.stage.removeChild(stopVideo);
+        app.stage.addChild(playVideo);
+        stopVideo.texture = stopVideospriteAsset.textures[stopVideoframes[0]]; 
+    });
 
     // app.stage.addChild(toileScreen);
     // Film 1

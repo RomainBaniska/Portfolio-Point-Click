@@ -229,7 +229,7 @@ function adjustMenuItemsPosition(item, column, row) {
     setSpritePositionAndScale(playVideo, 0.65, 1.25, 300, 1000);
     
     // Position stopVideo
-    setSpritePositionAndScale(stopVideo, 0.65, 1.1, 300, 1000);
+    setSpritePositionAndScale(stopVideo, 0.65, 1.25, 300, 1000);
 }
 
 // Applique le redimensionnement à chaque événement 'resize'
