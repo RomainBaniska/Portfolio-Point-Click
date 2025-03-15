@@ -3,34 +3,7 @@
 <head>
     <title>PortFolio Pierre Castaing</title>
     <link rel="stylesheet" href="../css/body.css">
-    <style>
-        /* Masquer complètement les contrôles natifs */
-        video {
-            width: 640px;
-            height: 360px;
-            display: block;
-        }
-
-        /* Conteneur du bouton */
-        .custom-controls {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        /* Bouton personnalisé avec image */
-        .play-pause-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        /* Style des images */
-        .play-pause-btn img {
-            width: 50px; /* Ajuste la taille selon ton besoin */
-            height: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/video.css">
 </head>
 <body>
 
@@ -41,7 +14,8 @@
         </button>
     </div>
 
-    <script>
+    <!-- <script src="../js/videoPlayerScript.js"></script> -->
+    <!-- <script>
         const video = document.getElementById("video");
         const playPauseBtn = document.getElementById("playPauseBtn");
         const playImg = "../sprites/SPECIAL/toileAlerts/start.png";
@@ -61,7 +35,7 @@
         video.addEventListener("contextmenu", function (e) {
             e.preventDefault();
         });
-    </script>
+    </script> -->
 
 </body>
 </html>

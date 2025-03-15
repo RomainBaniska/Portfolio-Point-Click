@@ -1,0 +1,31 @@
+video {
+    /* width: 640px;
+    height: 360px;
+    display: block; */
+    width: 100%;  /* La vidéo prend toute la largeur de l'écran */
+    max-width: 800px; /* Taille max pour éviter qu'elle soit trop grande */
+    height: auto; /* Garde les proportions */
+    display: block;
+    margin: 0 auto; /* Centre la vidéo */
+    /* position: absolute; */
+}
+
+/* Conteneur du bouton */
+.custom-controls {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Bouton personnalisé avec image */
+.play-pause-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Style des images */
+.play-pause-btn img {
+    width: 50px; /* Ajuste la taille selon ton besoin */
+    height: auto;
+}
