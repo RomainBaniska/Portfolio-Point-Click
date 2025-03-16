@@ -222,9 +222,9 @@ export async function loadSprites(apps, sounds) {
     // TOILE SCREEN
     const toileScreenAsset = await PIXI.Assets.load('../sprites/SPECIAL/toileScreen.png');
     const toileScreen = new PIXI.Sprite(toileScreenAsset);
-    // toileScreen.texture = await PIXI.Assets.load('https://pixijs.com/assets/video.mp4');
     toileScreen.zIndex = 10;
-    // TOILE SCREEN ALERTS
+
+    // TOILE SCREEN ALERTS - Le changement default/active se fait dans "interactions.js"
     // PLAY VIDEO ALERT
     const playVideo = await displaySprite('SPECIAL/toileAlerts/startHover.json', 0.12);
     const playVideoActive = await displaySprite('SPECIAL/toileAlerts/startHover.json', 0.12);
@@ -253,41 +253,36 @@ export async function loadSprites(apps, sounds) {
     stopVideoActive.anchor.set(0.5);
     stopVideoActive.interactive = true;
     stopVideoActive.stop();
+    // NEXT VIDEO ALERT
+    const nextVideo = await displaySprite('SPECIAL/toileAlerts/next-sheet.json', 0.12);
+    const nextVideoActive = await displaySprite('SPECIAL/toileAlerts/next-sheet.json', 0.12);
+    const nextVideospriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/toileAlerts/next-sheet.json');
+    const nextVideoframes = Object.keys(nextVideospriteAsset.textures);
+    nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
+    nextVideoActive.texture = nextVideospriteAsset.textures[nextVideoframes[1]];
+    nextVideo.zIndex = 11;
+    nextVideo.anchor.set(0.5);
+    nextVideo.interactive = true;
+    nextVideo.stop();
+    nextVideoActive.anchor.set(0.5);
+    nextVideoActive.interactive = true;
+    nextVideoActive.stop();
 
-    // HOVER ET CLIC PLAYVIDEO
-    playVideo.on('pointerover', () => {
-        playVideo.texture = playVideoActive.texture;
-    });
-    playVideo.on('pointerout', () => {
-        playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]]; 
-    });
-    playVideo.on('click', () => {
-        // + Ajouter action "play"
-        app.stage.removeChild(playVideo);
-        app.stage.addChild(stopVideo);
-        playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]]; 
-    });
-    // HOVER ET CLIC STOPVIDEO
-    stopVideo.on('pointerover', () => {
-        stopVideo.texture = stopVideoActive.texture;
-    });
-    stopVideo.on('pointerout', () => {
-        stopVideo.texture = stopVideospriteAsset.textures[stopVideoframes[0]]; 
-    });
-    stopVideo.on('click', () => {
-        // + Ajouter action "play"
-        app.stage.removeChild(stopVideo);
-        app.stage.addChild(playVideo);
-        stopVideo.texture = stopVideospriteAsset.textures[stopVideoframes[0]]; 
-    });
+    // PREVIOUS VIDEO ALERT
+    const prevVideo = await displaySprite('SPECIAL/toileAlerts/prev-sheet.json', 0.12);
+    const prevVideoActive = await displaySprite('SPECIAL/toileAlerts/prev-sheet.json', 0.12);
+    const prevVideospriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/toileAlerts/prev-sheet.json');
+    const prevVideoframes = Object.keys(prevVideospriteAsset.textures);
+    prevVideo.texture = prevVideospriteAsset.textures[prevVideoframes[0]];
+    prevVideoActive.texture = prevVideospriteAsset.textures[prevVideoframes[1]];
+    prevVideo.zIndex = 11;
+    prevVideo.anchor.set(0.5);
+    prevVideo.interactive = true;
+    prevVideo.stop();
+    prevVideoActive.anchor.set(0.5);
+    prevVideoActive.interactive = true;
+    prevVideoActive.stop();
 
-    // app.stage.addChild(toileScreen);
-    // Film 1
-    // const film1Asset = await PIXI.Assets.load('https://pixijs.com/assets/video.mp4');
-    // const film1 = new PIXI.Sprite(film1Asset);
-    // film1.anchor.set(0.5);
-    // film1.zIndex = 11;
-    // app.stage.addChild(film1);
 
     // MUSIC TOGGLE
     const music = await displaySprite('SPECIAL/musicnote.json', 0.12);
@@ -960,6 +955,14 @@ export async function loadSprites(apps, sounds) {
         stopVideospriteAsset,
         stopVideoframes,
         stopVideoActive,
+        nextVideo,
+        nextVideoActive,
+        nextVideoframes,
+        nextVideospriteAsset,
+        prevVideo,
+        prevVideoActive,
+        prevVideoframes,
+        prevVideospriteAsset,
         // film1,
         questionMark,
         questionMarkActive,

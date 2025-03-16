@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes } = sprites;
+    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
     // const { unrollSound } = sounds
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -194,11 +194,11 @@ export async function interactions(apps, sprites, texts) {
         if (menuButton5.isActive) {
             app.stage.addChild(toileScreen);
     
-            // 🔹 Vérifier si la vidéo existe déjà pour éviter les doublons
+            // Vérifier si la vidéo existe déjà pour éviter les doublons
             let existingVideo = document.getElementById("pixi-video");
             if (existingVideo) return;
     
-            // 🔹 Génération de la vidéo dans le DOM
+            // Génération de la vidéo dans le DOM
             const video = document.createElement("video");
             video.id = "pixi-video";
             video.src = "../videos/RebatierePF.mp4";
@@ -211,8 +211,11 @@ export async function interactions(apps, sprites, texts) {
     
             // Ajout de playVideo au conteneur des boutons
             app.stage.addChild(playVideo);
+            // Ajout de nextVideo et prevVideo
+            app.stage.addChild(prevVideo);
+            app.stage.addChild(nextVideo);
 
-            // 🔹 Gestion des événements Play
+            // Gestion des événements Play
             playVideo.on('pointerover', () => {
                 playVideo.texture = playVideoActive.texture;
             });
@@ -227,7 +230,7 @@ export async function interactions(apps, sprites, texts) {
                 app.stage.addChild(stopVideo);
             });
 
-            // 🔹 Gestion des événements Stop
+            // Gestion des événements Stop
             stopVideo.on('pointerover', () => {
                 stopVideo.texture = stopVideoActive.texture;
             });
@@ -242,11 +245,31 @@ export async function interactions(apps, sprites, texts) {
                 app.stage.addChild(playVideo);
             });
 
-            // 🔹 Supprimer la vidéo quand on ferme l'écran
+            // Gestion des événements Next
+            nextVideo.on('pointerover', () => {
+                nextVideo.texture = nextVideoActive.texture;
+            });
+
+            nextVideo.on('pointerout', () => {
+                nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
+            });
+
+            // Gestion des événements Prev
+            prevVideo.on('pointerover', () => {
+                prevVideo.texture = prevVideoActive.texture;
+            });
+
+            prevVideo.on('pointerout', () => {
+                prevVideo.texture = prevVideospriteAsset.textures[prevVideoframes[0]];
+            });
+
+            // Supprimer la vidéo quand on ferme l'écran
             toileScreen.on("removed", () => {
                 video.remove();
                 app.stage.removeChild(playVideo);
                 app.stage.removeChild(stopVideo);
+                app.stage.removeChild(prevVideo);
+                app.stage.removeChild(nextVideo);
             });
             }
     });
