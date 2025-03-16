@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset } = sprites;
+    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
     // const { unrollSound } = sounds
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -223,6 +223,8 @@ export async function interactions(apps, sprites, texts) {
             // Ajout de nextVideo et prevVideo
             app.stage.addChild(prevVideo);
             app.stage.addChild(nextVideo);
+            // Ajout de exitVideo
+            app.stage.addChild(exitVideo);
 
             // Gestion des événements Play
             playVideo.on('pointerover', () => {
@@ -252,6 +254,26 @@ export async function interactions(apps, sprites, texts) {
                 video.pause();
                 app.stage.removeChild(stopVideo);
                 app.stage.addChild(playVideo);
+            });
+
+            // Gestion des événements Exit
+            exitVideo.on('pointerover', () => {
+                exitVideo.texture = exitVideoActive.texture;
+            });
+
+            exitVideo.on('pointerout', () => {
+                exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
+            });
+            exitVideo.on('click', () => {
+                video.remove();
+                app.stage.removeChild(playVideo);
+                app.stage.removeChild(stopVideo);
+                app.stage.removeChild(prevVideo);
+                app.stage.removeChild(nextVideo);
+                exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
+                app.stage.removeChild(exitVideo);
+                app.stage.removeChild(toileScreen);
+                currentVideoIndex = 0;
             });
 
             // Gestion des événements Next
@@ -296,6 +318,8 @@ export async function interactions(apps, sprites, texts) {
                 app.stage.removeChild(stopVideo);
                 app.stage.removeChild(prevVideo);
                 app.stage.removeChild(nextVideo);
+                app.stage.removeChild(exitVideo);
+                reroll();
             });
             }
     });

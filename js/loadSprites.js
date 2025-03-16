@@ -283,6 +283,22 @@ export async function loadSprites(apps, sounds) {
     prevVideoActive.interactive = true;
     prevVideoActive.stop();
 
+    // EXIT ALERT
+    const exitVideo = await displaySprite('SPECIAL/toileAlerts/exit-sheet.json', 0.12);
+    const exitVideoActive = await displaySprite('SPECIAL/toileAlerts/exit-sheet.json', 0.12);
+    const exitVideospriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/toileAlerts/exit-sheet.json');
+    const exitVideoframes = Object.keys(exitVideospriteAsset.textures);
+    exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
+    exitVideoActive.texture = exitVideospriteAsset.textures[exitVideoframes[1]];
+    exitVideo.zIndex = 11;
+    exitVideo.anchor.set(0.5);
+    exitVideo.interactive = true;
+    exitVideo.stop();
+    exitVideoActive.anchor.set(0.5);
+    exitVideoActive.interactive = true;
+    exitVideoActive.stop();
+
+
 
     // MUSIC TOGGLE
     const music = await displaySprite('SPECIAL/musicnote.json', 0.12);
@@ -963,6 +979,10 @@ export async function loadSprites(apps, sounds) {
         prevVideoActive,
         prevVideoframes,
         prevVideospriteAsset,
+        exitVideo,  
+        exitVideoActive,  
+        exitVideospriteAsset,  
+        exitVideoframes,  
         // film1,
         questionMark,
         questionMarkActive,
