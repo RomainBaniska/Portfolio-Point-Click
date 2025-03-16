@@ -108,7 +108,7 @@ export async function loadTexts(sprites) {
             regarder: "Sous l'écran il y a une interstice qui semble pouvoir accueillir une disquette",
             prendre: [
                 "Trimballer cette épave ? Non merci.",
-                "Cette machine date de Mathusalem, même sur leboncoin j'en tire pas 40 balles",
+                "Cette machine date de Mathusalem, même sur leboncoin j'en tire même pas 50 euros",
                 "Comment fait-il pour coder là-dessus ??"
             ]
         },
@@ -120,7 +120,7 @@ export async function loadTexts(sprites) {
             prendre:
             [
                 "Trimballer cette épave ? Non merci.",
-                "Cette machine date de Mathusalem, même sur leboncoin j'en tire pas 40 balles",
+                "Cette machine date de Mathusalem, même sur leboncoin j'en tire même pas 50 euros",
                 "Comment fait-il pour coder là-dessus ??"
             ]
         },

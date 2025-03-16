@@ -5,6 +5,14 @@ export async function interactions(apps, sprites, texts) {
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
     // const { unrollSound } = sounds
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    // Vidéos de la toile
+    const videoList = [
+        "../videos/RebatierePF.mp4",
+        "../videos/RebatiereNoCut.mp4",
+        "../videos/TimeoutNoCut.mp4"
+    ];
+    // Index en cours de la video (initialisation)
+    let currentVideoIndex = 0;
 
     // GUYBRUSH START SETUP (Sleeping)
     setPosition(guybrushLD, 0.9, 0.85);
@@ -201,7 +209,8 @@ export async function interactions(apps, sprites, texts) {
             // Génération de la vidéo dans le DOM
             const video = document.createElement("video");
             video.id = "pixi-video";
-            video.src = "../videos/RebatierePF.mp4";
+            // video.src = "../videos/RebatierePF.mp4";
+            video.src = videoList[currentVideoIndex];
             video.autoplay = true;
             video.controls = false;
             video.style.zIndex = "10";
@@ -253,6 +262,15 @@ export async function interactions(apps, sprites, texts) {
             nextVideo.on('pointerout', () => {
                 nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
             });
+            nextVideo.on('click', () => {
+                if (currentVideoIndex < videoList.length - 1) {
+                    currentVideoIndex++; 
+                } else {
+                    currentVideoIndex = 0; 
+                }
+                video.src = videoList[currentVideoIndex]; 
+                video.play(); 
+            });
 
             // Gestion des événements Prev
             prevVideo.on('pointerover', () => {
@@ -262,7 +280,15 @@ export async function interactions(apps, sprites, texts) {
             prevVideo.on('pointerout', () => {
                 prevVideo.texture = prevVideospriteAsset.textures[prevVideoframes[0]];
             });
-
+            prevVideo.on('click', () => {
+                if (currentVideoIndex > 0) {
+                    currentVideoIndex--;
+                } else {
+                    currentVideoIndex = videoList.length - 1;
+                }
+                video.src = videoList[currentVideoIndex]; 
+                video.play();
+            });
             // Supprimer la vidéo quand on ferme l'écran
             toileScreen.on("removed", () => {
                 video.remove();
