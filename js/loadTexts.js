@@ -242,11 +242,23 @@ export async function loadTexts(sprites) {
                 currentMinutes =  currentDate.getMinutes();
                 currentTimeHourMinutes = `${currentHour}:${currentMinutes}`;
                 
-                spriteBehaviors.reveil.regarder =                 [
-                    `Le réveil-matin indique ${currentTimeHourMinutes}`,
-                    "L'alarme est réglée pour sonner à 9h du matin",
-                    "Eh ben mon pote c'est pas en te levant à cette heure que tu vas trouver du boulot"
-                ]
+                if (currentHour >= 11 && currentHour < 22) {
+                    spriteBehaviors.reveil.regarder = [
+                        `Le réveil-matin indique ${currentTimeHourMinutes}`,
+                        "Et il dort toujours ???"
+                    ];
+                } else if (currentHour >= 22 || currentHour < 6) {
+                    spriteBehaviors.reveil.regarder = [
+                        `Le réveil-matin indique ${currentTimeHourMinutes}`,
+                        "Hmmm, il fait encore nuit, normal qu'il dorme à cette heure"
+                    ];
+                } else {
+                    // Entre 6h et 11h
+                    spriteBehaviors.reveil.regarder = [
+                        `Le réveil-matin indique ${currentTimeHourMinutes}`,
+                        "Il ne devrait pas tarder à se réveiller"
+                    ];
+                }
                 }
 
                 // Action définie pour ce sprite
