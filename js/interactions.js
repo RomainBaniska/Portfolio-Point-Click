@@ -219,7 +219,8 @@ export async function interactions(apps, sprites, texts) {
             document.body.appendChild(video);
     
             // Ajout de playVideo au conteneur des boutons
-            app.stage.addChild(playVideo);
+            // app.stage.addChild(playVideo);
+            app.stage.addChild(stopVideo);
             // Ajout de nextVideo et prevVideo
             app.stage.addChild(prevVideo);
             app.stage.addChild(nextVideo);

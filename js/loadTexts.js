@@ -272,7 +272,7 @@ export async function loadTexts(sprites) {
                 // On utilise la fonction pour afficher le texte
                 } else if (Array.isArray(response)) {
                     // Si c'est une liste de dialogues, les afficher en séquence
-                    await displayReactionSequence(response, 4000);
+                    await displayReactionSequence(response, 3000);
                 } else {
                     // Sinon, afficher un seul dialogue
                     await displayReaction(response, 3000);
@@ -313,19 +313,31 @@ export async function loadTexts(sprites) {
     });
     }
 
+    // SOLUTION !! DECOMMENTER ET REVOIR LA LOGIQUE DU SKIP DIALOGUE
+
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR SI IL Y EN A PLUS D'UNE
     async function displayReactionSequence(dialogues, delay = 3000) {
         // Création d'une référence unique pour la séquence
         currentReactionSequence = { canceled: false };
+        // const sequence = { canceled: false };
+        // currentReactionSequence = sequence;
 
         for (const text of dialogues) {
                 // Si une nouvelle séquence est démarrée, arrêter l'ancienne
                 if (currentReactionSequence.canceled) {
+                // if (currentReactionSequence?.canceled) {
+                    // if (currentReactionSequence !== sequence) {
                     console.log("Séquence annulée.");
                     return;
                 }
 
             await displayReaction(text, delay);
+
+            // if (currentReactionSequence.canceled) {
+            //     // if (currentReactionSequence !== sequence) {
+            //     console.log("Séquence annulée.");
+            //     return;
+            // }
         }
         // Séquence terminée
         currentReactionSequence = null;
