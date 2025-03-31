@@ -361,9 +361,9 @@ export async function loadSprites(apps, sounds) {
 
 
     // QUESTIONMARK & HELP SCREEN
-    const questionMark = await displaySprite('SPECIAL/questionMark.json', 0.12);
-    const questionMarkActive = await displaySprite('SPECIAL/questionMark.json', 0.12);
-    const questionMarkspriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/questionMark.json');
+    const questionMark = await displaySprite('SPECIAL/questionmark.json', 0.12);
+    const questionMarkActive = await displaySprite('SPECIAL/questionmark.json', 0.12);
+    const questionMarkspriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/questionmark.json');
     const questionMarkframes = Object.keys(questionMarkspriteAsset.textures);
     questionMark.texture = questionMarkspriteAsset.textures[questionMarkframes[0]];
     questionMarkActive.texture = questionMarkspriteAsset.textures[questionMarkframes[1]];
