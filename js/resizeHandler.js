@@ -57,6 +57,7 @@ function adjustCanvasSize() {
     terminalbgSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
     // (A DEPLACER AUSSI) - POSITIONNEMENT DU HELP SCREEN - Special Screen
     noPanik.x = houseSprite.x;
+    noPanik.x = screenWidth / 2;
     noPanik.y = 0;
     noPanik.height = screenHeight;
     noPanik.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
@@ -223,7 +224,9 @@ function adjustMenuItemsPosition(item, column, row) {
     setSpritePositionAndScale(music, 1.15, 0.2, 300, 2300);
 
     // Position Arrow
-    setSpritePositionAndScale(arrow, 1, 1.385, 300, 2300);
+    setSpritePositionAndScale(arrow, 1, 1, 300, 2300);
+    // setSpritePositionAndScale(arrow, 1, 0.585, 300, 1000);
+    // setSpritePositionAndScale(arrow, 1.15, 0.08, 300, 2300);
 
     // Position playVideo
     setSpritePositionAndScale(playVideo, 0.65, 1.20, 300, 1000);

@@ -376,8 +376,11 @@ export async function loadSprites(apps, sounds) {
     houseContainer.addChild(questionMark);
     const noPanikAsset = await PIXI.Assets.load('../sprites/SPECIAL/noPanik.png');
     const noPanik = new PIXI.Sprite(noPanikAsset);
-    noPanik.anchor.set(0, 0);
+    // noPanik.anchor.set(0, 0);
+    noPanik.anchor.set(0.5, 0);
     noPanik.zIndex = 95; 
+    const noPanikContainer = new PIXI.Container();
+    noPanikContainer.addChild(noPanik);
     // app.stage.addChild(noPanik);
 
      // HOVER ET CLIC QUESTIONMARK
@@ -388,7 +391,7 @@ export async function loadSprites(apps, sounds) {
         questionMark.texture = questionMarkspriteAsset.textures[questionMarkframes[0]]; 
     });
     questionMark.on('click', () => {
-        app.stage.addChild(noPanik);
+        app.stage.addChild(noPanikContainer);
         questionMark.texture = questionMarkspriteAsset.textures[questionMarkframes[0]]; 
     });
 
@@ -405,7 +408,8 @@ export async function loadSprites(apps, sounds) {
     
     arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
     arrowActive.texture = arrowspriteAsset.textures[arrowframes[1]];
-    noPanik.addChild(arrow);
+    arrow.zIndex = 96;
+    noPanikContainer.addChild(arrow);
 
     // HOVER ET CLIC ARROW
     arrow.on('pointerover', () => {
@@ -690,13 +694,13 @@ export async function loadSprites(apps, sounds) {
             }
 
             // Et on marque le texte du nouveau bouton d'action sélectionné
-            currentActionText = new PIXI.Text(text, {
+            currentActionText = new PIXI.Text({ text: text, style: {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: 11,
                 fill: 0x772a76,
                 align: 'center',
                 fontWeight: 'bold'
-            });
+            }});            
 
             menuContainer.addChild(currentActionText);
             currentActionText.x = app.screen.width / 2;
@@ -741,13 +745,13 @@ export async function loadSprites(apps, sounds) {
             // lors du hover d'un sprite on clean le champs quoi qu'il arrive
             cleanupText();
             // Et on rajoute le nom du sprite 
-            currentSpriteText = new PIXI.Text(spriteName, {
+            currentSpriteText = new PIXI.Text({ text: spriteName, style: {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: 11,
                 fill: 0x772a76,
                 align: 'center',
                 fontWeight: 'bold'
-            });
+            }});            
             if (currentActionText) {
                     if (itemClicked) {
                         currentActionText.x = app.screen.width / 2 - offset;
@@ -780,21 +784,21 @@ export async function loadSprites(apps, sounds) {
                     cleanupText();
                     // Création du texte pour l'item cliqué
                         if (currentActionButton == menuButton7) { 
-                            currentItemText = new PIXI.Text(`${spriteName} avec `, {
-                            fontFamily: 'MonkeyIslandMenu',
-                            fontSize: 11,
-                            fill: 0x772a76,
-                            align: 'center',
-                            fontWeight: 'bold',
-                            });
+                            currentItemText = new PIXI.Text({ text: `${spriteName} avec `, style: {
+                                fontFamily: 'MonkeyIslandMenu',
+                                fontSize: 11,
+                                fill: 0x772a76,
+                                align: 'center',
+                                fontWeight: 'bold'
+                            }});                            
                         } else { 
-                            currentItemText = new PIXI.Text(`${spriteName} à `, {
-                            fontFamily: 'MonkeyIslandMenu',
-                            fontSize: 11,
-                            fill: 0x772a76,
-                            align: 'center',
-                            fontWeight: 'bold',
-                            });
+                            currentItemText = new PIXI.Text({ text: `${spriteName} à `, style: {
+                                fontFamily: 'MonkeyIslandMenu',
+                                fontSize: 11,
+                                fill: 0x772a76,
+                                align: 'center',
+                                fontWeight: 'bold'
+                            }});                            
                         }
                         if (currentActionText) {
                         currentActionText.x = app.screen.width / 2 - offset;

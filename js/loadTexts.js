@@ -22,14 +22,14 @@ export async function loadTexts(sprites) {
 
     // Constantes style texte
     // Guybrush Style
-    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: 'black', strokeThickness: 6, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
+    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: { color: 'black', thickness: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
     // Player style
-    const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#FFFFFF', stroke: 'black', strokeThickness: 6, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
-    const responseStyle = { fontFamily: 'arial', fontSize: 20, fill: '#772a76', stroke: 'black', strokeThickness: 6, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
+    const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#FFFFFF', stroke: { color: 'black', thickness: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
+    const responseStyle = { fontFamily: 'arial', fontSize: 20, fill: '#772a76', stroke: { color: 'black', thickness: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
 
     // Ajouter un nouvel étément texte
     function textConfig(textContent, style) {
-        const guybrushText = new PIXI.Text(textContent, style);
+        const guybrushText = new PIXI.Text({ text: textContent, style: style });
         guybrushText.anchor.set(0.5);
         guybrushText.zIndex = 99;
         return guybrushText; 
@@ -299,7 +299,7 @@ export async function loadTexts(sprites) {
                 // console.log("destroyed");
             }
 
-        dialogue = new PIXI.Text(text, dialogueStyle2);
+        dialogue = new PIXI.Text({ text: text, style: dialogueStyle2 });
         dialogue.anchor.set(0.5);
         dialogue.zIndex = 99;
         dialogue.x = houseSprite.x + (houseSprite.width / 2);

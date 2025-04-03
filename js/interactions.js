@@ -449,7 +449,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
             const index = i;
 
             // Affiche les réponses que le joueur peut sélectionner
-            let responseText = new PIXI.Text(response.text, style);
+            let responseText = new PIXI.Text({ text: response.text, style: style });
             menuCoverDialogue.addChild(responseText);
             responseText.interactive = true;
             responseText.x = 0;
@@ -468,7 +468,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 menuContainer.addChild(menuCoverDialogueOverlay);
 
                 // Une fois la réponse cliquée (pointerdown), le joueur répète la réponse
-                const playerResponsdingText = new PIXI.Text(response.text, dialogueStyle2);
+                const playerResponsdingText = new PIXI.Text({ text: response.text, style: dialogueStyle2 });
                 playerResponsdingText.anchor.set(0.5);
                 playerResponsdingText.zIndex = 4;
                 playerResponsdingText.x = houseSprite.x + (houseSprite.width / 2);
@@ -489,7 +489,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 // On masque les réponses avec un overlay
                 menuContainer.addChild(menuCoverDialogueOverlay);
                 // Configuration et ajouts des réponses que va répondre Guybrush
-                const guybrushResponseText = new PIXI.Text(response.guybrushResponse, dialogueStyle);
+                const guybrushResponseText = new PIXI.Text({ text: response.guybrushResponse, style: dialogueStyle });
                 guybrushResponseText.anchor.set(0.5);
                 guybrushResponseText.zIndex = 4;
                 guybrushResponseText.x = guybrushSO.x;

@@ -1,5 +1,5 @@
 { "frames": {
-   "utilisemiddle (idleuse) 0.ase": {
+   "utilisemiddle (idleuse)_0.ase": {
     "frame": { "x": 0, "y": 0, "w": 132, "h": 189 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 132, "h": 189 },
     "duration": 100
    },
-   "utilisemiddle (idleuse) 1.ase": {
+   "utilisemiddle (idleuse)_1.ase": {
     "frame": { "x": 132, "y": 0, "w": 132, "h": 189 },
     "rotated": false,
     "trimmed": false,
