@@ -1,5 +1,5 @@
 { "frames": {
-   "toilepoulie 0.aseprite": {
+   "toilepoulie_0.aseprite": {
     "frame": { "x": 0, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 1.aseprite": {
+   "toilepoulie_1.aseprite": {
     "frame": { "x": 323, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 2.aseprite": {
+   "toilepoulie_2.aseprite": {
     "frame": { "x": 646, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 3.aseprite": {
+   "toilepoulie_3.aseprite": {
     "frame": { "x": 969, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 4.aseprite": {
+   "toilepoulie_4.aseprite": {
     "frame": { "x": 1292, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 5.aseprite": {
+   "toilepoulie_5.aseprite": {
     "frame": { "x": 1615, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +47,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 6.aseprite": {
+   "toilepoulie_6.aseprite": {
     "frame": { "x": 1938, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +55,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 7.aseprite": {
+   "toilepoulie_7.aseprite": {
     "frame": { "x": 2261, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 8.aseprite": {
+   "toilepoulie_8.aseprite": {
     "frame": { "x": 2584, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -71,7 +71,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 9.aseprite": {
+   "toilepoulie_9.aseprite": {
     "frame": { "x": 2907, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -79,7 +79,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 10.aseprite": {
+   "toilepoulie_10.aseprite": {
     "frame": { "x": 3230, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -87,7 +87,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 11.aseprite": {
+   "toilepoulie_11.aseprite": {
     "frame": { "x": 3553, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,
@@ -95,7 +95,7 @@
     "sourceSize": { "w": 323, "h": 210 },
     "duration": 200
    },
-   "toilepoulie 12.aseprite": {
+   "toilepoulie_12.aseprite": {
     "frame": { "x": 3876, "y": 0, "w": 323, "h": 210 },
     "rotated": false,
     "trimmed": false,

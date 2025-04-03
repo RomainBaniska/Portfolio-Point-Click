@@ -1,26 +1,27 @@
-// SCRIPT DU VIDEO PLAYER
+// // SCRIPT DU VIDEO PLAYER
 
-const video = document.getElementById("video");
-const playPauseBtn = document.getElementById("playPauseBtn");
+// const video = document.getElementById("video");
+// const playPauseBtn = document.getElementById("playPauseBtn");
 
-const playPauseImg = playPauseBtn.querySelector("img"); // Récupère l'image dans le bouton
+// // const playPauseImg = playPauseBtn.querySelector("img"); // Récupère l'image dans le bouton
+// let playPauseImg = playPauseBtn ? playPauseBtn.querySelector("img") : null;
 
-const playImg = "../sprites/SPECIAL/toileAlerts/start.png";
-const pauseImg = "../sprites/SPECIAL/toileAlerts/stop.png";
+// const playImg = "../sprites/SPECIAL/toileAlerts/start.png";
+// const pauseImg = "../sprites/SPECIAL/toileAlerts/stop.png";
 
-playPauseBtn.addEventListener("click", function () {
-    if (video.paused) {
-        video.play();
-        // playPauseBtn.innerHTML = `<img src="${pauseImg}" alt="Pause">`;
-        playPauseImg.src = pauseImg;
-    } else {
-        video.pause();
-        // playPauseBtn.innerHTML = `<img src="${playImg}" alt="Play">`;
-        playPauseImg.src = playImg;
-    }
-});
+// playPauseBtn.addEventListener("click", function () {
+//     if (video.paused) {
+//         video.play();
+//         // playPauseBtn.innerHTML = `<img src="${pauseImg}" alt="Pause">`;
+//         playPauseImg.src = pauseImg;
+//     } else {
+//         video.pause();
+//         // playPauseBtn.innerHTML = `<img src="${playImg}" alt="Play">`;
+//         playPauseImg.src = playImg;
+//     }
+// });
 
-// Désactiver le menu contextuel (clic droit)
-video.addEventListener("contextmenu", function (e) {
-    e.preventDefault();
-});
+// // Désactiver le menu contextuel (clic droit)
+// video.addEventListener("contextmenu", function (e) {
+//     e.preventDefault();
+// });

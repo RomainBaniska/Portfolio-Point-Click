@@ -1,5 +1,5 @@
 { "frames": {
-   "next 0.ase": {
+   "next_0.ase": {
     "frame": { "x": 0, "y": 0, "w": 98, "h": 67 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 98, "h": 67 },
     "duration": 100
    },
-   "next 1.ase": {
+   "next_1.ase": {
     "frame": { "x": 98, "y": 0, "w": 98, "h": 67 },
     "rotated": false,
     "trimmed": false,

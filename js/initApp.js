@@ -28,9 +28,13 @@ export async function initializeApp() {
 
       // BLACK SCREEN
       const blackScreen = new PIXI.Graphics();
-      blackScreen.beginFill(0x000000);
-      blackScreen.drawRect(0, 0, window.innerWidth, window.innerHeight);
-      blackScreen.endFill();
+
+    //   blackScreen.beginFill(0x000000);
+    //   blackScreen.drawRect(0, 0, window.innerWidth, window.innerHeight);
+    //   blackScreen.endFill();
+    blackScreen.clear();
+    blackScreen.rect(0, 0, window.innerWidth, window.innerHeight).fill(0x000000);
+
       blackScreen.alpha = 1;
       blackScreen.zIndex = 99;
       app.stage.addChild(blackScreen);

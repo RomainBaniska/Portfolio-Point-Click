@@ -73,7 +73,7 @@ export async function interactions(apps, sprites, texts) {
 
         if (menuButton7.isActive && menuItemGlassWater.isActive) {
         
-        console.log ("Action verre d'eau - Romain réussie");
+        // console.log ("Action verre d'eau - Romain réussie");
         PIXI.sound.play('watersplash');
         setTimeout(() => {
             PIXI.sound.play('wipeeyes');
@@ -165,7 +165,7 @@ export async function interactions(apps, sprites, texts) {
                                         wakeUpText3.destroy();
                                         guybrushLD.destroy();
                                         guybrushGU.destroy();
-                                        console.log("L'animation de réveil s'est bien déroulée et les ressources détruites");
+                                        // console.log("L'animation de réveil s'est bien déroulée et les ressources détruites");
                                             }
                                         };
                                     };
@@ -371,7 +371,7 @@ function walkRight(positionFactor) {
 function unroll() {
     houseContainer.removeChild(toilePoulie);
         PIXI.sound.play('unroll');
-        console.log('son JOUE');
+        // console.log('son JOUE');
         houseContainer.addChild(toilePoulieRun);
         toilePoulieRun.animationSpeed = 0.035;
         toilePoulieRun.interactive = true;
@@ -386,7 +386,7 @@ function reroll() {
     houseContainer.removeChild(toilePoulieRun);
     houseContainer.addChild(toilePoulieReverse);
     PIXI.sound.play('unroll'); 
-    console.log('son JOUE');
+    // console.log('son JOUE');
     toilePoulieReverse.animationSpeed = 0.035;
     toilePoulieReverse.gotoAndPlay(0);
     toilePoulieReverse.loop = false;
@@ -521,7 +521,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                         setTimeout(() => {
                             reroll();  
                         }, 1000);
-                        console.log('ok çaaaa maaaarche');
+                        // console.log('ok çaaaa maaaarche');
                     }
                     // Vide le menuContainer du menuCoverDialogue
                     menuContainer.removeChild(menuCoverDialogue);
@@ -536,7 +536,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                     setTimeout(() => {
                         unroll();  
                     }, 1000);
-                    console.log('ok çaaaa maaaarche2');
+                    // console.log('ok çaaaa maaaarche2');
                 }
 
                 // Supprime la réponse cliquée du tableau playerResponses et on retire son affichage

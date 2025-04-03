@@ -223,7 +223,7 @@ export async function loadTexts(sprites) {
     
         if (activeButton && clickedSprite) {
             // Récupère le comportement spécifique pour ce sprite et cette action
-            const spriteName = clickedSprite.name;
+            const spriteName = clickedSprite.label;
             const action = activeButton.action;
 
         // Annulation d'une ancienne séquence
@@ -296,7 +296,7 @@ export async function loadTexts(sprites) {
             // Détruit la précédente ligne de réaction (Seulement Ok s'il n'y a qu'une ligne de réaction)
             if (dialogue) {
                 dialogue.destroy();
-                console.log("destroyed");
+                // console.log("destroyed");
             }
 
         dialogue = new PIXI.Text(text, dialogueStyle2);
@@ -306,7 +306,7 @@ export async function loadTexts(sprites) {
         dialogue.y = houseSprite.y + (houseSprite.height * 0.3);
         houseContainer.addChild(dialogue);
         setTimeout(() => {
-            console.log(`${dialogue.text} ...... terminé`);
+            // console.log(`${dialogue.text} ...... terminé`);
             dialogue.destroy();
             resolve();
         }, time);

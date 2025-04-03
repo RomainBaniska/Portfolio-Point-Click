@@ -24,7 +24,20 @@ export async function loadSprites(apps, sounds) {
 
     // Fonction D'affichage des sprites
     async function displaySprite(path, speed) {
-        const spriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + path);
+
+        const fullPath = SPRITE_PATH_PREFIX + path
+        let spriteAsset;
+
+        // Tente de récupérer l'asset dans le cache
+        spriteAsset = PIXI.Assets.get(fullPath);
+        // console.log("Asset récupéré");
+
+        if (!spriteAsset) {
+            spriteAsset = await PIXI.Assets.load(fullPath);
+            // console.log("Sprite Assets n'est pas en cache");
+        }
+
+        // const spriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + path);
         const frames = Object.keys(spriteAsset.textures).map(frame => spriteAsset.textures[frame]);
         const sprite = new PIXI.AnimatedSprite(frames);
         sprite.animationSpeed = speed;
@@ -566,7 +579,7 @@ export async function loadSprites(apps, sounds) {
         // On définit l'item comme inactif par défaut
         item.isActive = false;
         item.on('click', () => {
-            console.log(currentActionButton.action);
+            // console.log(currentActionButton.action);
             // Si aucun bouton d'action n'est sélectionné, on ne fait rien
             if (!currentActionButton || (currentActionButton.action !== "donner" && currentActionButton.action !== "utiliser")) {
                 console.log("Aucun bouton d'action actif");
@@ -647,12 +660,12 @@ export async function loadSprites(apps, sounds) {
                 menuAction.texture = defaultTexture.texture;
                 menuAction.isActive = false;
                 currentlyActiveButton = null;
-                console.log("désactivé");  
+                // console.log("désactivé");  
             } else {
                 menuAction.texture = selectedTexture.texture;
                 menuAction.isActive = true;
                 currentlyActiveButton = menuAction;
-                console.log("activé");  
+                // console.log("activé");  
             }
             
         });
@@ -776,7 +789,7 @@ export async function loadSprites(apps, sounds) {
             if (sprite.item && (currentActionButton == menuButton7 || currentActionButton == menuButton)) {
                 if (!itemClicked) {
                     itemClicked = true;
-                    console.log("item cliqué");
+                    // console.log("item cliqué");
                     cleanupText();
                     // Création du texte pour l'item cliqué
                         if (currentActionButton == menuButton7) { 
@@ -823,7 +836,7 @@ export async function loadSprites(apps, sounds) {
                             currentlyActiveItem.texture = currentlyActiveItem.defaultTexture; 
                             currentlyActiveItem.isActive = false;
                             currentlyActiveItem = null;
-                            console.log("Item actif désactivé");
+                            // console.log("Item actif désactivé");
                         }
                         // On clean le texte de l'item s'il existe
                         if (currentItemText) {
@@ -834,7 +847,7 @@ export async function loadSprites(apps, sounds) {
                         }
                         // On passe "itemClicked" à false
                         itemClicked = false;
-                        console.log("décliqué");
+                        // console.log("décliqué");
                        
                         // Si un bouton d'action est actif, on le passe en null
                         if (currentActionButton) {
@@ -850,7 +863,7 @@ export async function loadSprites(apps, sounds) {
                             currentActionText.destroy();
                             currentActionText = null;
                         }
-            console.log("Clic droit détecté - tout est déselectionné");
+            // console.log("Clic droit détecté - tout est déselectionné");
         });
         
         function cleanupText() {
@@ -865,21 +878,21 @@ export async function loadSprites(apps, sounds) {
 
 
     // On va assigner un ensemble de propriétés aux sprites clés pour les interactions (à repositionner dans chaque élément de sprite)
-    guybrushSO.name = "guybrushSO";
-    guybrushLD.name = "guybrushLD";
-    toilePoulie.name = "toilePoulie";
-    toilePoulieRun.name = "toilePoulieRun";
-    reveil.name = "reveil";
-    glasswater.name = "glasswater";
-    ordi.name = "ordi";
-    ordiRun.name = "ordiRun";
-    gamingChair.name = "gamingChair";
-    chest.name = "chest";
-    goldkey.name = "goldkey"
-    menuItemGoldKey.name = "menuItemGoldKey";
-    menuItemGlassWater.name ="menuItemGlassWater"
-    menuItemGlassWaterEmpty.name ="menuItemGlassWaterEmpty"    
-    menuItemTabletPack.name ="menuItemTabletPack"    
+    guybrushSO.label = "guybrushSO";
+    guybrushLD.label = "guybrushLD";
+    toilePoulie.label = "toilePoulie";
+    toilePoulieRun.label = "toilePoulieRun";
+    reveil.label = "reveil";
+    glasswater.label = "glasswater";
+    ordi.label = "ordi";
+    ordiRun.label = "ordiRun";
+    gamingChair.label = "gamingChair";
+    chest.label = "chest";
+    goldkey.label = "goldkey"
+    menuItemGoldKey.label = "menuItemGoldKey";
+    menuItemGlassWater.label ="menuItemGlassWater"
+    menuItemGlassWaterEmpty.label ="menuItemGlassWaterEmpty"    
+    menuItemTabletPack.label ="menuItemTabletPack"    
 
     // Idem pour les Boutons :
     // Boutons

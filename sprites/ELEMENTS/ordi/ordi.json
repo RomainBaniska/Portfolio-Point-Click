@@ -1,5 +1,5 @@
 { "frames": {
-   "ordi 0.ase": {
+   "ordi_0.ase": {
     "frame": { "x": 0, "y": 0, "w": 106, "h": 103 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 106, "h": 103 },
     "duration": 100
    },
-   "ordi 1.ase": {
+   "ordi_1.ase": {
     "frame": { "x": 106, "y": 0, "w": 106, "h": 103 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 106, "h": 103 },
     "duration": 100
    },
-   "ordi 2.ase": {
+   "ordi_2.ase": {
     "frame": { "x": 212, "y": 0, "w": 106, "h": 103 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 106, "h": 103 },
     "duration": 100
    },
-   "ordi 3.ase": {
+   "ordi_3.ase": {
     "frame": { "x": 318, "y": 0, "w": 106, "h": 103 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 106, "h": 103 },
     "duration": 100
    },
-   "ordi 4.ase": {
+   "ordi_4.ase": {
     "frame": { "x": 424, "y": 0, "w": 106, "h": 103 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 106, "h": 103 },
     "duration": 100
    },
-   "ordi 5.ase": {
+   "ordi_5.ase": {
     "frame": { "x": 530, "y": 0, "w": 106, "h": 103 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +47,7 @@
     "sourceSize": { "w": 106, "h": 103 },
     "duration": 100
    },
-   "ordi 6.ase": {
+   "ordi_6.ase": {
     "frame": { "x": 636, "y": 0, "w": 106, "h": 103 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +55,7 @@
     "sourceSize": { "w": 106, "h": 103 },
     "duration": 100
    },
-   "ordi 7.ase": {
+   "ordi_7.ase": {
     "frame": { "x": 742, "y": 0, "w": 106, "h": 103 },
     "rotated": false,
     "trimmed": false,
