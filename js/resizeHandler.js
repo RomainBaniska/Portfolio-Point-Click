@@ -23,6 +23,19 @@ function adjustCanvasSize() {
         sprite.scale.set(scaleFactor);
     }
 
+    // METHODE DE POSITIONNEMENT DU SPRITE IMMOBILE  
+    function setSpritePositionAndScaleSPECIAL(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
+        sprite.x = noPanik.x  * positionXFactor;
+        sprite.y = noPanik.y * positionYFactor;
+    
+        // Ajustement de l'échelle proportionnelle
+        const scaleFactor = Math.min(
+            noPanik.width / scaleWidthFactor,
+            noPanik.height / scaleHeightFactor
+        );
+        sprite.scale.set(scaleFactor);
+    }
+
     function setMovingSpriteScale(sprite, scaleWidthFactor, scaleHeightFactor) {
         // Ajustement de l'échelle proportionnelle
         const scaleFactor = Math.min(
@@ -56,9 +69,10 @@ function adjustCanvasSize() {
     terminalbgSprite.height = screenHeight;
     terminalbgSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
     // (A DEPLACER AUSSI) - POSITIONNEMENT DU HELP SCREEN - Special Screen
-    noPanik.x = houseSprite.x;
+    // noPanik.x = houseSprite.x;
     noPanik.x = screenWidth / 2;
-    noPanik.y = 0;
+    // noPanik.y = 0;
+    noPanik.y = screenHeight / 2;
     noPanik.height = screenHeight;
     noPanik.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
     // (A DEPLACER AUSSI) - POSITIONNEMENT DU TOILESCREEN - Special Screen
@@ -224,7 +238,7 @@ function adjustMenuItemsPosition(item, column, row) {
     setSpritePositionAndScale(music, 1.15, 0.2, 300, 2300);
 
     // Position Arrow
-    setSpritePositionAndScale(arrow, 1, 1, 300, 2300);
+    setSpritePositionAndScaleSPECIAL(arrow, 1.7, 1.9, 300, 2300);
     // setSpritePositionAndScale(arrow, 1, 0.585, 300, 1000);
     // setSpritePositionAndScale(arrow, 1.15, 0.08, 300, 2300);
 

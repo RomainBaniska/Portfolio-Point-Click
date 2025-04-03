@@ -377,7 +377,7 @@ export async function loadSprites(apps, sounds) {
     const noPanikAsset = await PIXI.Assets.load('../sprites/SPECIAL/noPanik.png');
     const noPanik = new PIXI.Sprite(noPanikAsset);
     // noPanik.anchor.set(0, 0);
-    noPanik.anchor.set(0.5, 0);
+    noPanik.anchor.set(0.5, 0.5);
     noPanik.zIndex = 95; 
     const noPanikContainer = new PIXI.Container();
     noPanikContainer.addChild(noPanik);
@@ -409,6 +409,9 @@ export async function loadSprites(apps, sounds) {
     arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
     arrowActive.texture = arrowspriteAsset.textures[arrowframes[1]];
     arrow.zIndex = 96;
+
+    arrow.anchor.set (0.5, 0.5);
+
     noPanikContainer.addChild(arrow);
 
     // HOVER ET CLIC ARROW
@@ -419,7 +422,7 @@ export async function loadSprites(apps, sounds) {
         arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
     });
     arrow.on('click', () => {
-        app.stage.removeChild(noPanik);
+        app.stage.removeChild(noPanikContainer);
         arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
     });
 
