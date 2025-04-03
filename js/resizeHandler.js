@@ -3,7 +3,7 @@
 export async function resizeHandler(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseSprite, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo} = sprites;
+    const { houseSprite, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -56,9 +56,16 @@ function adjustCanvasSize() {
     houseSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4; // à changer 
 
     // Position du sprite houseContainer (et houseSprite)
-    // houseSprite.x = (screenWidth - houseSprite.width) / 2;
     houseSprite.x = screenWidth / 2;
     houseSprite.y = 0;
+
+    // InnerHouseSprite
+    innerHouseSprite.height = screenHeight * 0.74;
+    innerHouseSprite.width = (innerHouseSprite.height / houseMaxHeight) * houseMaxWidth * 1.1; // à changer 
+
+    // Position du sprite houseContainer (et houseSprite)
+    innerHouseSprite.x = screenWidth / 2;
+    innerHouseSprite.y = 0;
 
     // (A DEPLACER) Positionnement du Terminal - Special Screen
     terminal.x = screenWidth  * 0.5;
@@ -70,9 +77,7 @@ function adjustCanvasSize() {
     terminalbgSprite.height = screenHeight;
     terminalbgSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
     // (A DEPLACER AUSSI) - POSITIONNEMENT DU HELP SCREEN - Special Screen
-    // noPanik.x = houseSprite.x;
     noPanik.x = screenWidth / 2;
-    // noPanik.y = 0;
     noPanik.y = screenHeight / 2;
     noPanik.height = screenHeight;
     noPanik.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;

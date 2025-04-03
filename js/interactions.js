@@ -471,7 +471,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 const playerResponsdingText = new PIXI.Text({ text: response.text, style: dialogueStyle2 });
                 playerResponsdingText.anchor.set(0.5);
                 playerResponsdingText.zIndex = 4;
-                playerResponsdingText.x = houseSprite.x + (houseSprite.width / 2);
+                playerResponsdingText.x = houseSprite.x;
                 playerResponsdingText.y = houseSprite.y + (houseSprite.height * 0.3);
                 houseContainer.addChild(playerResponsdingText)
                 // Supprimer la réponse après un délai

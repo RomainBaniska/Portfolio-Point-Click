@@ -45,10 +45,16 @@ export async function loadSprites(apps, sounds) {
     app.renderer.events.cursorStyles.default = "none";
 
     // HOUSE SPRITE
-    const houseAsset = await PIXI.Assets.load('../sprites/homeImproved5.png');
+    // const houseAsset = await PIXI.Assets.load('../sprites/homeImproved5.png');
+    const houseAsset = await PIXI.Assets.load('../sprites/jardin.jpg');
     const houseSprite = new PIXI.Sprite(houseAsset);
     houseSprite.anchor.set(0.5, 0);
     houseContainer.addChild(houseSprite);
+
+    const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimed.png');
+    const innerHouseSprite = new PIXI.Sprite(innerHouseAsset); 
+    innerHouseSprite.anchor.set(0.5, 0); 
+    houseContainer.addChild(innerHouseSprite); 
 
     // CROSSHAIR
     const crosshair = await displaySprite('CROSSHAIR/crosshair2.json', 0.08);
@@ -917,6 +923,7 @@ export async function loadSprites(apps, sounds) {
     return {
         houseContainer,
         houseSprite,
+        innerHouseSprite,
         crosshair,
         guybrush,
         guybrushWR,
