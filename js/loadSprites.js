@@ -47,6 +47,7 @@ export async function loadSprites(apps, sounds) {
     // HOUSE SPRITE
     const houseAsset = await PIXI.Assets.load('../sprites/homeImproved5.png');
     const houseSprite = new PIXI.Sprite(houseAsset);
+    houseSprite.anchor.set(0.5, 0);
     houseContainer.addChild(houseSprite);
 
     // CROSSHAIR
@@ -447,6 +448,7 @@ export async function loadSprites(apps, sounds) {
      // MENU TEXTURE
      const menuAsset = await PIXI.Assets.load('../sprites/test sprite menu.png');
      const menuSprite = new PIXI.Sprite(menuAsset);
+     menuSprite.anchor.set(0.5, 0);
      menuContainer.addChild(menuSprite);
 
      // MENU COVER TEXTURE (Dialogues)

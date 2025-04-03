@@ -55,8 +55,9 @@ function adjustCanvasSize() {
     houseSprite.height = screenHeight * 0.74;
     houseSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4; // à changer 
 
-    // Position du sprite houseContainer
-    houseSprite.x = (screenWidth - houseSprite.width) / 2;
+    // Position du sprite houseContainer (et houseSprite)
+    // houseSprite.x = (screenWidth - houseSprite.width) / 2;
+    houseSprite.x = screenWidth / 2;
     houseSprite.y = 0;
 
     // (A DEPLACER) Positionnement du Terminal - Special Screen
@@ -91,20 +92,23 @@ function adjustCanvasSize() {
     // Sprite menuContainer : La hauteur occupe 26% de l'écran / même largeur houseContainer
     menuSprite.height = app.screen.height * 0.26;
     menuSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
-    menuSprite.x = (screenWidth - menuSprite.width) / 2;
+
+    // menuSprite.x = (screenWidth - menuSprite.width) / 2;
+    menuSprite.x = screenWidth / 2;
     // Le menu commence lorsque la maison termine
     menuSprite.y = houseSprite.height;
 
     // CONSTANTES MENU
     const menuHeight = menuSprite.height
     const menuWidth = menuSprite.width;
-    const menuXPosition = menuSprite.x;
+    const menuXPosition = menuSprite.x; // 0.5 axe X
     const menuYPosition = menuSprite.y;
 
     // CONSTANTES MENUCOVER (pour les dialogues) & Overlay
     menuCoverDialogue.height = menuHeight;
     menuCoverDialogue.width = menuWidth;
     menuCoverDialogue.x = menuXPosition;
+    // console.log(menuXPosition);
     menuCoverDialogue.y = menuYPosition;
     menuCoverDialogueOverlay.height = menuHeight;
     menuCoverDialogueOverlay.width = menuWidth;
@@ -113,42 +117,43 @@ function adjustCanvasSize() {
 
 // Fonction pour positionner les boutons (NOTE : Logique détaillée dans 'old JS/logiquePositionMenuButtons.js')
 function adjustMenuButtonPosition(button, column, row) {
-    const buttonWidth = menuWidth * (1 / 6);
-    const buttonHeight = menuHeight * 0.3;
+    // Largeur et hauteur des boutons
+    button.width = menuWidth * (1 / 6);
+    button.height = menuHeight * 0.3;
 
-    button.width = buttonWidth;
-    button.height = buttonHeight;
+    // On modifie le point d'ancrage des boutons pour commmencer sur la droite de son axe :
+    button.anchor.set(1, 0);
 
-    button.x = menuXPosition + column * buttonWidth;
-    button.y = menuYPosition + menuHeight * 0.1 + row * buttonHeight;
+    // button.x = menuXPosition + column * (menuWidth * (1 / 6));
+    button.x = menuSprite.x - column * (menuWidth * (1 / 6)); // Le menu est coupé en 2 parties et chaque bouton fait un tiers de l'espace alloué
+    button.y = menuYPosition + menuHeight * 0.1 + row * (menuHeight * 0.3);
 }
 
 // Fonction pour positionner les items
 function adjustMenuItemsPosition(item, column, row) {
-    const itemWidth = menuWidth * (1 / 8);
-    const itemHeight = menuHeight * 0.3;
+    // Largeur et hauteur des items
+    item.width = menuWidth * (1 / 8);
+    item.height = menuHeight * 0.3;
 
-    item.width = itemWidth;
-    item.height = itemHeight;
-
-    item.x = menuSprite.x + (menuSprite.width / 2) + column * itemWidth;
-    item.y = menuYPosition + menuHeight * 0.1 + row * itemHeight;
+    // Position des items dans le menuController (qui est ancré à 0.5)
+    item.x = menuSprite.x + column * (menuWidth * (1 / 8));
+    item.y = menuYPosition + menuHeight * 0.1 + row * (menuHeight * 0.3);
 }
 
 
 
 // POSITION DES BOUTONS (3 colonnes de 3 boutons)
-    adjustMenuButtonPosition(menuButton, 0, 0);
-    adjustMenuButtonPosition(menuButton2, 0, 1);
-    adjustMenuButtonPosition(menuButton3, 0, 2);
+    adjustMenuButtonPosition(menuButton, 2, 0);
+    adjustMenuButtonPosition(menuButton2, 2, 1);
+    adjustMenuButtonPosition(menuButton3, 2, 2);
 
     adjustMenuButtonPosition(menuButton4, 1, 0);
     adjustMenuButtonPosition(menuButton5, 1, 1);
     adjustMenuButtonPosition(menuButton6, 1, 2);
 
-    adjustMenuButtonPosition(menuButton7, 2, 0);
-    adjustMenuButtonPosition(menuButton8, 2, 1);
-    adjustMenuButtonPosition(menuButton9, 2, 2);
+    adjustMenuButtonPosition(menuButton7, 0, 0);
+    adjustMenuButtonPosition(menuButton8, 0, 1);
+    adjustMenuButtonPosition(menuButton9, 0, 2);
 
 // POSITION DES ITEMS (4 colonnes de 3 boutons)
     adjustMenuItemsPosition(menuItemGlassWater, 0, 0);
