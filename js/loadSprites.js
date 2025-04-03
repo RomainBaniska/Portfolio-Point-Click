@@ -24,20 +24,7 @@ export async function loadSprites(apps, sounds) {
 
     // Fonction D'affichage des sprites
     async function displaySprite(path, speed) {
-
-        const fullPath = SPRITE_PATH_PREFIX + path
-        let spriteAsset;
-
-        // Tente de récupérer l'asset dans le cache
-        spriteAsset = PIXI.Assets.get(fullPath);
-        // console.log("Asset récupéré");
-
-        if (!spriteAsset) {
-            spriteAsset = await PIXI.Assets.load(fullPath);
-            // console.log("Sprite Assets n'est pas en cache");
-        }
-
-        // const spriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + path);
+        const spriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + path);
         const frames = Object.keys(spriteAsset.textures).map(frame => spriteAsset.textures[frame]);
         const sprite = new PIXI.AnimatedSprite(frames);
         sprite.animationSpeed = speed;
