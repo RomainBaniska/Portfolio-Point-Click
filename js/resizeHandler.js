@@ -25,8 +25,9 @@ function adjustCanvasSize() {
 
     // METHODE DE POSITIONNEMENT DU SPRITE INNERHOUSE (tous les objets dans la maison)  
     function setSpritePositionAndScaleINNERHOUSE(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
-        sprite.x = innerHouseSprite.x  * positionXFactor;
-        sprite.y = innerHouseSprite.y * positionYFactor;
+        
+        sprite.x = innerHouseSprite.width * positionXFactor;
+        sprite.y = innerHouseSprite.height * positionYFactor;
     
         // Ajustement de l'échelle proportionnelle
         const scaleFactor = Math.min(
@@ -61,6 +62,8 @@ function adjustCanvasSize() {
      // CONSTANTES HOUSECONTAINER & SCREEN
      const houseMaxHeight = 1024;
      const houseMaxWidth = 1440;
+    //  const innerHouseMaxHeight = houseMaxHeight;
+     const innerHouseMaxWidth = 1055;
      const screenHeight = app.screen.height;
      const screenWidth = app.screen.width;
 
@@ -74,7 +77,7 @@ function adjustCanvasSize() {
 
     // InnerHouseSprite
     innerHouseSprite.height = screenHeight * 0.74;
-    innerHouseSprite.width = (innerHouseSprite.height / houseMaxHeight) * houseMaxWidth * 1.1; // à changer 
+    innerHouseSprite.width = (innerHouseSprite.height / houseMaxHeight) * innerHouseMaxWidth * 1.5; // à changer 
 
     // Position du sprite houseContainer (et houseSprite)
     innerHouseSprite.x = screenWidth / 2;
@@ -243,9 +246,9 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(desk, 0.42, 0.89, 800, 780);
 
     // Position Table et réveil
-    setSpritePositionAndScaleINNERHOUSE(reveil, 0.98, 0.871, 800, 780);
-    setSpritePositionAndScaleINNERHOUSE(table, 0.98, 0.94, 800, 750);
-    setSpritePositionAndScaleINNERHOUSE(tableOpen, 0.98, 0.94, 800, 750);
+    setSpritePositionAndScaleINNERHOUSE(reveil, 1.2, 0.871, 800, 780);
+    setSpritePositionAndScaleINNERHOUSE(table, 1.2, 0.94, 800, 750);
+    setSpritePositionAndScaleINNERHOUSE(tableOpen, 1.2, 0.94, 800, 750);
 
     // Position GamingChair
     setSpritePositionAndScaleINNERHOUSE(gamingChair, 0.54, 0.875, 900, 1000);
@@ -257,13 +260,13 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(chest, 0.54, 0.355, 500, 700);
 
     // Position Bed
-    setSpritePositionAndScaleINNERHOUSE(bed, 0.90, 0.883, 500, 850);
+    setSpritePositionAndScaleINNERHOUSE(bed, 0.9, 0.85, 500, 850);
 
     // Position Goldkey
     setSpritePositionAndScaleINNERHOUSE(goldkey, 0.92, 0.65, 500, 850);
 
     // Position verre d'eau
-    setSpritePositionAndScaleINNERHOUSE(glasswater, 0.9972, 0.882, 900, 6000);
+    setSpritePositionAndScaleINNERHOUSE(glasswater, 1.22, 0.882, 900, 6000);
 
     // (Action) verre d'eau qui se renverse
     setSpritePositionAndScaleINNERHOUSE(waterpouring, 0.95, 0.775, 600, 600);
