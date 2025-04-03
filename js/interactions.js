@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes } = sprites;
+    const { houseContainer, houseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
     // const { unrollSound } = sounds
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -16,14 +16,14 @@ export async function interactions(apps, sprites, texts) {
 
     // GUYBRUSH START SETUP (Sleeping)
     setPosition(guybrushLD, 0.9, 0.85);
-    houseContainer.addChild(guybrushLD);
+    innerHouseContainer.addChild(guybrushLD);
 
     // Prendre le verre
     // Si le bouton menuButton4 est actif et qu'on clique sur le sprite "glasswater" on destroy le sprite glasswater et on ajoute l'item glasswateritem
     glasswater.on('click', () => {
         if (menuButton4.isActive) {
             PIXI.sound.play('pickup');
-            houseContainer.removeChild(glasswater);
+            innerHouseContainer.removeChild(glasswater);
             glasswater.destroy();
             menuContainer.addChild(menuItemGlassWater);
         }
@@ -34,7 +34,7 @@ export async function interactions(apps, sprites, texts) {
         if (menuButton4.isActive) {
             // glasswater.isActive = false;
             PIXI.sound.play('pickup');
-            houseContainer.removeChild(goldkey);
+            innerHouseContainer.removeChild(goldkey);
             goldkey.destroy();
             menuContainer.addChild(menuItemGoldKey);
         }
@@ -86,13 +86,13 @@ export async function interactions(apps, sprites, texts) {
 
         menuContainer.addChild(menuCoverDialogue);
 
-        houseContainer.addChild(waterpouring);
+        innerHouseContainer.addChild(waterpouring);
         waterpouring.gotoAndPlay(0);
         waterpouring.loop = false;
         waterpouring.onComplete = async () => {
             waterpouring.destroy();
             setPosition(guybrushGU, 0.9, 0.82);
-            spriteSwap(houseContainer, guybrushLD, guybrushGU); 
+            spriteSwap(innerHouseContainer, guybrushLD, guybrushGU); 
             guybrushGU.gotoAndPlay(0);
             guybrushGU.loop = false;
             guybrushGU.onComplete = async () => {
@@ -101,12 +101,12 @@ export async function interactions(apps, sprites, texts) {
 
                                         // Se déplace vers la gauche
                                         setPosition(guybrushWL, 0.9, 0.82);
-                                        spriteSwap(houseContainer, guybrushGU, guybrushWL);
+                                        spriteSwap(innerHouseContainer, guybrushGU, guybrushWL);
                                         await walkLeft(0.7);
 
                                         // S'arrête et parle de face
                                         setPosition(guybrush, 0.7, 0.82);
-                                        spriteSwap(houseContainer, guybrushWL, guybrush); 
+                                        spriteSwap(innerHouseContainer, guybrushWL, guybrush); 
                     
                                         // Texte 1
                                         guybrush.addChild(wakeUpText);
@@ -125,29 +125,29 @@ export async function interactions(apps, sprites, texts) {
 
                                         // Se déplace vers la gauche
                                         setPosition(guybrushWL, 0.7, 0.82);
-                                        spriteSwap(houseContainer, guybrush, guybrushWL);
+                                        spriteSwap(innerHouseContainer, guybrush, guybrushWL);
                                         await walkLeft(0.45);
 
                                         // Allume le pc
                                         setPosition(guybrushIUL, 0.45, 0.82);
-                                        spriteSwap(houseContainer, guybrushWL, guybrushIUL);
+                                        spriteSwap(innerHouseContainer, guybrushWL, guybrushIUL);
                                         guybrushIUL.gotoAndPlay(0);
                                         guybrushIUL.loop = false;
                                         // Attend 1 seconde
                                         await delay(1000);
                                         // Change la séquence de sprite de l'ordi & ajoute armrest
-                                        spriteSwap(houseContainer, ordi, ordiRun);
+                                        spriteSwap(innerHouseContainer, ordi, ordiRun);
                                         ordiRun.interactive = true;
-                                        houseContainer.addChild(gamingChairAR);
+                                        innerHouseContainer.addChild(gamingChairAR);
                                         
                                         // Se retourne vers le fauteuil
                                         setPosition(guybrushWR, 0.45, 0.82);
-                                        spriteSwap(houseContainer, guybrushIUL, guybrushWR);
+                                        spriteSwap(innerHouseContainer, guybrushIUL, guybrushWR);
                                         await walkRight(0.5);
 
                                         // S'assoie sur la chaise de bureau & ajout de l'accoudoir
                                         setPosition(guybrushSO, 0.5, 0.82);
-                                        spriteSwap(houseContainer, guybrushWR, guybrushSO); 
+                                        spriteSwap(innerHouseContainer, guybrushWR, guybrushSO); 
                                         guybrushSO.interactive = true;
                                         textFollowSprite(guybrushSO, wakeUpText);  
                                         await skipDialogue(houseContainer, guybrushSO, wakeUpText, 4000); 
@@ -178,7 +178,7 @@ export async function interactions(apps, sprites, texts) {
     // Si on veut relancer le dialogue avec Romain après l'intro
     guybrushSO.on('click', () => {
         if (menuButton6.isActive) {
-            spriteSwap(houseContainer, guybrushSO, guybrushSOT);
+            spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
             guybrushSOT.play();
             guybrushSOT.x = guybrushSO.x + 7;
             guybrushSOT.y = guybrushSO.y;
@@ -190,8 +190,8 @@ export async function interactions(apps, sprites, texts) {
             initResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
             
             setTimeout(() => {
-                spriteSwap(houseContainer, guybrushSOT, guybrushSO);
-                houseContainer.removeChild(startDialogue); 
+                spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
+                innerHouseContainer.removeChild(startDialogue); 
             }, 2000);
         }  
     });
@@ -369,10 +369,10 @@ function walkRight(positionFactor) {
 
 // METHODE POUR DEROULER L'ECRAN DE PROJECTION
 function unroll() {
-    houseContainer.removeChild(toilePoulie);
+    innerHouseContainer.removeChild(toilePoulie);
         PIXI.sound.play('unroll');
         // console.log('son JOUE');
-        houseContainer.addChild(toilePoulieRun);
+        innerHouseContainer.addChild(toilePoulieRun);
         toilePoulieRun.animationSpeed = 0.035;
         toilePoulieRun.interactive = true;
         toilePoulieRun.gotoAndPlay(0);
@@ -383,8 +383,8 @@ toilePoulie.on('click', unroll);
 
 // METHODE POUR REENROULER L'ECRAN DE PROJECTION
 function reroll() {
-    houseContainer.removeChild(toilePoulieRun);
-    houseContainer.addChild(toilePoulieReverse);
+    innerHouseContainer.removeChild(toilePoulieRun);
+    innerHouseContainer.addChild(toilePoulieReverse);
     PIXI.sound.play('unroll'); 
     // console.log('son JOUE');
     toilePoulieReverse.animationSpeed = 0.035;
@@ -392,8 +392,8 @@ function reroll() {
     toilePoulieReverse.loop = false;
     
     setTimeout(() => {
-        houseContainer.removeChild(toilePoulieReverse)
-        houseContainer.addChild(toilePoulie); 
+        innerHouseContainer.removeChild(toilePoulieReverse)
+        innerHouseContainer.addChild(toilePoulie); 
         toilePoulie.interactive = true; 
     }, 3000);
  
@@ -409,9 +409,9 @@ function reroll() {
 }
 
 // METHODE POUR CHANGER DE SPRITE
-function spriteSwap(houseContainer, sprite1, sprite2) {
-    houseContainer.removeChild(sprite1);
-    houseContainer.addChild(sprite2);
+function spriteSwap(innerHouseContainer, sprite1, sprite2) {
+    innerHouseContainer.removeChild(sprite1);
+    innerHouseContainer.addChild(sprite2);
 }
 
 // METHODE POUR QUE LE TEXTE FOLLOW LE SPRITE
@@ -495,7 +495,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 guybrushResponseText.x = guybrushSO.x;
                 guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
                 houseContainer.addChild(guybrushResponseText)
-                spriteSwap(houseContainer, guybrushSO, guybrushSOT);
+                spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
                 guybrushSOT.x = guybrushSO.x + 7;
                 guybrushSOT.y = guybrushSO.y;
 
@@ -504,7 +504,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                     if (guybrushResponseText) {
                         guybrushResponseText.destroy();
                         // et l'animation
-                        spriteSwap(houseContainer, guybrushSOT, guybrushSO);
+                        spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
                         // Et bien sûr l'Overlay
                         menuContainer.removeChild(menuCoverDialogueOverlay); 
                     } 

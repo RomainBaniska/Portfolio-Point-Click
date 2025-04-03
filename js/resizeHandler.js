@@ -82,6 +82,7 @@ function adjustCanvasSize() {
     noPanik.height = screenHeight;
     noPanik.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
     // (A DEPLACER AUSSI) - POSITIONNEMENT DU TOILESCREEN - Special Screen
+    toileScreen.anchor.set(0.5, 0);
     toileScreen.x = houseSprite.x;
     toileScreen.y = 0;
     toileScreen.height = screenHeight;
