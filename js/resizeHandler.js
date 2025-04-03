@@ -23,7 +23,20 @@ function adjustCanvasSize() {
         sprite.scale.set(scaleFactor);
     }
 
-    // METHODE DE POSITIONNEMENT DU SPRITE IMMOBILE  
+    // METHODE DE POSITIONNEMENT DU SPRITE INNERHOUSE (tous les objets dans la maison)  
+    function setSpritePositionAndScaleINNERHOUSE(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
+        sprite.x = innerHouseSprite.x  * positionXFactor;
+        sprite.y = innerHouseSprite.y * positionYFactor;
+    
+        // Ajustement de l'échelle proportionnelle
+        const scaleFactor = Math.min(
+            innerHouseSprite.width / scaleWidthFactor,
+            innerHouseSprite.height / scaleHeightFactor
+        );
+        sprite.scale.set(scaleFactor);
+    }
+
+    // METHODE DE POSITIONNEMENT SUR L'ECRAN HELP (NOPANIK)  
     function setSpritePositionAndScaleSPECIAL(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
         sprite.x = noPanik.x  * positionXFactor;
         sprite.y = noPanik.y * positionYFactor;
@@ -218,42 +231,42 @@ resizeButtons();
     // sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor
 
     // Position Ordinateur
-    setSpritePositionAndScale(ordi, 0.4, 0.73, 770, 790);
-    setSpritePositionAndScale(ordiRun, 0.4, 0.73, 770, 790);
+    setSpritePositionAndScaleINNERHOUSE(ordi, 0.4, 0.73, 770, 790);
+    setSpritePositionAndScaleINNERHOUSE(ordiRun, 0.4, 0.73, 770, 790);
 
     // Position Poulie&Toile
-    setSpritePositionAndScale(toilePoulie, 0.66, 0.58, 770, 700);
-    setSpritePositionAndScale(toilePoulieRun, 0.66, 0.58, 770, 700);
-    setSpritePositionAndScale(toilePoulieReverse, 0.66, 0.58, 770, 700);
+    setSpritePositionAndScaleINNERHOUSE(toilePoulie, 0.66, 0.58, 770, 700);
+    setSpritePositionAndScaleINNERHOUSE(toilePoulieRun, 0.66, 0.58, 770, 700);
+    setSpritePositionAndScaleINNERHOUSE(toilePoulieReverse, 0.66, 0.58, 770, 700);
    
     // Position Bureau
-    setSpritePositionAndScale(desk, 0.42, 0.89, 800, 780);
+    setSpritePositionAndScaleINNERHOUSE(desk, 0.42, 0.89, 800, 780);
 
     // Position Table et réveil
-    setSpritePositionAndScale(reveil, 0.98, 0.871, 800, 780);
-    setSpritePositionAndScale(table, 0.98, 0.94, 800, 750);
-    setSpritePositionAndScale(tableOpen, 0.98, 0.94, 800, 750);
+    setSpritePositionAndScaleINNERHOUSE(reveil, 0.98, 0.871, 800, 780);
+    setSpritePositionAndScaleINNERHOUSE(table, 0.98, 0.94, 800, 750);
+    setSpritePositionAndScaleINNERHOUSE(tableOpen, 0.98, 0.94, 800, 750);
 
     // Position GamingChair
-    setSpritePositionAndScale(gamingChair, 0.54, 0.875, 900, 1000);
+    setSpritePositionAndScaleINNERHOUSE(gamingChair, 0.54, 0.875, 900, 1000);
 
     // Position GamingChair ArmRest
-    setSpritePositionAndScale(gamingChairAR, 0.54, 0.875, 900, 1000);
+    setSpritePositionAndScaleINNERHOUSE(gamingChairAR, 0.54, 0.875, 900, 1000);
 
     // Position Coffre
-    setSpritePositionAndScale(chest, 0.54, 0.355, 500, 700);
+    setSpritePositionAndScaleINNERHOUSE(chest, 0.54, 0.355, 500, 700);
 
     // Position Bed
-    setSpritePositionAndScale(bed, 0.90, 0.883, 500, 850);
+    setSpritePositionAndScaleINNERHOUSE(bed, 0.90, 0.883, 500, 850);
 
     // Position Goldkey
-    setSpritePositionAndScale(goldkey, 0.92, 0.65, 500, 850);
+    setSpritePositionAndScaleINNERHOUSE(goldkey, 0.92, 0.65, 500, 850);
 
     // Position verre d'eau
-    setSpritePositionAndScale(glasswater, 0.9972, 0.882, 900, 6000);
+    setSpritePositionAndScaleINNERHOUSE(glasswater, 0.9972, 0.882, 900, 6000);
 
     // (Action) verre d'eau qui se renverse
-    setSpritePositionAndScale(waterpouring, 0.95, 0.775, 600, 600);
+    setSpritePositionAndScaleINNERHOUSE(waterpouring, 0.95, 0.775, 600, 600);
 
     /// SPECIAL ///
     // Position QuestionMark
