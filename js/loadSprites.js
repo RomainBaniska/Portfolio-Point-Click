@@ -308,7 +308,7 @@ export async function loadSprites(apps, sounds) {
     const musicframes = Object.keys(musicspriteAsset.textures);
     music.texture = musicspriteAsset.textures[musicframes[0]];
     musicActive.texture = musicspriteAsset.textures[musicframes[1]];
-    music.anchor.set(0.5);
+    music.anchor.set(1, 0);
     music.interactive = true;
     music.stop();
     musicActive.anchor.set(0.5);
@@ -368,7 +368,7 @@ export async function loadSprites(apps, sounds) {
     const questionMarkframes = Object.keys(questionMarkspriteAsset.textures);
     questionMark.texture = questionMarkspriteAsset.textures[questionMarkframes[0]];
     questionMarkActive.texture = questionMarkspriteAsset.textures[questionMarkframes[1]];
-    questionMark.anchor.set(0.5);
+    questionMark.anchor.set(1, 0);
     questionMark.interactive = true;
     questionMark.stop();
     questionMarkActive.anchor.set(0.5);

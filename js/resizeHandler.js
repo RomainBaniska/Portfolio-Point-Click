@@ -140,8 +140,7 @@ function adjustMenuItemsPosition(item, column, row) {
     item.y = menuYPosition + menuHeight * 0.1 + row * (menuHeight * 0.3);
 }
 
-
-
+function resizeButtons() {
 // POSITION DES BOUTONS (3 colonnes de 3 boutons)
     adjustMenuButtonPosition(menuButton, 2, 0);
     adjustMenuButtonPosition(menuButton2, 2, 1);
@@ -154,6 +153,9 @@ function adjustMenuItemsPosition(item, column, row) {
     adjustMenuButtonPosition(menuButton7, 0, 0);
     adjustMenuButtonPosition(menuButton8, 0, 1);
     adjustMenuButtonPosition(menuButton9, 0, 2);
+}
+resizeButtons();
+
 
 // POSITION DES ITEMS (4 colonnes de 3 boutons)
     adjustMenuItemsPosition(menuItemGlassWater, 0, 0);
@@ -237,10 +239,10 @@ function adjustMenuItemsPosition(item, column, row) {
 
     /// SPECIAL ///
     // Position QuestionMark
-    setSpritePositionAndScale(questionMark, 1.15, 0.08, 300, 2300);
+    setSpritePositionAndScale(questionMark, 1.15, 0.04, 300, 2300);
 
     // Position Note de musique
-    setSpritePositionAndScale(music, 1.15, 0.2, 300, 2300);
+    setSpritePositionAndScale(music, 1.15, 0.17, 300, 2300);
 
     // Position Arrow
     setSpritePositionAndScaleSPECIAL(arrow, 1.7, 1.9, 300, 2300);
@@ -264,10 +266,12 @@ function adjustMenuItemsPosition(item, column, row) {
 }
 
 // Applique le redimensionnement à chaque événement 'resize'
-window.addEventListener('resize', adjustCanvasSize);
+window.addEventListener('resize', () => {
+    adjustCanvasSize();
+    // resizeButtons();
+});
 
 // Redimensionnement dès le chargement initial
 adjustCanvasSize();
-
-console.log("tout s'est bien déclenché");
+// resizeButtons();
 }
