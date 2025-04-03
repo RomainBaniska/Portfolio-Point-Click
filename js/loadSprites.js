@@ -45,16 +45,23 @@ export async function loadSprites(apps, sounds) {
     app.renderer.events.cursorStyles.default = "none";
 
     // HOUSE SPRITE
-    // const houseAsset = await PIXI.Assets.load('../sprites/homeImproved5.png');
-    const houseAsset = await PIXI.Assets.load('../sprites/jardin.jpg');
+    const houseAsset = await PIXI.Assets.load('../sprites/jardinnuit.jpg');
     const houseSprite = new PIXI.Sprite(houseAsset);
     houseSprite.anchor.set(0.5, 0);
+    // filtre effet de halo (taille, distance, couleur, intensité)
+    houseSprite.filters = [new PIXI.BlurFilter({ strength: 8 })];
     houseContainer.addChild(houseSprite);
 
+    // INNER HOUSE CONTAINER
+    const innerHouseContainer = new PIXI.Container();
+    innerHouseContainer.sortableChildren = true;
+    houseContainer.addChild(innerHouseContainer);
+
+    // INNER HOUSE SPRITE
     const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimed.png');
     const innerHouseSprite = new PIXI.Sprite(innerHouseAsset); 
     innerHouseSprite.anchor.set(0.5, 0); 
-    houseContainer.addChild(innerHouseSprite); 
+    innerHouseContainer.addChild(innerHouseSprite); 
 
     // CROSSHAIR
     const crosshair = await displaySprite('CROSSHAIR/crosshair2.json', 0.08);
