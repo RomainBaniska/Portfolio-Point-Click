@@ -23,9 +23,8 @@ function adjustCanvasSize() {
         sprite.scale.set(scaleFactor);
     }
 
-    // METHODE DE POSITIONNEMENT DU SPRITE INNERHOUSE (tous les objets dans la maison)  
     function setSpritePositionAndScaleINNERHOUSE(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
-        
+        // Position initiale
         sprite.x = innerHouseSprite.width * positionXFactor;
         sprite.y = innerHouseSprite.height * positionYFactor;
     
@@ -35,6 +34,22 @@ function adjustCanvasSize() {
             innerHouseSprite.height / scaleHeightFactor
         );
         sprite.scale.set(scaleFactor);
+    
+        // Calcul des dimensions réelles du sprite
+        const spriteWidth = sprite.width;
+        const spriteHeight = sprite.height;
+    
+        // Clamp horizontal
+        if (sprite.x < 0) sprite.x = 0;
+        if (sprite.x + spriteWidth > innerHouseSprite.width) {
+            sprite.x = innerHouseSprite.width - spriteWidth;
+        }
+    
+        // Clamp vertical
+        if (sprite.y < 0) sprite.y = 0;
+        if (sprite.y + spriteHeight > innerHouseSprite.height) {
+            sprite.y = innerHouseSprite.height - spriteHeight;
+        }
     }
 
     // METHODE DE POSITIONNEMENT SUR L'ECRAN HELP (NOPANIK)  
@@ -77,11 +92,11 @@ function adjustCanvasSize() {
 
     // InnerHouseSprite
     innerHouseSprite.height = screenHeight * 0.74;
-    innerHouseSprite.width = (innerHouseSprite.height / houseMaxHeight) * innerHouseMaxWidth * 1.5; // à changer 
+    innerHouseSprite.width = (innerHouseSprite.height / houseMaxHeight) * innerHouseMaxWidth * 1.4; // à changer 
 
-    // Position du sprite houseContainer (et houseSprite)
-    innerHouseSprite.x = screenWidth / 2;
-    innerHouseSprite.y = 0;
+    // Position du sprite innerHouseContainer (et innerHouseSprite)
+    // innerHouseSprite.x = screenWidth / 2;
+    // innerHouseSprite.y = 0;
 
     // (A DEPLACER) Positionnement du Terminal - Special Screen
     terminal.x = screenWidth  * 0.5;
@@ -243,7 +258,8 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(toilePoulieReverse, 0.66, 0.58, 770, 700);
    
     // Position Bureau
-    setSpritePositionAndScaleINNERHOUSE(desk, 0.42, 0.89, 800, 780);
+    setSpritePositionAndScaleINNERHOUSE(desk, 0.15, 0.78, 800, 780);
+    desk.anchor.set(0);
 
     // Position Table et réveil
     setSpritePositionAndScaleINNERHOUSE(reveil, 1.2, 0.871, 800, 780);
@@ -251,7 +267,7 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(tableOpen, 1.2, 0.94, 800, 750);
 
     // Position GamingChair
-    setSpritePositionAndScaleINNERHOUSE(gamingChair, 0.54, 0.875, 900, 1000);
+    setSpritePositionAndScaleINNERHOUSE(gamingChair, 0.4, 0.875, 900, 1000);
 
     // Position GamingChair ArmRest
     setSpritePositionAndScaleINNERHOUSE(gamingChairAR, 0.54, 0.875, 900, 1000);
@@ -260,7 +276,8 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(chest, 0.54, 0.355, 500, 700);
 
     // Position Bed
-    setSpritePositionAndScaleINNERHOUSE(bed, 0.9, 0.85, 500, 850);
+    setSpritePositionAndScaleINNERHOUSE(bed, 0.65, 1, 500, 850);
+    // bed.anchor.set(0, 0)
 
     // Position Goldkey
     setSpritePositionAndScaleINNERHOUSE(goldkey, 0.92, 0.65, 500, 850);

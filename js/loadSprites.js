@@ -56,11 +56,12 @@ export async function loadSprites(apps, sounds) {
     const innerHouseContainer = new PIXI.Container();
     innerHouseContainer.sortableChildren = true;
     houseContainer.addChild(innerHouseContainer);
+    innerHouseContainer.position.set(app.screen.width / 3.2, 0);
 
     // INNER HOUSE SPRITE
     const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimed.png');
     const innerHouseSprite = new PIXI.Sprite(innerHouseAsset); 
-    innerHouseSprite.anchor.set(0.5, 0); 
+    // innerHouseSprite.anchor.set(0.5, 0); 
     innerHouseContainer.addChild(innerHouseSprite); 
 
     // CROSSHAIR
@@ -68,6 +69,7 @@ export async function loadSprites(apps, sounds) {
     crosshair.play();
     crosshair.interactiveChildren = false;
     crosshair.zIndex = 99;
+    crosshair.anchor.set(0.5);
     // à changer pour un child de "app"
     app.stage.addChild(crosshair);
     // Définition de la fonction moveCrosshair après la création de crosshair
@@ -132,21 +134,21 @@ export async function loadSprites(apps, sounds) {
     // BUREAU
     const deskAsset = await PIXI.Assets.load('../sprites/ELEMENTS/ordi/desk.png');
     const desk = new PIXI.Sprite(deskAsset);
-    desk.anchor.set(0.5); 
+    // desk.anchor.set(0.5); 
     desk.interactive = true;
     innerHouseContainer.addChild(desk);
 
     // GOLD KEY
     const goldkeyAsset = await PIXI.Assets.load('../sprites/ELEMENTS/goldkey/goldkey.png');
     const goldkey = new PIXI.Sprite(goldkeyAsset);
-    goldkey.anchor.set(0.5); 
+    // goldkey.anchor.set(0.5); 
     goldkey.interactive = true;
     innerHouseContainer.addChild(goldkey);
 
     // TABLE DE NUIT ET REVEIL
     const reveilAsset = await PIXI.Assets.load('../sprites/ELEMENTS/tablereveil/splitted/reveil.png');
     const reveil = new PIXI.Sprite(reveilAsset);
-    reveil.anchor.set(0.5); 
+    // reveil.anchor.set(0.5); 
     reveil.interactive = true;
     reveil.zIndex = 7;
     innerHouseContainer.addChild(reveil);
@@ -170,7 +172,7 @@ export async function loadSprites(apps, sounds) {
     glasswater.zIndex = 7;
     glasswater.interactive = true;
     glasswater.stop();
-    glasswater.anchor.set(0.5); 
+    // glasswater.anchor.set(0.5); 
     innerHouseContainer.addChild(glasswater);
 
     // VERRE D'EAU RENVERSE (ACTION)
@@ -180,13 +182,13 @@ export async function loadSprites(apps, sounds) {
     // GAMINGCHAIR
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
     const gamingChair = new PIXI.Sprite(gcAsset);
-    gamingChair.anchor.set(0.5); 
+    // gamingChair.anchor.set(0.5); 
     gamingChair.interactive = true;
     innerHouseContainer.addChild(gamingChair);
     // GAMINGCHAIR Armrest
     const gcARAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchairarmrest.png');
     const gamingChairAR = new PIXI.Sprite(gcARAsset);
-    gamingChairAR.anchor.set(0.5); 
+    // gamingChairAR.anchor.set(0.5); 
     gamingChairAR.eventMode = "none";
     // gamingChairAR.interactive = false;
     gamingChairAR.zIndex = 5;
@@ -216,7 +218,7 @@ export async function loadSprites(apps, sounds) {
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
     const bed = new PIXI.Sprite(bedAsset);
-    bed.anchor.set(0.5); 
+    // bed.anchor.set(1, 0); 
     desk.interactive = false;
     innerHouseContainer.addChild(bed);
 
@@ -319,6 +321,7 @@ export async function loadSprites(apps, sounds) {
     const musicActive = await displaySprite('SPECIAL/musicnote.json', 0.12);
     const musicspriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/musicnote.json');
     const musicframes = Object.keys(musicspriteAsset.textures);
+    music.anchor.set(0.5);
     music.texture = musicspriteAsset.textures[musicframes[0]];
     musicActive.texture = musicspriteAsset.textures[musicframes[1]];
     music.anchor.set(1, 0);
