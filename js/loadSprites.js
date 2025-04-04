@@ -61,8 +61,10 @@ export async function loadSprites(apps, sounds) {
     // INNER HOUSE SPRITE
     const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimed.png');
     const innerHouseSprite = new PIXI.Sprite(innerHouseAsset); 
+    // innerHouseSprite.x = app.screen.width / 2;
     // innerHouseSprite.anchor.set(0.5, 0); 
     innerHouseContainer.addChild(innerHouseSprite); 
+
 
     // CROSSHAIR
     const crosshair = await displaySprite('CROSSHAIR/crosshair2.json', 0.08);
