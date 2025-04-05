@@ -36,35 +36,46 @@ export async function loadSprites(apps, sounds) {
         return sprite;
     }
 
+    // CANVAS
+    app.stage.interactive = true;
+    app.stage.on("pointermove", moveCrosshair);
+    app.renderer.events.cursorStyles.default = "none";
+
     // HOUSE CONTAINER
     const houseContainer = new PIXI.Container();
     houseContainer.sortableChildren = true;
     app.stage.addChild(houseContainer);
-    app.stage.interactive = true;
-    app.stage.on("pointermove", moveCrosshair);
-    app.renderer.events.cursorStyles.default = "none";
+    // houseContainer.position.set(app.screen.width / 2, 0);
 
     // HOUSE SPRITE
     const houseAsset = await PIXI.Assets.load('../sprites/jardinnuit.jpg');
     const houseSprite = new PIXI.Sprite(houseAsset);
     houseSprite.anchor.set(0.5, 0);
     // filtre effet de halo (taille, distance, couleur, intensité)
-    houseSprite.filters = [new PIXI.BlurFilter({ strength: 8 })];
+    // houseSprite.filters = [new PIXI.BlurFilter({ strength: 8 })];
     houseContainer.addChild(houseSprite);
 
     // INNER HOUSE CONTAINER
     const innerHouseContainer = new PIXI.Container();
     innerHouseContainer.sortableChildren = true;
     houseContainer.addChild(innerHouseContainer);
-    innerHouseContainer.position.set(app.screen.width / 3.2, 0);
+    // innerHouseContainer.position.set(app.screen.width / 2, 0);
+    innerHouseContainer.position.set(window.innerWidth / 2, 0);
 
     // INNER HOUSE SPRITE
     const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimed.png');
     const innerHouseSprite = new PIXI.Sprite(innerHouseAsset); 
     // innerHouseSprite.x = app.screen.width / 2;
-    // innerHouseSprite.anchor.set(0.5, 0); 
+    innerHouseSprite.anchor.set(0.5, 0); 
     innerHouseContainer.addChild(innerHouseSprite); 
 
+    // const mask = new PIXI.Graphics();
+    // mask.beginFill(0xffffff);
+    // mask.drawRect(0, 0, 200, 150); // x, y, width, height
+    // mask.endFill();
+
+    // // On applique le masque
+    // innerHouseContainer.mask = mask;
 
     // CROSSHAIR
     const crosshair = await displaySprite('CROSSHAIR/crosshair2.json', 0.08);

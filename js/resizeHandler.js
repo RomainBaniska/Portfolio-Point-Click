@@ -276,7 +276,7 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(chest, 0.54, 0.355, 500, 700);
 
     // Position Bed
-    setSpritePositionAndScaleINNERHOUSE(bed, 0.65, 1, 500, 850);
+    setSpritePositionAndScaleINNERHOUSE(bed, 0.3, 1, 500, 850);
     // bed.anchor.set(0, 0)
 
     // Position Goldkey
