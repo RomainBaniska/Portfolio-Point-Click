@@ -11,16 +11,21 @@ export async function initializeApp() {
     //   };
 
     // Configuration de la largeur maximale adaptée à la taille de l'écran si plus petit
+    // const maxWidth = 1440;
+    // const width = Math.min(window.innerWidth, maxWidth);
+    // const aspectRatio = 16 / 9;
+    // const height = width / aspectRatio;
     const maxWidth = 1440;
-    const width = Math.min(window.innerWidth, maxWidth);
+    const width = window.innerWidth;
     const aspectRatio = 16 / 9;
-    const height = width / aspectRatio;
+    const height = window.innerHeight;
 
     // Initialisation de l'application
     await app.init({ 
         width: width,
         height: height,
-        backgroundColor: 0x000000,
+        // backgroundColor: 0x000000,
+        backgroundColor: 0xFFA500,
     });
 
     // Ajout du canvas de l'app au body

@@ -3,7 +3,7 @@
 export async function resizeHandler(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseSprite, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
+    const { houseSprite, innerHouseBGSprite, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -25,6 +25,7 @@ function adjustCanvasSize() {
 
     function setSpritePositionAndScaleINNERHOUSE(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
         // Position initiale
+        // sprite.x = innerHouseSprite.width * positionXFactor;
         sprite.x = innerHouseSprite.width * positionXFactor;
         sprite.y = innerHouseSprite.height * positionYFactor;
     
@@ -87,16 +88,18 @@ function adjustCanvasSize() {
     houseSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4; // à changer 
 
     // Position du sprite houseContainer (et houseSprite)
-    houseSprite.x = screenWidth / 2;
-    houseSprite.y = 0;
+    // houseSprite.x = screenWidth / 2;
+    // houseSprite.x = window.innerWidth / 2;
+    // houseSprite.x = (app.screen.width - houseSprite.width) / 2;
+    // houseSprite.y = 0;
 
     // InnerHouseSprite
     innerHouseSprite.height = screenHeight * 0.74;
     innerHouseSprite.width = (innerHouseSprite.height / houseMaxHeight) * innerHouseMaxWidth * 1.4; // à changer 
 
     // Position du sprite innerHouseContainer (et innerHouseSprite)
-    // innerHouseSprite.x = screenWidth / 2;
-    // innerHouseSprite.y = 0;
+    innerHouseSprite.x = (app.screen.width - innerHouseSprite.width) / 2;
+    innerHouseSprite.y = 0;
 
     // (A DEPLACER) Positionnement du Terminal - Special Screen
     terminal.x = screenWidth  * 0.5;
@@ -258,8 +261,10 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(toilePoulieReverse, 0.66, 0.58, 770, 700);
    
     // Position Bureau
-    setSpritePositionAndScaleINNERHOUSE(desk, 0.15, 0.78, 800, 780);
-    desk.anchor.set(0);
+    setSpritePositionAndScaleINNERHOUSE(desk, 1, 5, 800, 780);
+    // desk.anchor.set(0);
+    // desk.x = 0;
+    // desk.y = 0;
 
     // Position Table et réveil
     setSpritePositionAndScaleINNERHOUSE(reveil, 1.2, 0.871, 800, 780);
@@ -290,7 +295,16 @@ resizeButtons();
 
     /// SPECIAL ///
     // Position QuestionMark
-    setSpritePositionAndScale(questionMark, 1.15, 0.04, 300, 2300);
+    // setSpritePositionAndScale(questionMark, 1.15, 0.04, 300, 2300);
+    // questionMark.x = houseSprite.x + houseSprite.width - questionMark.width;
+    // questionMark.y = houseSprite.y; // Si houseContainer commence au bord supérieur de l'écran
+    questionMark.anchor.set(0, 0);
+    questionMark.x = 0;
+    // questionMark.height = screenHeight * 0.74;
+    // questionMark.width = (innerHouseSprite.height / houseMaxHeight) * innerHouseMaxWidth * 1.4; // à changer 
+    // const desiredHeight = innerHouseSprite.height * 0.2;
+    // const scaleFactor22 = desiredHeight / questionMark.height;
+    // questionMark.scale.set(scaleFactor22);
 
     // Position Note de musique
     setSpritePositionAndScale(music, 1.15, 0.17, 300, 2300);
