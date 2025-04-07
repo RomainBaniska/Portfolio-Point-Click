@@ -66,6 +66,15 @@ export async function loadSprites(apps, sounds) {
     houseContainer.addChild(houseSprite);
     // houseSprite.x = 500
 
+        // Sprite houseContainer : Hauteur occupe 74% de l'écran / Largeur 60% de l'écran
+        houseSprite.height = app.screen.height * 0.74;
+        houseSprite.width = (houseSprite.height / 1024) * 1440 * 1.4; // à changer 
+    
+        // Position du sprite houseContainer (et houseSprite)
+        // houseSprite.x = screenWidth / 2;
+        // houseSprite.x = (app.screen.width - houseSprite.width) / 2;
+        houseSprite.y = 0;
+
     console.log(houseSprite.scale.x)
     console.log(houseSprite.getBounds().width);
     console.log(houseSprite.width);
@@ -93,6 +102,15 @@ export async function loadSprites(apps, sounds) {
     const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimed.png');
     const innerHouseSprite = new PIXI.Sprite(innerHouseAsset); 
     innerHouseContainer.addChild(innerHouseSprite); 
+
+       // InnerHouseSprite
+       innerHouseSprite.height = app.screen.height * 0.74;
+       innerHouseSprite.width = (innerHouseSprite.height / 1024) * 1055 * 1.4; // à changer 
+   
+       // Position du sprite innerHouseContainer (et innerHouseSprite)
+       innerHouseSprite.x = (houseSprite.width - innerHouseSprite.width) / 2;
+    //    innerHouseSprite.x = 0;
+       innerHouseSprite.y = 0;
 
     // CROSSHAIR
     const crosshair = await displaySprite('CROSSHAIR/crosshair2.json', 0.08);

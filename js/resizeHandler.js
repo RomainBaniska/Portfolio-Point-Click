@@ -83,23 +83,27 @@ function adjustCanvasSize() {
      const screenHeight = app.screen.height;
      const screenWidth = app.screen.width;
 
-    // Sprite houseContainer : Hauteur occupe 74% de l'écran / Largeur 60% de l'écran
-    houseSprite.height = screenHeight * 0.74;
-    houseSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4; // à changer 
+    // // Sprite houseContainer : Hauteur occupe 74% de l'écran / Largeur 60% de l'écran
+    // houseSprite.height = screenHeight * 0.74;
+    // houseSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4; // à changer 
 
-    // Position du sprite houseContainer (et houseSprite)
-    // houseSprite.x = screenWidth / 2;
-    // houseSprite.x = window.innerWidth / 2;
+    // // Position du sprite houseContainer (et houseSprite)
+    // // houseSprite.x = screenWidth / 2;
+    // houseSprite.x = (app.screen.width - houseSprite.width) / 2;
+    // houseSprite.y = 0;
     // houseSprite.x = (app.screen.width - houseSprite.width) / 2;
     // houseSprite.y = 0;
 
-    // InnerHouseSprite
-    innerHouseSprite.height = screenHeight * 0.74;
-    innerHouseSprite.width = (innerHouseSprite.height / houseMaxHeight) * innerHouseMaxWidth * 1.4; // à changer 
+    // // InnerHouseSprite
+    // innerHouseSprite.height = screenHeight * 0.74;
+    // innerHouseSprite.width = (innerHouseSprite.height / houseMaxHeight) * innerHouseMaxWidth * 1.4; // à changer 
 
-    // Position du sprite innerHouseContainer (et innerHouseSprite)
-    innerHouseSprite.x = (app.screen.width - innerHouseSprite.width) / 2;
-    innerHouseSprite.y = 0;
+    // // Position du sprite innerHouseContainer (et innerHouseSprite)
+    // innerHouseSprite.x = (app.screen.width - innerHouseSprite.width) / 2;
+    // innerHouseSprite.y = 0;
+
+
+    
 
     // (A DEPLACER) Positionnement du Terminal - Special Screen
     terminal.x = screenWidth  * 0.5;
