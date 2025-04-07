@@ -29,7 +29,7 @@ export async function loadSprites(apps, sounds) {
         const sprite = new PIXI.AnimatedSprite(frames);
         sprite.animationSpeed = speed;
         sprite.play();
-        sprite.anchor.set(0.5);
+        // sprite.anchor.set(0.5);
         sprite.sortableChildren = true;
         sprite.zIndex = 4;
         // Ajout du comportement "clicked" en "false" par défaut
@@ -178,7 +178,7 @@ export async function loadSprites(apps, sounds) {
     ordiRun.interactive = true;
     ordiRun.clicked = false;
     // innerHouseContainer.addChild(ordi);
-    innerHouseSprite.addChild(ordi);
+    // innerHouseSprite.addChild(ordi);
 
     // BUREAU
     const deskAsset = await PIXI.Assets.load('../sprites/ELEMENTS/ordi/desk.png');
@@ -186,7 +186,7 @@ export async function loadSprites(apps, sounds) {
     // desk.anchor.set(0.5); 
     desk.interactive = true;
     // innerHouseContainer.addChild(desk);
-    innerHouseSprite.addChild(desk);
+    // innerHouseSprite.addChild(desk);
 
     // GOLD KEY
     const goldkeyAsset = await PIXI.Assets.load('../sprites/ELEMENTS/goldkey/goldkey.png');
@@ -194,7 +194,7 @@ export async function loadSprites(apps, sounds) {
     // goldkey.anchor.set(0.5); 
     goldkey.interactive = true;
     // innerHouseContainer.addChild(goldkey);
-    innerHouseSprite.addChild(goldkey);
+    // innerHouseSprite.addChild(goldkey);
 
     // TABLE DE NUIT ET REVEIL
     const reveilAsset = await PIXI.Assets.load('../sprites/ELEMENTS/tablereveil/splitted/reveil.png');
@@ -203,12 +203,12 @@ export async function loadSprites(apps, sounds) {
     reveil.interactive = true;
     reveil.zIndex = 7;
     // innerHouseContainer.addChild(reveil);
-    innerHouseSprite.addChild(reveil);
+    // innerHouseSprite.addChild(reveil);
     const table = await displaySprite('ELEMENTS/tablereveil/splitted/table.json', 0.12);
     table.gotoAndStop(0);
     table.interactive = true;
     // innerHouseContainer.addChild(table);
-    innerHouseSprite.addChild(table);
+    // innerHouseSprite.addChild(table);
     table.zIndex = 6;
     const tableOpen = await displaySprite('ELEMENTS/tablereveil/splitted/table.json', 0.12);
     tableOpen.play(1);
@@ -227,7 +227,7 @@ export async function loadSprites(apps, sounds) {
     glasswater.stop();
     // glasswater.anchor.set(0.5); 
     // innerHouseContainer.addChild(glasswater);
-    innerHouseSprite.addChild(glasswater);
+    // innerHouseSprite.addChild(glasswater);
 
     // VERRE D'EAU RENVERSE (ACTION)
     const waterpouring = await displaySprite('ELEMENTS/glasswater/waterpouring.json', 0.13);
@@ -239,7 +239,7 @@ export async function loadSprites(apps, sounds) {
     // gamingChair.anchor.set(0.5); 
     gamingChair.interactive = true;
     // innerHouseContainer.addChild(gamingChair);
-    innerHouseSprite.addChild(gamingChair);
+    // innerHouseSprite.addChild(gamingChair);
     // GAMINGCHAIR Armrest
     const gcARAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchairarmrest.png');
     const gamingChairAR = new PIXI.Sprite(gcARAsset);
@@ -258,7 +258,7 @@ export async function loadSprites(apps, sounds) {
     toilePoulieRun.zIndex = 3;
     toilePoulieRun.interactive = false;
     // innerHouseContainer.addChild(toilePoulie);
-    innerHouseSprite.addChild(toilePoulie);
+    // innerHouseSprite.addChild(toilePoulie);
     // TOILEPOULIE - Reverse
     const toilePoulieReverse = await displaySprite('ELEMENTS/toilepoulie/toilepoulieReverse.json', 0.12);
     toilePoulieReverse.zIndex = 3;
@@ -270,7 +270,7 @@ export async function loadSprites(apps, sounds) {
     chest.interactive = true;
     chest.zIndex = 3;
     // innerHouseContainer.addChild(chest);
-    innerHouseSprite.addChild(chest);
+    // innerHouseSprite.addChild(chest);
 
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
@@ -278,7 +278,7 @@ export async function loadSprites(apps, sounds) {
     // bed.anchor.set(1, 0); 
     desk.interactive = false;
     // innerHouseContainer.addChild(bed);
-    innerHouseSprite.addChild(bed);
+    // innerHouseSprite.addChild(bed);
 
     //////////////////////////////////////// SPECIAL SCREENS ////////////////////////////////
 
@@ -379,19 +379,31 @@ export async function loadSprites(apps, sounds) {
     const musicActive = await displaySprite('SPECIAL/musicnote.json', 0.12);
     const musicspriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/musicnote.json');
     const musicframes = Object.keys(musicspriteAsset.textures);
-    music.anchor.set(0.5);
     music.texture = musicspriteAsset.textures[musicframes[0]];
     musicActive.texture = musicspriteAsset.textures[musicframes[1]];
-    music.anchor.set(1, 0);
     music.interactive = true;
     music.stop();
-    musicActive.anchor.set(0.5);
     musicActive.interactive = true;
     musicActive.stop();
     houseContainer.addChild(music);
+    music.anchor.set(1, 0);
+    music.x = houseContainer.width - music.width - 20;
+    music.y = 0 + 20;
+    music.scale = 0.3;
+
+    const originalWidthNote = music.texture.width;
+    const originalHeightNote = music.texture.height;
+
+    const scaleFactorNote = Math.min(
+        // houseSprite.width / originalWidth,
+        (houseContainer.width * 0.15) / originalWidthNote,
+        (houseContainer.height * 0.15) / originalHeightNote
+    );
+    music.scale.set(scaleFactorNote);
 
     let daythemePLAY = null;
     let musicToggled = false;
+
     // HOVER ET CLIC MUSIC
     music.on('pointerover', () => {
         if (musicToggled === false) {
@@ -402,7 +414,6 @@ export async function loadSprites(apps, sounds) {
         }
     }
     });
-    
     music.on('pointerout', () => {
         if (musicToggled === false) {
         if (music.texture === musicspriteAsset.textures[musicframes[0]]) {
@@ -423,8 +434,6 @@ export async function loadSprites(apps, sounds) {
         } else if (musicToggled) {
             musicToggled = false
         }
-
-
         // Musique
         if (!daythemePLAY) {
             daythemePLAY = PIXI.sound.play('daytheme', { loop: true });
@@ -442,16 +451,36 @@ export async function loadSprites(apps, sounds) {
     const questionMarkframes = Object.keys(questionMarkspriteAsset.textures);
     questionMark.texture = questionMarkspriteAsset.textures[questionMarkframes[0]];
     questionMarkActive.texture = questionMarkspriteAsset.textures[questionMarkframes[1]];
-    // questionMark.anchor.set(1, 0);
+
+    questionMark.anchor.set(1, 0);
+    // questionMark.x = houseContainer.width - questionMark.width - 20;
+    questionMark.x = music.x;
+    questionMark.y = music.y + music.height + 20;
+
+    const originalWidth = questionMark.texture.width;
+    const originalHeight = questionMark.texture.height;
+
+    const scaleFactor = Math.min(
+        // houseSprite.width / originalWidth,
+        (houseContainer.width * 0.15) / originalWidth,
+        (houseContainer.height * 0.15) / originalHeight
+    );
+    questionMark.scale.set(scaleFactor);
+
+    // questionMark.width = 50;
+    // questionMark.height = 50;
+
+    // questionMark.scale = 0.3;
+
     questionMark.interactive = true;
     questionMark.stop();
-    // questionMarkActive.anchor.set(0.5);
     questionMarkActive.interactive = true;
     questionMarkActive.stop();
     houseContainer.addChild(questionMark);
+
+
     const noPanikAsset = await PIXI.Assets.load('../sprites/SPECIAL/noPanik.png');
     const noPanik = new PIXI.Sprite(noPanikAsset);
-    // noPanik.anchor.set(0, 0);
     noPanik.anchor.set(0.5, 0.5);
     noPanik.zIndex = 95; 
     const noPanikContainer = new PIXI.Container();

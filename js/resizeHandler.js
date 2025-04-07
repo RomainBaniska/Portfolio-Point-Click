@@ -302,8 +302,8 @@ resizeButtons();
     // setSpritePositionAndScale(questionMark, 1.15, 0.04, 300, 2300);
     // questionMark.x = houseSprite.x + houseSprite.width - questionMark.width;
     // questionMark.y = houseSprite.y; // Si houseContainer commence au bord supérieur de l'écran
-    questionMark.anchor.set(0, 0);
-    questionMark.x = 0;
+    // questionMark.anchor.set(0, 0);
+    // questionMark.x = 0;
     // questionMark.height = screenHeight * 0.74;
     // questionMark.width = (innerHouseSprite.height / houseMaxHeight) * innerHouseMaxWidth * 1.4; // à changer 
     // const desiredHeight = innerHouseSprite.height * 0.2;
@@ -311,7 +311,7 @@ resizeButtons();
     // questionMark.scale.set(scaleFactor22);
 
     // Position Note de musique
-    setSpritePositionAndScale(music, 1.15, 0.17, 300, 2300);
+    // setSpritePositionAndScale(music, 1.15, 0.17, 300, 2300);
 
     // Position Arrow
     setSpritePositionAndScaleSPECIAL(arrow, 1.7, 1.9, 300, 2300);
