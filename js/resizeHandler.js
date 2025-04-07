@@ -256,27 +256,24 @@ resizeButtons();
     // sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor
 
     // Position Ordinateur
-    setSpritePositionAndScaleINNERHOUSE(ordi, 0.4, 0.73, 770, 790);
-    setSpritePositionAndScaleINNERHOUSE(ordiRun, 0.4, 0.73, 770, 790);
+    setSpritePositionAndScaleINNERHOUSE(ordi, 0.096, 0.666, 770, 790);
+    setSpritePositionAndScaleINNERHOUSE(ordiRun, 0.096, 0.666, 770, 790);
 
     // Position Poulie&Toile
-    setSpritePositionAndScaleINNERHOUSE(toilePoulie, 0.66, 0.58, 770, 700);
-    setSpritePositionAndScaleINNERHOUSE(toilePoulieRun, 0.66, 0.58, 770, 700);
-    setSpritePositionAndScaleINNERHOUSE(toilePoulieReverse, 0.66, 0.58, 770, 700);
+    setSpritePositionAndScaleINNERHOUSE(toilePoulie, 0.37, 0.43, 770, 700);
+    setSpritePositionAndScaleINNERHOUSE(toilePoulieRun, 0.37, 0.43, 770, 700);
+    setSpritePositionAndScaleINNERHOUSE(toilePoulieReverse, 0.37, 0.43, 770, 700);
    
     // Position Bureau
-    setSpritePositionAndScaleINNERHOUSE(desk, 1, 5, 800, 780);
-    // desk.anchor.set(0);
-    // desk.x = 0;
-    // desk.y = 0;
+    setSpritePositionAndScaleINNERHOUSE(desk, 0.09, 0.793, 800, 780);
 
     // Position Table et réveil
-    setSpritePositionAndScaleINNERHOUSE(reveil, 1.2, 0.871, 800, 780);
-    setSpritePositionAndScaleINNERHOUSE(table, 1.2, 0.94, 800, 750);
-    setSpritePositionAndScaleINNERHOUSE(tableOpen, 1.2, 0.94, 800, 750);
+    setSpritePositionAndScaleINNERHOUSE(reveil, 0.9, 0.84, 800, 780);
+    setSpritePositionAndScaleINNERHOUSE(table, 0.89, 0.89, 800, 750);
+    setSpritePositionAndScaleINNERHOUSE(tableOpen, 0.89, 0.89, 800, 750);
 
     // Position GamingChair
-    setSpritePositionAndScaleINNERHOUSE(gamingChair, 0.4, 0.875, 900, 1000);
+    setSpritePositionAndScaleINNERHOUSE(gamingChair, 0.28, 0.765, 900, 1000);
 
     // Position GamingChair ArmRest
     setSpritePositionAndScaleINNERHOUSE(gamingChairAR, 0.54, 0.875, 900, 1000);
@@ -285,14 +282,13 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(chest, 0.54, 0.355, 500, 700);
 
     // Position Bed
-    setSpritePositionAndScaleINNERHOUSE(bed, 0.3, 1, 500, 850);
-    // bed.anchor.set(0, 0)
+    setSpritePositionAndScaleINNERHOUSE(bed, 0.68, 0.77, 500, 850);
 
     // Position Goldkey
     setSpritePositionAndScaleINNERHOUSE(goldkey, 0.92, 0.65, 500, 850);
 
     // Position verre d'eau
-    setSpritePositionAndScaleINNERHOUSE(glasswater, 1.22, 0.882, 900, 6000);
+    setSpritePositionAndScaleINNERHOUSE(glasswater, 0.95, 0.86, 900, 6000);
 
     // (Action) verre d'eau qui se renverse
     setSpritePositionAndScaleINNERHOUSE(waterpouring, 0.95, 0.775, 600, 600);
