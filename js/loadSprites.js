@@ -62,14 +62,14 @@ export async function loadSprites(apps, sounds) {
     // HOUSE SPRITE
     const houseAsset = await PIXI.Assets.load('../sprites/jardinnuit.jpg');
     const houseSprite = new PIXI.Sprite(houseAsset);
-    // houseSprite.anchor.set(0.5, 0);
     houseContainer.addChild(houseSprite);
-    // houseSprite.x = 500
 
         // Sprite houseContainer : Hauteur occupe 74% de l'écran / Largeur 60% de l'écran
         houseSprite.height = app.screen.height * 0.74;
         houseSprite.width = (houseSprite.height / 1024) * 1440 * 1.4; // à changer 
 
+        // Juste pour info : houseSprite correspond à 0, 0 de son conteneur qui est positionné déjà
+        houseSprite.x = 0; 
         houseSprite.y = 0;
 
     houseContainer.position.set(
@@ -1006,6 +1006,7 @@ export async function loadSprites(apps, sounds) {
     return {
         houseContainer,
         innerHouseContainer,
+        screenBackgroundContainer,
         // innerHouseBGSprite,
         houseSprite,
         innerHouseSprite,

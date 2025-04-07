@@ -3,7 +3,7 @@
 export async function resizeHandler(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseSprite, innerHouseBGSprite, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
+    const { houseSprite, houseContainer, innerHouseBGSprite, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
 
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
@@ -117,8 +117,8 @@ function adjustCanvasSize() {
     noPanik.height = screenHeight;
     noPanik.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
     // (A DEPLACER AUSSI) - POSITIONNEMENT DU TOILESCREEN - Special Screen
-    toileScreen.anchor.set(0.5, 0);
-    toileScreen.x = houseSprite.x;
+    toileScreen.anchor.set(0, 0);
+    toileScreen.x = houseContainer.x;
     toileScreen.y = 0;
     toileScreen.height = screenHeight;
     toileScreen.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
