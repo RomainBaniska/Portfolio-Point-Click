@@ -386,9 +386,12 @@ export async function loadSprites(apps, sounds) {
     musicActive.interactive = true;
     musicActive.stop();
     houseContainer.addChild(music);
+
     music.anchor.set(1, 0);
-    music.x = houseContainer.width - music.width - 20;
-    music.y = 0 + 20;
+    // music.x = houseContainer.width - music.width - 20;
+    music.x = houseContainer.width - music.width - (houseContainer.width * 0.025);
+    // music.y = 0 + 20;
+    music.y = 0 + (houseContainer.height * 0.05);
     music.scale = 0.3;
 
     const originalWidthNote = music.texture.width;
@@ -455,7 +458,7 @@ export async function loadSprites(apps, sounds) {
     questionMark.anchor.set(1, 0);
     // questionMark.x = houseContainer.width - questionMark.width - 20;
     questionMark.x = music.x;
-    questionMark.y = music.y + music.height + 20;
+    questionMark.y = music.y + music.height + (houseContainer.width * 0.025);
 
     const originalWidth = questionMark.texture.width;
     const originalHeight = questionMark.texture.height;
