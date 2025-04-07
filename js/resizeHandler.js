@@ -205,7 +205,7 @@ resizeButtons();
     setMovingSpriteScale(crosshair, 1300, 800);
 
     // Position Guybrush qui parle
-    setMovingSpriteScale(guybrush, 1000, 600);
+    setMovingSpriteScale(guybrush, 800, 580);
 
     // Position Guybrush qui marche à droite
     setMovingSpriteScale(guybrushWR, 850, 600);
@@ -226,7 +226,7 @@ resizeButtons();
     setMovingSpriteScale(guybrushSOT, 830, 1230);
 
     // Position idle qui tend la main à gauche
-    setMovingSpriteScale(guybrushIUL, 850, 570);
+    setMovingSpriteScale(guybrushIUL, 860, 580);
 
     // Position idle qui tend la main à droite
     setMovingSpriteScale(guybrushIUR, 600, 800);

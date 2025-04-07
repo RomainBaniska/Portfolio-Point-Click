@@ -102,10 +102,10 @@ export async function interactions(apps, sprites, texts) {
                                         // Se déplace vers la gauche
                                         setPosition(guybrushWL, 0.72, 0.67);
                                         spriteSwap(innerHouseContainer, guybrushGU, guybrushWL);
-                                        await walkLeft(0.5);
+                                        await walkLeft(0.45);
 
                                         // S'arrête et parle de face
-                                        setPosition(guybrush, 0.5, 0.67);
+                                        setPosition(guybrush, 0.48, 0.66); // On ajuste un peu à droite pour pas changer l'ancrage du sprite
                                         spriteSwap(innerHouseContainer, guybrushWL, guybrush); 
                     
                                         // Texte 1
@@ -124,12 +124,12 @@ export async function interactions(apps, sprites, texts) {
                                         await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);                                
 
                                         // Se déplace vers la gauche
-                                        setPosition(guybrushWL, 0.5, 0.67);
+                                        setPosition(guybrushWL, 0.45, 0.67);
                                         spriteSwap(innerHouseContainer, guybrush, guybrushWL);
-                                        await walkLeft(0.2);
+                                        await walkLeft(0.18);
 
                                         // Allume le pc
-                                        setPosition(guybrushIUL, 0.2, 0.66);
+                                        setPosition(guybrushIUL, 0.15, 0.66);
                                         spriteSwap(innerHouseContainer, guybrushWL, guybrushIUL);
                                         guybrushIUL.gotoAndPlay(0);
                                         guybrushIUL.loop = false;
@@ -138,16 +138,16 @@ export async function interactions(apps, sprites, texts) {
                                         // Change la séquence de sprite de l'ordi & ajoute armrest
                                         spriteSwap(innerHouseContainer, ordi, ordiRun);
                                         ordiRun.interactive = true;
-                                        innerHouseContainer.addChild(gamingChairAR);
                                         
                                         // Se retourne vers le fauteuil
-                                        setPosition(guybrushWR, 0.25, 0.66);
+                                        setPosition(guybrushWR, 0.15, 0.66);
                                         spriteSwap(innerHouseContainer, guybrushIUL, guybrushWR);
-                                        await walkRight(0.3);
+                                        await walkRight(0.2);
 
                                         // S'assoie sur la chaise de bureau & ajout de l'accoudoir
                                         setPosition(guybrushSO, 0.2, 0.68);
                                         spriteSwap(innerHouseContainer, guybrushWR, guybrushSO); 
+                                        innerHouseContainer.addChild(gamingChairAR);
                                         guybrushSO.interactive = true;
                                         textFollowSprite(guybrushSO, wakeUpText);  
                                         await skipDialogue(houseContainer, guybrushSO, wakeUpText, 4000); 
@@ -180,7 +180,7 @@ export async function interactions(apps, sprites, texts) {
         if (menuButton6.isActive) {
             spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
             guybrushSOT.play();
-            guybrushSOT.x = guybrushSO.x + 7;
+            guybrushSOT.x = guybrushSO.x + (innerHouseSprite.width * 0.022);
             guybrushSOT.y = guybrushSO.y;
             // On enclenche le dialogue ("Oui ?")
             textFollowSprite(guybrushSOT, startDialogue); 
@@ -500,7 +500,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
                 houseContainer.addChild(guybrushResponseText)
                 spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
-                guybrushSOT.x = guybrushSO.x + 7;
+                guybrushSOT.x = guybrushSO.x + (innerHouseSprite.width * 0.022);
                 guybrushSOT.y = guybrushSO.y;
 
                 // Supprimer la réponse après un délai
