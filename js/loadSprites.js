@@ -282,7 +282,6 @@ export async function loadSprites(apps, sounds) {
     // terminal.anchor.set(0.5, 0);
     terminalbgSprite.zIndex = 10;
     terminal.zIndex = 11;
-    
     terminal.height = app.screen.height;
     terminal.width = (houseSprite.height / 1024) * 1440;
     terminalbgSprite.height = app.screen.height;
@@ -299,21 +298,27 @@ export async function loadSprites(apps, sounds) {
 
     // FONCTIONNEMENT DU TERMINAL
     // Champ d'affichage du mot de passe
+    const terminalFontSize = terminal.height * 0.07;
     let currentInput = '';
     const inputText = new PIXI.Text('_', {
         fontFamily: 'monospace',
-        fontSize: 24,
+        fontSize: terminalFontSize,
         fill: 0x00ff00
     });
-    inputText.x = terminal.x - 100;
-    inputText.y = terminal.y + 50;
-    inputText.zIndex = 77;
+    inputText.x = (terminal.x + (terminal.width - inputText.width) / 2) + (terminal.width * 0.03) ;
+    inputText.y = terminal.y + terminal.height * 0.55;
+    inputText.anchor.set(0.5, 0);
+    inputText.zIndex = 13;
+    inputText.scale.y = 1.1;
+    inputText.scale.x = 0.57;
     // app.stage.addChild(inputText);
     specialScreenContainer.addChild(inputText);
 
     // Fonction de mise à jour visuelle
     function updateDisplay() {
-        inputText.text = currentInput + (currentInput.length < 9 ? '_' : '');
+        inputText.text = currentInput + (currentInput.length < 12 ? '_' : '');
+        const spaced = currentInput.split('').join(' ');
+        inputText.text = spaced + (currentInput.length < 12 ? '_' : '');
     }
 
     // Écouteur clavier
@@ -336,7 +341,7 @@ export async function loadSprites(apps, sounds) {
 
         // Vérification caractère autorisé (lettres uniquement)
         if (/^[a-zA-Z]$/.test(key)) {
-            if (currentInput.length < 9) {
+            if (currentInput.length < 12) {
                 currentInput += key;
                 updateDisplay();
             }
@@ -519,11 +524,6 @@ export async function loadSprites(apps, sounds) {
         (houseContainer.height * 0.1) / originalHeight
     );
     questionMark.scale.set(scaleFactor);
-
-    // questionMark.width = 50;
-    // questionMark.height = 50;
-
-    // questionMark.scale = 0.3;
 
     questionMark.interactive = true;
     questionMark.stop();
