@@ -21,7 +21,7 @@ export async function loadTexts(sprites) {
      } = sprites;
 
     // Constantes style texte
-    // Guybrush Style
+    // Romain/Guybrush Style
     const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
     // Player style
     const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#FFFFFF', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
@@ -30,7 +30,7 @@ export async function loadTexts(sprites) {
     // Ajouter un nouvel étément texte
     function textConfig(textContent, style) {
         const guybrushText = new PIXI.Text({ text: textContent, style: style });
-        guybrushText.anchor.set(0.5);
+        // guybrushText.anchor.set(0.5);
         guybrushText.zIndex = 99;
         return guybrushText; 
     }
@@ -292,21 +292,18 @@ export async function loadTexts(sprites) {
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR 
     function displayReaction(text, time) {
         return new Promise(resolve => {
-
-            // Détruit la précédente ligne de réaction (Seulement Ok s'il n'y a qu'une ligne de réaction)
-            if (dialogue) {
-                dialogue.destroy();
-                // console.log("destroyed");
-            }
-
+            
+        // Détruit la précédente ligne de réaction (Seulement Ok s'il n'y a qu'une ligne de réaction)
+        if (dialogue) {
+            dialogue.destroy();
+        }
         dialogue = new PIXI.Text({ text: text, style: dialogueStyle2 });
         dialogue.anchor.set(0.5);
         dialogue.zIndex = 99;
-        dialogue.x = houseSprite.x;
-        dialogue.y = houseSprite.y + (houseSprite.height * 0.3);
+        dialogue.x = houseContainer.width / 2 ;
+        dialogue.y = houseContainer.y + (houseContainer.height * 0.3);
         houseContainer.addChild(dialogue);
         setTimeout(() => {
-            // console.log(`${dialogue.text} ...... terminé`);
             dialogue.destroy();
             resolve();
         }, time);

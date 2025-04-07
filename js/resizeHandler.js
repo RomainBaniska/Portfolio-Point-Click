@@ -4,7 +4,6 @@ export async function resizeHandler(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
     const { houseSprite, houseContainer, innerHouseBGSprite, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
-
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
@@ -103,14 +102,14 @@ function adjustCanvasSize() {
     // innerHouseSprite.y = 0;
 
     // (A DEPLACER) Positionnement du Terminal - Special Screen
-    terminal.x = screenWidth  * 0.5;
-    terminal.y = 0;
-    terminal.height = screenHeight;
-    terminal.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth;
-    terminalbgSprite.x = screenWidth * 0.5;
-    terminalbgSprite.y = 0;
-    terminalbgSprite.height = screenHeight;
-    terminalbgSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
+    // terminal.x = screenWidth  * 0.5;
+    // terminal.y = 0;
+    // terminal.height = screenHeight;
+    // terminal.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth;
+    // terminalbgSprite.x = screenWidth * 0.5;
+    // terminalbgSprite.y = 0;
+    // terminalbgSprite.height = screenHeight;
+    // terminalbgSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
     // (A DEPLACER AUSSI) - POSITIONNEMENT DU HELP SCREEN - Special Screen
     noPanik.x = screenWidth / 2;
     noPanik.y = screenHeight / 2;

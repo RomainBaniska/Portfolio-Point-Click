@@ -111,6 +111,7 @@ export async function interactions(apps, sprites, texts) {
                                         // Texte 1
                                         guybrush.addChild(wakeUpText);
                                         textFollowSprite(guybrush, wakeUpText);
+                                        console.log(wakeUpText.x);
                                         await skipDialogue(houseContainer, guybrush, wakeUpText, 4000);
 
                                         // Texte 2

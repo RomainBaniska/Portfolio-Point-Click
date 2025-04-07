@@ -265,16 +265,83 @@ export async function loadSprites(apps, sounds) {
 
     //////////////////////////////////////// SPECIAL SCREENS ////////////////////////////////
 
+    // SPECIAL SCREEN CONTAINER 
+    const specialScreenContainer = new PIXI.Container();
+    specialScreenContainer.sortableChildren = true;
+    app.stage.addChild(specialScreenContainer);
+    specialScreenContainer.position.set(
+        (app.stage.width - specialScreenContainer.width) / 2,
+        0
+      );
+
     // TERMINAL SCREEN
     const terminal = await displaySprite('TERMINAL/terminal.json', 0.12);
     const terminalbgAsset = await PIXI.Assets.load('../sprites/TERMINAL/terminalbg.png');
     const terminalbgSprite = new PIXI.Sprite(terminalbgAsset);
-    terminalbgSprite.anchor.set(0.5, 0);
-    terminal.anchor.set(0.5, 0);
+    // terminalbgSprite.anchor.set(0.5, 0);
+    // terminal.anchor.set(0.5, 0);
     terminalbgSprite.zIndex = 10;
     terminal.zIndex = 11;
-    // app.stage.addChild(terminalbgSprite);
-    // app.stage.addChild(terminal);
+    
+    terminal.height = app.screen.height;
+    terminal.width = (houseSprite.height / 1024) * 1440;
+    terminalbgSprite.height = app.screen.height;
+    terminalbgSprite.width = (houseSprite.height / 1024) * 1440 * 1.4;
+    
+    specialScreenContainer.addChild(terminalbgSprite);
+    terminal.x = terminalbgSprite.x + (terminalbgSprite.width - terminal.width) / 2;
+    specialScreenContainer.addChild(terminal);
+
+    specialScreenContainer.position.set(
+        houseContainer.x,
+        0
+      );
+
+    // FONCTIONNEMENT DU TERMINAL
+    // Champ d'affichage du mot de passe
+    let currentInput = '';
+    const inputText = new PIXI.Text('_', {
+        fontFamily: 'monospace',
+        fontSize: 24,
+        fill: 0x00ff00
+    });
+    inputText.x = terminal.x - 100;
+    inputText.y = terminal.y + 50;
+    inputText.zIndex = 77;
+    // app.stage.addChild(inputText);
+    specialScreenContainer.addChild(inputText);
+
+    // Fonction de mise à jour visuelle
+    function updateDisplay() {
+        inputText.text = currentInput + (currentInput.length < 9 ? '_' : '');
+    }
+
+    // Écouteur clavier
+    window.addEventListener('keydown', (e) => {
+        const key = e.key;
+
+        // Cas validation
+        if (key === 'Enter') {
+            console.log('Mot de passe entré :', currentInput);
+            // ici tu vérifies le mot de passe par exemple
+            return;
+        }
+
+        // Cas suppression
+        if (key === 'Backspace' || key === 'Delete' || key === 'ArrowLeft') {
+            currentInput = currentInput.slice(0, -1);
+            updateDisplay();
+            return;
+        }
+
+        // Vérification caractère autorisé (lettres uniquement)
+        if (/^[a-zA-Z]$/.test(key)) {
+            if (currentInput.length < 9) {
+                currentInput += key;
+                updateDisplay();
+            }
+        }
+    });
 
     // TOILE SCREEN
     const toileScreenAsset = await PIXI.Assets.load('../sprites/SPECIAL/toileScreen.png');
@@ -532,7 +599,8 @@ export async function loadSprites(apps, sounds) {
      // MENU CONTAINER 
      const menuContainer = new PIXI.Container();
      menuContainer.sortableChildren = true;
-     app.stage.addChild(menuContainer);
+    //  app.stage.addChild(menuContainer);
+     screenBackgroundContainer.addChild(menuContainer);
 
      // MENU TEXTURE
      const menuAsset = await PIXI.Assets.load('../sprites/test sprite menu.png');
