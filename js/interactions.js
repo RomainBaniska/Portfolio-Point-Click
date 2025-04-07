@@ -15,8 +15,8 @@ export async function interactions(apps, sprites, texts) {
     let currentVideoIndex = 0;
 
     // GUYBRUSH START SETUP (Sleeping)
-    setPosition(guybrushLD, 0, 0.85);
-    // innerHouseContainer.addChild(guybrushLD);
+    setPosition(guybrushLD, 0.7, 0.775);
+    innerHouseContainer.addChild(guybrushLD);
 
     // Prendre le verre
     // Si le bouton menuButton4 est actif et qu'on clique sur le sprite "glasswater" on destroy le sprite glasswater et on ajoute l'item glasswateritem
@@ -91,7 +91,7 @@ export async function interactions(apps, sprites, texts) {
         waterpouring.loop = false;
         waterpouring.onComplete = async () => {
             waterpouring.destroy();
-            setPosition(guybrushGU, 0.9, 0.82);
+            setPosition(guybrushGU, 0.72, 0.655);
             spriteSwap(innerHouseContainer, guybrushLD, guybrushGU); 
             guybrushGU.gotoAndPlay(0);
             guybrushGU.loop = false;
@@ -100,12 +100,12 @@ export async function interactions(apps, sprites, texts) {
                                         await delay(1000);
 
                                         // Se déplace vers la gauche
-                                        setPosition(guybrushWL, 0.9, 0.82);
+                                        setPosition(guybrushWL, 0.72, 0.67);
                                         spriteSwap(innerHouseContainer, guybrushGU, guybrushWL);
-                                        await walkLeft(0.7);
+                                        await walkLeft(0.5);
 
                                         // S'arrête et parle de face
-                                        setPosition(guybrush, 0.7, 0.82);
+                                        setPosition(guybrush, 0.5, 0.67);
                                         spriteSwap(innerHouseContainer, guybrushWL, guybrush); 
                     
                                         // Texte 1
@@ -124,12 +124,12 @@ export async function interactions(apps, sprites, texts) {
                                         await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);                                
 
                                         // Se déplace vers la gauche
-                                        setPosition(guybrushWL, 0.7, 0.82);
+                                        setPosition(guybrushWL, 0.5, 0.67);
                                         spriteSwap(innerHouseContainer, guybrush, guybrushWL);
-                                        await walkLeft(0.45);
+                                        await walkLeft(0.2);
 
                                         // Allume le pc
-                                        setPosition(guybrushIUL, 0.45, 0.82);
+                                        setPosition(guybrushIUL, 0.2, 0.66);
                                         spriteSwap(innerHouseContainer, guybrushWL, guybrushIUL);
                                         guybrushIUL.gotoAndPlay(0);
                                         guybrushIUL.loop = false;
@@ -141,12 +141,12 @@ export async function interactions(apps, sprites, texts) {
                                         innerHouseContainer.addChild(gamingChairAR);
                                         
                                         // Se retourne vers le fauteuil
-                                        setPosition(guybrushWR, 0.45, 0.82);
+                                        setPosition(guybrushWR, 0.25, 0.66);
                                         spriteSwap(innerHouseContainer, guybrushIUL, guybrushWR);
-                                        await walkRight(0.5);
+                                        await walkRight(0.3);
 
                                         // S'assoie sur la chaise de bureau & ajout de l'accoudoir
-                                        setPosition(guybrushSO, 0.5, 0.82);
+                                        setPosition(guybrushSO, 0.2, 0.68);
                                         spriteSwap(innerHouseContainer, guybrushWR, guybrushSO); 
                                         guybrushSO.interactive = true;
                                         textFollowSprite(guybrushSO, wakeUpText);  
@@ -334,7 +334,8 @@ function walkLeft (positionFactor) {
     return new Promise((resolve) => {
     let moving = true;
     const speed = 2.7;
-    const stopPosition = houseSprite.width * positionFactor;
+    // const stopPosition = houseSprite.width * positionFactor;
+    const stopPosition = innerHouseSprite.width * positionFactor;
     // Ticker
     app.ticker.add(() => {
         if (moving) {

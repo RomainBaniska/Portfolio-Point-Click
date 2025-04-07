@@ -102,9 +102,6 @@ function adjustCanvasSize() {
     // innerHouseSprite.x = (app.screen.width - innerHouseSprite.width) / 2;
     // innerHouseSprite.y = 0;
 
-
-    
-
     // (A DEPLACER) Positionnement du Terminal - Special Screen
     terminal.x = screenWidth  * 0.5;
     terminal.y = 0;
@@ -125,12 +122,6 @@ function adjustCanvasSize() {
     toileScreen.y = 0;
     toileScreen.height = screenHeight;
     toileScreen.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
-    // (A DEPLACER AUSSI) - Positionnement du Film 1 - Special Screen
-    // film1.x = app.screen.width / 2;
-    // film1.y = app.screen.height / 2;
-    // film1.height = screenHeight * 0.85;
-    // film1.width = ((houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4) * 0.85;
-
 
     // ACTION MENU
     // Sprite menuContainer : La hauteur occupe 26% de l'écran / même largeur houseContainer
@@ -161,10 +152,6 @@ function adjustCanvasSize() {
 
 // Fonction pour positionner les boutons (NOTE : Logique détaillée dans 'old JS/logiquePositionMenuButtons.js')
 function adjustMenuButtonPosition(button, column, row) {
-    // Largeur et hauteur des boutons
-
-    // button.width = buttonWidth;
-    // button.height = buttonHeight;
 
     const buttonWidth = menuWidth * (1 / 6);
     const buttonHeight = menuHeight * 0.3;
@@ -172,15 +159,8 @@ function adjustMenuButtonPosition(button, column, row) {
     button.width = buttonWidth;
     button.height = buttonHeight;
 
-    // On modifie le point d'ancrage des boutons pour commmencer sur la droite de son axe :
-    // button.anchor.set(1, 0);
-
     button.x = menuXPosition + column * buttonWidth;
     button.y = menuYPosition + menuHeight * 0.1 + row * buttonHeight;
-
-    // // button.x = menuXPosition + column * (menuWidth * (1 / 6));
-    // button.x = menuSprite.x - column * (menuWidth * (1 / 6)); // Le menu est coupé en 2 parties et chaque bouton fait un tiers de l'espace alloué
-    // button.y = menuYPosition + menuHeight * 0.1 + row * (menuHeight * 0.3);
 }
 
 // Fonction pour positionner les items
@@ -218,7 +198,6 @@ resizeButtons();
     adjustMenuItemsPosition(menuItemGlassWaterEmpty, 0, 0);
     adjustMenuItemsPosition(menuItemGoldKey, 1, 0);
     adjustMenuItemsPosition(menuItemTabletPack, 2, 0);
-
 
     // sprite, scaleWidthFactor, scaleHeightFactor
 
@@ -276,22 +255,22 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(gamingChair, 0.28, 0.765, 900, 1000);
 
     // Position GamingChair ArmRest
-    setSpritePositionAndScaleINNERHOUSE(gamingChairAR, 0.54, 0.875, 900, 1000);
+    setSpritePositionAndScaleINNERHOUSE(gamingChairAR, 0.28, 0.765, 900, 1000);
 
     // Position Coffre
-    setSpritePositionAndScaleINNERHOUSE(chest, 0.54, 0.355, 500, 700);
+    setSpritePositionAndScaleINNERHOUSE(chest, 0.32, 0.28, 500, 700);
 
     // Position Bed
     setSpritePositionAndScaleINNERHOUSE(bed, 0.68, 0.77, 500, 850);
 
     // Position Goldkey
-    setSpritePositionAndScaleINNERHOUSE(goldkey, 0.92, 0.65, 500, 850);
+    setSpritePositionAndScaleINNERHOUSE(goldkey, 0.81, 0.63, 400, 750);
 
     // Position verre d'eau
     setSpritePositionAndScaleINNERHOUSE(glasswater, 0.95, 0.86, 900, 6000);
 
     // (Action) verre d'eau qui se renverse
-    setSpritePositionAndScaleINNERHOUSE(waterpouring, 0.95, 0.775, 600, 600);
+    setSpritePositionAndScaleINNERHOUSE(waterpouring, 0.84, 0.73, 600, 600);
 
     /// SPECIAL ///
     // Position QuestionMark
@@ -311,8 +290,6 @@ resizeButtons();
 
     // Position Arrow
     setSpritePositionAndScaleSPECIAL(arrow, 1.7, 1.9, 300, 2300);
-    // setSpritePositionAndScale(arrow, 1, 0.585, 300, 1000);
-    // setSpritePositionAndScale(arrow, 1.15, 0.08, 300, 2300);
 
     // Position playVideo
     setSpritePositionAndScale(playVideo, 0.65, 1.20, 300, 1000);

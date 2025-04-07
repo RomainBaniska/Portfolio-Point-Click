@@ -181,8 +181,7 @@ export async function loadSprites(apps, sounds) {
     const goldkey = new PIXI.Sprite(goldkeyAsset);
     // goldkey.anchor.set(0.5); 
     goldkey.interactive = true;
-    // innerHouseContainer.addChild(goldkey);
-    // innerHouseSprite.addChild(goldkey);
+    innerHouseContainer.addChild(goldkey);
 
     // TABLE DE NUIT ET REVEIL
     const reveilAsset = await PIXI.Assets.load('../sprites/ELEMENTS/tablereveil/splitted/reveil.png');
@@ -256,8 +255,7 @@ export async function loadSprites(apps, sounds) {
     chest.gotoAndStop(0); 
     chest.interactive = true;
     chest.zIndex = 3;
-    // innerHouseContainer.addChild(chest);
-    // innerHouseSprite.addChild(chest);
+    innerHouseContainer.addChild(chest);
 
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
