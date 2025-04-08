@@ -268,7 +268,7 @@ export async function loadSprites(apps, sounds) {
     // SPECIAL SCREEN CONTAINER 
     const specialScreenContainer = new PIXI.Container();
     specialScreenContainer.sortableChildren = true;
-    app.stage.addChild(specialScreenContainer);
+    // app.stage.addChild(specialScreenContainer);
     specialScreenContainer.position.set(
         (app.stage.width - specialScreenContainer.width) / 2,
         0
@@ -278,8 +278,6 @@ export async function loadSprites(apps, sounds) {
     const terminal = await displaySprite('TERMINAL/terminal.json', 0.12);
     const terminalbgAsset = await PIXI.Assets.load('../sprites/TERMINAL/terminalbg.png');
     const terminalbgSprite = new PIXI.Sprite(terminalbgAsset);
-    // terminalbgSprite.anchor.set(0.5, 0);
-    // terminal.anchor.set(0.5, 0);
     terminalbgSprite.zIndex = 10;
     terminal.zIndex = 11;
     terminal.height = app.screen.height;

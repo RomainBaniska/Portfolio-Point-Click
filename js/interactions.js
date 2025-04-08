@@ -105,24 +105,21 @@ export async function interactions(apps, sprites, texts) {
                                         await walkLeft(0.45);
 
                                         // S'arrête et parle de face
+                                        // setPosition(guybrush, 0.48, 0.66); // On ajuste un peu à droite pour pas changer l'ancrage du sprite
                                         setPosition(guybrush, 0.48, 0.66); // On ajuste un peu à droite pour pas changer l'ancrage du sprite
                                         spriteSwap(innerHouseContainer, guybrushWL, guybrush); 
                     
                                         // Texte 1
-                                        guybrush.addChild(wakeUpText);
                                         textFollowSprite(guybrush, wakeUpText);
-                                        console.log(wakeUpText.x);
-                                        await skipDialogue(houseContainer, guybrush, wakeUpText, 4000);
+                                        await skipDialogue(innerHouseContainer, guybrush, wakeUpText, 4000);
 
                                         // Texte 2
-                                        guybrush.addChild(wakeUpText2);
                                         textFollowSprite(guybrush, wakeUpText2);
-                                        await skipDialogue(houseContainer, guybrush, wakeUpText2, 4000);
+                                        await skipDialogue(innerHouseContainer, guybrush, wakeUpText2, 4000);
 
                                         // Texte 3
-                                        guybrush.addChild(wakeUpText3);
                                         textFollowSprite(guybrush, wakeUpText3);
-                                        await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);                                
+                                        await skipDialogue(innerHouseContainer, guybrush, wakeUpText3, 4000);                                
 
                                         // Se déplace vers la gauche
                                         setPosition(guybrushWL, 0.45, 0.67);
@@ -186,13 +183,14 @@ export async function interactions(apps, sprites, texts) {
             // On enclenche le dialogue ("Oui ?")
             textFollowSprite(guybrushSOT, startDialogue); 
             menuContainer.addChild(menuCoverDialogue);
+            
             console.log("Dialogue réenclenché");
 
             initResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
             
             setTimeout(() => {
                 spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
-                innerHouseContainer.removeChild(startDialogue); 
+                houseContainer.removeChild(startDialogue); 
             }, 2000);
         }  
     });
@@ -421,10 +419,13 @@ function spriteSwap(innerHouseContainer, sprite1, sprite2) {
 
 // METHODE POUR QUE LE TEXTE FOLLOW LE SPRITE
 function textFollowSprite(sprite, textObject) {
-    houseContainer.addChild(textObject);
-    textObject.zIndex = 4;
-    textObject.x = sprite.x;
+    textObject.anchor.set(0.5);
+    textObject.x = innerHouseContainer.x + (innerHouseContainer.width - sprite.width) / 2;
+    textObject.x = sprite.x + (sprite.width / 2);
     textObject.y = sprite.y - sprite.height;
+    textObject.zIndex = 4;
+
+    innerHouseContainer.addChild(textObject);
 }
 
 
@@ -476,8 +477,8 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 const playerResponsdingText = new PIXI.Text({ text: response.text, style: dialogueStyle2 });
                 playerResponsdingText.anchor.set(0.5);
                 playerResponsdingText.zIndex = 4;
-                playerResponsdingText.x = houseSprite.x;
-                playerResponsdingText.y = houseSprite.y + (houseSprite.height * 0.3);
+                playerResponsdingText.x = houseContainer.width / 2; 
+                playerResponsdingText.y = houseContainer.height * 0.3;
                 houseContainer.addChild(playerResponsdingText)
                 // Supprimer la réponse après un délai
                 setTimeout(() => {
@@ -497,9 +498,10 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 const guybrushResponseText = new PIXI.Text({ text: response.guybrushResponse, style: dialogueStyle });
                 guybrushResponseText.anchor.set(0.5);
                 guybrushResponseText.zIndex = 4;
-                guybrushResponseText.x = guybrushSO.x;
+                guybrushResponseText.x = guybrushSO.x + (guybrushSO.width / 2);
                 guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
-                houseContainer.addChild(guybrushResponseText)
+                // houseContainer.addChild(guybrushResponseText);
+                innerHouseContainer.addChild(guybrushResponseText);
                 spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
                 guybrushSOT.x = guybrushSO.x + (innerHouseSprite.width * 0.022);
                 guybrushSOT.y = guybrushSO.y;

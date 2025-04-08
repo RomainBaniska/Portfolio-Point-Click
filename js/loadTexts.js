@@ -22,17 +22,16 @@ export async function loadTexts(sprites) {
 
     // Constantes style texte
     // Romain/Guybrush Style
-    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
+    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 600, lineHeight: 40, align: 'center'};
+    // const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 600, lineHeight: 40};
     // Player style
     const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#FFFFFF', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
     const responseStyle = { fontFamily: 'arial', fontSize: 20, fill: '#772a76', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
 
-    // Ajouter un nouvel étément texte
+    // Appliquer un style à un élément texte
     function textConfig(textContent, style) {
-        const guybrushText = new PIXI.Text({ text: textContent, style: style });
-        // guybrushText.anchor.set(0.5);
-        guybrushText.zIndex = 99;
-        return guybrushText; 
+        const text = new PIXI.Text({ text: textContent, style: style });
+        return text; 
     }
 
     const wakeUpText = textConfig('Non mais je rêve', dialogueStyle);
