@@ -111,15 +111,15 @@ export async function interactions(apps, sprites, texts) {
                     
                                         // Texte 1
                                         textFollowSprite(guybrush, wakeUpText);
-                                        await skipDialogue(innerHouseContainer, guybrush, wakeUpText, 4000);
+                                        await skipDialogue(houseContainer, guybrush, wakeUpText, 4000);
 
                                         // Texte 2
                                         textFollowSprite(guybrush, wakeUpText2);
-                                        await skipDialogue(innerHouseContainer, guybrush, wakeUpText2, 4000);
+                                        await skipDialogue(houseContainer, guybrush, wakeUpText2, 4000);
 
                                         // Texte 3
                                         textFollowSprite(guybrush, wakeUpText3);
-                                        await skipDialogue(innerHouseContainer, guybrush, wakeUpText3, 4000);                                
+                                        await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);                                
 
                                         // Se déplace vers la gauche
                                         setPosition(guybrushWL, 0.45, 0.67);
@@ -147,7 +147,7 @@ export async function interactions(apps, sprites, texts) {
                                         spriteSwap(innerHouseContainer, guybrushWR, guybrushSO); 
                                         innerHouseContainer.addChild(gamingChairAR);
                                         guybrushSO.interactive = true;
-                                        textFollowSprite(guybrushSO, wakeUpText);  
+                                        textFollowSprite(guybrushSO, wakeUpText, dialogueStyle);  
                                         await skipDialogue(houseContainer, guybrushSO, wakeUpText, 4000); 
 
                                         // TEST RESPONSES ZONE TEST
@@ -163,7 +163,6 @@ export async function interactions(apps, sprites, texts) {
                                         wakeUpText3.destroy();
                                         guybrushLD.destroy();
                                         guybrushGU.destroy();
-                                        // console.log("L'animation de réveil s'est bien déroulée et les ressources détruites");
                                             }
                                         };
                                     };
@@ -417,18 +416,6 @@ function spriteSwap(innerHouseContainer, sprite1, sprite2) {
     innerHouseContainer.addChild(sprite2);
 }
 
-// METHODE POUR QUE LE TEXTE FOLLOW LE SPRITE
-function textFollowSprite(sprite, textObject) {
-    textObject.anchor.set(0.5);
-    textObject.x = innerHouseContainer.x + (innerHouseContainer.width - sprite.width) / 2;
-    textObject.x = sprite.x + (sprite.width / 2);
-    textObject.y = sprite.y - sprite.height;
-    textObject.zIndex = 4;
-
-    innerHouseContainer.addChild(textObject);
-}
-
-
 function initResponses(menuCoverDialogue, playerResponses, style) {
     // Effectuer une copie profonde à l'initialisation
     // const originalResponses = playerResponses.map(response => ({ ...response }));
@@ -542,7 +529,6 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                     setTimeout(() => {
                         unroll();  
                     }, 1000);
-                    // console.log('ok çaaaa maaaarche2');
                 }
 
                 // Supprime la réponse cliquée du tableau playerResponses et on retire son affichage
@@ -554,27 +540,39 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
 }
 
 
+
+// METHODE POUR QUE LE TEXTE FOLLOW LE SPRITE
+function textFollowSprite(sprite, textObject) {
+    textObject.anchor.set(0.5);
+    textObject.x = innerHouseContainer.x + (innerHouseContainer.width - sprite.width) / 2;
+    textObject.x = sprite.x + (sprite.width / 2);
+    textObject.y = sprite.y - sprite.height;
+    textObject.zIndex = 4;
+    innerHouseContainer.addChild(textObject);
+    return textObject;
+}
+
 // METHODE POUR SKIPPER UNE LIGNE DE DIALOGUE
-function skipDialogue(houseContainer, textParent, textDialogue, duration) {
+function skipDialogue(container, textParent, textObject, duration) {
     return new Promise((resolve) => {
         let clicked = false;
-        houseContainer.interactive = true;
+        container.interactive = true;
 
         function onClick() {
             if (!clicked) {
                 clicked = true;
-                houseContainer.removeChild(textDialogue);
-                houseContainer.interactive = false;
-                houseContainer.removeEventListener('click', onClick);
+                innerHouseContainer.removeChild(textObject);
+                container.interactive = false;
+                container.removeEventListener('click', onClick);
                 resolve();
             }
         }
-        houseContainer.addEventListener('click', onClick);
+        container.addEventListener('click', onClick);
         setTimeout(() => {
             if (!clicked) {
-                houseContainer.removeChild(textDialogue);
-                houseContainer.interactive = false;
-                houseContainer.removeEventListener('click', onClick);
+                innerHouseContainer.removeChild(textObject);
+                container.interactive = false;
+                container.removeEventListener('click', onClick);
                 resolve();
             }
         }, duration);

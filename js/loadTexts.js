@@ -1,12 +1,6 @@
 
 export async function loadTexts(sprites) {
 
-    // Heure actuelle
-    let currentDate = null;
-    let currentHour =  null;
-    let currentMinutes =  null;
-    let currentTimeHourMinutes = "";
-
     // Sprites
     const { houseContainer, houseSprite, itemClicked, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater,
         menuButton,
@@ -20,24 +14,30 @@ export async function loadTexts(sprites) {
         menuButton9,
      } = sprites;
 
-    // Constantes style texte
-    // Romain/Guybrush Style
-    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 600, lineHeight: 40, align: 'center'};
-    // const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 600, lineHeight: 40};
-    // Player style
-    const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#FFFFFF', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
-    const responseStyle = { fontFamily: 'arial', fontSize: 20, fill: '#772a76', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40};
+    // Heure actuelle
+    let currentDate = null;
+    let currentHour =  null;
+    let currentMinutes =  null;
+    let currentTimeHourMinutes = "";
 
-    // Appliquer un style à un élément texte
-    function textConfig(textContent, style) {
-        const text = new PIXI.Text({ text: textContent, style: style });
-        return text; 
-    }
+    // Initialisation de la variable de text affiché à l'écran
+    let currentText = null;
+    // Initialisation de la variable de la séquence de texte affichée à l'écran
+    let currentTextSequence = null;
 
-    const wakeUpText = textConfig('Non mais je rêve', dialogueStyle);
-    const wakeUpText2 = textConfig('T\'es qui toi ? Et pourquoi tu fais sonner mon réveil si tôt ?', dialogueStyle);
-    const wakeUpText3 = textConfig('Bon si on a fini, moi j\'ai du travail', dialogueStyle);
-    const startDialogue = textConfig('Oui ?', dialogueStyle);
+    //////////// METHODES PERMETTANT LE SKIP DU TEXTE ET DES SEQUENCES DE TEXTE LORS D'ACTION SUR LES SPRITES ////////////
+    
+
+    // Styles
+    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 600, lineHeight: 40, align: 'center'}; // Romain-Guybrush Style
+    const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#FFFFFF', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Player style
+    const responseStyle = { fontFamily: 'arial', fontSize: 20, fill: '#772a76', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Style des réponses lors du dialogue
+
+    const wakeUpText = new PIXI.Text({ text: 'Non mais je rêve', style: dialogueStyle });
+    const wakeUpText2 = new PIXI.Text({ text: 'T\'es qui toi ? Et pourquoi tu fais sonner mon réveil si tôt ?', style: dialogueStyle });
+    const wakeUpText3 = new PIXI.Text({ text: 'Bon si on a fini, moi j\'ai du travail', style: dialogueStyle });
+    const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
+
 
     // DIALOGUE PLAYER - ROMAIN . TABLEAUX DES REPONSES DE ROMAIN
     const wakeUpResponses = [
@@ -69,8 +69,7 @@ export async function loadTexts(sprites) {
         }
     ];
 
-    // REPONSES DU JOUEUR LORS DE CLICK SUR UN SPRITE AVEC ACTION
-
+    // TEXTE OU ACTION DU JOUEUR LORS DU CLIC SUR UN SPRITE AVEC UN MENUBUTTON ACTIF
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest, goldkey, menuItemGoldKey];
     
@@ -183,8 +182,6 @@ export async function loadTexts(sprites) {
 
     };
 
-    // Ajout currentReactionSequence 8 Avril :
-    let currentReactionSequence = null;
     // Pour tous les sprites interactifs à l'écran
     interactableSprites.forEach(interactableSprite => {
                     // On définit tous les sprites comme "non cliqué" au départ
@@ -192,46 +189,41 @@ export async function loadTexts(sprites) {
 
                     // Mais lorsqu'on clic sur un sprite, il devient ".clicked === true"
                     interactableSprite.on('click', async () => {
-                        // On empêche plusieurs clics simultanés, s'il est déjà clicked === true, on retourne
-                        if (interactableSprite.clicked) return;
-                        interactableSprite.clicked = true;
+                            // On empêche plusieurs clics simultanés, si le sprite est déjà cliqué, on retourne
+                            if (!interactableSprite.clicked) {
+                                interactableSprite.clicked = true;
+                            }                            
 
                         console.log(interactableSprite.label, interactableSprite.clicked);
                         console.log(reveil.label, reveil.clicked);
                         console.log(ordi.label, ordi.clicked);
 
-                        // Lorsque le sprite interactif est ".clicked"... 
-                        // try {
+                            // Lorsque le sprite interactif est ".clicked"... 
                             // On vérifie si une séquence de Texte est en cours, si oui on la rend ".canceled === true" 
-                             if (currentReactionSequence) {
-                                console.log(currentReactionSequence, interactableSprite.label, "annulée");
-                                 currentReactionSequence.canceled = true;
+                             if (currentTextSequence) {
+                                 currentTextSequence.canceled = true;
+                                 console.log(currentTextSequence, interactableSprite.label, "annulée");
                              }
                             // Ensuite on appelle spriteActionPlayerText()
                             await spriteActionPlayerText();
 
-                            // } catch (error) {
-                                // console.error("Erreur lors de l'exécution de l'action du sprite", error);
-                            // } finally {
-
-
+                        // Une fois le sprite cliqué, on le repasse immédiatement en false
                         interactableSprite.clicked = false;
                         console.log (interactableSprite.label, interactableSprite.clicked, 'exécuté');
-                        // }
                     });
     });
 
     // Méthode permettant d'ajouter divers dialogues en fonction du sprite cliqué
     async function spriteActionPlayerText() {
 
-        const activeButton = menuButtonsArray.find(button => button.isActive); // Cherche quel est le bouton d'action actif
+        const activatedMenuButton = menuButtonsArray.find(button => button.isActive); // Cherche quel est le bouton d'action actif
         const clickedSprite = interactableSprites.find(sprite => sprite.clicked); // Cherche quel est le sprite cliqué
     
         // Si un bouton d'action est actif et qu'un sprite interagissable est cliqué
-        if (activeButton && clickedSprite) {
+        if (activatedMenuButton && clickedSprite) {
             // On récupère le comportement spécifique pour ce sprite et cette action
             const spriteName = clickedSprite.label; // Le nom du sprite
-            const action = activeButton.action; // L'action
+            const action = activatedMenuButton.action; // L'action associée au menuButton activé
             
             // Si le sprite fait partie des sprites interagissables et qu'il possède une action (même si cette action est vide)
             if (spriteBehaviors[spriteName] && (spriteBehaviors[spriteName][action] || spriteBehaviors[spriteName][action] === "")) {
@@ -260,53 +252,51 @@ export async function loadTexts(sprites) {
                                     "Il ne devrait pas tarder à se réveiller"
                                 ];
                             }
-                            }
+                        }
+                
+                        // Alors on définit l'action qui va être exécutée (ex texte : "l'ordinateur est éteint")
+                        const actionEvent = spriteBehaviors[spriteName][action];
+                        console.log(actionEvent);
 
-                // Alors on définit l'action qui va être exécutée (ex texte : "l'ordinateur est éteint")
-                const actionEvent = spriteBehaviors[spriteName][action];
-                console.log(actionEvent);
+                        // Si cette action n'est pas un simple TEXTE, mais une véritable ACTION COMPLEXE (fonction)
+                        if (typeof actionEvent === "function") {
+                            const result = response();
+                            await displayText(result, 3000); // On joue l'action
 
-                // Si l'actionEvent n'est pas un simple TEXTE, mais une véritable ACTION COMPLEXE (fonction)
-                if (typeof actionEvent === "function") {
-                    const result = response();
-                    await displayReaction(result, 3000); // On joue la réponse
+                        // Si l'actionEvent n'est pas un simple TEXTE, mais un plusieurs LIGNES DE TEXTES
+                        } else if (Array.isArray(actionEvent)) {
+                            await displayTextSequence(actionEvent, 3000); // On affiche la séquence entière
 
-                // Si l'actionEvent n'est pas un simple TEXTE, mais un plusieurs LIGNES DE TEXTES
-                } else if (Array.isArray(actionEvent)) {
-                    await displayReactionSequence(actionEvent, 3000); // On joue la séquence entière
+                        // Si l'actionEvent est une simple ligne de TEXTE, alors on l'affiche
+                        } else {
+                            await displayText(actionEvent, 3000); // On affiche le texte
+                        }
 
-                // Si l'actionEvent est une simple ligne de TEXTE, alors on l'affiche
-                } else {
-                    await displayReaction(actionEvent, 3000);
-                }
-
-                // 
+            // Si le sprite n'a pas d'action prévue...
             } else {
-                    await displayReaction("Non, ça ne marchera pas.", 3000); 
+                    await displayText("Non, ça ne marchera pas.", 3000); 
             }
 
         } 
     }
 
-    // Références globales de ligne de dialogue (réaction) et séquences de dialogues (réactions)
-    let dialogue = null;
-    // let currentReactionSequence = null;
+  
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR 
-    function displayReaction(text, time) {
+    function displayText(text, time) {
         return new Promise(resolve => {
             
         // Détruit la précédente ligne de réaction (Seulement Ok s'il n'y a qu'une ligne de réaction)
-        if (dialogue) {
-            dialogue.destroy();
+        if (currentText) {
+            currentText.destroy();
         }
-        dialogue = new PIXI.Text({ text: text, style: dialogueStyle2 });
-        dialogue.anchor.set(0.5);
-        dialogue.zIndex = 99;
-        dialogue.x = houseContainer.width / 2 ;
-        dialogue.y = houseContainer.y + (houseContainer.height * 0.3);
-        houseContainer.addChild(dialogue);
+        currentText = new PIXI.Text({ text: text, style: dialogueStyle2 });
+        currentText.anchor.set(0.5);
+        currentText.zIndex = 99;
+        currentText.x = houseContainer.width / 2 ;
+        currentText.y = houseContainer.y + (houseContainer.height * 0.3);
+        houseContainer.addChild(currentText);
         setTimeout(() => {
-            dialogue.destroy();
+            currentText.destroy();
             resolve();
         }, time);
     });
@@ -315,31 +305,27 @@ export async function loadTexts(sprites) {
     // SOLUTION !! DECOMMENTER ET REVOIR LA LOGIQUE DU SKIP DIALOGUE
 
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR SI IL Y EN A PLUS D'UNE
-    async function displayReactionSequence(dialogues, delay = 3000) {
+    async function displayTextSequence(dialogues, delay = 3000) {
         // Création d'une référence unique pour la séquence
-        currentReactionSequence = { canceled: false };
-        // const sequence = { canceled: false };
-        // currentReactionSequence = sequence;
+        currentTextSequence = { canceled: false };
 
         for (const text of dialogues) {
                 // Si une nouvelle séquence est démarrée, arrêter l'ancienne
-                if (currentReactionSequence.canceled) {
-                // if (currentReactionSequence?.canceled) {
-                    // if (currentReactionSequence !== sequence) {
+                if (currentTextSequence.canceled) {
                     console.log("Séquence annulée.");
                     return;
                 }
 
-            await displayReaction(text, delay);
+            await displayText(text, delay);
 
-            // if (currentReactionSequence.canceled) {
-            //     // if (currentReactionSequence !== sequence) {
+            // if (currentTextSequence.canceled) {
+            //     // if (currentTextSequence !== sequence) {
             //     console.log("Séquence annulée.");
             //     return;
             // }
         }
         // Séquence terminée
-        currentReactionSequence = null;
+        currentTextSequence = null;
     }
 
     return {
