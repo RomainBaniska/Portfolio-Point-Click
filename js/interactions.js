@@ -183,13 +183,11 @@ export async function interactions(apps, sprites, texts) {
             textFollowSprite(guybrushSOT, startDialogue); 
             menuContainer.addChild(menuCoverDialogue);
             
-            console.log("Dialogue réenclenché");
-
             initResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
             
             setTimeout(() => {
                 spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
-                houseContainer.removeChild(startDialogue); 
+                innerHouseContainer.removeChild(startDialogue); 
             }, 2000);
         }  
     });
@@ -378,7 +376,7 @@ function unroll() {
         toilePoulieRun.loop = false;
 }
 toilePoulie.interactive = true;
-toilePoulie.on('click', unroll);
+// toilePoulie.on('click', unroll);
 
 // METHODE POUR REENROULER L'ECRAN DE PROJECTION
 function reroll() {
@@ -403,9 +401,6 @@ function reroll() {
 
 // METHODE POUR POSITIONNER UN SPRITE
  function setPosition(sprite, xPos, yPos) {
-    // A changer
-    // sprite.x = houseSprite.width * xPos;
-    // sprite.y = houseSprite.height * yPos;
     sprite.x = innerHouseSprite.width * xPos;
     sprite.y = innerHouseSprite.height * yPos;
 }
@@ -416,15 +411,13 @@ function spriteSwap(innerHouseContainer, sprite1, sprite2) {
     innerHouseContainer.addChild(sprite2);
 }
 
+// METHODE QUI GERE LE DIALOGUE AVEC ROMAIN
 function initResponses(menuCoverDialogue, playerResponses, style) {
-    // Effectuer une copie profonde à l'initialisation
-    // const originalResponses = playerResponses.map(response => ({ ...response }));
+    // Effectuer une copie profonde du TABLEAU D'OBJETS des réponses de Romain (wakeUpResponses)
     const originalResponses = structuredClone(playerResponses);
 
     // à ce stade, originalResponses est BIEN le clone de playerResponses, si on essaye de changer la valeur de playerresponse ça reste la même
-    // console.log("originalResponses dans displayResponses : ", originalResponses);
-
-    // Appeler la méthode d'affichage
+    // Appeler la méthode permettant d'afficher les réponses du joueur
     displayResponses(menuCoverDialogue, playerResponses, style, originalResponses);
 }
 
@@ -514,7 +507,6 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                         setTimeout(() => {
                             reroll();  
                         }, 1000);
-                        // console.log('ok çaaaa maaaarche');
                     }
                     // Vide le menuContainer du menuCoverDialogue
                     menuContainer.removeChild(menuCoverDialogue);

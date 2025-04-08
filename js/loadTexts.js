@@ -33,6 +33,7 @@ export async function loadTexts(sprites) {
     const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#FFFFFF', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Player style
     const responseStyle = { fontFamily: 'arial', fontSize: 20, fill: '#772a76', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Style des réponses lors du dialogue
 
+    // Textes hors action & dialogue
     const wakeUpText = new PIXI.Text({ text: 'Non mais je rêve', style: dialogueStyle });
     const wakeUpText2 = new PIXI.Text({ text: 'T\'es qui toi ? Et pourquoi tu fais sonner mon réveil si tôt ?', style: dialogueStyle });
     const wakeUpText3 = new PIXI.Text({ text: 'Bon si on a fini, moi j\'ai du travail', style: dialogueStyle });
@@ -65,7 +66,7 @@ export async function loadTexts(sprites) {
             guybrushResponse: "Ouais ouais à plus tard",
             reset: true,
             exit: true,
-            rerollScreen: true,
+            // rerollScreen: true,
         }
     ];
 
