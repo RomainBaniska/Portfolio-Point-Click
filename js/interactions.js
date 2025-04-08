@@ -437,7 +437,6 @@ function initResponses(menuCoverDialogue, playerResponses, style) {
     // à ce stade, originalResponses est BIEN le clone de playerResponses, si on essaye de changer la valeur de playerresponse ça reste la même
     // console.log("originalResponses dans displayResponses : ", originalResponses);
 
-
     // Appeler la méthode d'affichage
     displayResponses(menuCoverDialogue, playerResponses, style, originalResponses);
 }

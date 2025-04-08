@@ -39,7 +39,7 @@ export async function loadTexts(sprites) {
     const wakeUpText3 = textConfig('Bon si on a fini, moi j\'ai du travail', dialogueStyle);
     const startDialogue = textConfig('Oui ?', dialogueStyle);
 
-    // TABLEAUX DES REPONSES DE GUYBRUSH
+    // DIALOGUE PLAYER - ROMAIN . TABLEAUX DES REPONSES DE ROMAIN
     const wakeUpResponses = [
         {
             text: "Qui es-tu ?",
@@ -162,10 +162,10 @@ export async function loadTexts(sprites) {
                 "Toi, dans ma poche",
                 "Je me demande ce qu'elle peut bien ouvrir ?"
             ],
-            utiliser : "omagad",
+            utiliser : "",
         },
         menuItemGoldKey: {
-            utiliser: "booga",
+            utiliser: "",
             regarder: "Je me demande ce qu'elle peut bien ouvrir ?",
             item: true,
         },
@@ -183,111 +183,114 @@ export async function loadTexts(sprites) {
 
     };
 
-    // Pour tous les éléments du tableau des sprites interactifs
+    // Ajout currentReactionSequence 8 Avril :
+    let currentReactionSequence = null;
+    // Pour tous les sprites interactifs à l'écran
     interactableSprites.forEach(interactableSprite => {
-                    // On définit les sprites en "non cliqué" par défaut
+                    // On définit tous les sprites comme "non cliqué" au départ
                     interactableSprite.clicked = false;
 
-                    // lors du clic sur le sprite, il devient cliqué
+                    // Mais lorsqu'on clic sur un sprite, il devient ".clicked === true"
                     interactableSprite.on('click', async () => {
-                        // On empêche plusieurs clics simultanés
+                        // On empêche plusieurs clics simultanés, s'il est déjà clicked === true, on retourne
                         if (interactableSprite.clicked) return;
-
                         interactableSprite.clicked = true;
-                        // Puis on applique la série d'instructions de la méthode qui gère les différentes réactions
-                        try {
-                            // Si une séquence en cours existe, on l'annule 
+
+                        console.log(interactableSprite.label, interactableSprite.clicked);
+                        console.log(reveil.label, reveil.clicked);
+                        console.log(ordi.label, ordi.clicked);
+
+                        // Lorsque le sprite interactif est ".clicked"... 
+                        // try {
+                            // On vérifie si une séquence de Texte est en cours, si oui on la rend ".canceled === true" 
                              if (currentReactionSequence) {
-                                 currentReactionSequence.canceled = true; // Annule la séquence en cours
+                                console.log(currentReactionSequence, interactableSprite.label, "annulée");
+                                 currentReactionSequence.canceled = true;
                              }
+                            // Ensuite on appelle spriteActionPlayerText()
+                            await spriteActionPlayerText();
 
-                        // Déplacé avant l'appel à la méthode pour éviter les conflits
-                        // interactableSprite.clicked = false;     
+                            // } catch (error) {
+                                // console.error("Erreur lors de l'exécution de l'action du sprite", error);
+                            // } finally {
 
-                        await spriteActionPlayerText();
-                        } catch (error) {
-                            console.error("Erreur lors de l'exécution de l'action du sprite", error);
-                        } finally {
 
                         interactableSprite.clicked = false;
-                        }
+                        console.log (interactableSprite.label, interactableSprite.clicked, 'exécuté');
+                        // }
                     });
     });
 
     // Méthode permettant d'ajouter divers dialogues en fonction du sprite cliqué
     async function spriteActionPlayerText() {
 
-        const activeButton = menuButtonsArray.find(button => button.isActive);
-        const clickedSprite = interactableSprites.find(sprite => sprite.clicked);
+        const activeButton = menuButtonsArray.find(button => button.isActive); // Cherche quel est le bouton d'action actif
+        const clickedSprite = interactableSprites.find(sprite => sprite.clicked); // Cherche quel est le sprite cliqué
     
+        // Si un bouton d'action est actif et qu'un sprite interagissable est cliqué
         if (activeButton && clickedSprite) {
-            // Récupère le comportement spécifique pour ce sprite et cette action
-            const spriteName = clickedSprite.label;
-            const action = activeButton.action;
-
-        // Annulation d'une ancienne séquence
-        if (currentReactionSequence) {
-            currentReactionSequence.canceled = true;
-            currentReactionSequence = null;  // Réinitialisation après annulation
-        }
+            // On récupère le comportement spécifique pour ce sprite et cette action
+            const spriteName = clickedSprite.label; // Le nom du sprite
+            const action = activeButton.action; // L'action
             
-            // (lors du clic) Si on constate que dans l'objet spriteBehaviors, il existe le sprite et qu'il possède une action, alors on affiche cette réponse (ou méthode) 
+            // Si le sprite fait partie des sprites interagissables et qu'il possède une action (même si cette action est vide)
             if (spriteBehaviors[spriteName] && (spriteBehaviors[spriteName][action] || spriteBehaviors[spriteName][action] === "")) {
           
-                // Exception de comportement pour le réveil-matin
-                if (spriteBehaviors[spriteName][action] === spriteBehaviors.reveil.regarder) {
-                currentDate = new Date();
-                currentHour =  currentDate.getHours();
-                currentMinutes =  currentDate.getMinutes();
-                currentTimeHourMinutes = `${currentHour}:${currentMinutes}`;
-                
-                if (currentHour >= 11 && currentHour < 22) {
-                    spriteBehaviors.reveil.regarder = [
-                        `Le réveil-matin indique ${currentTimeHourMinutes}`,
-                        "Et il dort toujours ???"
-                    ];
-                } else if (currentHour >= 22 || currentHour < 6) {
-                    spriteBehaviors.reveil.regarder = [
-                        `Le réveil-matin indique ${currentTimeHourMinutes}`,
-                        "Hmmm, il fait encore nuit, normal qu'il dorme à cette heure"
-                    ];
-                } else {
-                    // Entre 6h et 11h
-                    spriteBehaviors.reveil.regarder = [
-                        `Le réveil-matin indique ${currentTimeHourMinutes}`,
-                        "Il ne devrait pas tarder à se réveiller"
-                    ];
-                }
-                }
+                            // EXCEPTION de comportement pour le sprite réveil-matin avec l'action "regarder"
+                            if (spriteBehaviors[spriteName][action] === spriteBehaviors.reveil.regarder) {
+                            currentDate = new Date();
+                            currentHour =  currentDate.getHours();
+                            currentMinutes =  currentDate.getMinutes();
+                            currentTimeHourMinutes = `${currentHour}:${currentMinutes}`;
+                            
+                            if (currentHour >= 11 && currentHour < 22) {
+                                spriteBehaviors.reveil.regarder = [
+                                    `Le réveil-matin indique ${currentTimeHourMinutes}`,
+                                    "Et il dort toujours ???"
+                                ];
+                            } else if (currentHour >= 22 || currentHour < 6) {
+                                spriteBehaviors.reveil.regarder = [
+                                    `Le réveil-matin indique ${currentTimeHourMinutes}`,
+                                    "Hmmm, il fait encore nuit, normal qu'il dorme à cette heure"
+                                ];
+                            } else {
+                                // Entre 6h et 11h
+                                spriteBehaviors.reveil.regarder = [
+                                    `Le réveil-matin indique ${currentTimeHourMinutes}`,
+                                    "Il ne devrait pas tarder à se réveiller"
+                                ];
+                            }
+                            }
 
-                // Action définie pour ce sprite
-                const response = spriteBehaviors[spriteName][action];
+                // Alors on définit l'action qui va être exécutée (ex texte : "l'ordinateur est éteint")
+                const actionEvent = spriteBehaviors[spriteName][action];
+                console.log(actionEvent);
 
-                if (typeof response === "function") {
-                    // Exécute la fonction et récupère son résultat
+                // Si l'actionEvent n'est pas un simple TEXTE, mais une véritable ACTION COMPLEXE (fonction)
+                if (typeof actionEvent === "function") {
                     const result = response();
-                    await displayReaction(result, 3000);
+                    await displayReaction(result, 3000); // On joue la réponse
 
-                // On utilise la fonction pour afficher le texte
-                } else if (Array.isArray(response)) {
-                    // Si c'est une liste de dialogues, les afficher en séquence
-                    await displayReactionSequence(response, 3000);
+                // Si l'actionEvent n'est pas un simple TEXTE, mais un plusieurs LIGNES DE TEXTES
+                } else if (Array.isArray(actionEvent)) {
+                    await displayReactionSequence(actionEvent, 3000); // On joue la séquence entière
+
+                // Si l'actionEvent est une simple ligne de TEXTE, alors on l'affiche
                 } else {
-                    // Sinon, afficher un seul dialogue
-                    await displayReaction(response, 3000);
+                    await displayReaction(actionEvent, 3000);
                 }
+
+                // 
             } else {
                     await displayReaction("Non, ça ne marchera pas.", 3000); 
             }
-        } else {
-            // console.log("Aucun bouton actif ou aucun sprite cliqué.");
-            return;
-        }
+
+        } 
     }
 
     // Références globales de ligne de dialogue (réaction) et séquences de dialogues (réactions)
     let dialogue = null;
-    let currentReactionSequence = null;
+    // let currentReactionSequence = null;
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR 
     function displayReaction(text, time) {
         return new Promise(resolve => {

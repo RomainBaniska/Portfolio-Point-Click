@@ -297,11 +297,15 @@ export async function loadSprites(apps, sounds) {
     // Champ d'affichage du mot de passe
     const terminalFontSize = terminal.height * 0.053;
     let currentInput = '';
-    const inputText = new PIXI.Text('_', {
-        fontFamily: 'Digital7',
-        fontSize: terminalFontSize,
-        fill: 0x80FF80
+    const inputText = new PIXI.Text({
+        text: '_',
+        style: {
+            fontFamily: 'Digital7',
+            fontSize: terminalFontSize,
+            fill: 0x80FF80
+        }
     });
+    
     // inputText.x = (terminal.x + (terminal.width - inputText.width) / 2) + (terminal.width * 0.013);
     inputText.x = terminal.x + terminal.width * 0.255;
     inputText.y = terminal.y + terminal.height * 0.55;
