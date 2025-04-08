@@ -290,7 +290,6 @@ export async function loadSprites(apps, sounds) {
     specialScreenContainer.addChild(terminalbgSprite);
     terminal.x = terminalbgSprite.x + (terminalbgSprite.width - terminal.width) / 2;
     specialScreenContainer.addChild(terminal);
-
     specialScreenContainer.position.set(
         houseContainer.x,
         0
@@ -301,7 +300,7 @@ export async function loadSprites(apps, sounds) {
     const terminalFontSize = terminal.height * 0.07;
     let currentInput = '';
     const inputText = new PIXI.Text('_', {
-        fontFamily: 'monospace',
+        fontFamily: 'Digital7',
         fontSize: terminalFontSize,
         fill: 0x00ff00
     });
@@ -310,13 +309,12 @@ export async function loadSprites(apps, sounds) {
     inputText.anchor.set(0.5, 0);
     inputText.zIndex = 13;
     inputText.scale.y = 1.1;
-    inputText.scale.x = 0.57;
+    inputText.scale.x = 0.9;
     // app.stage.addChild(inputText);
     specialScreenContainer.addChild(inputText);
 
     // Fonction de mise à jour visuelle
     function updateDisplay() {
-        inputText.text = currentInput + (currentInput.length < 12 ? '_' : '');
         const spaced = currentInput.split('').join(' ');
         inputText.text = spaced + (currentInput.length < 12 ? '_' : '');
     }
@@ -324,11 +322,17 @@ export async function loadSprites(apps, sounds) {
     // Écouteur clavier
     window.addEventListener('keydown', (e) => {
         const key = e.key;
-
         // Cas validation
         if (key === 'Enter') {
             console.log('Mot de passe entré :', currentInput);
             // ici tu vérifies le mot de passe par exemple
+                if (currentInput.toLowerCase() === "tezcatlipoca") {
+                    console.log("Mot de passe correct");
+                    specialScreenContainer.destroy();
+
+                } else {
+                    console.log("Mot de passe incorrect");
+                }
             return;
         }
 

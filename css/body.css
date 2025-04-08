@@ -23,3 +23,8 @@ html, body {
     font-family: 'MonkeyIslandMenu';
     src: url('../font/lucasarts-scumm-menu-solid.ttf');
 }
+
+@font-face {
+    font-family: 'Digital7';
+    src: url('../font/digital-7.ttf');
+}
