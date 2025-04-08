@@ -297,16 +297,17 @@ export async function loadSprites(apps, sounds) {
 
     // FONCTIONNEMENT DU TERMINAL
     // Champ d'affichage du mot de passe
-    const terminalFontSize = terminal.height * 0.07;
+    const terminalFontSize = terminal.height * 0.053;
     let currentInput = '';
     const inputText = new PIXI.Text('_', {
         fontFamily: 'Digital7',
         fontSize: terminalFontSize,
-        fill: 0x00ff00
+        fill: 0x80FF80
     });
-    inputText.x = (terminal.x + (terminal.width - inputText.width) / 2) + (terminal.width * 0.03) ;
+    // inputText.x = (terminal.x + (terminal.width - inputText.width) / 2) + (terminal.width * 0.013);
+    inputText.x = terminal.x + terminal.width * 0.255;
     inputText.y = terminal.y + terminal.height * 0.55;
-    inputText.anchor.set(0.5, 0);
+    // inputText.anchor.set(0.5, 0);
     inputText.zIndex = 13;
     inputText.scale.y = 1.1;
     inputText.scale.x = 0.9;
@@ -315,7 +316,7 @@ export async function loadSprites(apps, sounds) {
     // Fonction de mise à jour visuelle
     function updateDisplay() {
         const spaced = currentInput.split('').join(' ');
-        inputText.text = spaced + (currentInput.length < 12 ? '_' : '');
+        inputText.text = spaced + (currentInput.length < 12 ? ' _' : '');
     }
 
     // Écouteur clavier
