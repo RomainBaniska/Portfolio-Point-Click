@@ -375,8 +375,7 @@ function unroll() {
         toilePoulieRun.gotoAndPlay(0);
         toilePoulieRun.loop = false;
 }
-toilePoulie.interactive = true;
-// toilePoulie.on('click', unroll);
+
 
 // METHODE POUR REENROULER L'ECRAN DE PROJECTION
 function reroll() {

@@ -239,7 +239,6 @@ export async function loadSprites(apps, sounds) {
     const toilePoulieRun = await displaySprite('ELEMENTS/toilepoulie/toilepoulieRun.json', 0.12);
     toilePoulie.gotoAndStop(0); 
     toilePoulie.interactive = true;
-    toilePoulie.interactive = false;
     toilePoulie.zIndex = 3;
     toilePoulieRun.zIndex = 3;
     toilePoulieRun.interactive = false;
