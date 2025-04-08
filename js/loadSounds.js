@@ -28,6 +28,13 @@ export async function loadSounds() {
     drawerClose.volume = 0.35;
     drawerClose.speed = 2;
 
+    const inputSound = PIXI.sound.add('input', '../sounds/input.mp3');
+    inputSound.volume = 1;
+    inputSound.speed = 1;
+
+    const deleteInputSound = PIXI.sound.add('deleteinput', '../sounds/deleteinput.mp3');
+    deleteInputSound.volume = 1;
+    deleteInputSound.speed = 1;
 
     return {
         unrollSound,
@@ -36,6 +43,7 @@ export async function loadSounds() {
         wipeeyesSound,
         pickupSound,
         drawerClose,
-        drawerOpen
+        drawerOpen,
+        inputSound
     };
 }

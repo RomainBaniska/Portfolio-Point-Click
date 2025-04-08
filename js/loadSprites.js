@@ -1,7 +1,7 @@
 export async function loadSprites(apps, sounds) {
 
     const { app, blackScreen } = apps;
-    const { daythemeSound } = sounds;
+    const { daythemeSound, inputSound } = sounds;
 
     const SPRITE_PATH_PREFIX = '../sprites/';
 
@@ -310,7 +310,6 @@ export async function loadSprites(apps, sounds) {
     inputText.zIndex = 13;
     inputText.scale.y = 1.1;
     inputText.scale.x = 0.9;
-    // app.stage.addChild(inputText);
     specialScreenContainer.addChild(inputText);
 
     // Fonction de mise à jour visuelle
@@ -329,7 +328,6 @@ export async function loadSprites(apps, sounds) {
                 if (currentInput.toLowerCase() === "tezcatlipoca") {
                     console.log("Mot de passe correct");
                     specialScreenContainer.destroy();
-
                 } else {
                     console.log("Mot de passe incorrect");
                 }
@@ -339,6 +337,7 @@ export async function loadSprites(apps, sounds) {
         // Cas suppression
         if (key === 'Backspace' || key === 'Delete' || key === 'ArrowLeft') {
             currentInput = currentInput.slice(0, -1);
+            PIXI.sound.play('deleteinput');
             updateDisplay();
             return;
         }
@@ -347,6 +346,7 @@ export async function loadSprites(apps, sounds) {
         if (/^[a-zA-Z]$/.test(key)) {
             if (currentInput.length < 12) {
                 currentInput += key;
+                PIXI.sound.play('input');
                 updateDisplay();
             }
         }
