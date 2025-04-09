@@ -62,8 +62,8 @@ export async function loadSprites(apps, sounds) {
     // HOUSE SPRITE
 
     let currentDate = new Date();
-    let currentHour = currentDate.getHours();
-    // let currentHour = 8;
+    // let currentHour = currentDate.getHours();
+    let currentHour = 8;
     let houseTexturePath;
     if (currentHour >= 7 && currentHour < 22) {
         houseTexturePath = '../sprites/jardin.jpg';
@@ -248,7 +248,7 @@ export async function loadSprites(apps, sounds) {
     const toilePoulie = await displaySprite('ELEMENTS/toilepoulie/toilepoulie.json', 0.12);
     const toilePoulieRun = await displaySprite('ELEMENTS/toilepoulie/toilepoulieRun.json', 0.12);
     toilePoulie.gotoAndStop(0); 
-    toilePoulie.interactive = true;
+    toilePoulie.interactive = false;
     toilePoulie.zIndex = 3;
     toilePoulieRun.zIndex = 3;
     toilePoulieRun.interactive = false;

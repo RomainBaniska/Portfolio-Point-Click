@@ -374,6 +374,7 @@ function unroll() {
         toilePoulieRun.interactive = true;
         toilePoulieRun.gotoAndPlay(0);
         toilePoulieRun.loop = false;
+        // toilePoulie.interactive = true;
 }
 
 
@@ -390,7 +391,8 @@ function reroll() {
     setTimeout(() => {
         innerHouseContainer.removeChild(toilePoulieReverse)
         innerHouseContainer.addChild(toilePoulie); 
-        toilePoulie.interactive = true; 
+        // toilePoulie.interactive = true; 
+        toilePoulie.interactive = false;
     }, 3000);
  
 
