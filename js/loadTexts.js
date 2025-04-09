@@ -14,6 +14,7 @@ export async function loadTexts(sprites) {
         menuButton9,
      } = sprites;
 
+     
     // Heure actuelle
     let currentDate = null;
     let currentHour =  null;
@@ -71,15 +72,16 @@ export async function loadTexts(sprites) {
     ];
 
     // TEXTE OU ACTION DU JOUEUR LORS DU CLIC SUR UN SPRITE AVEC UN MENUBUTTON ACTIF
+    // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
+    // Pour tous les sprites interactifs...
     const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest, goldkey, menuItemGoldKey];
-    
+    // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
             regarder: ["Il semble être le maître de ces lieux", "De toute évidence il est extrêmement musclé", "Pourtant, je ne vois aucune haltère dans cette maison", "Curieux..."],
             parler: ""
         },
-
         guybrushLD: {
             regarder: "il dort profondément",
             parler: ["Eh ho !",
@@ -125,7 +127,7 @@ export async function loadTexts(sprites) {
         },
         reveil: {
             utiliser: "Eh t'as assez ronflé coco !",
-            regarder:  ["1"]
+            regarder:  ["1"] // Action changeante dynamiquement
         },
         glasswater: {
             utiliser: "Non merci je n'ai pas soif",
@@ -170,12 +172,12 @@ export async function loadTexts(sprites) {
             item: true,
         },
         menuItemGlassWater: {
-            utiliser: "",
+            utiliser: "NO",
             regarder: "Le verre est rempli d'eau",
             item: true,
         },
         menuItemGlassWaterEmpty: {
-            utiliser: "",
+            utiliser: "NO",
             regarder: "Le verre est vide",
             item: true,
         },
@@ -185,40 +187,27 @@ export async function loadTexts(sprites) {
 
     // Pour tous les sprites interactifs à l'écran
     interactableSprites.forEach(interactableSprite => {
-                    // On définit tous les sprites comme "non cliqué" au départ
+                    // On définit tous les sprites interactifs comme "non cliqué" au départ
                     interactableSprite.clicked = false;
 
-                    // Mais lorsqu'on clic sur un sprite, il devient ".clicked === true"
+                    // Lorsqu'on clic sur un sprite, il devient ".clicked === true"
                     interactableSprite.on('click', async () => {
                             // On empêche plusieurs clics simultanés, si le sprite est déjà cliqué, on retourne
                             if (!interactableSprite.clicked) {
                                 interactableSprite.clicked = true;
-                            }                            
-
-                        console.log(interactableSprite.label, interactableSprite.clicked);
-                        console.log(reveil.label, reveil.clicked);
-                        console.log(ordi.label, ordi.clicked);
-
-                            // Lorsque le sprite interactif est ".clicked"... 
-                            // On vérifie si une séquence de Texte est en cours, si oui on la rend ".canceled === true" 
-                             if (currentTextSequence) {
-                                 currentTextSequence.canceled = true;
-                                 console.log(currentTextSequence, interactableSprite.label, "annulée");
-                             }
-                            // Ensuite on appelle spriteActionPlayerText()
+                            }
                             await spriteActionPlayerText();
 
                         // Une fois le sprite cliqué, on le repasse immédiatement en false
                         interactableSprite.clicked = false;
-                        console.log (interactableSprite.label, interactableSprite.clicked, 'exécuté');
+                        // console.log (interactableSprite.label, interactableSprite.clicked, 'exécuté');
                     });
     });
 
-    // Méthode permettant d'ajouter divers dialogues en fonction du sprite cliqué
+    // Méthode permettant d'ajouter divers ajout de texte en fonction du sprite cliqué
     async function spriteActionPlayerText() {
-
-        const activatedMenuButton = menuButtonsArray.find(button => button.isActive); // Cherche quel est le bouton d'action actif
-        const clickedSprite = interactableSprites.find(sprite => sprite.clicked); // Cherche quel est le sprite cliqué
+        const activatedMenuButton = menuButtonsArray.find(button => button.isActive === true); // Cherche quel est le bouton d'action actif
+        const clickedSprite = interactableSprites.find(sprite => sprite.clicked === true); // Cherche quel est le sprite cliqué
     
         // Si un bouton d'action est actif et qu'un sprite interagissable est cliqué
         if (activatedMenuButton && clickedSprite) {
@@ -257,20 +246,21 @@ export async function loadTexts(sprites) {
                 
                         // Alors on définit l'action qui va être exécutée (ex texte : "l'ordinateur est éteint")
                         const actionEvent = spriteBehaviors[spriteName][action];
-                        console.log(actionEvent);
 
                         // Si cette action n'est pas un simple TEXTE, mais une véritable ACTION COMPLEXE (fonction)
                         if (typeof actionEvent === "function") {
                             const result = response();
-                            await displayText(result, 3000); // On joue l'action
+                            await displayText(result, 1000); // On joue l'action
+                            // activatedMenuButton.isActive === false;
 
                         // Si l'actionEvent n'est pas un simple TEXTE, mais un plusieurs LIGNES DE TEXTES
                         } else if (Array.isArray(actionEvent)) {
-                            await displayTextSequence(actionEvent, 3000); // On affiche la séquence entière
+                            await displayTextSequence(actionEvent, 1000); // On affiche la séquence entière
 
                         // Si l'actionEvent est une simple ligne de TEXTE, alors on l'affiche
                         } else {
-                            await displayText(actionEvent, 3000); // On affiche le texte
+                            await displayText(actionEvent, 1000); // On affiche le texte
+                            // activatedMenuButton.isActive === false;
                         }
 
             // Si le sprite n'a pas d'action prévue...
@@ -303,31 +293,73 @@ export async function loadTexts(sprites) {
     });
     }
 
-    // SOLUTION !! DECOMMENTER ET REVOIR LA LOGIQUE DU SKIP DIALOGUE
-
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR SI IL Y EN A PLUS D'UNE
-    async function displayTextSequence(dialogues, delay = 3000) {
-        // Création d'une référence unique pour la séquence
-        currentTextSequence = { canceled: false };
+    async function displayTextSequence(textSequence, time) {
 
-        for (const text of dialogues) {
-                // Si une nouvelle séquence est démarrée, arrêter l'ancienne
-                if (currentTextSequence.canceled) {
-                    console.log("Séquence annulée.");
-                    return;
-                }
-
-            await displayText(text, delay);
-
-            // if (currentTextSequence.canceled) {
-            //     // if (currentTextSequence !== sequence) {
-            //     console.log("Séquence annulée.");
-            //     return;
-            // }
+         // Vérifie et annule une séquence précédente si elle existe
+        if (currentTextSequence) {
+            console.log("Séquence en cours, arrêt et suppression de la précédente");
+            currentTextSequence = null;  // Réinitialiser la séquence précédente
         }
+
+        // Lancer la nouvelle séquence
+        for (let i = 0; i < textSequence.length; i++) {
+            const text = textSequence[i];
+            // Vérifier si la séquence a été annulée
+            if (currentTextSequence && currentTextSequence.canceled) {
+                console.log("Séquence annulée.");
+                return;
+            }
+
+        // Affichage du texte actuel
+            await displayText(text, time);
+        }
+
         // Séquence terminée
         currentTextSequence = null;
+        console.log("Séquence terminée, currentTextSequence remis à null");
+
+        // if (currentTextSequence) {
+        //     console.log("Séquence en cours, arrêt et suppression de la précédente");
+        //     currentTextSequence = null;  // Réinitialiser la séquence précédente
+        // }
+    
+        // // Lancer la nouvelle séquence
+        // for (let i = 0; i < textSequence.length; i++) {
+        //     const text = textSequence[i];
+        //     // Vérifier si la séquence a été annulée par un autre processus
+        //     if (currentTextSequence && currentTextSequence.canceled) {
+        //         console.log("Séquence annulée.");
+        //         return;
+        //     }
+    
+        //     // Affichage du texte actuel
+        //     await displayText(text, time);
+        // }
+    
+        // // Séquence terminée
+        // currentTextSequence = null;
+        // console.log("Séquence terminée, currentTextSequence remis à null");
+
+
+        // // Création d'une référence unique pour la séquence
+        // currentTextSequence = { canceled: false };
+
+        // for (let i = 0; i < textSequence.length; i++) {
+        //     const text = textSequence[i];
+        //     // Si une nouvelle séquence est démarrée, arrêter l'ancienne
+        //     if (currentTextSequence && currentTextSequence.canceled) {
+        //         console.log("Séquence annulée.");
+        //         return;
+        //     }
+        //     await displayText(text, time);
+        // }
+        // // Séquence terminée
+        // currentTextSequence = null;
+        // console.log("currentTextSequence remis à null", currentTextSequence)
     }
+
+    console.log(menuItemGlassWater.label)
 
     return {
         wakeUpText,
