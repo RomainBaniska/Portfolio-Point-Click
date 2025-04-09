@@ -43,6 +43,10 @@ export async function loadSounds() {
     passwordValidSound.volume = 1;
     passwordValidSound.speed = 1;
 
+    const ewsthemeSound = PIXI.sound.add('ewstheme', '../sounds/ewstheme.mp3');
+    ewsthemeSound.volume = 1;
+    ewsthemeSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,
@@ -53,6 +57,7 @@ export async function loadSounds() {
         drawerClose,
         drawerOpen,
         inputSound,
-        passwordValidSound
+        passwordValidSound,
+        ewsthemeSound
     };
 }

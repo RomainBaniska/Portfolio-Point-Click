@@ -340,7 +340,10 @@ export async function loadSprites(apps, sounds) {
                 if (currentInput.toLowerCase() === "tezcatlipoca") {
                     console.log("Mot de passe correct");
                     PIXI.sound.play('passwordValid');
-                    specialScreenContainer.destroy();
+                    setTimeout(() => {
+                        PIXI.sound.play('ewstheme', { loop: true });
+                    }, 110000);
+                    // specialScreenContainer.destroy();
                 } else {
                     console.log("Mot de passe incorrect");
                 }
