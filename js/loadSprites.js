@@ -1,7 +1,7 @@
 export async function loadSprites(apps, sounds) {
 
     const { app, blackScreen } = apps;
-    // const { daythemeSound, inputSound } = sounds;
+    const { daythemeSound, nightthemeSound, inputSound } = sounds;
 
     const SPRITE_PATH_PREFIX = '../sprites/';
 
@@ -62,8 +62,8 @@ export async function loadSprites(apps, sounds) {
     // HOUSE SPRITE
 
     let currentDate = new Date();
-    // let currentHour = currentDate.getHours();
-    let currentHour = 8;
+    let currentHour = currentDate.getHours();
+    // currentHour = 23;
     let houseTexturePath;
     if (currentHour >= 7 && currentHour < 22) {
         houseTexturePath = '../sprites/jardin.jpg';
@@ -277,7 +277,7 @@ export async function loadSprites(apps, sounds) {
     // SPECIAL SCREEN CONTAINER 
     const specialScreenContainer = new PIXI.Container();
     specialScreenContainer.sortableChildren = true;
-    app.stage.addChild(specialScreenContainer);
+    // app.stage.addChild(specialScreenContainer);
     specialScreenContainer.position.set(
         (app.stage.width - specialScreenContainer.width) / 2,
         0
@@ -324,11 +324,23 @@ export async function loadSprites(apps, sounds) {
     inputText.scale.x = 0.9;
     specialScreenContainer.addChild(inputText);
 
+    let showCursor = true;
+    
     // Fonction de mise à jour visuelle
-    function updateDisplay() {
+    function terminalUpdateDisplay() {
         const spaced = currentInput.split('').join(' ');
-        inputText.text = spaced + (currentInput.length < 12 ? ' _' : '');
+        let cursor = '';
+        if (currentInput.length < 12 && showCursor) {
+            cursor = ' _';
+        }
+        inputText.text = spaced + cursor;
     }
+
+    // Curseur clignotant
+    setInterval(() => {
+        showCursor = !showCursor;
+        terminalUpdateDisplay();
+    }, 500);
 
     // Écouteur clavier
     window.addEventListener('keydown', (e) => {
@@ -354,7 +366,7 @@ export async function loadSprites(apps, sounds) {
         if (key === 'Backspace' || key === 'Delete' || key === 'ArrowLeft') {
             currentInput = currentInput.slice(0, -1);
             PIXI.sound.play('deleteinput');
-            updateDisplay();
+            terminalUpdateDisplay();
             return;
         }
 
@@ -363,7 +375,7 @@ export async function loadSprites(apps, sounds) {
             if (currentInput.length < 12) {
                 currentInput += key;
                 PIXI.sound.play('input');
-                updateDisplay();
+                terminalUpdateDisplay();
             }
         }
     });
@@ -521,6 +533,7 @@ export async function loadSprites(apps, sounds) {
             }
         } else {
             daythemeSound.muted = !daythemeSound.muted;
+            nightthemeSound.muted = !nightthemeSound.muted;
         }
     });
 
