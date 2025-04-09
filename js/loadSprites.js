@@ -1,7 +1,7 @@
 export async function loadSprites(apps, sounds) {
 
     const { app, blackScreen } = apps;
-    const { daythemeSound, inputSound } = sounds;
+    // const { daythemeSound, inputSound } = sounds;
 
     const SPRITE_PATH_PREFIX = '../sprites/';
 
@@ -277,7 +277,7 @@ export async function loadSprites(apps, sounds) {
     // SPECIAL SCREEN CONTAINER 
     const specialScreenContainer = new PIXI.Container();
     specialScreenContainer.sortableChildren = true;
-    // app.stage.addChild(specialScreenContainer);
+    app.stage.addChild(specialScreenContainer);
     specialScreenContainer.position.set(
         (app.stage.width - specialScreenContainer.width) / 2,
         0
@@ -339,6 +339,7 @@ export async function loadSprites(apps, sounds) {
             // ici tu vérifies le mot de passe par exemple
                 if (currentInput.toLowerCase() === "tezcatlipoca") {
                     console.log("Mot de passe correct");
+                    PIXI.sound.play('passwordValid');
                     specialScreenContainer.destroy();
                 } else {
                     console.log("Mot de passe incorrect");
