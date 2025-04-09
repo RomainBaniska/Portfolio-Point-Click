@@ -1,30 +1,48 @@
-<head>
-    <link rel="stylesheet" href="../css/video.css">
-</head>
+<script>
 
-<div class="wrapper">
-    <div class="intro">
-      <h1 class="heading">Clock Wipe</h1>
-      <p class="nudge">hover/tap to see transition</p>
-    </div>
-  
-    <div class="scenes" tabindex="0">
-      <div class="scene-1">
-        <h2 class="scene-title">Kylo Ren</h2>
-      </div>
-      <div class="scene-2">
-        <h2 class="scene-title">C-3PO and Captain Gandalf</h2>
-      </div>
-    </div>
-  
-    <div class="visualizer">
-      <div class="visualizer-frame-1">
-        <div class="visualizer-mask"></div>
-      </div>
-      <div class="operator">and</div>
-      <div class="visualizer-frame-2">
-        <div class="visualizer-mask"></div>
-      </div>
-    </div>
-  </div>
-  
+// TRANSITION VOLET :
+const scene1Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-1.jpg');
+    const scene1 = new PIXI.Sprite(scene1Asset);
+    const scene2Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-2.jpg');
+    const scene2 = new PIXI.Sprite(scene2Asset);
+
+    scene1.width = scene2.width = terminalbgSprite.width;
+    scene1.height = scene2.height = terminalbgSprite.height;
+    scene1.x = scene2.x = terminalbgSprite.x;
+
+    scene1.zIndex = scene2.zIndex = 98;
+
+    specialScreenContainer.addChild(scene1);
+    specialScreenContainer.addChild(scene2);
+
+    // 2. Create the masking graphics
+    const mask = new PIXI.Graphics();
+    scene2.mask = mask;
+    app.stage.addChild(mask);
+
+    // 3. Animate the mask (clock wipe effect)
+    let angle = -90;
+    app.ticker.add(() => {
+    if (angle < 370) {
+        angle += 3;
+
+        mask.clear();
+        mask.beginFill(0xffffff);
+
+        const cx = app.screen.width / 2;
+        const cy = app.screen.height / 2;
+        const radius = Math.max(cx, cy) * 2;
+
+        mask.moveTo(cx, cy);
+
+        for (let a = -90; a <= angle; a += 1) {
+        const rad = a * (Math.PI / 180);
+        mask.lineTo(cx + radius * Math.cos(rad), cy + radius * Math.sin(rad));
+        }
+
+        mask.lineTo(cx, cy);
+        mask.endFill();
+    }
+    });
+
+</script>

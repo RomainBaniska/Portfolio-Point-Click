@@ -379,49 +379,84 @@ export async function loadSprites(apps, sounds) {
     });
 
     // TRANSITION VOLET :
-    const scene1Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-1.jpg');
-    const scene1 = new PIXI.Sprite(scene1Asset);
-    const scene2Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-2.jpg');
-    const scene2 = new PIXI.Sprite(scene2Asset);
+const scene1Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-1.jpg');
+const scene1 = new PIXI.Sprite(scene1Asset);
+const scene1Mask = new PIXI.Graphics();
+scene1.mask = scene1Mask; // Applique le masque sur scene1
 
-    scene1.width = scene2.width = terminalbgSprite.width;
-    scene1.height = scene2.height = terminalbgSprite.height;
-    scene1.x = scene2.x = terminalbgSprite.x;
+const scene2Asset = await PIXI.Assets.load('../sprites/blackbgscreen.jpg');
+const scene2 = new PIXI.Sprite(scene2Asset);
 
-    scene1.zIndex = scene2.zIndex = 98;
+scene1.width = scene2.width = terminalbgSprite.width;
+scene1.height = scene2.height = terminalbgSprite.height;
+scene1.x = scene2.x = terminalbgSprite.x;
 
-    specialScreenContainer.addChild(scene1);
-    specialScreenContainer.addChild(scene2);
+scene1.zIndex = scene2.zIndex = 98;
 
-    // 2. Create the masking graphics
-    const mask = new PIXI.Graphics();
-    scene2.mask = mask;
-    app.stage.addChild(mask);
+specialScreenContainer.addChild(scene1);
+specialScreenContainer.addChild(scene2);
 
-    // 3. Animate the mask (clock wipe effect)
-    let angle = -90;
-    app.ticker.add(() => {
+// Chest en gros plan
+const chestZoom = await displaySprite('ELEMENTS/chest/chest.json', 0.12);
+chestZoom.gotoAndStop(0); 
+chestZoom.interactive = true;
+chestZoom.zIndex = 99;
+chestZoom.anchor.set(0.5);
+chestZoom.x = specialScreenContainer.width / 2;
+chestZoom.y = specialScreenContainer.height / 2;
+chestZoom.width = specialScreenContainer.width * 0.4;
+chestZoom.height = specialScreenContainer.height * 0.4;
+chestZoom.animationSpeed = 0.03
+chestZoom.loop = false;
+chestZoom.visible = false;  // Commence invisible
+specialScreenContainer.addChild(chestZoom);
+
+// 2. Create the masking graphics for scene1 (mask out the portion of the image)
+const mask = new PIXI.Graphics();
+scene2.mask = mask; // Applique le masque sur scene2
+app.stage.addChild(mask);
+
+// 3. Animate the mask (clock wipe effect)
+let angle = -90;
+let fadeInOpacity = 0;  // Variable d'opacité pour le fade-in
+app.ticker.add(() => {
     if (angle < 370) {
         angle += 3;
 
+        // Clear the previous mask drawing
         mask.clear();
-        mask.beginFill(0xffffff);
 
+        // On commence par dessiner un cercle complet pour cacher toute l'image de "scene2"
         const cx = app.screen.width / 2;
         const cy = app.screen.height / 2;
         const radius = Math.max(cx, cy) * 2;
 
-        mask.moveTo(cx, cy);
+        // Dessine un cercle qui devient un "trou" avec l'animation de l'angle
+        mask.beginFill(0xffffff);
 
+        mask.moveTo(cx, cy);
         for (let a = -90; a <= angle; a += 1) {
-        const rad = a * (Math.PI / 180);
-        mask.lineTo(cx + radius * Math.cos(rad), cy + radius * Math.sin(rad));
+            const rad = a * (Math.PI / 180);
+            mask.lineTo(cx + radius * Math.cos(rad), cy + radius * Math.sin(rad));
         }
 
-        mask.lineTo(cx, cy);
+        mask.lineTo(cx, cy); // Ferme le cercle pour avoir un contour complet
         mask.endFill();
+    } else {
+        // Quand l'animation du volet est terminée, on affiche et anime chestZoom
+        if (!chestZoom.visible) {
+            chestZoom.visible = true;
+            chestZoom.play();  // Lance l'animation
+        }
+
+        // Anime l'opacité de 0 à 1
+        if (fadeInOpacity < 1) {
+            fadeInOpacity += 0.01;  // Change cette valeur pour ajuster la vitesse d'apparition
+            chestZoom.alpha = fadeInOpacity;
+        }
     }
-    });
+});
+
 
     // TOILE SCREEN
     const toileScreenAsset = await PIXI.Assets.load('../sprites/SPECIAL/toileScreen.png');
