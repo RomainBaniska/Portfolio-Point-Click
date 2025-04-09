@@ -60,7 +60,17 @@ export async function loadSprites(apps, sounds) {
     screenBackgroundContainer.addChild(houseContainer);
 
     // HOUSE SPRITE
-    const houseAsset = await PIXI.Assets.load('../sprites/jardinnuit.jpg');
+
+    let currentDate = new Date();
+    let currentHour = currentDate.getHours();
+    // let currentHour = 8;
+    let houseTexturePath;
+    if (currentHour >= 7 && currentHour < 22) {
+        houseTexturePath = '../sprites/jardin.jpg';
+    } else {
+        houseTexturePath = '../sprites/jardinnuit.jpg';
+    }
+    const houseAsset = await PIXI.Assets.load(houseTexturePath);
     const houseSprite = new PIXI.Sprite(houseAsset);
     houseContainer.addChild(houseSprite);
 
@@ -465,7 +475,7 @@ export async function loadSprites(apps, sounds) {
     );
     music.scale.set(scaleFactorNote);
 
-    let daythemePLAY = null;
+    let musicthemePLAY = null;
     let musicToggled = false;
 
     // HOVER ET CLIC MUSIC
@@ -499,8 +509,12 @@ export async function loadSprites(apps, sounds) {
             musicToggled = false
         }
         // Musique
-        if (!daythemePLAY) {
-            daythemePLAY = PIXI.sound.play('daytheme', { loop: true });
+        if (!musicthemePLAY) {
+            if (currentHour >= 7 && currentHour < 22) {
+                musicthemePLAY = PIXI.sound.play('daytheme', { loop: true });
+            } else {
+                musicthemePLAY = PIXI.sound.play('nighttheme', { loop: true });
+            }
         } else {
             daythemeSound.muted = !daythemeSound.muted;
         }

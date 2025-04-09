@@ -8,6 +8,9 @@ export async function loadSounds() {
     daythemeSound.volume = 0.3;
     // daythemeSound.loop = true;
 
+    const nightthemeSound = PIXI.sound.add('nighttheme', '../sounds/nighttheme&bugs.mp3');
+    nightthemeSound.volume = 0.3;
+
     const watersplashSound = PIXI.sound.add('watersplash', '../sounds/watersplash.mp3');
     watersplashSound.volume = 0.3;
     watersplashSound.speed = 0.9;
@@ -39,6 +42,7 @@ export async function loadSounds() {
     return {
         unrollSound,
         daythemeSound,
+        nightthemeSound,
         watersplashSound,
         wipeeyesSound,
         pickupSound,
