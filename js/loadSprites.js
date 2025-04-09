@@ -277,7 +277,7 @@ export async function loadSprites(apps, sounds) {
     // SPECIAL SCREEN CONTAINER 
     const specialScreenContainer = new PIXI.Container();
     specialScreenContainer.sortableChildren = true;
-    // app.stage.addChild(specialScreenContainer);
+    app.stage.addChild(specialScreenContainer);
     specialScreenContainer.position.set(
         (app.stage.width - specialScreenContainer.width) / 2,
         0
@@ -315,10 +315,8 @@ export async function loadSprites(apps, sounds) {
         }
     });
     
-    // inputText.x = (terminal.x + (terminal.width - inputText.width) / 2) + (terminal.width * 0.013);
     inputText.x = terminal.x + terminal.width * 0.255;
     inputText.y = terminal.y + terminal.height * 0.55;
-    // inputText.anchor.set(0.5, 0);
     inputText.zIndex = 13;
     inputText.scale.y = 1.1;
     inputText.scale.x = 0.9;
@@ -378,6 +376,51 @@ export async function loadSprites(apps, sounds) {
                 terminalUpdateDisplay();
             }
         }
+    });
+
+    // TRANSITION VOLET :
+    const scene1Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-1.jpg');
+    const scene1 = new PIXI.Sprite(scene1Asset);
+    const scene2Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-2.jpg');
+    const scene2 = new PIXI.Sprite(scene2Asset);
+
+    scene1.width = scene2.width = terminalbgSprite.width;
+    scene1.height = scene2.height = terminalbgSprite.height;
+    scene1.x = scene2.x = terminalbgSprite.x;
+
+    scene1.zIndex = scene2.zIndex = 98;
+
+    specialScreenContainer.addChild(scene1);
+    specialScreenContainer.addChild(scene2);
+
+    // 2. Create the masking graphics
+    const mask = new PIXI.Graphics();
+    scene2.mask = mask;
+    app.stage.addChild(mask);
+
+    // 3. Animate the mask (clock wipe effect)
+    let angle = -90;
+    app.ticker.add(() => {
+    if (angle < 370) {
+        angle += 3;
+
+        mask.clear();
+        mask.beginFill(0xffffff);
+
+        const cx = app.screen.width / 2;
+        const cy = app.screen.height / 2;
+        const radius = Math.max(cx, cy) * 2;
+
+        mask.moveTo(cx, cy);
+
+        for (let a = -90; a <= angle; a += 1) {
+        const rad = a * (Math.PI / 180);
+        mask.lineTo(cx + radius * Math.cos(rad), cy + radius * Math.sin(rad));
+        }
+
+        mask.lineTo(cx, cy);
+        mask.endFill();
+    }
     });
 
     // TOILE SCREEN
