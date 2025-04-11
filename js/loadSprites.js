@@ -303,13 +303,43 @@ export async function loadSprites(apps, sounds) {
       );
 
     // TERMINAL PW VALID PENDING SCREEN
-    const terminalPS = await displaySprite('TERMINAL/terminalpending.json', 0.12);
+    const terminalPS = await displaySprite('TERMINAL/terminalpending.json', 0.03);
     terminalPS.zIndex = 12;
     terminalPS.height = terminal.height;
     terminalPS.width = terminal.width;
 
     terminalPS.x = terminalbgSprite.x + (terminalbgSprite.width - terminal.width) / 2;
     specialScreenContainer.addChild(terminalPS);
+
+    // PENDING LOGO
+    const pendingLogo = await displaySprite('TERMINAL/hourglassAnimated.json', 0.1);
+    pendingLogo.zIndex = 13;
+    pendingLogo.height = terminal.height / 8;
+    pendingLogo.width = terminal.width / 8;
+
+    pendingLogo.x = terminalPS.x + (terminalPS.width - pendingLogo.width) / 2;
+    pendingLogo.y = terminalPS.y + (terminalPS.height - pendingLogo.height) / 2;
+    specialScreenContainer.addChild(pendingLogo);
+
+    // yellow led
+    const yellowledAsset = await PIXI.Assets.load('../sprites/TERMINAL/yellowled1.png');
+    const yellowled = new PIXI.Sprite(yellowledAsset);
+    yellowled.zIndex = 12;
+    yellowled.height = terminal.height;
+    yellowled.width = terminal.width;
+
+    yellowled.x = terminal.x;
+    specialScreenContainer.addChild(yellowled);
+
+    // green led
+    const greenledAsset = await PIXI.Assets.load('../sprites/TERMINAL/greenled1.png');
+    const greenled = new PIXI.Sprite(greenledAsset);
+    greenled.zIndex = 12;
+    greenled.height = terminal.height;
+    greenled.width = terminal.width;
+
+    greenled.x = terminal.x;
+    specialScreenContainer.addChild(greenled);
 
 
     // FONCTIONNEMENT DU TERMINAL
