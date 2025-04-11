@@ -264,8 +264,8 @@ resizeButtons();
         const h = boutdemetalShine.height;
     
         // Position à 4h30 ≈ bas droit, vers 70% largeur et 85% hauteur
-        const areaWidth = w * 0.2;
-        const areaHeight = h * 0.2;
+        const areaWidth = w * 0.6;
+        const areaHeight = h * 0.6;
     
         const areaX = w * 0.7 - areaWidth / 2;
         const areaY = h * 0.85 - areaHeight / 2;
