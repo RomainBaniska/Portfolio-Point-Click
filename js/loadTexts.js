@@ -114,7 +114,7 @@ export async function loadTexts(sprites) {
             ]
         },
         ordi: {
-            utiliser: "Je dois d'abord l'allumer",
+            utiliser: "Aucune idée de comment allumer ce truc",
             ouvrir: "L'ordinateur s'allume avec un bruit de ventilateur.",
             fermer: "L'ordinateur est déjà éteint",
             regarder: ["L'ordinateur est éteint", "Sous l'écran il y a une interstice qui semble pouvoir accueillir une disquette", "Mais de quand date ce truc ?"],

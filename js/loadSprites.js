@@ -63,7 +63,7 @@ export async function loadSprites(apps, sounds) {
 
     let currentDate = new Date();
     let currentHour = currentDate.getHours();
-    // currentHour = 23;
+    currentHour = 23;
     let houseTexturePath;
     if (currentHour >= 7 && currentHour < 22) {
         houseTexturePath = '../sprites/jardin.jpg';
@@ -277,7 +277,7 @@ export async function loadSprites(apps, sounds) {
     // SPECIAL SCREEN CONTAINER 
     const specialScreenContainer = new PIXI.Container();
     specialScreenContainer.sortableChildren = true;
-    app.stage.addChild(specialScreenContainer);
+    // app.stage.addChild(specialScreenContainer);
     specialScreenContainer.position.set(
         (app.stage.width - specialScreenContainer.width) / 2,
         0
@@ -380,59 +380,63 @@ export async function loadSprites(apps, sounds) {
         terminalUpdateDisplay();
     }, 500);
 
-    // Écouteur clavier
-    window.addEventListener('keydown', (e) => {
+    // Fonction d'écoute de l'événement keydown
+    function handleKeydown(e) {
         const key = e.key;
+
         // Cas validation
-        if (key === 'Enter') {
+        if (key === 'Enter') {  
             console.log('Mot de passe entré :', currentInput);
-            // ici tu vérifies le mot de passe par exemple
-                if (currentInput.toLowerCase() === "tezcatlipoca") {
-                    
-                    PIXI.sound.play('passwordValid');
+            // Vérification du mot de passe
+            if (currentInput.toLowerCase() === "tezcatlipoca") {
+                
+                PIXI.sound.play('passwordValid');
 
-                    setTimeout(() => { // recalage d'un léger délai au départ du sound
-                        specialScreenContainer.addChild(greenled); 
-                    }, 400);
+                setTimeout(() => { // recalage d'un léger délai au départ du sound
+                    specialScreenContainer.addChild(greenled); 
+                }, 400);
 
+                setTimeout(() => {
+                    specialScreenContainer.removeChild(greenled);
+                }, 3000);
+
+                setTimeout(() => {
+                    specialScreenContainer.removeChild(terminal);
+                    specialScreenContainer.removeChild(inputText);
+                    specialScreenContainer.addChild(terminalPS);
+                    specialScreenContainer.addChild(pendingLogo);
+                    setTimeout(() => {
+                        specialScreenContainer.addChild(greenled);
+                    }, 2500);
                     setTimeout(() => {
                         specialScreenContainer.removeChild(greenled);
-                    }, 3000);
+                    }, 5000);
+                    setTimeout(() => {
+                        specialScreenContainer.addChild(greenled);
+                    }, 7000);
+                }, 3000);
 
-                    setTimeout(() => {
-                        specialScreenContainer.removeChild(terminal);
-                        specialScreenContainer.removeChild(inputText);
-                        specialScreenContainer.addChild(terminalPS);
-                        specialScreenContainer.addChild(pendingLogo);
-                        setTimeout(() => {
-                            specialScreenContainer.addChild(greenled);
-                        }, 2500);
-                        setTimeout(() => {
-                            specialScreenContainer.removeChild(greenled);
-                        }, 5000);
-                        setTimeout(() => {
-                            specialScreenContainer.addChild(greenled);
-                        }, 7000);
-                    }, 3000);
-                    setTimeout(() => {
-                        transitionVolet();
-                    }, 10000);
-                    setTimeout(() => {
-                        PIXI.sound.stop('passwordValid');
-                        PIXI.sound.play('ewstheme', { loop: true });
-                    }, 110000);
+                setTimeout(() => {
+                    transitionVolet();
+                }, 10000);
 
-                    console.log("Mot de passe correct");
+                setTimeout(() => {
+                    PIXI.sound.stop('passwordValid');
+                    PIXI.sound.play('ewstheme', { loop: true });
+                }, 110000);
 
-                    // specialScreenContainer.destroy();
-                } else {
-                    specialScreenContainer.addChild(yellowled);
-                    PIXI.sound.play('accessDenied');
-                    setTimeout(() => {
-                        specialScreenContainer.removeChild(yellowled);
-                    }, 500);
-                    console.log("Mot de passe incorrect");
-                }
+                console.log("Mot de passe correct");
+
+                // Retirer l'écouteur d'événements après la validation
+                window.removeEventListener('keydown', handleKeydown);
+            } else {
+                specialScreenContainer.addChild(yellowled);
+                PIXI.sound.play('accessDenied');
+                setTimeout(() => {
+                    specialScreenContainer.removeChild(yellowled);
+                }, 500);
+                console.log("Mot de passe incorrect");
+            }
             return;
         }
 
@@ -445,14 +449,18 @@ export async function loadSprites(apps, sounds) {
         }
 
         // Vérification caractère autorisé (lettres uniquement)
-        if (/^[a-zA-Z]$/.test(key)) {
+        if (/^[a-zA-Z0-9]$/.test(key)) {
             if (currentInput.length < 12) {
                 currentInput += key;
                 PIXI.sound.play('input');
                 terminalUpdateDisplay();
             }
         }
-    });
+    }
+
+    // Ajouter l'écouteur d'événements
+    window.addEventListener('keydown', handleKeydown);
+
 
     async function transitionVolet () {
     // TRANSITION VOLET :
@@ -541,7 +549,27 @@ export async function loadSprites(apps, sounds) {
                         clearInterval(fadeOutInterval);
                     }
                 }, 16);
+
+                // On ouvre le minisprite du chest à la dernière frame
+                chest.gotoAndStop(5);
             }, 12000);
+            // On détruit absolument tous les sprites du terminal
+            // greenled.destroy();
+            // yellowled.destroy();
+            // inputText.destroy();
+            // terminal.destroy();
+            // terminalbgSprite.destroy();
+            // terminalPS.destroy();
+            // pendingLogo.destroy();
+
+            setTimeout(() => {
+                innerHouseContainer.removeChild(guybrushSO);
+                // chestZoom.destroy();
+                // mask.destroy();
+                // specialScreenContainer.destroy();
+                app.stage.removeChild(specialScreenContainer);
+            }, 15000);
+
             }
 
             // Anime l'opacité de 0 à 1
@@ -1286,6 +1314,7 @@ export async function loadSprites(apps, sounds) {
         houseContainer,
         innerHouseContainer,
         screenBackgroundContainer,
+        specialScreenContainer,
         // innerHouseBGSprite,
         houseSprite,
         innerHouseSprite,
@@ -1371,6 +1400,8 @@ export async function loadSprites(apps, sounds) {
         arrow,
         music,
         musicActive,
+        // NOT A SPRITE
+        // musicthemePLAY,
     };
 }
 
