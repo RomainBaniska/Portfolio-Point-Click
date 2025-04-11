@@ -302,6 +302,16 @@ export async function loadSprites(apps, sounds) {
         0
       );
 
+    // TERMINAL PW VALID PENDING SCREEN
+    const terminalPS = await displaySprite('TERMINAL/terminalpending.json', 0.12);
+    terminalPS.zIndex = 12;
+    terminalPS.height = terminal.height;
+    terminalPS.width = terminal.width;
+
+    terminalPS.x = terminalbgSprite.x + (terminalbgSprite.width - terminal.width) / 2;
+    specialScreenContainer.addChild(terminalPS);
+
+
     // FONCTIONNEMENT DU TERMINAL
     // Champ d'affichage du mot de passe
     const terminalFontSize = terminal.height * 0.053;
@@ -350,6 +360,7 @@ export async function loadSprites(apps, sounds) {
                 if (currentInput.toLowerCase() === "tezcatlipoca") {
                     console.log("Mot de passe correct");
                     PIXI.sound.play('passwordValid');
+                    transitionVolet();
                     setTimeout(() => {
                         PIXI.sound.stop('passwordValid');
                         PIXI.sound.play('ewstheme', { loop: true });
@@ -379,6 +390,7 @@ export async function loadSprites(apps, sounds) {
         }
     });
 
+    async function transitionVolet () {
     // TRANSITION VOLET :
     const scene1Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-1.jpg');
     const scene1 = new PIXI.Sprite(scene1Asset);
@@ -457,6 +469,7 @@ export async function loadSprites(apps, sounds) {
             }
         }
     });
+}
 
 
     // TOILE SCREEN
