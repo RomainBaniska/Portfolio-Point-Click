@@ -66,12 +66,16 @@ export async function interactions(apps, sprites, texts) {
 
             if (!boutdemetal.visible) {
                 boutdemetal.visible = true;
-                boutdemetal.play();
                 boutdemetal.loop = false;
+                
+                boutdemetal.play();
 
+                setTimeout(() => {
+                innerHouseContainer.removeChild(boutdemetal);
                 innerHouseContainer.addChild(boutdemetalShine);
                 boutdemetalShine.visible = true;
                 boutdemetalShine.play();
+                }, 3000);
             }
 
         }

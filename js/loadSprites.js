@@ -226,7 +226,7 @@ export async function loadSprites(apps, sounds) {
     boutdemetal.zIndex = 12;
     // innerHouseContainer.addChild(boutdemetal);
 
-    const boutdemetalShine = await displaySprite('ELEMENTS/boutdemetal/boutdemetalshine.json', 0.12);
+    const boutdemetalShine = await displaySprite('ELEMENTS/boutdemetal/boutdemetalshine.json', 0.09);
     boutdemetalShine.play();
     boutdemetalShine.gotoAndStop(0);
     boutdemetalShine.visible = false;
