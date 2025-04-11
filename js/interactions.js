@@ -29,6 +29,16 @@ export async function interactions(apps, sprites, texts) {
         }
     });
 
+    // Prendre le bout de métal tombé
+    boutdemetalShine.on('click', () => {
+        if (menuButton4.isActive) {
+            PIXI.sound.play('pickup');
+            innerHouseContainer.removeChild(boutdemetalShine);
+            boutdemetalShine.destroy();
+            // menuContainer.addChild(menuItemGlassWater);
+        }
+    });
+
     // Prendre la clé en or
     goldkey.on('click', () => {
         if (menuButton4.isActive) {

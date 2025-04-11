@@ -258,6 +258,20 @@ resizeButtons();
 
     // Position Bout de metal qui brille
     setSpritePositionAndScaleINNERHOUSE(boutdemetalShine, 0.87, 0.89, 800, 500);
+    // Zone de hitarea
+    boutdemetalShine.on('added', () => {
+        const w = boutdemetalShine.width;
+        const h = boutdemetalShine.height;
+    
+        // Position à 4h30 ≈ bas droit, vers 70% largeur et 85% hauteur
+        const areaWidth = w * 0.2;
+        const areaHeight = h * 0.2;
+    
+        const areaX = w * 0.7 - areaWidth / 2;
+        const areaY = h * 0.85 - areaHeight / 2;
+    
+        boutdemetalShine.hitArea = new PIXI.Rectangle(areaX, areaY, areaWidth, areaHeight);
+    });
 
     // Position GamingChair
     setSpritePositionAndScaleINNERHOUSE(gamingChair, 0.28, 0.765, 900, 1000);

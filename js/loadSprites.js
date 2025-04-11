@@ -230,9 +230,8 @@ export async function loadSprites(apps, sounds) {
     boutdemetalShine.play();
     boutdemetalShine.gotoAndStop(0);
     boutdemetalShine.visible = false;
-    boutdemetalShine.interactive = false;
     boutdemetalShine.zIndex = 12;
-   
+    boutdemetalShine.interactive = false;
 
     // VERRE D'EAU
     const glasswater = await displaySprite('ELEMENTS/glasswater/glasswater.json', 0.12);
@@ -1154,6 +1153,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: chest, spriteName: "coffre en métal" },
         { sprite: glasswater, spriteName: "verre" },
         { sprite: goldkey, spriteName: "clé" },
+        { sprite: boutdemetalShine, spriteName: "bout de metal" },
         { sprite: menuItemGoldKey, spriteName: "clé"},
         { sprite: menuItemGlassWater, spriteName: "verre"},
         { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"},
