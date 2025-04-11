@@ -48,7 +48,7 @@ export async function loadSounds() {
     accessDeniedSound.speed = 1;
 
     const ewsthemeSound = PIXI.sound.add('ewstheme', '../sounds/ewstheme.mp3');
-    ewsthemeSound.volume = 0.6;
+    ewsthemeSound.volume = 0.3;
     ewsthemeSound.speed = 1;
 
     return {
