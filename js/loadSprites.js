@@ -63,7 +63,7 @@ export async function loadSprites(apps, sounds) {
 
     let currentDate = new Date();
     let currentHour = currentDate.getHours();
-    currentHour = 23;
+    // currentHour = 23;
     let houseTexturePath;
     if (currentHour >= 7 && currentHour < 22) {
         houseTexturePath = '../sprites/jardin.jpg';
@@ -210,6 +210,16 @@ export async function loadSprites(apps, sounds) {
     const tableOpen = await displaySprite('ELEMENTS/tablereveil/splitted/table.json', 0.12);
     tableOpen.play(1);
     tableOpen.gotoAndStop(1);
+
+    // BOUT DE METAL 
+    const boutdemetal = await displaySprite('ELEMENTS/boutdemetal/boutdemetal.json', 0.08);
+    boutdemetal.play();
+    // boutdemetal.gotoAndStop(8);
+    boutdemetal.gotoAndStop(0);
+    boutdemetal.visible = false;
+    boutdemetal.interactive = false;
+    boutdemetal.zIndex = 12;
+    // innerHouseContainer.addChild(boutdemetal);
    
 
     // VERRE D'EAU
@@ -1345,6 +1355,7 @@ export async function loadSprites(apps, sounds) {
         chest,
         bed,
         goldkey,
+        boutdemetal,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
