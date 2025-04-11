@@ -214,12 +214,18 @@ export async function loadSprites(apps, sounds) {
     // BOUT DE METAL 
     const boutdemetal = await displaySprite('ELEMENTS/boutdemetal/boutdemetal.json', 0.08);
     boutdemetal.play();
-    // boutdemetal.gotoAndStop(8);
     boutdemetal.gotoAndStop(0);
     boutdemetal.visible = false;
     boutdemetal.interactive = false;
     boutdemetal.zIndex = 12;
     // innerHouseContainer.addChild(boutdemetal);
+
+    const boutdemetalShine = await displaySprite('ELEMENTS/boutdemetal/boutdemetalshine.json', 0.12);
+    boutdemetalShine.play();
+    boutdemetalShine.gotoAndStop(0);
+    boutdemetalShine.visible = false;
+    boutdemetalShine.interactive = false;
+    boutdemetalShine.zIndex = 12;
    
 
     // VERRE D'EAU
@@ -1356,6 +1362,7 @@ export async function loadSprites(apps, sounds) {
         bed,
         goldkey,
         boutdemetal,
+        boutdemetalShine,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
