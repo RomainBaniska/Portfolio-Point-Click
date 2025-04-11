@@ -186,6 +186,12 @@ export async function loadSprites(apps, sounds) {
     desk.interactive = true;
     innerHouseContainer.addChild(desk);
 
+     // LAVABO
+     const lavaboAsset = await PIXI.Assets.load('../sprites/lavabo2.png');
+     const lavabo = new PIXI.Sprite(lavaboAsset); 
+     lavabo.interactive = true;
+     innerHouseContainer.addChild(lavabo);
+
     // GOLD KEY
     const goldkeyAsset = await PIXI.Assets.load('../sprites/ELEMENTS/goldkey/goldkey.png');
     const goldkey = new PIXI.Sprite(goldkeyAsset);
@@ -1363,6 +1369,7 @@ export async function loadSprites(apps, sounds) {
         goldkey,
         boutdemetal,
         boutdemetalShine,
+        lavabo,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
