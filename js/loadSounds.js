@@ -39,9 +39,13 @@ export async function loadSounds() {
     deleteInputSound.volume = 1;
     deleteInputSound.speed = 1;
 
-    const passwordValidSound = PIXI.sound.add('passwordValid', '../sounds/passwordValid.mp3');
+    const passwordValidSound = PIXI.sound.add('passwordValid', '../sounds/passwordValid3.mp3');
     passwordValidSound.volume = 1;
     passwordValidSound.speed = 1;
+
+    const accessDeniedSound = PIXI.sound.add('accessDenied', '../sounds/accessDenied.mp3');
+    accessDeniedSound.volume = 1;
+    accessDeniedSound.speed = 1;
 
     const ewsthemeSound = PIXI.sound.add('ewstheme', '../sounds/ewstheme.mp3');
     ewsthemeSound.volume = 1;
@@ -58,6 +62,7 @@ export async function loadSounds() {
         drawerOpen,
         inputSound,
         passwordValidSound,
-        ewsthemeSound
+        ewsthemeSound,
+        accessDeniedSound
     };
 }

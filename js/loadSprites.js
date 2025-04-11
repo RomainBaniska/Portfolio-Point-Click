@@ -309,7 +309,7 @@ export async function loadSprites(apps, sounds) {
     terminalPS.width = terminal.width;
 
     terminalPS.x = terminalbgSprite.x + (terminalbgSprite.width - terminal.width) / 2;
-    specialScreenContainer.addChild(terminalPS);
+    // specialScreenContainer.addChild(terminalPS);
 
     // PENDING LOGO
     const pendingLogo = await displaySprite('TERMINAL/hourglassAnimated.json', 0.1);
@@ -319,7 +319,7 @@ export async function loadSprites(apps, sounds) {
 
     pendingLogo.x = terminalPS.x + (terminalPS.width - pendingLogo.width) / 2;
     pendingLogo.y = terminalPS.y + (terminalPS.height - pendingLogo.height) / 2;
-    specialScreenContainer.addChild(pendingLogo);
+    // specialScreenContainer.addChild(pendingLogo);
 
     // yellow led
     const yellowledAsset = await PIXI.Assets.load('../sprites/TERMINAL/yellowled1.png');
@@ -329,7 +329,7 @@ export async function loadSprites(apps, sounds) {
     yellowled.width = terminal.width;
 
     yellowled.x = terminal.x;
-    specialScreenContainer.addChild(yellowled);
+    // specialScreenContainer.addChild(yellowled);
 
     // green led
     const greenledAsset = await PIXI.Assets.load('../sprites/TERMINAL/greenled1.png');
@@ -339,7 +339,7 @@ export async function loadSprites(apps, sounds) {
     greenled.width = terminal.width;
 
     greenled.x = terminal.x;
-    specialScreenContainer.addChild(greenled);
+    // specialScreenContainer.addChild(greenled);
 
 
     // FONCTIONNEMENT DU TERMINAL
@@ -388,15 +388,49 @@ export async function loadSprites(apps, sounds) {
             console.log('Mot de passe entré :', currentInput);
             // ici tu vérifies le mot de passe par exemple
                 if (currentInput.toLowerCase() === "tezcatlipoca") {
-                    console.log("Mot de passe correct");
+                    
                     PIXI.sound.play('passwordValid');
-                    transitionVolet();
+
+                    setTimeout(() => { // recalage d'un léger délai au départ du sound
+                        specialScreenContainer.addChild(greenled); 
+                    }, 400);
+
+                    setTimeout(() => {
+                        specialScreenContainer.removeChild(greenled);
+                    }, 3000);
+
+                    setTimeout(() => {
+                        specialScreenContainer.removeChild(terminal);
+                        specialScreenContainer.removeChild(inputText);
+                        specialScreenContainer.addChild(terminalPS);
+                        specialScreenContainer.addChild(pendingLogo);
+                        setTimeout(() => {
+                            specialScreenContainer.addChild(greenled);
+                        }, 2500);
+                        setTimeout(() => {
+                            specialScreenContainer.removeChild(greenled);
+                        }, 5000);
+                        setTimeout(() => {
+                            specialScreenContainer.addChild(greenled);
+                        }, 7000);
+                    }, 3000);
+                    setTimeout(() => {
+                        transitionVolet();
+                    }, 10000);
                     setTimeout(() => {
                         PIXI.sound.stop('passwordValid');
                         PIXI.sound.play('ewstheme', { loop: true });
                     }, 110000);
+
+                    console.log("Mot de passe correct");
+
                     // specialScreenContainer.destroy();
                 } else {
+                    specialScreenContainer.addChild(yellowled);
+                    PIXI.sound.play('accessDenied');
+                    setTimeout(() => {
+                        specialScreenContainer.removeChild(yellowled);
+                    }, 500);
                     console.log("Mot de passe incorrect");
                 }
             return;
@@ -440,7 +474,7 @@ export async function loadSprites(apps, sounds) {
     specialScreenContainer.addChild(scene2);
 
     // Chest en gros plan
-    const chestZoom = await displaySprite('ELEMENTS/chest/chest.json', 0.12);
+    const chestZoom = await displaySprite('ELEMENTS/chest/chest.json', 0.06);
     chestZoom.gotoAndStop(0); 
     chestZoom.interactive = true;
     chestZoom.zIndex = 99;
@@ -489,7 +523,25 @@ export async function loadSprites(apps, sounds) {
             // Quand l'animation du volet est terminée, on affiche et anime chestZoom
             if (!chestZoom.visible) {
                 chestZoom.visible = true;
-                chestZoom.play();  // Lance l'animation
+                setTimeout(() => {
+                    chestZoom.gotoAndStop(1);
+                }, 3650);
+                setTimeout(() => {
+                    chestZoom.play();
+                }, 5200);
+
+            // Démarre le fadeOut après 9 secondes
+            setTimeout(() => {
+                let fadeOutOpacity = 1;
+                const fadeOutInterval = setInterval(() => {
+                    fadeOutOpacity -= 0.01;
+                    chestZoom.alpha = fadeOutOpacity;
+                    if (fadeOutOpacity <= 0) {
+                        chestZoom.visible = false;
+                        clearInterval(fadeOutInterval);
+                    }
+                }, 16);
+            }, 12000);
             }
 
             // Anime l'opacité de 0 à 1
