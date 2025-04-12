@@ -913,6 +913,18 @@ export async function loadSprites(apps, sounds) {
     menuItemTabletPackSelected.interactive = true;
     menuItemTabletPackSelected.item = true;
 
+    // Bout métallique
+    const menuItemMetalStripAsset = await PIXI.Assets.load('../sprites/MENUITEM/boutdemetalItem.png');
+    const menuItemMetalStrip = new PIXI.Sprite(menuItemMetalStripAsset);
+    menuItemMetalStrip.interactive = true;
+    menuItemMetalStrip.item = true;
+
+    // Bout métallique sélectionnée
+    const menuItemMetalStripSelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/boutdemetalItemSelected.png');
+    const menuItemMetalStripSelected = new PIXI.Sprite(menuItemMetalStripSelectedAsset);
+    menuItemMetalStripSelected.interactive = true;
+    menuItemMetalStripSelected.item = true;
+
 
     // Verre vide
     const menuItemGlassWaterEmptyAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItemempty.png');
@@ -984,6 +996,7 @@ export async function loadSprites(apps, sounds) {
         { item: menuItemGlassWaterEmpty, defaultTexture: menuItemGlassWaterEmpty.texture, selectedTexture: menuItemGlassWaterEmptySelected.texture },
         { item: menuItemGoldKey, defaultTexture: menuItemGoldKey.texture, selectedTexture: menuItemGoldKeySelected.texture },
         { item: menuItemTabletPack, defaultTexture: menuItemTabletPack.texture, selectedTexture: menuItemTabletPackSelected.texture },
+        { item: menuItemMetalStrip, defaultTexture: menuItemMetalStrip.texture, selectedTexture: menuItemMetalStripSelected.texture },
     ];
 
     // On parcourt le tableau des items
@@ -1158,7 +1171,8 @@ export async function loadSprites(apps, sounds) {
         { sprite: menuItemGoldKey, spriteName: "clé"},
         { sprite: menuItemGlassWater, spriteName: "verre"},
         { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"},
-        { sprite: menuItemTabletPack, spriteName: "Comprimés"}
+        { sprite: menuItemTabletPack, spriteName: "comprimés"},
+        { sprite: menuItemMetalStrip, spriteName: "petit bout de tiroir"}
     ];
     
     const offset = app.screen.width * 0.04;
@@ -1303,11 +1317,13 @@ export async function loadSprites(apps, sounds) {
     ordiRun.label = "ordiRun";
     gamingChair.label = "gamingChair";
     chest.label = "chest";
-    goldkey.label = "goldkey"
+    goldkey.label = "goldkey";
+    boutdemetalShine.label = "boutdemetalShine"
     menuItemGoldKey.label = "menuItemGoldKey";
-    menuItemGlassWater.label ="menuItemGlassWater"
-    menuItemGlassWaterEmpty.label ="menuItemGlassWaterEmpty"    
-    menuItemTabletPack.label ="menuItemTabletPack"    
+    menuItemGlassWater.label ="menuItemGlassWater";
+    menuItemGlassWaterEmpty.label ="menuItemGlassWaterEmpty";    
+    menuItemTabletPack.label ="menuItemTabletPack";    
+    menuItemMetalStrip.label ="menuItemMetalStrip"; 
 
     // Idem pour les Boutons :
     // Boutons
@@ -1391,6 +1407,8 @@ export async function loadSprites(apps, sounds) {
         menuItemGlassWaterEmptySelected,
         menuItemGoldKey,
         menuItemGoldKeySelected,
+        menuItemMetalStrip,
+        menuItemMetalStripSelected,
         menuItemTabletPack,
         // MENU DIALOGUE
         menuCoverDialogue,
