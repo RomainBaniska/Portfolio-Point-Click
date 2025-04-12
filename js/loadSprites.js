@@ -21,6 +21,8 @@ export async function loadSprites(apps, sounds) {
        let currentlyActiveButton = null;
        // l'item actif
        let currentlyActiveItem = null;
+       // Taille de texte de l'action & sprite
+       let actionTextAndSpriteSize =  (app.screen.width / app.screen.width ) * 11;
 
     // Fonction D'affichage des sprites
     async function displaySprite(path, speed) {
@@ -1131,7 +1133,7 @@ export async function loadSprites(apps, sounds) {
             // Et on marque le texte du nouveau bouton d'action sélectionné
             currentActionText = new PIXI.Text({ text: text, style: {
                 fontFamily: 'MonkeyIslandMenu',
-                fontSize: 11,
+                fontSize: actionTextAndSpriteSize,
                 fill: 0x772a76,
                 align: 'center',
                 fontWeight: 'bold'
@@ -1139,7 +1141,7 @@ export async function loadSprites(apps, sounds) {
 
             menuContainer.addChild(currentActionText);
             currentActionText.x = app.screen.width / 2;
-            currentActionText.y = houseSprite.height + 2;
+            currentActionText.y = houseSprite.height + (houseSprite.height * 0.005);
 
             currentActionButton = menuAction;
         }
@@ -1185,23 +1187,32 @@ export async function loadSprites(apps, sounds) {
             // Et on rajoute le nom du sprite 
             currentSpriteText = new PIXI.Text({ text: spriteName, style: {
                 fontFamily: 'MonkeyIslandMenu',
-                fontSize: 11,
+                fontSize: actionTextAndSpriteSize,
                 fill: 0x772a76,
                 align: 'center',
                 fontWeight: 'bold'
             }});            
             if (currentActionText) {
+                // const spacing = 10;
+                // const totalWidth = currentActionText.width + spacing + currentSpriteText.width;
+                // const center = app.screen.width / 2;
+
                     if (itemClicked) {
                         currentActionText.x = app.screen.width / 2 - offset;
                         currentSpriteText.x = app.screen.width / 2 + offset2;
+                        // currentActionText.x = center - totalWidth / 2;
+                        // currentSpriteText.x = currentActionText.x + currentActionText.width + spacing;
                     }else {
                 currentActionText.x = app.screen.width / 2 - offset;
                 currentSpriteText.x = app.screen.width / 2 + offset;
+                // currentActionText.x = center - totalWidth / 2;
+                // currentSpriteText.x = currentActionText.x + currentActionText.width + spacing;
             }
             } else {
                 currentSpriteText.x = app.screen.width / 2;
+                // currentSpriteText.x = app.screen.width / 2 - currentSpriteText.width / 2;
             }
-            currentSpriteText.y = houseSprite.height + 2; // 2px pour ajuster la hauteur
+            currentSpriteText.y = houseSprite.height + (houseSprite.height * 0.005);
             menuContainer.addChild(currentSpriteText);
         });
 
@@ -1224,7 +1235,7 @@ export async function loadSprites(apps, sounds) {
                         if (currentActionButton == menuButton7) { 
                             currentItemText = new PIXI.Text({ text: `${spriteName} avec `, style: {
                                 fontFamily: 'MonkeyIslandMenu',
-                                fontSize: 11,
+                                fontSize: actionTextAndSpriteSize,
                                 fill: 0x772a76,
                                 align: 'center',
                                 fontWeight: 'bold'
@@ -1232,19 +1243,26 @@ export async function loadSprites(apps, sounds) {
                         } else { 
                             currentItemText = new PIXI.Text({ text: `${spriteName} à `, style: {
                                 fontFamily: 'MonkeyIslandMenu',
-                                fontSize: 11,
+                                fontSize: actionTextAndSpriteSize,
                                 fill: 0x772a76,
                                 align: 'center',
                                 fontWeight: 'bold'
                             }});                            
                         }
                         if (currentActionText) {
+                        // const spacing = 10;
+                        // const totalWidth = currentActionText.width + spacing + currentItemText.width;
+                        // const center = app.screen.width / 2;
+            
                         currentActionText.x = app.screen.width / 2 - offset;
                         currentItemText.x = app.screen.width / 2 + offset;
+                        // currentActionText.x = center - totalWidth / 2;
+                        // currentItemText.x = currentActionText.x + currentActionText.width + spacing;
                         } else {
-                        currentItemText.x = app.screen.width / 2;
+                        // currentItemText.x = app.screen.width / 2;
+                        currentItemText.x = app.screen.width / 2 - currentItemText.width / 2;
                         }
-                    currentItemText.y = houseSprite.height + 2;
+                    currentItemText.y = houseSprite.height + (houseSprite.height * 0.005);
                     menuContainer.addChild(currentItemText);
                 } else {
                     app.stage.removeChild(currentItemText);
