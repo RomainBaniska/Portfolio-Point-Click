@@ -22,6 +22,7 @@ export async function interactions(apps, sprites, texts) {
     // Si le bouton menuButton4 est actif et qu'on clique sur le sprite "glasswater" on destroy le sprite glasswater et on ajoute l'item glasswateritem
     glasswater.on('click', () => {
         if (menuButton4.isActive) {
+            app.stage.emit('rightdown');
             PIXI.sound.play('pickup');
             innerHouseContainer.removeChild(glasswater);
             glasswater.destroy();
@@ -32,6 +33,7 @@ export async function interactions(apps, sprites, texts) {
     // Prendre le bout de métal tombé
     boutdemetalShine.on('click', () => {
         if (menuButton4.isActive) {
+            app.stage.emit('rightdown');
             PIXI.sound.play('pickup');
             innerHouseContainer.removeChild(boutdemetalShine);
             boutdemetalShine.destroy();
@@ -42,7 +44,7 @@ export async function interactions(apps, sprites, texts) {
     // Prendre la clé en or
     goldkey.on('click', () => {
         if (menuButton4.isActive) {
-            // glasswater.isActive = false;
+            app.stage.emit('rightdown');
             PIXI.sound.play('pickup');
             innerHouseContainer.removeChild(goldkey);
             goldkey.destroy();
@@ -57,6 +59,7 @@ export async function interactions(apps, sprites, texts) {
     table.on('click', () => {
         if (isTableOpenned === false) {
         if (menuButton2.isActive) {
+            app.stage.emit('rightdown');
             PIXI.sound.play('drawerOpen');
             table.texture = tableOpen.texture;
             isTableOpenned = true;
@@ -67,8 +70,10 @@ export async function interactions(apps, sprites, texts) {
     })
 
     table.on('click', () => {
+        if (isTableOpenned === true ) {
         if (menuButton3.isActive) {
             PIXI.sound.play('drawerClose');
+            app.stage.emit('rightdown');
             if (isTableOpenned === true) {
             table.texture = defaultTexture;
             isTableOpenned = false;
@@ -87,7 +92,7 @@ export async function interactions(apps, sprites, texts) {
                 boutdemetalShine.play();
                 }, 3000);
             }
-
+        }
         }
     }
     })
@@ -202,6 +207,7 @@ export async function interactions(apps, sprites, texts) {
     guybrushSO.on('click', () => {
         if (menuButton6.isActive) {
             spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
+            app.stage.emit('rightdown');
             guybrushSOT.play();
             guybrushSOT.x = guybrushSO.x + (innerHouseSprite.width * 0.022);
             guybrushSOT.y = guybrushSO.y;
@@ -360,9 +366,7 @@ export async function interactions(apps, sprites, texts) {
         console.log(menuItemGlassWaterEmpty.isActive);
         if (menuButton7.isActive && menuItemGlassWaterEmpty.isActive) {
             spriteSwap(menuContainer, menuItemGlassWaterEmpty, menuItemGlassWater);
-
-            // menuButton7.isActive = false;
-            console.log("c'est good le verre se remplit");
+            app.stage.emit('rightdown');
         }
     });
         
@@ -438,12 +442,14 @@ function reroll() {
     toilePoulieReverse.animationSpeed = 0.035;
     toilePoulieReverse.gotoAndPlay(0);
     toilePoulieReverse.loop = false;
+    toilePoulieReverse.eventMode = "none";
     
     setTimeout(() => {
         innerHouseContainer.removeChild(toilePoulieReverse)
         innerHouseContainer.addChild(toilePoulie); 
-        // toilePoulie.interactive = true; 
-        toilePoulie.interactive = false;
+        // toilePoulieRun.eventMode = "none";
+        toilePoulie.eventMode = "none";
+        // toilePoulieReverse.eventMode = "none";
     }, 3000);
  
 

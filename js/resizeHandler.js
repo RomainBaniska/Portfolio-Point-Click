@@ -284,7 +284,7 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(gamingChairAR, 0.28, 0.765, 900, 1000);
 
     // Position Coffre
-    setSpritePositionAndScaleINNERHOUSE(chest, 0.32, 0.28, 500, 700);
+    setSpritePositionAndScaleINNERHOUSE(chest, 0.32, 0.31, 500, 1000);
 
     // Position Bed
     setSpritePositionAndScaleINNERHOUSE(bed, 0.68, 0.77, 500, 850);

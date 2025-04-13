@@ -2,7 +2,7 @@
 export async function loadTexts(sprites) {
 
     // Sprites
-    const { houseContainer, houseSprite, itemClicked, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater,
+    const { houseContainer, houseSprite, itemClicked, lavabo, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater,
         menuButton,
         menuButton2,
         menuButton3,
@@ -75,12 +75,16 @@ export async function loadTexts(sprites) {
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
-    const interactableSprites = [guybrushSO, guybrushLD, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine];
+    const interactableSprites = [guybrushSO, guybrushLD, lavabo, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine];
     // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
             regarder: ["Il semble être le maître de ces lieux", "De toute évidence il est extrêmement musclé", "Pourtant, je ne vois aucune haltère dans cette maison", "Curieux..."],
             parler: ""
+        },
+        lavabo: {
+            regarder: "un lavabo, probablement raccordé à la citerne contre la façade de la maison",
+            tirer: "hmmm, non.",
         },
         guybrushLD: {
             regarder: "il dort profondément",

@@ -199,7 +199,7 @@ export async function loadSprites(apps, sounds) {
      const lavaboAsset = await PIXI.Assets.load('../sprites/lavabo2.png');
      const lavabo = new PIXI.Sprite(lavaboAsset); 
      lavabo.interactive = true;
-     lavabo.zIndex = 88;
+     lavabo.zIndex = 3;
      innerHouseContainer.addChild(lavabo);
 
     // GOLD KEY
@@ -281,6 +281,7 @@ export async function loadSprites(apps, sounds) {
     toilePoulie.gotoAndStop(0); 
     toilePoulie.interactive = false;
     toilePoulie.zIndex = 3;
+    toilePoulie.eventMode = "none";
     toilePoulieRun.zIndex = 3;
     toilePoulieRun.interactive = false;
     innerHouseContainer.addChild(toilePoulie);
@@ -295,6 +296,7 @@ export async function loadSprites(apps, sounds) {
     chest.gotoAndStop(0); 
     chest.interactive = true;
     chest.zIndex = 3;
+    chest.tint = 0x6B4423;
     innerHouseContainer.addChild(chest);
 
     // BED
@@ -1347,6 +1349,7 @@ export async function loadSprites(apps, sounds) {
     gamingChair.label = "gamingChair";
     chest.label = "chest";
     goldkey.label = "goldkey";
+    lavabo.label = "lavabo";
     boutdemetalShine.label = "boutdemetalShine"
     menuItemGoldKey.label = "menuItemGoldKey";
     menuItemGlassWater.label ="menuItemGlassWater";
