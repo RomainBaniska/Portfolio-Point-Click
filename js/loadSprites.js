@@ -199,6 +199,7 @@ export async function loadSprites(apps, sounds) {
      const lavaboAsset = await PIXI.Assets.load('../sprites/lavabo2.png');
      const lavabo = new PIXI.Sprite(lavaboAsset); 
      lavabo.interactive = true;
+     lavabo.zIndex = 88;
      innerHouseContainer.addChild(lavabo);
 
     // GOLD KEY
