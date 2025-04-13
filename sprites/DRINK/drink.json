@@ -1,0 +1,92 @@
+{ "frames": {
+   "drinknewglass 0.ase": {
+    "frame": { "x": 0, "y": 0, "w": 268, "h": 374 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 268, "h": 374 },
+    "sourceSize": { "w": 268, "h": 374 },
+    "duration": 100
+   },
+   "drinknewglass 1.ase": {
+    "frame": { "x": 268, "y": 0, "w": 268, "h": 374 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 268, "h": 374 },
+    "sourceSize": { "w": 268, "h": 374 },
+    "duration": 100
+   },
+   "drinknewglass 2.ase": {
+    "frame": { "x": 536, "y": 0, "w": 268, "h": 374 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 268, "h": 374 },
+    "sourceSize": { "w": 268, "h": 374 },
+    "duration": 300
+   },
+   "drinknewglass 3.ase": {
+    "frame": { "x": 804, "y": 0, "w": 268, "h": 374 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 268, "h": 374 },
+    "sourceSize": { "w": 268, "h": 374 },
+    "duration": 100
+   },
+   "drinknewglass 4.ase": {
+    "frame": { "x": 1072, "y": 0, "w": 268, "h": 374 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 268, "h": 374 },
+    "sourceSize": { "w": 268, "h": 374 },
+    "duration": 100
+   },
+   "drinknewglass 5.ase": {
+    "frame": { "x": 1340, "y": 0, "w": 268, "h": 374 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 268, "h": 374 },
+    "sourceSize": { "w": 268, "h": 374 },
+    "duration": 100
+   },
+   "drinknewglass 6.ase": {
+    "frame": { "x": 1608, "y": 0, "w": 268, "h": 374 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 268, "h": 374 },
+    "sourceSize": { "w": 268, "h": 374 },
+    "duration": 300
+   },
+   "drinknewglass 7.ase": {
+    "frame": { "x": 1876, "y": 0, "w": 268, "h": 374 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 268, "h": 374 },
+    "sourceSize": { "w": 268, "h": 374 },
+    "duration": 100
+   },
+   "drinknewglass 8.ase": {
+    "frame": { "x": 2144, "y": 0, "w": 268, "h": 374 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 268, "h": 374 },
+    "sourceSize": { "w": 268, "h": 374 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.13-x64",
+  "image": "drink.png",
+  "format": "RGBA8888",
+  "size": { "w": 2412, "h": 374 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "drink1", "opacity": 255, "blendMode": "normal" },
+   { "name": "drink2", "opacity": 255, "blendMode": "normal" },
+   { "name": "drink3", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

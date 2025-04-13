@@ -141,6 +141,13 @@ export async function loadSprites(apps, sounds) {
     const guybrushWL = await displaySprite('WALK/romain walk left.json', 0.13);
     guybrushWL.play();
 
+    // DRINK
+    const guybrushD = await displaySprite('DRINK/drink.json', 0.13);
+    guybrushD.play();
+    // innerHouseContainer.addChild(guybrushD);
+    guybrushD.x = innerHouseSprite.width * 0.22;
+    guybrushD.y = innerHouseSprite.height * 0.68;
+
     // LAYDOWN / SLEEP
     const guybrushLD = await displaySprite('LAYDOWN/lay down.json', 0.05);
     guybrushLD.play();
@@ -1258,9 +1265,12 @@ export async function loadSprites(apps, sounds) {
                         currentItemText.x = app.screen.width / 2 + offset;
                         // currentActionText.x = center - totalWidth / 2;
                         // currentItemText.x = currentActionText.x + currentActionText.width + spacing;
+
+                        // ajout 
+                        // currentSpriteText.x = currentActionText.x + currentItemText.x + spacing;
                         } else {
-                        // currentItemText.x = app.screen.width / 2;
-                        currentItemText.x = app.screen.width / 2 - currentItemText.width / 2;
+                        currentItemText.x = app.screen.width / 2;
+                        // currentItemText.x = app.screen.width / 2 - currentItemText.width / 2;
                         }
                     currentItemText.y = houseSprite.height + (houseSprite.height * 0.005);
                     menuContainer.addChild(currentItemText);
@@ -1385,6 +1395,7 @@ export async function loadSprites(apps, sounds) {
         guybrushSOT,
         guybrushIUL,
         guybrushIUR,
+        guybrushD,
         // ELEMENTS & OBJECTS
         ordi,
         ordiRun,
