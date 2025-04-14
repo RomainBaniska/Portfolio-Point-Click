@@ -195,6 +195,14 @@ export async function loadSprites(apps, sounds) {
     desk.interactive = true;
     innerHouseContainer.addChild(desk);
 
+    // PANNEAU
+    const pannelAsset = await PIXI.Assets.load('../sprites/panneauDimension.png');
+    const pannel = new PIXI.Sprite(pannelAsset);
+    // desk.anchor.set(0.5); 
+    pannel.interactive = true;
+    pannel.alpha = 0;
+    innerHouseContainer.addChild(pannel);
+
      // LAVABO
      const lavaboAsset = await PIXI.Assets.load('../sprites/lavabo2.png');
      const lavabo = new PIXI.Sprite(lavaboAsset); 
@@ -298,6 +306,13 @@ export async function loadSprites(apps, sounds) {
     chest.zIndex = 3;
     chest.tint = 0x6B4423;
     innerHouseContainer.addChild(chest);
+
+    // INTERRUPTEUR
+    const interrupteur = await displaySprite('ELEMENTS/interrupteur/interrupteur.json', 0.12);
+    interrupteur.gotoAndStop(0); 
+    interrupteur.interactive = true;
+    interrupteur.zIndex = 3;
+    innerHouseContainer.addChild(interrupteur);
 
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
@@ -937,7 +952,6 @@ export async function loadSprites(apps, sounds) {
     menuItemMetalStripSelected.interactive = true;
     menuItemMetalStripSelected.item = true;
 
-
     // Verre vide
     const menuItemGlassWaterEmptyAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasswaterItemempty.png');
     const menuItemGlassWaterEmpty = new PIXI.Sprite(menuItemGlassWaterEmptyAsset);
@@ -1178,6 +1192,8 @@ export async function loadSprites(apps, sounds) {
         { sprite: chest, spriteName: "coffre en métal" },
         { sprite: glasswater, spriteName: "verre" },
         { sprite: goldkey, spriteName: "clé" },
+        { sprite: pannel, spriteName: "displate" },
+        { sprite: interrupteur, spriteName: "interrupteur" },
         { sprite: boutdemetalShine, spriteName: "bout de metal" },
         { sprite: lavabo, spriteName: "lavabo" },
         { sprite: menuItemGoldKey, spriteName: "clé"},
@@ -1404,6 +1420,7 @@ export async function loadSprites(apps, sounds) {
         ordi,
         ordiRun,
         desk,
+        pannel,
         gamingChair,
         gamingChairAR,
         reveil,
@@ -1420,6 +1437,7 @@ export async function loadSprites(apps, sounds) {
         boutdemetal,
         boutdemetalShine,
         lavabo,
+        interrupteur,
         // ACTIONS MENU
         menuContainer,
         menuSprite,

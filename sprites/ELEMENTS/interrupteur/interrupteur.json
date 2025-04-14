@@ -1,0 +1,35 @@
+{ "frames": {
+   "interrupteur2 0.ase": {
+    "frame": { "x": 0, "y": 0, "w": 114, "h": 150 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 114, "h": 150 },
+    "sourceSize": { "w": 114, "h": 150 },
+    "duration": 100
+   },
+   "interrupteur2 1.ase": {
+    "frame": { "x": 114, "y": 0, "w": 114, "h": 150 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 114, "h": 150 },
+    "sourceSize": { "w": 114, "h": 150 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.13-x64",
+  "image": "interrupteur.png",
+  "format": "RGBA8888",
+  "size": { "w": 228, "h": 150 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "green", "opacity": 255, "blendMode": "normal" },
+   { "name": "red", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
