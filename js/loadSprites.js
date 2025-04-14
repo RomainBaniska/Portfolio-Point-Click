@@ -105,7 +105,7 @@ export async function loadSprites(apps, sounds) {
 
 
     // INNER HOUSE SPRITE
-    const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimed.png');
+    const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimedopenpannel.png');
     const innerHouseSprite = new PIXI.Sprite(innerHouseAsset); 
     innerHouseContainer.addChild(innerHouseSprite); 
     innerHouseSprite.height = app.screen.height * 0.74;
