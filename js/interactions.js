@@ -242,6 +242,15 @@ export async function interactions(apps, sprites, texts) {
             video.autoplay = true;
             video.controls = false;
             video.style.zIndex = "10";
+            const screenWidth = window.innerWidth;
+            const videoWidth = screenWidth * 0.8;
+            const videoHeight = videoWidth * 9 / 16; 
+            // video.style.width = videoWidth + "px";
+            video.style.width = "100%";
+            // video.style.height = videoHeight + "px";
+            video.style.height = "auto";
+            video.style.maxHeight = toileScreen.width * 9 / 16 + "px";
+            video.style.maxWidth = toileScreen.width * 0.8 + "px";
 
             // Ajout de la video au DOM
             document.body.appendChild(video);
