@@ -228,7 +228,46 @@ export async function interactions(apps, sprites, texts) {
     toilePoulieRun.on('click', async () => {
         // Quand on clique sur la toile
         if (menuButton5.isActive) {
-            app.stage.addChild(toileScreen);
+            // app.stage.addChild(toileScreen);
+            screenBackgroundContainer.addChild(toileScreen);
+
+            // Création de la bulle info avec le portrait de Romain
+            // Création d'un cercle noir
+            const fondPortrait = new PIXI.Graphics();
+            fondPortrait.lineStyle(4, 0x8B0000, 1);
+            fondPortrait.beginFill(0x000000);
+            fondPortrait.drawCircle(0, 0, 50); // position (0,0) avec un rayon de 50
+            fondPortrait.endFill();
+            // Création d'un masque de dimension similaires
+            const fondPortraitMask = new PIXI.Graphics();
+            fondPortraitMask.lineStyle(4, 0x8B0000, 1);
+            fondPortraitMask.beginFill(0x000000);
+            fondPortraitMask.drawCircle(0, 0, 50); // position (0,0) avec un rayon de 50
+            fondPortraitMask.endFill();
+            
+            // Positionner le cercle au centre de l'écran
+            fondPortrait.x = toileScreen.x + (toileScreen.width * 0.12);
+            fondPortrait.y = toileScreen.y + (toileScreen.height * 0.1);
+            fondPortrait.zIndex = 11;
+            // screenBackgroundContainer.addChild(fondPortrait);
+            // Idem pour le masque
+            fondPortraitMask.x = toileScreen.x + (toileScreen.width * 0.12);
+            fondPortraitMask.y = toileScreen.y + (toileScreen.height * 0.1);
+            fondPortraitMask.zIndex = 11;
+            screenBackgroundContainer.addChild(fondPortraitMask);
+
+
+            // on invoque Romain qui parle
+            guybrush.x = fondPortrait.x;
+            guybrush.y = fondPortrait.y;
+            guybrush.anchor.set(0.5, 0.2);
+            guybrush.zIndex = 12;
+            // Ajout du masque à Romain
+            guybrush.mask = fondPortraitMask;
+            screenBackgroundContainer.addChild(guybrush);
+            // ajout du portrait
+            screenBackgroundContainer.addChild(fondPortrait);
+
     
             // Vérifier si la vidéo existe déjà pour éviter les doublons
             let existingVideo = document.getElementById("pixi-video");
@@ -242,9 +281,6 @@ export async function interactions(apps, sprites, texts) {
             video.autoplay = true;
             video.controls = false;
             video.style.zIndex = "10";
-            const screenWidth = window.innerWidth;
-            const videoWidth = screenWidth * 0.8;
-            const videoHeight = videoWidth * 9 / 16; 
             // video.style.width = videoWidth + "px";
             video.style.width = "100%";
             // video.style.height = videoHeight + "px";
@@ -256,13 +292,28 @@ export async function interactions(apps, sprites, texts) {
             document.body.appendChild(video);
     
             // Ajout de playVideo au conteneur des boutons
-            // app.stage.addChild(playVideo);
-            app.stage.addChild(stopVideo);
+            screenBackgroundContainer.addChild(stopVideo);
+
+            // Resetting de playvideo et stopvideo (changer plus tard loadsprite et resizehandler)
+            playVideo.x = toileScreen.x + (toileScreen.width * 0.5);
+            playVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+            playVideo.anchor.set(0.5);
+            stopVideo.x = toileScreen.x + (toileScreen.width * 0.5);
+            stopVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+            stopVideo.anchor.set(0.5);
+            prevVideo.x = toileScreen.x + (toileScreen.width * 0.4);
+            prevVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+            prevVideo.anchor.set(0.5);
+            nextVideo.x = toileScreen.x + (toileScreen.width * 0.6);
+            nextVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+            nextVideo.anchor.set(0.5);
+
+
             // Ajout de nextVideo et prevVideo
-            app.stage.addChild(prevVideo);
-            app.stage.addChild(nextVideo);
+            screenBackgroundContainer.addChild(prevVideo);
+            screenBackgroundContainer.addChild(nextVideo);
             // Ajout de exitVideo
-            app.stage.addChild(exitVideo);
+            screenBackgroundContainer.addChild(exitVideo);
 
             // Gestion des événements Play
             playVideo.on('pointerover', () => {
@@ -275,8 +326,8 @@ export async function interactions(apps, sprites, texts) {
 
             playVideo.on('click', () => {
                 video.play();
-                app.stage.removeChild(playVideo);
-                app.stage.addChild(stopVideo);
+                screenBackgroundContainer.removeChild(playVideo);
+                screenBackgroundContainer.addChild(stopVideo);
             });
 
             // Gestion des événements Stop
@@ -290,8 +341,8 @@ export async function interactions(apps, sprites, texts) {
 
             stopVideo.on('click', () => {
                 video.pause();
-                app.stage.removeChild(stopVideo);
-                app.stage.addChild(playVideo);
+                screenBackgroundContainer.removeChild(stopVideo);
+                screenBackgroundContainer.addChild(playVideo);
             });
 
             // Gestion des événements Exit
@@ -304,13 +355,13 @@ export async function interactions(apps, sprites, texts) {
             });
             exitVideo.on('click', () => {
                 video.remove();
-                app.stage.removeChild(playVideo);
-                app.stage.removeChild(stopVideo);
-                app.stage.removeChild(prevVideo);
-                app.stage.removeChild(nextVideo);
+                screenBackgroundContainer.removeChild(playVideo);
+                screenBackgroundContainer.removeChild(stopVideo);
+                screenBackgroundContainer.removeChild(prevVideo);
+                screenBackgroundContainer.removeChild(nextVideo);
                 exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
-                app.stage.removeChild(exitVideo);
-                app.stage.removeChild(toileScreen);
+                screenBackgroundContainer.removeChild(exitVideo);
+                screenBackgroundContainer.removeChild(toileScreen);
                 currentVideoIndex = 0;
             });
 
@@ -352,11 +403,11 @@ export async function interactions(apps, sprites, texts) {
             // Supprimer la vidéo quand on ferme l'écran
             toileScreen.on("removed", () => {
                 video.remove();
-                app.stage.removeChild(playVideo);
-                app.stage.removeChild(stopVideo);
-                app.stage.removeChild(prevVideo);
-                app.stage.removeChild(nextVideo);
-                app.stage.removeChild(exitVideo);
+                screenBackgroundContainer.removeChild(playVideo);
+                screenBackgroundContainer.removeChild(stopVideo);
+                screenBackgroundContainer.removeChild(prevVideo);
+                screenBackgroundContainer.removeChild(nextVideo);
+                screenBackgroundContainer.removeChild(exitVideo);
                 reroll();
             });
             }
