@@ -371,6 +371,9 @@ export async function interactions(apps, sprites, texts) {
                 exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
                 screenBackgroundContainer.removeChild(exitVideo);
                 screenBackgroundContainer.removeChild(toileScreen);
+                screenBackgroundContainer.removeChild(fondPortrait);
+                screenBackgroundContainer.removeChild(fondPortraitMask);
+                screenBackgroundContainer.removeChild(guybrush);
                 currentVideoIndex = 0;
             });
 
