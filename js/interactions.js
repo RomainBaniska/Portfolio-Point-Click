@@ -224,6 +224,8 @@ export async function interactions(apps, sprites, texts) {
         }  
     });
 
+    unroll();
+
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
         // Quand on clique sur la toile
@@ -262,6 +264,11 @@ export async function interactions(apps, sprites, texts) {
             guybrush.y = fondPortrait.y;
             guybrush.anchor.set(0.5, 0.2);
             guybrush.zIndex = 12;
+            guybrush.interactive = true;
+            guybrush.gotoAndStop(0);
+            guybrush.on("click", () => {
+                guybrush.play();
+            })
             // Ajout du masque à Romain
             guybrush.mask = fondPortraitMask;
             screenBackgroundContainer.addChild(guybrush);
