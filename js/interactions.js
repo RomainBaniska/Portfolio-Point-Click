@@ -8,9 +8,13 @@ export async function interactions(apps, sprites, texts) {
 
     // Vidéos de la toile
     const videoList = [
-        "../videos/RebatierePF.mp4",
-        "../videos/RebatiereNoCut.mp4",
-        "../videos/TimeoutNoCut.mp4"
+        // "../videos/RebatierePF.mp4",
+        // "../videos/RebatiereNoCut.mp4",
+        // "../videos/TimeoutNoCut.mp4",
+        "../videos/PART1-LOGIN.mp4",
+        "../videos/PART2-DASHBOARD&EVENT.mp4",
+        "../videos/PART2-EVENTTCHATRESPONSE.mp4",
+        "../videos/PART3-TAGS.mp4.mp4",
     ];
     // Index en cours de la video (initialisation)
     let currentVideoIndex = 0;
