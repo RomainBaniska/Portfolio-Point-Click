@@ -27,6 +27,7 @@ export async function loadTexts(sprites) {
     let currentTextSequence = null;
     
     const generalFontSize = window.innerHeight * 0.02624;
+    const menuResponsesFontSize = window.innerHeight * 0.021;
     console.log(generalFontSize);
 
     //////////// METHODES PERMETTANT LE SKIP DU TEXTE ET DES SEQUENCES DE TEXTE LORS D'ACTION SUR LES SPRITES ////////////
@@ -36,7 +37,7 @@ export async function loadTexts(sprites) {
     const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 600, lineHeight: 40, align: 'center'}; // Romain-Guybrush Style
     const dialogueStyleLong = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 850, lineHeight: 40, align: 'center'}; // Romain bulle style
     const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize, fill: '#FFFFFF', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Player style
-    const responseStyle = { fontFamily: 'arial', fontSize: 20, fill: '#772a76', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Style des réponses lors du dialogue
+    const responseStyle = { fontFamily: 'arial', fontSize: menuResponsesFontSize, fill: '#772a76', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Style des réponses lors du dialogue
 
 
     // Textes hors action & dialogue
