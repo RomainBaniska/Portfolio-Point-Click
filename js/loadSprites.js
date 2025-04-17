@@ -195,6 +195,7 @@ export async function loadSprites(apps, sounds) {
     desk.interactive = true;
     innerHouseContainer.addChild(desk);
 
+
     // PANNEAU
     const pannelAsset = await PIXI.Assets.load('../sprites/panneauDimension.png');
     const pannel = new PIXI.Sprite(pannelAsset);

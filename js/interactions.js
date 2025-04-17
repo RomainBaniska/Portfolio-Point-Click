@@ -2,9 +2,10 @@ export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
     const { houseContainer, specialScreenContainer, lavabo, guybrushD, interrupteur, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, /*musicthemePLAY*/ } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyle, dialogueStyle2 } = texts;
+    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2 } = texts;
     // const { unrollSound } = sounds
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
     // Vidéos de la toile
     const videoList = [
         "../videos/RebatierePF.mp4",
@@ -250,13 +251,13 @@ export async function interactions(apps, sprites, texts) {
             fondPortraitMask.endFill();
             
             // Positionner le cercle au centre de l'écran
-            fondPortrait.x = toileScreen.x + (toileScreen.width * 0.12);
-            fondPortrait.y = toileScreen.y + (toileScreen.height * 0.1);
+            fondPortrait.x = toileScreen.x + (toileScreen.width * 0.14);
+            fondPortrait.y = toileScreen.y + (toileScreen.height * 0.099);
             fondPortrait.zIndex = 11;
             // screenBackgroundContainer.addChild(fondPortrait);
             // Idem pour le masque
-            fondPortraitMask.x = toileScreen.x + (toileScreen.width * 0.12);
-            fondPortraitMask.y = toileScreen.y + (toileScreen.height * 0.1);
+            fondPortraitMask.x = toileScreen.x + (toileScreen.width * 0.14);
+            fondPortraitMask.y = toileScreen.y + (toileScreen.height * 0.099);
             fondPortraitMask.zIndex = 11;
             screenBackgroundContainer.addChild(fondPortraitMask);
 
@@ -267,9 +268,11 @@ export async function interactions(apps, sprites, texts) {
             guybrush.anchor.set(0.5, 0.2);
             guybrush.zIndex = 12;
             guybrush.interactive = true;
-            guybrush.gotoAndStop(0);
+            guybrush.gotoAndPlay(0);
+            // guybrush.play();
             guybrush.on("click", () => {
-                guybrush.play();
+                // guybrush.play();
+                guybrush.gotoAndStop(0);
             })
             // Ajout du masque à Romain
             guybrush.mask = fondPortraitMask;
@@ -277,6 +280,41 @@ export async function interactions(apps, sprites, texts) {
             // ajout du portrait
             screenBackgroundContainer.addChild(fondPortrait);
 
+            // mini fonction bulles
+            function bulleText(bulleText) {
+                bulleText.zIndex = 12;
+                bulleText.x = toileScreen.x + (toileScreen.width / 2);
+                bulleText.y = toileScreen.y + (toileScreen.height * 0.05);
+                bulleText.anchor.set(0.5, 0);
+            }
+            const bulleText1 = new PIXI.Text({ text: "Bravo tu as réussi à aller jusqu'ici, là où beaucoup ont échoué", style: dialogueStyleLong });
+            const bulleText2 = new PIXI.Text({ text: "Si tu es arrivé jusqu'ici c'est que tu as envie d'en savoir un peu plus sur moi ?", style: dialogueStyleLong });
+            const bulleText3 = new PIXI.Text({ text: "Je vais te montrer en image quelqu'uns des projets sur lesquels j'ai travaillé", style: dialogueStyleLong });
+            const bulleText4 = new PIXI.Text({ text: "Choisis l'un des projets dont tu veux que je te parle", style: dialogueStyleLong });
+            
+            
+            bulleText(bulleText1);
+            bulleText(bulleText2);
+            bulleText(bulleText3);
+            bulleText(bulleText4);
+
+            screenBackgroundContainer.addChild(bulleText1);
+            setTimeout(() => {
+                screenBackgroundContainer.removeChild(bulleText1);
+                screenBackgroundContainer.addChild(bulleText2);
+                setTimeout(() => {
+                    screenBackgroundContainer.removeChild(bulleText2);
+                    screenBackgroundContainer.addChild(bulleText3);
+                    setTimeout(() => {
+                        screenBackgroundContainer.removeChild(bulleText3);
+                        screenBackgroundContainer.addChild(bulleText4);
+                        setTimeout(() => {
+                            screenBackgroundContainer.removeChild(bulleText4);
+                            guybrush.gotoAndStop(0);
+                        }, 4000);
+                    }, 4000);
+                }, 4000);
+            }, 4000);
     
             // Vérifier si la vidéo existe déjà pour éviter les doublons
             let existingVideo = document.getElementById("pixi-video");

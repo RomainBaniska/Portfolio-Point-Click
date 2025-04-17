@@ -25,14 +25,19 @@ export async function loadTexts(sprites) {
     let currentText = null;
     // Initialisation de la variable de la séquence de texte affichée à l'écran
     let currentTextSequence = null;
+    
+    const generalFontSize = window.innerHeight * 0.02624;
+    console.log(generalFontSize);
 
     //////////// METHODES PERMETTANT LE SKIP DU TEXTE ET DES SEQUENCES DE TEXTE LORS D'ACTION SUR LES SPRITES ////////////
     
 
     // Styles
-    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 600, lineHeight: 40, align: 'center'}; // Romain-Guybrush Style
-    const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: 25, fill: '#FFFFFF', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Player style
+    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 600, lineHeight: 40, align: 'center'}; // Romain-Guybrush Style
+    const dialogueStyleLong = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 850, lineHeight: 40, align: 'center'}; // Romain bulle style
+    const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize, fill: '#FFFFFF', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Player style
     const responseStyle = { fontFamily: 'arial', fontSize: 20, fill: '#772a76', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Style des réponses lors du dialogue
+
 
     // Textes hors action & dialogue
     const wakeUpText = new PIXI.Text({ text: 'Non mais je rêve', style: dialogueStyle });
@@ -384,6 +389,7 @@ export async function loadTexts(sprites) {
         responseStyle,
         dialogueStyle,
         dialogueStyle2,
+        dialogueStyleLong,
     };
 
 }
