@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, specialScreenContainer, lavabo, guybrushD, interrupteur, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, /*musicthemePLAY*/ } = sprites;
+    const { houseContainer, toileScreenProject1, toileScreenProject2, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, /*musicthemePLAY*/ } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -226,7 +226,6 @@ export async function interactions(apps, sprites, texts) {
     });
 
     unroll();
-
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
         // Quand on clique sur la toile
@@ -234,16 +233,18 @@ export async function interactions(apps, sprites, texts) {
             screenBackgroundContainer.addChild(toileScreen);
 
             // Ajout d'un sprite de présentation de "GetTogether"
-            const introSlideGetTogether = new PIXI.Graphics()
+            const introSlide = new PIXI.Graphics()
             .fill({ color: 0xFAF9F6 })
             .rect(0, 0, toileScreen.width, toileScreen.height, 20);
-            introSlideGetTogether.endFill();
-            introSlideGetTogether.zIndex = 15;
-            introSlideGetTogether.x = toileScreen.x;
-            introSlideGetTogether.y = toileScreen.y;
-            introSlideGetTogether.height = toileScreen.width * 9 / 16 + "px";
-            introSlideGetTogether.width = toileScreen.width * 0.8 + "px";
-            const getTogetherTitle = new PIXI.Text({ text: "GetTogether, une extension de TimeOut", style: titleStyle });
+            introSlide.endFill();
+            introSlide.zIndex = 15;
+            introSlide.x = toileScreen.x;
+            introSlide.y = toileScreen.y;
+            introSlide.height = toileScreen.width * 9 / 16 + "px";
+            introSlide.width = toileScreen.width * 0.8 + "px";
+            const getTogetherTitle = new PIXI.Text({ text: "GetTogether : une extension de TimeOut", style: titleStyle });
+            const rebatiereTitle = new PIXI.Text({ text: "La Rebatière : une application de réservation pour maison d'hôte", style: titleStyle });
+            const jsigneTitle = new PIXI.Text({ text: "Jsigné : un SoWeSign fait maison", style: titleStyle });
              // Mini fonction titres
              function projectTitle(title) {
                 title.zIndex = 16;
@@ -252,49 +253,35 @@ export async function interactions(apps, sprites, texts) {
                 title.anchor.set(0.5);
             }
             projectTitle(getTogetherTitle);
-            screenBackgroundContainer.addChild(introSlideGetTogether);
-            screenBackgroundContainer.addChild(getTogetherTitle);
+            projectTitle(rebatiereTitle);
+            projectTitle(jsigneTitle);
+            // screenBackgroundContainer.addChild(introSlide);
+            // screenBackgroundContainer.addChild(getTogetherTitle);
 
-            // Création de la bulle info avec le portrait de Romain
-            // Création d'un cercle noir
-            const fondPortrait = new PIXI.Graphics();
-            fondPortrait.lineStyle(4, 0x8B0000, 1);
-            fondPortrait.beginFill(0x000000);
-            // const rayon = 50;
-            const rayon = toileScreen.width * 0.036;
-            fondPortrait.drawCircle(0, 0, rayon); // position (0,0) avec un rayon de 50
-            fondPortrait.endFill();
-            // Création d'un masque de dimension similaires
-            const fondPortraitMask = new PIXI.Graphics();
-            fondPortraitMask.lineStyle(4, 0x8B0000, 1);
-            fondPortraitMask.beginFill(0x000000);
-            fondPortraitMask.drawCircle(0, 0, rayon); // position (0,0) avec un rayon de 50
-            fondPortraitMask.endFill();
-            
-            // Positionner le cercle au centre de l'écran
+            // Positionnement de la bulle info avec le portrait de Romain (fondPortrait & fondPortraitMask)            
+            // Positionner le cercle en haut à gauche de l'écran
             fondPortrait.x = toileScreen.x + (toileScreen.width * 0.14);
-            fondPortrait.y = toileScreen.y + (toileScreen.height * 0.099);
+            fondPortrait.y = toileScreen.y + (toileScreen.height * 0.12);
             fondPortrait.zIndex = 11;
-            // screenBackgroundContainer.addChild(fondPortrait);
             // Idem pour le masque
             fondPortraitMask.x = toileScreen.x + (toileScreen.width * 0.14);
-            fondPortraitMask.y = toileScreen.y + (toileScreen.height * 0.099);
+            fondPortraitMask.y = toileScreen.y + (toileScreen.height * 0.12);
             fondPortraitMask.zIndex = 11;
             screenBackgroundContainer.addChild(fondPortraitMask);
 
             /////// On invoque Romain qui parle dans une bulle ///////
-            guybrush.x = fondPortrait.x;
-            guybrush.y = fondPortrait.y;
-            guybrush.anchor.set(0.5, 0.2);
-            guybrush.zIndex = 12;
-            guybrush.interactive = true;
-            guybrush.gotoAndPlay(0);
-            guybrush.on("click", () => {
-                guybrush.gotoAndStop(0);
+            guybrushClone.x = fondPortrait.x;
+            guybrushClone.y = fondPortrait.y;
+            guybrushClone.anchor.set(0.5, 0.2);
+            guybrushClone.zIndex = 12;
+            guybrushClone.interactive = true;
+            guybrushClone.gotoAndPlay(0);
+            guybrushClone.on("click", () => {
+                guybrushClone.gotoAndStop(0);
             })
             // Ajout du masque à Romain
-            guybrush.mask = fondPortraitMask;
-            screenBackgroundContainer.addChild(guybrush);
+            guybrushClone.mask = fondPortraitMask;
+            screenBackgroundContainer.addChild(guybrushClone);
             // ajout du portrait
             screenBackgroundContainer.addChild(fondPortrait);
             ///////////////////////////////////////////////////////////
@@ -302,8 +289,8 @@ export async function interactions(apps, sprites, texts) {
             // Mini fonction bulles
             function bulleText(bulleText) {
                 bulleText.zIndex = 12;
-                bulleText.x = toileScreen.x + (toileScreen.width / 2);
-                bulleText.y = toileScreen.y + (toileScreen.height * 0.05);
+                bulleText.x = toileScreen.x + (toileScreen.width * 0.53);
+                bulleText.y = toileScreen.y + (toileScreen.height * 0.06);
                 bulleText.anchor.set(0.5, 0);
             }
             // Bulles Romain Toile
@@ -328,155 +315,176 @@ export async function interactions(apps, sprites, texts) {
                         screenBackgroundContainer.addChild(bulleText4);
                         setTimeout(() => {
                             screenBackgroundContainer.removeChild(bulleText4);
-                            guybrush.gotoAndStop(0);
+                            guybrushClone.gotoAndStop(0);
                         }, 4000);
                     }, 4000);
                 }, 4000);
             }, 4000);
-    
-            // Vérifier si la vidéo existe déjà pour éviter les doublons
-            let existingVideo = document.getElementById("pixi-video");
-            if (existingVideo) return;
-    
-            // Génération de la vidéo dans le DOM
-            const video = document.createElement("video");
-            video.id = "pixi-video";
-            // video.src = "../videos/RebatierePF.mp4";
-            video.src = videoList[currentVideoIndex];
-            video.autoplay = true;
-            video.controls = false;
-            video.style.zIndex = "10";
-            video.style.width = "100%";
-            video.style.height = "auto";
-            video.style.maxHeight = toileScreen.width * 9 / 16 + "px";
-            video.style.maxWidth = toileScreen.width * 0.8 + "px";
 
-            // Ajout de la video au DOM
-            document.body.appendChild(video);
-    
-            // Ajout de playVideo au conteneur des boutons
-            screenBackgroundContainer.addChild(stopVideo);
+            // Positionnement des Sprites Projets Videos
+            const totalWidth = toileScreenProject1.width + toileScreenProject2.width + toileScreenProject3.width;
+            const startX = toileScreen.x + (toileScreen.width / 2) - (totalWidth / 2);
 
-            // Resetting de playvideo et stopvideo (changer plus tard loadsprite et resizehandler)
-            playVideo.x = toileScreen.x + (toileScreen.width * 0.5);
-            playVideo.y = toileScreen.y + (toileScreen.height * 0.9);
-            playVideo.anchor.set(0.5);
-            stopVideo.x = toileScreen.x + (toileScreen.width * 0.5);
-            stopVideo.y = toileScreen.y + (toileScreen.height * 0.9);
-            stopVideo.anchor.set(0.5);
-            prevVideo.x = toileScreen.x + (toileScreen.width * 0.4);
-            prevVideo.y = toileScreen.y + (toileScreen.height * 0.9);
-            prevVideo.anchor.set(0.5);
-            nextVideo.x = toileScreen.x + (toileScreen.width * 0.6);
-            nextVideo.y = toileScreen.y + (toileScreen.height * 0.9);
-            nextVideo.anchor.set(0.5);
+            toileScreenProject1.x = startX;
+            toileScreenProject2.x = toileScreenProject1.x + toileScreenProject1.width;
+            toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width;
+
+            const yCenter = toileScreen.y + (toileScreen.height * 0.5);
+            toileScreenProject1.y = yCenter;
+            toileScreenProject2.y = yCenter;
+            toileScreenProject3.y = yCenter;
+
+            screenBackgroundContainer.addChild(toileScreenProject1);
+            screenBackgroundContainer.addChild(toileScreenProject2);
+            screenBackgroundContainer.addChild(toileScreenProject3);
 
 
-            // Ajout de nextVideo et prevVideo
-            screenBackgroundContainer.addChild(prevVideo);
-            screenBackgroundContainer.addChild(nextVideo);
-            // Ajout de exitVideo
-            screenBackgroundContainer.addChild(exitVideo);
+                                    selectAProject.addEventListener("click", () => {
+                            
+                                    // Vérifier si la vidéo existe déjà pour éviter les doublons
+                                    let existingVideo = document.getElementById("pixi-video");
+                                    if (existingVideo) return;
+                            
+                                    // Génération de la vidéo dans le DOM
+                                    const video = document.createElement("video");
+                                    video.id = "pixi-video";
+                                    // video.src = "../videos/RebatierePF.mp4";
+                                    video.src = videoList[currentVideoIndex];
+                                    video.autoplay = true;
+                                    video.controls = false;
+                                    video.style.zIndex = "10";
+                                    video.style.width = "100%";
+                                    video.style.height = "auto";
+                                    video.style.maxHeight = toileScreen.width * 9 / 16 + "px";
+                                    video.style.maxWidth = toileScreen.width * 0.8 + "px";
 
-            // Gestion des événements Play
-            playVideo.on('pointerover', () => {
-                playVideo.texture = playVideoActive.texture;
-            });
+                                    // Ajout de la video au DOM
+                                    document.body.appendChild(video);
+                            
+                                    // Ajout de playVideo au conteneur des boutons
+                                    screenBackgroundContainer.addChild(stopVideo);
 
-            playVideo.on('pointerout', () => {
-                playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]];
-            });
+                                    // Resetting de playvideo et stopvideo (changer plus tard loadsprite et resizehandler)
+                                    playVideo.x = toileScreen.x + (toileScreen.width * 0.5);
+                                    playVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+                                    playVideo.anchor.set(0.5);
+                                    stopVideo.x = toileScreen.x + (toileScreen.width * 0.5);
+                                    stopVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+                                    stopVideo.anchor.set(0.5);
+                                    prevVideo.x = toileScreen.x + (toileScreen.width * 0.4);
+                                    prevVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+                                    prevVideo.anchor.set(0.5);
+                                    nextVideo.x = toileScreen.x + (toileScreen.width * 0.6);
+                                    nextVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+                                    nextVideo.anchor.set(0.5);
 
-            playVideo.on('click', () => {
-                video.play();
-                screenBackgroundContainer.removeChild(playVideo);
-                screenBackgroundContainer.addChild(stopVideo);
-            });
 
-            // Gestion des événements Stop
-            stopVideo.on('pointerover', () => {
-                stopVideo.texture = stopVideoActive.texture;
-            });
+                                    // Ajout de nextVideo et prevVideo
+                                    screenBackgroundContainer.addChild(prevVideo);
+                                    screenBackgroundContainer.addChild(nextVideo);
+                                    // Ajout de exitVideo
+                                    screenBackgroundContainer.addChild(exitVideo);
 
-            stopVideo.on('pointerout', () => {
-                stopVideo.texture = stopVideospriteAsset.textures[stopVideoframes[0]];
-            });
+                                    // Gestion des événements Play
+                                    playVideo.on('pointerover', () => {
+                                        playVideo.texture = playVideoActive.texture;
+                                    });
 
-            stopVideo.on('click', () => {
-                video.pause();
-                screenBackgroundContainer.removeChild(stopVideo);
-                screenBackgroundContainer.addChild(playVideo);
-            });
+                                    playVideo.on('pointerout', () => {
+                                        playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]];
+                                    });
 
-            // Gestion des événements Exit
-            exitVideo.on('pointerover', () => {
-                exitVideo.texture = exitVideoActive.texture;
-            });
+                                    playVideo.on('click', () => {
+                                        video.play();
+                                        screenBackgroundContainer.removeChild(playVideo);
+                                        screenBackgroundContainer.addChild(stopVideo);
+                                    });
 
-            exitVideo.on('pointerout', () => {
-                exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
-            });
-            exitVideo.on('click', () => {
-                video.remove();
-                screenBackgroundContainer.removeChild(playVideo);
-                screenBackgroundContainer.removeChild(stopVideo);
-                screenBackgroundContainer.removeChild(prevVideo);
-                screenBackgroundContainer.removeChild(nextVideo);
-                exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
-                screenBackgroundContainer.removeChild(exitVideo);
-                screenBackgroundContainer.removeChild(toileScreen);
-                screenBackgroundContainer.removeChild(fondPortrait);
-                screenBackgroundContainer.removeChild(fondPortraitMask);
-                screenBackgroundContainer.removeChild(guybrush);
-                currentVideoIndex = 0;
-            });
+                                    // Gestion des événements Stop
+                                    stopVideo.on('pointerover', () => {
+                                        stopVideo.texture = stopVideoActive.texture;
+                                    });
 
-            // Gestion des événements Next
-            nextVideo.on('pointerover', () => {
-                nextVideo.texture = nextVideoActive.texture;
-            });
+                                    stopVideo.on('pointerout', () => {
+                                        stopVideo.texture = stopVideospriteAsset.textures[stopVideoframes[0]];
+                                    });
 
-            nextVideo.on('pointerout', () => {
-                nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
-            });
-            nextVideo.on('click', () => {
-                if (currentVideoIndex < videoList.length - 1) {
-                    currentVideoIndex++; 
-                } else {
-                    currentVideoIndex = 0; 
-                }
-                video.src = videoList[currentVideoIndex]; 
-                video.play(); 
-            });
+                                    stopVideo.on('click', () => {
+                                        video.pause();
+                                        screenBackgroundContainer.removeChild(stopVideo);
+                                        screenBackgroundContainer.addChild(playVideo);
+                                    });
 
-            // Gestion des événements Prev
-            prevVideo.on('pointerover', () => {
-                prevVideo.texture = prevVideoActive.texture;
-            });
+                                    // Gestion des événements Exit
+                                    exitVideo.on('pointerover', () => {
+                                        exitVideo.texture = exitVideoActive.texture;
+                                    });
 
-            prevVideo.on('pointerout', () => {
-                prevVideo.texture = prevVideospriteAsset.textures[prevVideoframes[0]];
-            });
-            prevVideo.on('click', () => {
-                if (currentVideoIndex > 0) {
-                    currentVideoIndex--;
-                } else {
-                    currentVideoIndex = videoList.length - 1;
-                }
-                video.src = videoList[currentVideoIndex]; 
-                video.play();
-            });
-            // Supprimer la vidéo quand on ferme l'écran
-            toileScreen.on("removed", () => {
-                video.remove();
-                screenBackgroundContainer.removeChild(playVideo);
-                screenBackgroundContainer.removeChild(stopVideo);
-                screenBackgroundContainer.removeChild(prevVideo);
-                screenBackgroundContainer.removeChild(nextVideo);
-                screenBackgroundContainer.removeChild(exitVideo);
-                reroll();
-            });
-            }
+                                    exitVideo.on('pointerout', () => {
+                                        exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
+                                    });
+                                    exitVideo.on('click', () => {
+                                        video.remove();
+                                        screenBackgroundContainer.removeChild(playVideo);
+                                        screenBackgroundContainer.removeChild(stopVideo);
+                                        screenBackgroundContainer.removeChild(prevVideo);
+                                        screenBackgroundContainer.removeChild(nextVideo);
+                                        exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
+                                        screenBackgroundContainer.removeChild(exitVideo);
+                                        screenBackgroundContainer.removeChild(toileScreen);
+                                        screenBackgroundContainer.removeChild(fondPortrait);
+                                        screenBackgroundContainer.removeChild(fondPortraitMask);
+                                        screenBackgroundContainer.removeChild(guybrush);
+                                        currentVideoIndex = 0;
+                                    });
+
+                                    // Gestion des événements Next
+                                    nextVideo.on('pointerover', () => {
+                                        nextVideo.texture = nextVideoActive.texture;
+                                    });
+
+                                    nextVideo.on('pointerout', () => {
+                                        nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
+                                    });
+                                    nextVideo.on('click', () => {
+                                        if (currentVideoIndex < videoList.length - 1) {
+                                            currentVideoIndex++; 
+                                        } else {
+                                            currentVideoIndex = 0; 
+                                        }
+                                        video.src = videoList[currentVideoIndex]; 
+                                        video.play(); 
+                                    });
+
+                                    // Gestion des événements Prev
+                                    prevVideo.on('pointerover', () => {
+                                        prevVideo.texture = prevVideoActive.texture;
+                                    });
+
+                                    prevVideo.on('pointerout', () => {
+                                        prevVideo.texture = prevVideospriteAsset.textures[prevVideoframes[0]];
+                                    });
+                                    prevVideo.on('click', () => {
+                                        if (currentVideoIndex > 0) {
+                                            currentVideoIndex--;
+                                        } else {
+                                            currentVideoIndex = videoList.length - 1;
+                                        }
+                                        video.src = videoList[currentVideoIndex]; 
+                                        video.play();
+                                    });
+                                    // Supprimer la vidéo quand on ferme l'écran
+                                    toileScreen.on("removed", () => {
+                                        video.remove();
+                                        screenBackgroundContainer.removeChild(playVideo);
+                                        screenBackgroundContainer.removeChild(stopVideo);
+                                        screenBackgroundContainer.removeChild(prevVideo);
+                                        screenBackgroundContainer.removeChild(nextVideo);
+                                        screenBackgroundContainer.removeChild(exitVideo);
+                                        reroll();
+                                    });
+                                });
+        }
     });
 
     ordiRun.on('click', async () => {

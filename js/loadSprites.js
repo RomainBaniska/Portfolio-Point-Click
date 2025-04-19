@@ -132,6 +132,9 @@ export async function loadSprites(apps, sounds) {
     // FACETALK
     const guybrush = await displaySprite('TALK/romain face talk.json', 0.13);
     guybrush.play();
+    // FACETALK - CLONE pour la toileScreen
+    const guybrushClone = await displaySprite('TALK/romain face talk.json', 0.13);
+    guybrushClone.play();
 
     // WALK RIGHT
     const guybrushWR = await displaySprite('WALK/romain walk right.json', 0.13);
@@ -636,6 +639,34 @@ export async function loadSprites(apps, sounds) {
     const toileScreen = new PIXI.Sprite(toileScreenAsset);
     toileScreen.zIndex = 10;
 
+    // TOILE SCREEN PORTRAIT BULLE INFO
+    // Création d'un cercle noir
+    const fondPortrait = new PIXI.Graphics();
+    fondPortrait.lineStyle(4, 0x8B0000, 1);
+    fondPortrait.beginFill(0x000000);
+    const rayon = toileScreen.width * 0.036;
+    fondPortrait.drawCircle(0, 0, rayon);
+    fondPortrait.endFill();
+    // Création d'un masque de dimension similaires
+    const fondPortraitMask = new PIXI.Graphics();
+    fondPortraitMask.lineStyle(4, 0x8B0000, 1);
+    fondPortraitMask.beginFill(0x000000);
+    fondPortraitMask.drawCircle(0, 0, rayon);
+    fondPortraitMask.endFill();
+
+    // TOILE SCREEN PROJECT SELECTION
+    const toileScreenProject1Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/gettogetherselect.png');
+    const toileScreenProject1 = new PIXI.Sprite(toileScreenProject1Asset);
+    toileScreenProject1.zIndex = 10;
+
+    const toileScreenProject2Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/rebatiereselect.png');
+    const toileScreenProject2 = new PIXI.Sprite(toileScreenProject2Asset);
+    toileScreenProject2.zIndex = 10;
+
+    const toileScreenProject3Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/jsigneselect.png');
+    const toileScreenProject3 = new PIXI.Sprite(toileScreenProject3Asset);
+    toileScreenProject3.zIndex = 10;
+
     // TOILE SCREEN ALERTS - Le changement default/active se fait dans "interactions.js"
     // PLAY VIDEO ALERT
     const playVideo = await displaySprite('SPECIAL/toileAlerts/startHover.json', 0.12);
@@ -709,8 +740,6 @@ export async function loadSprites(apps, sounds) {
     exitVideoActive.anchor.set(0.5);
     exitVideoActive.interactive = true;
     exitVideoActive.stop();
-
-
 
     // MUSIC TOGGLE
     const music = await displaySprite('SPECIAL/musicnote.json', 0.12);
@@ -1417,6 +1446,7 @@ export async function loadSprites(apps, sounds) {
         guybrushIUL,
         guybrushIUR,
         guybrushD,
+        guybrushClone,
         // ELEMENTS & OBJECTS
         ordi,
         ordiRun,
@@ -1489,13 +1519,18 @@ export async function loadSprites(apps, sounds) {
         exitVideoActive,  
         exitVideospriteAsset,  
         exitVideoframes,  
-        // film1,
         questionMark,
         questionMarkActive,
         noPanik,
         arrow,
         music,
         musicActive,
+        // PROJECT SELECTION
+        toileScreenProject1,
+        toileScreenProject2,
+        toileScreenProject3,
+        fondPortrait,
+        fondPortraitMask,
         // NOT A SPRITE
         // musicthemePLAY,
     };
