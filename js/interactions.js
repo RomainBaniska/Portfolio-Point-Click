@@ -321,64 +321,124 @@ export async function interactions(apps, sprites, texts) {
                 }, 4000);
             }, 4000);
 
-// Positionnement des Sprites Projets Videos
-// taille d'espacement entre les sprites
-const totalSpacing = toileScreen.width * 0.1;
+        // Positionnement des Sprites Projets Videos
+        // taille d'espacement entre les sprites
+        const totalSpacing = toileScreen.width * 0.1;
 
-// On définit l'ancrage de chaque sprite à 0.5 pour les centrer
-toileScreenProject1.anchor.set(0.5);
-toileScreenProject2.anchor.set(0.5);
-toileScreenProject3.anchor.set(0.5);
+        // On définit l'ancrage de chaque sprite à 0.5 pour les centrer
+        toileScreenProject1.anchor.set(0.5);
+        toileScreenProject2.anchor.set(0.5);
+        toileScreenProject3.anchor.set(0.5);
 
-// On ajuste la position de tous les projets avec pour point de départ le centre de la toile
-toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
-toileScreenProject1.x = toileScreenProject2.x - toileScreenProject2.width - totalSpacing;
-toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + totalSpacing;
-const yCenter = toileScreen.y + (toileScreen.height * 0.5);
-toileScreenProject1.y = yCenter;
-toileScreenProject2.y = yCenter;
-toileScreenProject3.y = yCenter;
+        // On ajuste la position de tous les projets avec pour point de départ le centre de la toile
+        toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
+        toileScreenProject1.x = toileScreenProject2.x - toileScreenProject2.width - totalSpacing;
+        toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + totalSpacing;
+        const yCenter = toileScreen.y + (toileScreen.height * 0.5);
+        toileScreenProject1.y = yCenter;
+        toileScreenProject2.y = yCenter;
+        toileScreenProject3.y = yCenter;
 
-screenBackgroundContainer.addChild(toileScreenProject1);
-screenBackgroundContainer.addChild(toileScreenProject2);
-screenBackgroundContainer.addChild(toileScreenProject3);
+        screenBackgroundContainer.addChild(toileScreenProject1);
+        screenBackgroundContainer.addChild(toileScreenProject2);
+        screenBackgroundContainer.addChild(toileScreenProject3);
 
-// On crée une petite animation lors de la sélection du projet
-toileScreenProject1.addEventListener("click", () => {
 
-    toileScreenProject1.interactive = false;
-    toileScreenProject2.visible = false;
-    toileScreenProject3.visible = false;
+        //////////////////////////////////////
+        /// MOUVEMENT TOILESCREENPROJECT 1 ///
+        // On crée une petite animation lors de la sélection du projet
+        toileScreenProject1.addEventListener("click", () => {
+            // On invisibilise les projets non sélectionnés
+            toileScreenProject1.interactive = false;
+            toileScreenProject2.visible = false;
+            toileScreenProject3.visible = false;
 
-    // let targetX = toileScreenProject1.x + toileScreenProject1.width + spaceBetween;
-    let targetX = toileScreen.x + (toileScreen.width / 2);
+            let targetX = toileScreen.x + (toileScreen.width / 2);
 
-    // Premier Ticker qui fait glisser le screenProject1 vers la droite 
-    let localTicker = new PIXI.Ticker();
-    localTicker.add(() => {
-        if (toileScreenProject1.x <= targetX) {
-            toileScreenProject1.x += 6;
-        } else {
-            localTicker.stop();
-            console.log("fini!");
+            // Premier Ticker qui fait glisser le screenProject1 vers la droite 
+            let localTicker = new PIXI.Ticker();
+            localTicker.add(() => {
+                if (toileScreenProject1.x <= targetX) {
+                    toileScreenProject1.x += 6;
+                } else {
+                    localTicker.stop();
+                    console.log("fini!");
 
-            // Deuxième Ticker qui agrandit screenProject1
+                    // Deuxième Ticker qui agrandit screenProject1
+                    let scaleTicker = new PIXI.Ticker();
+                    scaleTicker.add(() => {
+                        if (toileScreenProject1.scale.x < 4.5) { 
+                            toileScreenProject1.scale.x += 0.1; 
+                            toileScreenProject1.scale.y += 0.1; 
+                        } else {
+                            scaleTicker.stop(); 
+                            console.log("Agrandissement terminé !");
+                        }
+                    });
+                    scaleTicker.start(); // Démarre le ticker d'agrandissement
+                }
+            });
+            localTicker.start(); // Démarre le ticker de déplacement
+        });
+
+        /// MOUVEMENT TOILESCREENPROJECT3 ///
+        toileScreenProject3.addEventListener("click", () => {
+            // On invisibilise les projets non sélectionnés
+            toileScreenProject3.interactive = false;
+            toileScreenProject1.visible = false;
+            toileScreenProject2.visible = false;
+        
+            let targetX = toileScreen.x + (toileScreen.width / 2);
+        
+            // Premier Ticker qui fait glisser le screenProject3 vers la gauche
+            let localTicker = new PIXI.Ticker();
+            localTicker.add(() => {
+                if (toileScreenProject3.x >= targetX) {
+                    toileScreenProject3.x -= 6;
+                } else {
+                    localTicker.stop();
+                    console.log("fini!");
+        
+                    // Deuxième Ticker qui agrandit screenProject3
+                    let scaleTicker = new PIXI.Ticker();
+                    scaleTicker.add(() => {
+                        if (toileScreenProject3.scale.x < 4.5) {
+                            toileScreenProject3.scale.x += 0.1;
+                            toileScreenProject3.scale.y += 0.1;
+                        } else {
+                            scaleTicker.stop();
+                            console.log("Agrandissement terminé !");
+                        }
+                    });
+                    scaleTicker.start();
+                }
+            });
+            localTicker.start();
+        });
+
+        /// MOUVEMENT TOILESCREENPROJECT2
+        toileScreenProject2.addEventListener("click", () => {
+            // On invisibilise les projets non sélectionnés
+            toileScreenProject2.interactive = false;
+            toileScreenProject1.visible = false;
+            toileScreenProject3.visible = false;
+        
+            // Ticker qui agrandit screenProject2
             let scaleTicker = new PIXI.Ticker();
             scaleTicker.add(() => {
-                if (toileScreenProject1.scale.x < 4.5) { 
-                    toileScreenProject1.scale.x += 0.1; 
-                    toileScreenProject1.scale.y += 0.1; 
+                if (toileScreenProject2.scale.x < 4.5) {
+                    toileScreenProject2.scale.x += 0.1;
+                    toileScreenProject2.scale.y += 0.1;
                 } else {
-                    scaleTicker.stop(); 
+                    scaleTicker.stop();
                     console.log("Agrandissement terminé !");
                 }
             });
-            scaleTicker.start(); // Démarre le ticker d'agrandissement
-        }
-    });
-    localTicker.start(); // Démarre le ticker de déplacement
-});
-
+            scaleTicker.start();
+        });
+        //////////////////////////////////////
+        
+        
 
                                     // selectAProject.addEventListener("click", () => {
                                     guybrushClone.addEventListener("click", () => {
