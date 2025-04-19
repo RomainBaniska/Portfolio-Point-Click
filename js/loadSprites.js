@@ -644,7 +644,7 @@ export async function loadSprites(apps, sounds) {
     const fondPortrait = new PIXI.Graphics();
     fondPortrait.lineStyle(4, 0x8B0000, 1);
     fondPortrait.beginFill(0x000000);
-    const rayon = toileScreen.width * 0.036;
+    const rayon = toileScreen.width * 0.032;
     fondPortrait.drawCircle(0, 0, rayon);
     fondPortrait.endFill();
     // Création d'un masque de dimension similaires
@@ -657,16 +657,24 @@ export async function loadSprites(apps, sounds) {
     // TOILE SCREEN PROJECT SELECTION
     const toileScreenProject1Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/gettogetherselect.png');
     const toileScreenProject1 = new PIXI.Sprite(toileScreenProject1Asset);
+    // toileScreenProject1.width = 178;
+    // toileScreenProject1.height = 100;
     toileScreenProject1.interactive = true;
     toileScreenProject1.zIndex = 10;
 
     const toileScreenProject2Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/rebatiereselect.png');
     const toileScreenProject2 = new PIXI.Sprite(toileScreenProject2Asset);
+    // toileScreenProject2.width = 775;
+    // toileScreenProject2.height = 436;
+    // toileScreenProject2.width = 178;
+    // toileScreenProject2.height = 100;
     toileScreenProject2.interactive = true;
     toileScreenProject2.zIndex = 10;
 
     const toileScreenProject3Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/jsigneselect.png');
     const toileScreenProject3 = new PIXI.Sprite(toileScreenProject3Asset);
+    // toileScreenProject3.width = 178;
+    // toileScreenProject3.height = 100;
     toileScreenProject3.interactive = true;
     toileScreenProject3.zIndex = 10;
 

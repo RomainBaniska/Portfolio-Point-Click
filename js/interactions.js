@@ -260,12 +260,12 @@ export async function interactions(apps, sprites, texts) {
 
             // Positionnement de la bulle info avec le portrait de Romain (fondPortrait & fondPortraitMask)            
             // Positionner le cercle en haut à gauche de l'écran
-            fondPortrait.x = toileScreen.x + (toileScreen.width * 0.14);
-            fondPortrait.y = toileScreen.y + (toileScreen.height * 0.12);
+            fondPortrait.x = toileScreen.x + (toileScreen.width * 0.12);
+            fondPortrait.y = toileScreen.y + (toileScreen.height * 0.1);
             fondPortrait.zIndex = 11;
             // Idem pour le masque
-            fondPortraitMask.x = toileScreen.x + (toileScreen.width * 0.14);
-            fondPortraitMask.y = toileScreen.y + (toileScreen.height * 0.12);
+            fondPortraitMask.x = toileScreen.x + (toileScreen.width * 0.12);
+            fondPortraitMask.y = toileScreen.y + (toileScreen.height * 0.1);
             fondPortraitMask.zIndex = 11;
             screenBackgroundContainer.addChild(fondPortraitMask);
 
@@ -290,7 +290,7 @@ export async function interactions(apps, sprites, texts) {
             function bulleText(bulleText) {
                 bulleText.zIndex = 12;
                 bulleText.x = toileScreen.x + (toileScreen.width * 0.53);
-                bulleText.y = toileScreen.y + (toileScreen.height * 0.06);
+                bulleText.y = toileScreen.y + (toileScreen.height * 0.05);
                 bulleText.anchor.set(0.5, 0);
             }
             // Bulles Romain Toile
@@ -321,24 +321,19 @@ export async function interactions(apps, sprites, texts) {
                 }, 4000);
             }, 4000);
 
-            // Positionnement des Sprites Projets Videos
+// Positionnement des Sprites Projets Videos
+// taille d'espacement entre les sprites
 const totalSpacing = toileScreen.width * 0.1;
-const spaceBetween = totalSpacing / 2;
-
-const totalWidth = toileScreenProject1.width + toileScreenProject2.width + toileScreenProject3.width + totalSpacing;
-const startX = toileScreen.x + (toileScreen.width / 2) - (totalWidth / 2);
 
 // On définit l'ancrage de chaque sprite à 0.5 pour les centrer
 toileScreenProject1.anchor.set(0.5);
 toileScreenProject2.anchor.set(0.5);
 toileScreenProject3.anchor.set(0.5);
 
-// On ajuste la position pour compenser le décalage du centre (à cause de l'ancrage)
-toileScreenProject1.x = startX + toileScreenProject1.width / 2;
-toileScreenProject2.x = toileScreenProject1.x + toileScreenProject1.width + spaceBetween + toileScreenProject2.width / 2;
-toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + spaceBetween + toileScreenProject3.width / 2;
-
-// Calcul du Y pour centrer verticalement
+// On ajuste la position de tous les projets avec pour point de départ le centre de la toile
+toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
+toileScreenProject1.x = toileScreenProject2.x - toileScreenProject2.width - totalSpacing;
+toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + totalSpacing;
 const yCenter = toileScreen.y + (toileScreen.height * 0.5);
 toileScreenProject1.y = yCenter;
 toileScreenProject2.y = yCenter;
@@ -355,7 +350,8 @@ toileScreenProject1.addEventListener("click", () => {
     toileScreenProject2.visible = false;
     toileScreenProject3.visible = false;
 
-    let targetX = toileScreenProject1.x + toileScreenProject1.width + spaceBetween;
+    // let targetX = toileScreenProject1.x + toileScreenProject1.width + spaceBetween;
+    let targetX = toileScreen.x + (toileScreen.width / 2);
 
     // Premier Ticker qui fait glisser le screenProject1 vers la droite 
     let localTicker = new PIXI.Ticker();
@@ -369,9 +365,9 @@ toileScreenProject1.addEventListener("click", () => {
             // Deuxième Ticker qui agrandit screenProject1
             let scaleTicker = new PIXI.Ticker();
             scaleTicker.add(() => {
-                if (toileScreenProject1.scale.x < 5) { 
-                    toileScreenProject1.scale.x += 0.01; 
-                    toileScreenProject1.scale.y += 0.01; 
+                if (toileScreenProject1.scale.x < 4.5) { 
+                    toileScreenProject1.scale.x += 0.1; 
+                    toileScreenProject1.scale.y += 0.1; 
                 } else {
                     scaleTicker.stop(); 
                     console.log("Agrandissement terminé !");
@@ -384,7 +380,8 @@ toileScreenProject1.addEventListener("click", () => {
 });
 
 
-                                    selectAProject.addEventListener("click", () => {
+                                    // selectAProject.addEventListener("click", () => {
+                                    guybrushClone.addEventListener("click", () => {
                             
                                     // Vérifier si la vidéo existe déjà pour éviter les doublons
                                     let existingVideo = document.getElementById("pixi-video");
