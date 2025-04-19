@@ -322,12 +322,15 @@ export async function interactions(apps, sprites, texts) {
             }, 4000);
 
             // Positionnement des Sprites Projets Videos
-            const totalWidth = toileScreenProject1.width + toileScreenProject2.width + toileScreenProject3.width;
+            const totalSpacing = toileScreen.width * 0.1;
+            const spaceBetween = totalSpacing / 2;
+            
+            const totalWidth = toileScreenProject1.width + toileScreenProject2.width + toileScreenProject3.width + totalSpacing;
             const startX = toileScreen.x + (toileScreen.width / 2) - (totalWidth / 2);
 
             toileScreenProject1.x = startX;
-            toileScreenProject2.x = toileScreenProject1.x + toileScreenProject1.width;
-            toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width;
+            toileScreenProject2.x = toileScreenProject1.x + toileScreenProject1.width + spaceBetween;
+            toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + spaceBetween;
 
             const yCenter = toileScreen.y + (toileScreen.height * 0.5);
             toileScreenProject1.y = yCenter;
