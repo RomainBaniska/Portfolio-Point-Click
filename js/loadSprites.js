@@ -657,14 +657,17 @@ export async function loadSprites(apps, sounds) {
     // TOILE SCREEN PROJECT SELECTION
     const toileScreenProject1Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/gettogetherselect.png');
     const toileScreenProject1 = new PIXI.Sprite(toileScreenProject1Asset);
+    toileScreenProject1.interactive = true;
     toileScreenProject1.zIndex = 10;
 
     const toileScreenProject2Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/rebatiereselect.png');
     const toileScreenProject2 = new PIXI.Sprite(toileScreenProject2Asset);
+    toileScreenProject2.interactive = true;
     toileScreenProject2.zIndex = 10;
 
     const toileScreenProject3Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/jsigneselect.png');
     const toileScreenProject3 = new PIXI.Sprite(toileScreenProject3Asset);
+    toileScreenProject3.interactive = true;
     toileScreenProject3.zIndex = 10;
 
     // TOILE SCREEN ALERTS - Le changement default/active se fait dans "interactions.js"

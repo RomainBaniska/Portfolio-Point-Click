@@ -341,6 +341,41 @@ export async function interactions(apps, sprites, texts) {
             screenBackgroundContainer.addChild(toileScreenProject2);
             screenBackgroundContainer.addChild(toileScreenProject3);
 
+            // On crée une petite animation lors de la sélection du projet
+            toileScreenProject1.addEventListener("click", () => {
+                
+                toileScreenProject1.interactive = false;
+                toileScreenProject2.visible = false;
+                toileScreenProject3.visible = false;
+
+                let targetX = toileScreenProject1.x + toileScreenProject1.width + spaceBetween;
+
+                // Premier Ticker qui fait glisser le screenProject1 vers la droite 
+                let localTicker = new PIXI.Ticker();
+                localTicker.add(() => {
+                    if (toileScreenProject1.x <= targetX) {
+                        toileScreenProject1.x += 6;
+                    } else {
+                        localTicker.stop();
+                        console.log("fini!");
+
+                        // Deuxième Ticker qui agrandit screenProject1
+                        let scaleTicker = new PIXI.Ticker();
+                        scaleTicker.add(() => {
+                            if (toileScreenProject1.scale.x < 5) { 
+                                toileScreenProject1.scale.x += 0.01; 
+                                toileScreenProject1.scale.y += 0.01; 
+                            } else {
+                                scaleTicker.stop(); 
+                                console.log("Agrandissement terminé !");
+                            }
+                        });
+                        // toileScreenProject1.anchor.set(0.5);
+                        scaleTicker.start(); // Démarre le ticker d'agrandissement
+                    }
+                });
+                localTicker.start(); // Démarre le ticker de déplacement
+            });
 
                                     selectAProject.addEventListener("click", () => {
                             
