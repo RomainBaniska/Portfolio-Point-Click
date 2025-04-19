@@ -2,19 +2,15 @@ export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
     const { houseContainer, specialScreenContainer, lavabo, guybrushD, interrupteur, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, /*musicthemePLAY*/ } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2 } = texts;
-    // const { unrollSound } = sounds
+    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Vidéos de la toile
     const videoList = [
-        // "../videos/RebatierePF.mp4",
-        // "../videos/RebatiereNoCut.mp4",
-        // "../videos/TimeoutNoCut.mp4",
-        "../videos/PART1-LOGIN.mp4",
-        "../videos/PART2-DASHBOARD&EVENT.mp4",
-        "../videos/PART2-EVENTTCHATRESPONSE.mp4",
-        "../videos/PART3-TAGS.mp4.mp4",
+        "../videos/TimeOut/PART1-LOGIN.mp4",
+        "../videos/TimeOut/PART2-DASHBOARD&EVENT.mp4",
+        "../videos/TimeOut/PART2-EVENTTCHATRESPONSE.mp4",
+        "../videos/TimeOut/PART3-TAGS.mp4.mp4",
     ];
     // Index en cours de la video (initialisation)
     let currentVideoIndex = 0;
@@ -235,8 +231,29 @@ export async function interactions(apps, sprites, texts) {
     toilePoulieRun.on('click', async () => {
         // Quand on clique sur la toile
         if (menuButton5.isActive) {
-            // app.stage.addChild(toileScreen);
             screenBackgroundContainer.addChild(toileScreen);
+
+            // Ajout d'un sprite de présentation de "GetTogether"
+            const introSlideGetTogether = new PIXI.Graphics()
+            .fill({ color: 0xFAF9F6 })
+            .rect(0, 0, toileScreen.width, toileScreen.height, 20);
+            introSlideGetTogether.endFill();
+            introSlideGetTogether.zIndex = 15;
+            introSlideGetTogether.x = toileScreen.x;
+            introSlideGetTogether.y = toileScreen.y;
+            introSlideGetTogether.height = toileScreen.width * 9 / 16 + "px";
+            introSlideGetTogether.width = toileScreen.width * 0.8 + "px";
+            const getTogetherTitle = new PIXI.Text({ text: "GetTogether, une extension de TimeOut", style: titleStyle });
+             // Mini fonction titres
+             function projectTitle(title) {
+                title.zIndex = 16;
+                title.x = toileScreen.x + (toileScreen.width / 2);
+                title.y = toileScreen.y + (toileScreen.height / 2);
+                title.anchor.set(0.5);
+            }
+            projectTitle(getTogetherTitle);
+            screenBackgroundContainer.addChild(introSlideGetTogether);
+            screenBackgroundContainer.addChild(getTogetherTitle);
 
             // Création de la bulle info avec le portrait de Romain
             // Création d'un cercle noir
@@ -265,17 +282,14 @@ export async function interactions(apps, sprites, texts) {
             fondPortraitMask.zIndex = 11;
             screenBackgroundContainer.addChild(fondPortraitMask);
 
-
-            // on invoque Romain qui parle
+            /////// On invoque Romain qui parle dans une bulle ///////
             guybrush.x = fondPortrait.x;
             guybrush.y = fondPortrait.y;
             guybrush.anchor.set(0.5, 0.2);
             guybrush.zIndex = 12;
             guybrush.interactive = true;
             guybrush.gotoAndPlay(0);
-            // guybrush.play();
             guybrush.on("click", () => {
-                // guybrush.play();
                 guybrush.gotoAndStop(0);
             })
             // Ajout du masque à Romain
@@ -283,25 +297,25 @@ export async function interactions(apps, sprites, texts) {
             screenBackgroundContainer.addChild(guybrush);
             // ajout du portrait
             screenBackgroundContainer.addChild(fondPortrait);
+            ///////////////////////////////////////////////////////////
 
-            // mini fonction bulles
+            // Mini fonction bulles
             function bulleText(bulleText) {
                 bulleText.zIndex = 12;
                 bulleText.x = toileScreen.x + (toileScreen.width / 2);
                 bulleText.y = toileScreen.y + (toileScreen.height * 0.05);
                 bulleText.anchor.set(0.5, 0);
             }
+            // Bulles Romain Toile
             const bulleText1 = new PIXI.Text({ text: "Bravo tu as réussi à aller jusqu'ici, là où beaucoup ont échoué", style: dialogueStyleLong });
             const bulleText2 = new PIXI.Text({ text: "Si tu es arrivé jusqu'ici c'est que tu as envie d'en savoir un peu plus sur moi ?", style: dialogueStyleLong });
             const bulleText3 = new PIXI.Text({ text: "Je vais te montrer en image quelqu'uns des projets sur lesquels j'ai travaillé", style: dialogueStyleLong });
             const bulleText4 = new PIXI.Text({ text: "Choisis l'un des projets dont tu veux que je te parle", style: dialogueStyleLong });
-            
-            
             bulleText(bulleText1);
             bulleText(bulleText2);
             bulleText(bulleText3);
             bulleText(bulleText4);
-
+            // Ajout des bulles avec chrono
             screenBackgroundContainer.addChild(bulleText1);
             setTimeout(() => {
                 screenBackgroundContainer.removeChild(bulleText1);
@@ -332,9 +346,7 @@ export async function interactions(apps, sprites, texts) {
             video.autoplay = true;
             video.controls = false;
             video.style.zIndex = "10";
-            // video.style.width = videoWidth + "px";
             video.style.width = "100%";
-            // video.style.height = videoHeight + "px";
             video.style.height = "auto";
             video.style.maxHeight = toileScreen.width * 9 / 16 + "px";
             video.style.maxWidth = toileScreen.width * 0.8 + "px";
