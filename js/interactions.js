@@ -2,7 +2,7 @@ export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
     const { houseContainer, toileScreenProject1, toileScreenProject2, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, /*musicthemePLAY*/ } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle } = texts;
+    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Vidéos de la toile
@@ -346,8 +346,30 @@ export async function interactions(apps, sprites, texts) {
 
         //////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT 1 ///
+
+        // Hover qui affiche le nom du projet
+        let project1Description = null;
+        toileScreenProject1.on('pointerover', () => {
+            project1Description = new PIXI.Text({ text: "GetTogether", style: titleStyle2 });
+            project1Description.x = toileScreenProject1.x;
+            project1Description.y = toileScreenProject1.y + project1Description.height * 2;
+            project1Description.anchor.set(0.5, 0);
+            project1Description.zIndex = 12;
+            screenBackgroundContainer.addChild(project1Description);
+        });
+        toileScreenProject1.on('pointerout', () => {
+            if (project1Description) {
+                project1Description.destroy();
+            }
+        });
+
+
         // On crée une petite animation lors de la sélection du projet
         toileScreenProject1.addEventListener("click", () => {
+            // destruction si existe
+            if (project1Description) {
+                project1Description.destroy();
+            }
             // On invisibilise les projets non sélectionnés
             toileScreenProject1.interactive = false;
             toileScreenProject2.visible = false;
@@ -381,8 +403,31 @@ export async function interactions(apps, sprites, texts) {
             localTicker.start(); // Démarre le ticker de déplacement
         });
 
+        /////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT3 ///
+
+        // Hover qui affiche le nom du projet
+        let project3Description = null;
+        toileScreenProject3.on('pointerover', () => {
+            project3Description = new PIXI.Text({ text: "Rebatière", style: titleStyle2 });
+            project3Description.x = toileScreenProject3.x;
+            project3Description.y = toileScreenProject3.y + project3Description.height * 2;
+            project3Description.anchor.set(0.5, 0);
+            project3Description.zIndex = 12;
+            screenBackgroundContainer.addChild(project3Description);
+        });
+        toileScreenProject3.on('pointerout', () => {
+            if (project3Description) {
+                project3Description.destroy();
+            }
+        });
+
         toileScreenProject3.addEventListener("click", () => {
+            // destruction si existe
+            if (project3Description) {
+                project3Description.destroy();
+            }
+
             // On invisibilise les projets non sélectionnés
             toileScreenProject3.interactive = false;
             toileScreenProject1.visible = false;
@@ -416,8 +461,28 @@ export async function interactions(apps, sprites, texts) {
             localTicker.start();
         });
 
-        /// MOUVEMENT TOILESCREENPROJECT2
+        // Hover qui affiche le nom du projet
+        let project2Description = null;
+        toileScreenProject2.on('pointerover', () => {
+            project2Description = new PIXI.Text({ text: "Jsigné", style: titleStyle2 });
+            project2Description.x = toileScreenProject2.x;
+            project2Description.y = toileScreenProject2.y + project2Description.height * 2;
+            project2Description.anchor.set(0.5, 0);
+            project2Description.zIndex = 12;
+            screenBackgroundContainer.addChild(project2Description);
+        });
+        toileScreenProject2.on('pointerout', () => {
+            if (project2Description) {
+                project2Description.destroy();
+            }
+        });
+        /////////////////////////////////////
+        /// MOUVEMENT TOILESCREENPROJECT2 ///
         toileScreenProject2.addEventListener("click", () => {
+            // destruction si existe
+            if (project2Description) {
+                project2Description.destroy();
+            }
             // On invisibilise les projets non sélectionnés
             toileScreenProject2.interactive = false;
             toileScreenProject1.visible = false;
