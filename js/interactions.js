@@ -322,60 +322,67 @@ export async function interactions(apps, sprites, texts) {
             }, 4000);
 
             // Positionnement des Sprites Projets Videos
-            const totalSpacing = toileScreen.width * 0.1;
-            const spaceBetween = totalSpacing / 2;
-            
-            const totalWidth = toileScreenProject1.width + toileScreenProject2.width + toileScreenProject3.width + totalSpacing;
-            const startX = toileScreen.x + (toileScreen.width / 2) - (totalWidth / 2);
+const totalSpacing = toileScreen.width * 0.1;
+const spaceBetween = totalSpacing / 2;
 
-            toileScreenProject1.x = startX;
-            toileScreenProject2.x = toileScreenProject1.x + toileScreenProject1.width + spaceBetween;
-            toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + spaceBetween;
+const totalWidth = toileScreenProject1.width + toileScreenProject2.width + toileScreenProject3.width + totalSpacing;
+const startX = toileScreen.x + (toileScreen.width / 2) - (totalWidth / 2);
 
-            const yCenter = toileScreen.y + (toileScreen.height * 0.5);
-            toileScreenProject1.y = yCenter;
-            toileScreenProject2.y = yCenter;
-            toileScreenProject3.y = yCenter;
+// On définit l'ancrage de chaque sprite à 0.5 pour les centrer
+toileScreenProject1.anchor.set(0.5);
+toileScreenProject2.anchor.set(0.5);
+toileScreenProject3.anchor.set(0.5);
 
-            screenBackgroundContainer.addChild(toileScreenProject1);
-            screenBackgroundContainer.addChild(toileScreenProject2);
-            screenBackgroundContainer.addChild(toileScreenProject3);
+// On ajuste la position pour compenser le décalage du centre (à cause de l'ancrage)
+toileScreenProject1.x = startX + toileScreenProject1.width / 2;
+toileScreenProject2.x = toileScreenProject1.x + toileScreenProject1.width + spaceBetween + toileScreenProject2.width / 2;
+toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + spaceBetween + toileScreenProject3.width / 2;
 
-            // On crée une petite animation lors de la sélection du projet
-            toileScreenProject1.addEventListener("click", () => {
-                
-                toileScreenProject1.interactive = false;
-                toileScreenProject2.visible = false;
-                toileScreenProject3.visible = false;
+// Calcul du Y pour centrer verticalement
+const yCenter = toileScreen.y + (toileScreen.height * 0.5);
+toileScreenProject1.y = yCenter;
+toileScreenProject2.y = yCenter;
+toileScreenProject3.y = yCenter;
 
-                let targetX = toileScreenProject1.x + toileScreenProject1.width + spaceBetween;
+screenBackgroundContainer.addChild(toileScreenProject1);
+screenBackgroundContainer.addChild(toileScreenProject2);
+screenBackgroundContainer.addChild(toileScreenProject3);
 
-                // Premier Ticker qui fait glisser le screenProject1 vers la droite 
-                let localTicker = new PIXI.Ticker();
-                localTicker.add(() => {
-                    if (toileScreenProject1.x <= targetX) {
-                        toileScreenProject1.x += 6;
-                    } else {
-                        localTicker.stop();
-                        console.log("fini!");
+// On crée une petite animation lors de la sélection du projet
+toileScreenProject1.addEventListener("click", () => {
 
-                        // Deuxième Ticker qui agrandit screenProject1
-                        let scaleTicker = new PIXI.Ticker();
-                        scaleTicker.add(() => {
-                            if (toileScreenProject1.scale.x < 5) { 
-                                toileScreenProject1.scale.x += 0.01; 
-                                toileScreenProject1.scale.y += 0.01; 
-                            } else {
-                                scaleTicker.stop(); 
-                                console.log("Agrandissement terminé !");
-                            }
-                        });
-                        // toileScreenProject1.anchor.set(0.5);
-                        scaleTicker.start(); // Démarre le ticker d'agrandissement
-                    }
-                });
-                localTicker.start(); // Démarre le ticker de déplacement
+    toileScreenProject1.interactive = false;
+    toileScreenProject2.visible = false;
+    toileScreenProject3.visible = false;
+
+    let targetX = toileScreenProject1.x + toileScreenProject1.width + spaceBetween;
+
+    // Premier Ticker qui fait glisser le screenProject1 vers la droite 
+    let localTicker = new PIXI.Ticker();
+    localTicker.add(() => {
+        if (toileScreenProject1.x <= targetX) {
+            toileScreenProject1.x += 6;
+        } else {
+            localTicker.stop();
+            console.log("fini!");
+
+            // Deuxième Ticker qui agrandit screenProject1
+            let scaleTicker = new PIXI.Ticker();
+            scaleTicker.add(() => {
+                if (toileScreenProject1.scale.x < 5) { 
+                    toileScreenProject1.scale.x += 0.01; 
+                    toileScreenProject1.scale.y += 0.01; 
+                } else {
+                    scaleTicker.stop(); 
+                    console.log("Agrandissement terminé !");
+                }
             });
+            scaleTicker.start(); // Démarre le ticker d'agrandissement
+        }
+    });
+    localTicker.start(); // Démarre le ticker de déplacement
+});
+
 
                                     selectAProject.addEventListener("click", () => {
                             
