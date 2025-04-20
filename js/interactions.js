@@ -422,7 +422,7 @@ export async function interactions(apps, sprites, texts) {
         // Hover qui affiche le nom du projet
         let project3Description = null;
         toileScreenProject3.on('pointerover', () => {
-            project3Description = new PIXI.Text({ text: "Rebatière", style: titleStyle2 });
+            project3Description = new PIXI.Text({ text: "Jsigné", style: titleStyle2 });
             project3Description.x = toileScreenProject3.x;
             project3Description.y = toileScreenProject3.y + project3Description.height * 2;
             project3Description.anchor.set(0.5, 0);
@@ -491,7 +491,7 @@ export async function interactions(apps, sprites, texts) {
         // Hover qui affiche le nom du projet
         let project2Description = null;
         toileScreenProject2.on('pointerover', () => {
-            project2Description = new PIXI.Text({ text: "Jsigné", style: titleStyle2 });
+            project2Description = new PIXI.Text({ text: "Rebatière", style: titleStyle2 });
             project2Description.x = toileScreenProject2.x;
             project2Description.y = toileScreenProject2.y + project2Description.height * 2;
             project2Description.anchor.set(0.5, 0);
@@ -567,8 +567,15 @@ export async function interactions(apps, sprites, texts) {
                                     video.style.maxHeight = toileScreen.width * 9 / 16 + "px";
                                     video.style.maxWidth = toileScreen.width * 0.8 + "px";
 
+                                    video.style.opacity = "0";
+                                    video.style.transition = "opacity 1s ease";
+
                                     // Ajout de la video au DOM
                                     document.body.appendChild(video);
+
+                                    requestAnimationFrame(() => {
+                                        video.style.opacity = "1";
+                                    });
                             
                                     // Ajout de playVideo au conteneur des boutons
                                     screenBackgroundContainer.addChild(stopVideo);
