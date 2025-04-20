@@ -536,6 +536,9 @@ export async function interactions(apps, sprites, texts) {
                         alphaTicker.stop(); 
                         // screenBackgroundContainer.removeChild(toileScreenProject1);
                         screenBackgroundContainer.addChild(rebatiereTitle);
+                        setTimeout(() => {
+                            getogetherVideo();
+                        }, 3000);
                         }
                     });
                     alphaTicker.start();
@@ -547,8 +550,8 @@ export async function interactions(apps, sprites, texts) {
         
         
 
-                                    // selectAProject.addEventListener("click", () => {
-                                    guybrushClone.addEventListener("click", () => {
+                                    function getogetherVideo() {
+                                    // guybrushClone.addEventListener("click", () => {
                             
                                     // Vérifier si la vidéo existe déjà pour éviter les doublons
                                     let existingVideo = document.getElementById("pixi-video");
@@ -573,8 +576,11 @@ export async function interactions(apps, sprites, texts) {
                                     // Ajout de la video au DOM
                                     document.body.appendChild(video);
 
+                                    // Demander deux frames consécutives pour éviter les erreurs d'animation
                                     requestAnimationFrame(() => {
-                                        video.style.opacity = "1";
+                                        requestAnimationFrame(() => {
+                                            video.style.opacity = "1";
+                                        });
                                     });
                             
                                     // Ajout de playVideo au conteneur des boutons
@@ -699,7 +705,8 @@ export async function interactions(apps, sprites, texts) {
                                         screenBackgroundContainer.removeChild(exitVideo);
                                         reroll();
                                     });
-                                });
+                                }
+                                // });
         }
     });
 
