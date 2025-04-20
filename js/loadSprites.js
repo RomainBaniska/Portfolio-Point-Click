@@ -677,12 +677,15 @@ export async function loadSprites(apps, sounds) {
     const toileScreen = new PIXI.Sprite(toileScreenAsset);
     toileScreen.zIndex = 10;
 
-    // TOILE SCREEN PORTRAIT BULLE INFO
+    // TOILE SCREEN PORTRAIT BULLE INFO =====> La toileScreen est pas encore redimensionnée dans resizeHandler donc rayon est pas bon
+    // const rayon = toileScreen.width * 0.032;
+    // const rayon = ((houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4) * 0.032;
+    const rayon = ((houseSprite.height / 1024) * 1440 * 1.4) * 0.045;
+
     // Création d'un cercle noir
     const fondPortrait = new PIXI.Graphics();
     fondPortrait.lineStyle(4, 0x8B0000, 1);
     fondPortrait.beginFill(0x000000);
-    const rayon = toileScreen.width * 0.032;
     fondPortrait.drawCircle(0, 0, rayon);
     fondPortrait.endFill();
     // Création d'un masque de dimension similaires
