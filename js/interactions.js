@@ -237,7 +237,7 @@ export async function interactions(apps, sprites, texts) {
             .fill({ color: 0xFAF9F6 })
             .rect(0, 0, toileScreen.width, toileScreen.height, 20);
             introSlide.endFill();
-            introSlide.zIndex = 15;
+            introSlide.zIndex = 16;
             introSlide.x = toileScreen.x;
             introSlide.y = toileScreen.y;
             introSlide.height = toileScreen.width * 9 / 16 + "px";
@@ -384,7 +384,6 @@ export async function interactions(apps, sprites, texts) {
                     toileScreenProject1.x += 6;
                 } else {
                     localTicker.stop();
-                    console.log("fini!");
 
                     // Deuxième Ticker qui agrandit screenProject1
                     let scaleTicker = new PIXI.Ticker();
@@ -395,6 +394,20 @@ export async function interactions(apps, sprites, texts) {
                         } else {
                             scaleTicker.stop(); 
                             console.log("Agrandissement terminé !");
+
+                            screenBackgroundContainer.addChild(introSlide);
+                            // Troisième Ticker qui fait disparaitre le screenProject1
+                            let alphaTicker = new PIXI.Ticker();
+                            alphaTicker.add(() => {
+                                if (toileScreenProject1.alpha > 0) {
+                                    toileScreenProject1.alpha -= 0.1;
+                                } else {
+                                alphaTicker.stop(); 
+                                // screenBackgroundContainer.removeChild(toileScreenProject1);
+                                screenBackgroundContainer.addChild(getTogetherTitle);
+                                }
+                            });
+                            alphaTicker.start();
                         }
                     });
                     scaleTicker.start(); // Démarre le ticker d'agrandissement
@@ -453,6 +466,20 @@ export async function interactions(apps, sprites, texts) {
                         } else {
                             scaleTicker.stop();
                             console.log("Agrandissement terminé !");
+
+                            screenBackgroundContainer.addChild(introSlide);
+                            // Troisième Ticker qui fait disparaitre le screenProject3
+                            let alphaTicker = new PIXI.Ticker();
+                            alphaTicker.add(() => {
+                                if (toileScreenProject3.alpha > 0) {
+                                    toileScreenProject3.alpha -= 0.1;
+                                } else {
+                                alphaTicker.stop(); 
+                                // screenBackgroundContainer.removeChild(toileScreenProject1);
+                                screenBackgroundContainer.addChild(jsigneTitle);
+                                }
+                            });
+                            alphaTicker.start();
                         }
                     });
                     scaleTicker.start();
@@ -497,6 +524,21 @@ export async function interactions(apps, sprites, texts) {
                 } else {
                     scaleTicker.stop();
                     console.log("Agrandissement terminé !");
+
+                    screenBackgroundContainer.addChild(introSlide);
+
+                    // Troisième Ticker qui fait disparaitre le screenProject2
+                    let alphaTicker = new PIXI.Ticker();
+                    alphaTicker.add(() => {
+                        if (toileScreenProject2.alpha > 0) {
+                            toileScreenProject2.alpha -= 0.1;
+                        } else {
+                        alphaTicker.stop(); 
+                        // screenBackgroundContainer.removeChild(toileScreenProject1);
+                        screenBackgroundContainer.addChild(rebatiereTitle);
+                        }
+                    });
+                    alphaTicker.start();
                 }
             });
             scaleTicker.start();
