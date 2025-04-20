@@ -440,8 +440,8 @@ export async function interactions(apps, sprites, texts) {
             }
         });
         // On crée une petite animation lors de la sélection du projet
-        guybrushClone.addEventListener("click", async () => {
-        // toileScreenProject1.addEventListener("click", async () => {
+        // guybrushClone.addEventListener("click", async () => {
+        toileScreenProject1.addEventListener("click", async () => {
             // destruction si existe
             if (project1Description) {
                 project1Description.destroy();
@@ -492,43 +492,44 @@ export async function interactions(apps, sprites, texts) {
 
                                 
                                 // Ajout des logos d'intro
-                                const screenFactor = toileScreen.width / 6000;
+                                const screenFactor = toileScreen.width / 5000;
 
                                 // HTML
-                                logoHTML.x = toileScreen.x + (toileScreen.width / 2);
-                                logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
                                 logoHTML.scale.set(screenFactor);
+                                logoHTML.x = toileScreen.x + (toileScreen.width / 2) - (logoHTML.width / 2);
+                                logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
                                 screenBackgroundContainer.addChild(logoHTML);
 
                                 // JS
+                                logoJS.scale.set(screenFactor);
                                 logoJS.x = logoHTML.x - logoHTML.width;
                                 logoJS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                logoJS.scale.set(screenFactor);
                                 screenBackgroundContainer.addChild(logoJS);
 
                                 // PHP
+                                logoPHP.scale.set(screenFactor);
                                 logoPHP.x = logoJS.x - logoJS.width;
                                 logoPHP.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                logoPHP.scale.set(screenFactor);
                                 screenBackgroundContainer.addChild(logoPHP);
 
-                                // Symfony
-                                logoSymfony.x = logoPHP.x - logoPHP.width;
-                                logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                logoSymfony.scale.set(screenFactor);
-                                screenBackgroundContainer.addChild(logoSymfony);
-                                                                
                                 // CSS
+                                logoCSS.scale.set(screenFactor);
                                 logoCSS.x = logoHTML.x + logoHTML.width;
                                 logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                logoCSS.scale.set(screenFactor);
                                 screenBackgroundContainer.addChild(logoCSS);
-                                
-                                // MongoDB
-                                logoMongo.x = logoCSS.x + logoCSS.width;
-                                logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                logoMongo.scale.set(screenFactor);
-                                screenBackgroundContainer.addChild(logoMongo);
+
+                                // MySQL
+                                logoMySQL.scale.set(screenFactor);
+                                logoMySQL.x = logoCSS.x + logoCSS.width;
+                                logoMySQL.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                screenBackgroundContainer.addChild(logoMySQL);
+
+                                // Symfony
+                                logoSymfony.scale.set(screenFactor);
+                                logoSymfony.x = logoMySQL.x + logoMySQL.width;
+                                logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                screenBackgroundContainer.addChild(logoSymfony);
+
                                
 
                                 // Ajout de la bulle de Romain après avoir sélectionné GetTogether
@@ -621,6 +622,41 @@ export async function interactions(apps, sprites, texts) {
                                 alphaTicker.stop(); 
                                 // screenBackgroundContainer.removeChild(toileScreenProject1);
                                 screenBackgroundContainer.addChild(jsigneTitle);
+
+                                // Ajout des logos d'intro
+                                const screenFactor = toileScreen.width / 6000;
+
+                                // HTML
+                                logoHTML.scale.set(screenFactor);
+                                logoHTML.x = toileScreen.x + (toileScreen.width / 2);
+                                logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                screenBackgroundContainer.addChild(logoHTML);
+
+                                // JS
+                                logoJS.scale.set(screenFactor);
+                                logoJS.x = logoHTML.x - logoHTML.width;
+                                logoJS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                screenBackgroundContainer.addChild(logoJS);
+
+                                // PHP
+                                logoPHP.scale.set(screenFactor);
+                                logoPHP.x = logoJS.x - logoJS.width;
+                                logoPHP.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                screenBackgroundContainer.addChild(logoPHP);
+
+                                // CSS
+                                logoCSS.scale.set(screenFactor);
+                                logoCSS.x = logoHTML.x + logoHTML.width;
+                                logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                screenBackgroundContainer.addChild(logoCSS);
+
+                                // MongoDB
+                                logoMongo.scale.set(screenFactor);
+                                logoMongo.x = logoCSS.x + logoCSS.width;
+                                logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                screenBackgroundContainer.addChild(logoMongo);
+    
+
                                 setTimeout(() => {
                                     gettogetherVideo();
                                 }, 3000);
@@ -683,9 +719,49 @@ export async function interactions(apps, sprites, texts) {
                         alphaTicker.stop(); 
                         // screenBackgroundContainer.removeChild(toileScreenProject1);
                         screenBackgroundContainer.addChild(rebatiereTitle);
-                        setTimeout(() => {
-                            gettogetherVideo();
-                        }, 3000);
+
+                        // Ajout des logos d'intro
+                        const screenFactor = toileScreen.width / 5000;
+
+                        // HTML
+                        logoHTML.scale.set(screenFactor);
+                        logoHTML.x = toileScreen.x + (toileScreen.width / 2) - (logoHTML.width / 2);
+                        logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoHTML);
+
+                        // JS
+                        logoJS.scale.set(screenFactor);
+                        logoJS.x = logoHTML.x - logoHTML.width;
+                        logoJS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoJS);
+
+                        // PHP
+                        logoPHP.scale.set(screenFactor);
+                        logoPHP.x = logoJS.x - logoJS.width;
+                        logoPHP.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoPHP);
+
+                        // CSS
+                        logoCSS.scale.set(screenFactor);
+                        logoCSS.x = logoHTML.x + logoHTML.width;
+                        logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoCSS);
+
+                        // MongoDB
+                        logoMongo.scale.set(screenFactor);
+                        logoMongo.x = logoCSS.x + logoCSS.width;
+                        logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoMongo);
+
+                        // Symfony
+                        logoSymfony.scale.set(screenFactor);
+                        logoSymfony.x = logoMongo.x + logoMongo.width;
+                        logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoSymfony);
+
+                        // setTimeout(() => {
+                        //     gettogetherVideo();
+                        // }, 3000);
                         }
                     });
                     alphaTicker.start();
