@@ -10,7 +10,15 @@ export async function interactions(apps, sprites, texts) {
         "../videos/TimeOut/PART1-LOGIN.mp4",
         "../videos/TimeOut/PART2-DASHBOARD&EVENT.mp4",
         "../videos/TimeOut/PART2-EVENTTCHATRESPONSE.mp4",
-        "../videos/TimeOut/PART3-TAGS.mp4.mp4",
+        "../videos/TimeOut/PART3-TAGS.mp4",
+    ];
+
+    const videoList2 = [
+        "../videos/Rebatiere/PART1-LOGINSIGNUP.mp4",
+        "../videos/TimeOut/PART2-RESERVATION.mp4",
+        "../videos/TimeOut/PART2-RESERVATION&DELETE&PROFILE.mp4",
+        "../videos/TimeOut/PART3-CONTRAINTES.mp4",
+        "../videos/TimeOut/PART4-PISCINE&ADMIN.mp4",
     ];
     // Index en cours de la video (initialisation)
     let currentVideoIndex = 0;
@@ -294,14 +302,26 @@ export async function interactions(apps, sprites, texts) {
                 bulleText.anchor.set(0.5, 0);
             }
             // Bulles Romain Toile
-            const bulleText1 = new PIXI.Text({ text: "Bravo tu as réussi à aller jusqu'ici, là où beaucoup ont échoué", style: dialogueStyleLong });
-            const bulleText2 = new PIXI.Text({ text: "Si tu es arrivé jusqu'ici c'est que tu as envie d'en savoir un peu plus sur moi ?", style: dialogueStyleLong });
-            const bulleText3 = new PIXI.Text({ text: "Je vais te montrer en image quelqu'uns des projets sur lesquels j'ai travaillé", style: dialogueStyleLong });
-            const bulleText4 = new PIXI.Text({ text: "Choisis l'un des projets dont tu veux que je te parle", style: dialogueStyleLong });
+            const bulleText1 = new PIXI.Text({ text: "Bravo, content de voir que tu sois arrivé jusqu'ici!", style: dialogueStyleLong });
+            const bulleText2 = new PIXI.Text({ text: "Le but de cette interface est que tu puisses avoir une idée plus précise de mes compétences en dev", style: dialogueStyleLong });
+            const bulleText3 = new PIXI.Text({ text: "Voici une sélection de 3 projets sur lesquel j'ai pu travailler", style: dialogueStyleLong });
+            const bulleText4 = new PIXI.Text({ text: "Sélectionne le projet qui t'intéresse", style: dialogueStyleLong });
             bulleText(bulleText1);
             bulleText(bulleText2);
             bulleText(bulleText3);
             bulleText(bulleText4);
+
+            // Bulles Romain GetTogether
+            const bulleTextGT1 = new PIXI.Text({ text: "GetTogether ? Très bon choix", style: dialogueStyleLong });
+            const bulleTextGT2 = new PIXI.Text({ text: "C’est une application pensée pour le site TimeOut, qui permet aux utilisateurs de filtrer les événements selon leurs intérêts et d’échanger facilement avec d’autres personnes partageant les mêmes centres d’intérêt.", style: dialogueStyleLong });
+            const bulleTextGT3 = new PIXI.Text({ text: "Ce projet a été développé à l'aide du framework Symfony, en utilisant les langages PHP, HTML, CSS et JavaScript, avec une base de données MongoDB.", style: dialogueStyleLong });
+            const bulleTextGT4 = new PIXI.Text({ text: "Clique sur play pour lancer la video", style: dialogueStyleLong });
+            bulleText(bulleTextGT1);
+            bulleText(bulleTextGT2);
+            bulleText(bulleTextGT3);
+            bulleText(bulleTextGT4);
+            
+            
             // Ajout des bulles avec chrono
             screenBackgroundContainer.addChild(bulleText1);
             setTimeout(() => {
@@ -310,12 +330,31 @@ export async function interactions(apps, sprites, texts) {
                 setTimeout(() => {
                     screenBackgroundContainer.removeChild(bulleText2);
                     screenBackgroundContainer.addChild(bulleText3);
+                    // On teint en gris les 3 projets
+                    toileScreenProject1.tint = 0x808080;
+                    toileScreenProject2.tint = 0x808080;
+                    toileScreenProject3.tint = 0x808080;
+                    // On s'assure qu'ils ne sont pas interactifs pour l'instant
+                    toileScreenProject1.interactive = false;
+                    toileScreenProject2.interactive = false;
+                    toileScreenProject3.interactive = false;
+                    // Apparition des 3 projets
+                    toileScreenProjectAppear();
+                    
                     setTimeout(() => {
                         screenBackgroundContainer.removeChild(bulleText3);
                         screenBackgroundContainer.addChild(bulleText4);
                         setTimeout(() => {
                             screenBackgroundContainer.removeChild(bulleText4);
                             guybrushClone.gotoAndStop(0);
+                            // On remet la teinte des sprites à la normale
+                            toileScreenProject1.tint = 0xFFFFFF;
+                            toileScreenProject2.tint = 0xFFFFFF;
+                            toileScreenProject3.tint = 0xFFFFFF;
+                            // Ils sont désormais interactifs
+                            toileScreenProject1.interactive = true;
+                            toileScreenProject2.interactive = true;
+                            toileScreenProject3.interactive = true;
                         }, 4000);
                     }, 4000);
                 }, 4000);
@@ -339,9 +378,47 @@ export async function interactions(apps, sprites, texts) {
         toileScreenProject2.y = yCenter;
         toileScreenProject3.y = yCenter;
 
-        screenBackgroundContainer.addChild(toileScreenProject1);
-        screenBackgroundContainer.addChild(toileScreenProject2);
-        screenBackgroundContainer.addChild(toileScreenProject3);
+        // screenBackgroundContainer.addChild(toileScreenProject1);
+        // screenBackgroundContainer.addChild(toileScreenProject2);
+        // screenBackgroundContainer.addChild(toileScreenProject3);
+
+        function toileScreenProjectAppear() {
+            // Les projets commencent invisibles (alpha 0)
+            toileScreenProject1.alpha = 0;
+            toileScreenProject2.alpha = 0;
+            toileScreenProject3.alpha = 0;
+        
+            screenBackgroundContainer.addChild(toileScreenProject1);
+            screenBackgroundContainer.addChild(toileScreenProject2);
+            screenBackgroundContainer.addChild(toileScreenProject3);
+        
+            // Ticker pour l'apparition progressive
+            const appearTicker = new PIXI.Ticker();
+            appearTicker.add(() => {
+                let done = true;
+        
+                if (toileScreenProject1.alpha < 1) {
+                    toileScreenProject1.alpha += 0.05;
+                    if (toileScreenProject1.alpha > 1) toileScreenProject1.alpha = 1;
+                    done = false;
+                }
+        
+                if (toileScreenProject2.alpha < 1) {
+                    toileScreenProject2.alpha += 0.05;
+                    if (toileScreenProject2.alpha > 1) toileScreenProject2.alpha = 1;
+                    done = false;
+                }
+        
+                if (toileScreenProject3.alpha < 1) {
+                    toileScreenProject3.alpha += 0.05;
+                    if (toileScreenProject3.alpha > 1) toileScreenProject3.alpha = 1;
+                    done = false;
+                }
+        
+                if (done) appearTicker.stop();
+            });
+            appearTicker.start();
+        }
 
 
         //////////////////////////////////////
@@ -362,10 +439,8 @@ export async function interactions(apps, sprites, texts) {
                 project1Description.destroy();
             }
         });
-
-
         // On crée une petite animation lors de la sélection du projet
-        toileScreenProject1.addEventListener("click", () => {
+        toileScreenProject1.addEventListener("click", async () => {
             // destruction si existe
             if (project1Description) {
                 project1Description.destroy();
@@ -403,8 +478,32 @@ export async function interactions(apps, sprites, texts) {
                                     toileScreenProject1.alpha -= 0.1;
                                 } else {
                                 alphaTicker.stop(); 
-                                // screenBackgroundContainer.removeChild(toileScreenProject1);
+
+                                // On détruit les textes précédents pour éviter un overlap
+                                if (bulleText3) {
+                                    console.log("ok");
+                                    // bulleText3.destroy();
+                                    // bulleText4.destroy();
+                                }
+
                                 screenBackgroundContainer.addChild(getTogetherTitle);
+                                screenBackgroundContainer.addChild(bulleTextGT1);
+
+                                setTimeout(() => {
+                                    screenBackgroundContainer.removeChild(bulleTextGT1);
+                                    screenBackgroundContainer.addChild(bulleTextGT2);
+                                    setTimeout(() => {
+                                        screenBackgroundContainer.removeChild(bulleTextGT2);
+                                        screenBackgroundContainer.addChild(bulleTextGT3);
+                                        setTimeout(() => {
+                                            screenBackgroundContainer.removeChild(bulleTextGT3);
+                                            screenBackgroundContainer.addChild(bulleTextGT4);
+                                                                    setTimeout(() => {
+                                                                gettogetherVideo();
+                                                            }, 3000);
+                                        }, 6000);
+                                    }, 7000);
+                                }, 3000);
                                 }
                             });
                             alphaTicker.start();
@@ -477,6 +576,9 @@ export async function interactions(apps, sprites, texts) {
                                 alphaTicker.stop(); 
                                 // screenBackgroundContainer.removeChild(toileScreenProject1);
                                 screenBackgroundContainer.addChild(jsigneTitle);
+                                setTimeout(() => {
+                                    gettogetherVideo();
+                                }, 3000);
                                 }
                             });
                             alphaTicker.start();
@@ -537,7 +639,7 @@ export async function interactions(apps, sprites, texts) {
                         // screenBackgroundContainer.removeChild(toileScreenProject1);
                         screenBackgroundContainer.addChild(rebatiereTitle);
                         setTimeout(() => {
-                            getogetherVideo();
+                            gettogetherVideo();
                         }, 3000);
                         }
                     });
@@ -550,7 +652,7 @@ export async function interactions(apps, sprites, texts) {
         
         
 
-                                    function getogetherVideo() {
+                                    function gettogetherVideo() {
                                     // guybrushClone.addEventListener("click", () => {
                             
                                     // Vérifier si la vidéo existe déjà pour éviter les doublons
