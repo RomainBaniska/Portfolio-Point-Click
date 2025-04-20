@@ -49,7 +49,8 @@ export async function loadSprites(apps, sounds) {
     app.stage.addChild(screenBackgroundContainer);
 
     // SCREENBACKGROUND SPRITE
-    const screenBackgroundAsset = await PIXI.Assets.load('../sprites/orangebgscreen.jpg');
+    // const screenBackgroundAsset = await PIXI.Assets.load('../sprites/orangebgscreen.jpg');
+    const screenBackgroundAsset = await PIXI.Assets.load('../sprites/blackbgscreen.jpg');
     const screenBackgroundSprite = new PIXI.Sprite(screenBackgroundAsset);
     screenBackgroundContainer.addChild(screenBackgroundSprite);
     screenBackgroundSprite.anchor.set(0);
@@ -323,6 +324,43 @@ export async function loadSprites(apps, sounds) {
     const bed = new PIXI.Sprite(bedAsset);
     desk.interactive = false;
     innerHouseContainer.addChild(bed);
+
+    // LOGOS DES TECHNOS
+    const logoPHPAsset = await PIXI.Assets.load('../sprites/SPECIAL/LOGOS/logoPHP.png');
+    const logoPHP = new PIXI.Sprite(logoPHPAsset);
+    logoPHP.zIndex = 20;
+    logoPHP.anchor.set(0.5, 0);
+    
+    const logoHTMLAsset = await PIXI.Assets.load('../sprites/SPECIAL/LOGOS/logoHTML.png');
+    const logoHTML = new PIXI.Sprite(logoHTMLAsset);
+    logoHTML.zIndex = 20;
+    logoHTML.anchor.set(0.5, 0);
+    
+    const logoCSSAsset = await PIXI.Assets.load('../sprites/SPECIAL/LOGOS/logoCSS.png');
+    const logoCSS = new PIXI.Sprite(logoCSSAsset);
+    logoCSS.zIndex = 20;
+    logoCSS.anchor.set(0.5, 0);
+    
+    const logoJSAsset = await PIXI.Assets.load('../sprites/SPECIAL/LOGOS/logoJS.png');
+    const logoJS = new PIXI.Sprite(logoJSAsset);
+    logoJS.zIndex = 20;
+    logoJS.anchor.set(0.5, 0);
+    
+    const logoMongoAsset = await PIXI.Assets.load('../sprites/SPECIAL/LOGOS/logoMongoDB.png');
+    const logoMongo = new PIXI.Sprite(logoMongoAsset);
+    logoMongo.zIndex = 20;
+    logoMongo.anchor.set(0.5, 0);
+    
+    const logoMySQLAsset = await PIXI.Assets.load('../sprites/SPECIAL/LOGOS/logoMySQL.png');
+    const logoMySQL = new PIXI.Sprite(logoMySQLAsset);
+    logoMySQL.zIndex = 20;
+    logoMySQL.anchor.set(0.5, 0);
+    
+    const logoSymfonyAsset = await PIXI.Assets.load('../sprites/SPECIAL/LOGOS/logoSymfony.png');
+    const logoSymfony = new PIXI.Sprite(logoSymfonyAsset);
+    logoSymfony.zIndex = 20;
+    logoSymfony.anchor.set(0.5, 0);    
+    
 
     //////////////////////////////////////// SPECIAL SCREENS ////////////////////////////////
 
@@ -1542,6 +1580,14 @@ export async function loadSprites(apps, sounds) {
         toileScreenProject3,
         fondPortrait,
         fondPortraitMask,
+        // LOGOS TECHNOS
+        logoPHP,
+        logoHTML,
+        logoCSS,
+        logoJS,
+        logoMongo,
+        logoMySQL,
+        logoSymfony
         // NOT A SPRITE
         // musicthemePLAY,
     };

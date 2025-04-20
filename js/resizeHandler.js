@@ -3,7 +3,7 @@
 export async function resizeHandler(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseSprite, houseContainer, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
+    const { houseSprite, houseContainer, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
@@ -83,33 +83,17 @@ function adjustCanvasSize() {
      const screenWidth = app.screen.width;
 
     // // Sprite houseContainer : Hauteur occupe 74% de l'écran / Largeur 60% de l'écran
-    // houseSprite.height = screenHeight * 0.74;
-    // houseSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4; // à changer 
-
+   
     // // Position du sprite houseContainer (et houseSprite)
-    // // houseSprite.x = screenWidth / 2;
-    // houseSprite.x = (app.screen.width - houseSprite.width) / 2;
-    // houseSprite.y = 0;
-    // houseSprite.x = (app.screen.width - houseSprite.width) / 2;
-    // houseSprite.y = 0;
 
     // // InnerHouseSprite
-    // innerHouseSprite.height = screenHeight * 0.74;
-    // innerHouseSprite.width = (innerHouseSprite.height / houseMaxHeight) * innerHouseMaxWidth * 1.4; // à changer 
+    
+    // Position du sprite innerHouseContainer (et innerHouseSprite)
 
-    // // Position du sprite innerHouseContainer (et innerHouseSprite)
-    // innerHouseSprite.x = (app.screen.width - innerHouseSprite.width) / 2;
-    // innerHouseSprite.y = 0;
 
     // (A DEPLACER) Positionnement du Terminal - Special Screen
-    // terminal.x = screenWidth  * 0.5;
-    // terminal.y = 0;
-    // terminal.height = screenHeight;
-    // terminal.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth;
-    // terminalbgSprite.x = screenWidth * 0.5;
-    // terminalbgSprite.y = 0;
-    // terminalbgSprite.height = screenHeight;
-    // terminalbgSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
+
+
     // (A DEPLACER AUSSI) - POSITIONNEMENT DU HELP SCREEN - Special Screen
     noPanik.x = screenWidth / 2;
     noPanik.y = screenHeight / 2;
@@ -308,20 +292,6 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(waterpouring, 0.84, 0.73, 600, 600);
 
     /// SPECIAL ///
-    // Position QuestionMark
-    // setSpritePositionAndScale(questionMark, 1.15, 0.04, 300, 2300);
-    // questionMark.x = houseSprite.x + houseSprite.width - questionMark.width;
-    // questionMark.y = houseSprite.y; // Si houseContainer commence au bord supérieur de l'écran
-    // questionMark.anchor.set(0, 0);
-    // questionMark.x = 0;
-    // questionMark.height = screenHeight * 0.74;
-    // questionMark.width = (innerHouseSprite.height / houseMaxHeight) * innerHouseMaxWidth * 1.4; // à changer 
-    // const desiredHeight = innerHouseSprite.height * 0.2;
-    // const scaleFactor22 = desiredHeight / questionMark.height;
-    // questionMark.scale.set(scaleFactor22);
-
-    // Position Note de musique
-    // setSpritePositionAndScale(music, 1.15, 0.17, 300, 2300);
 
     // Position Arrow
     setSpritePositionAndScaleSPECIAL(arrow, 1.7, 1.9, 300, 2300);
@@ -340,6 +310,9 @@ resizeButtons();
 
     // Position prevVideo
     setSpritePositionAndScale(prevVideo, 0.65 - (100 / window.innerWidth), 1.20, 300, 900);
+
+    // Dimensions Logos Technos
+    
 }
 
 // Applique le redimensionnement à chaque événement 'resize'

@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, toileScreenProject1, toileScreenProject2, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, /*musicthemePLAY*/ } = sprites;
+    const { houseContainer, toileScreenProject1, toileScreenProject2, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, /*musicthemePLAY*/ } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -440,7 +440,8 @@ export async function interactions(apps, sprites, texts) {
             }
         });
         // On crée une petite animation lors de la sélection du projet
-        toileScreenProject1.addEventListener("click", async () => {
+        guybrushClone.addEventListener("click", async () => {
+        // toileScreenProject1.addEventListener("click", async () => {
             // destruction si existe
             if (project1Description) {
                 project1Description.destroy();
@@ -486,7 +487,51 @@ export async function interactions(apps, sprites, texts) {
                                     // bulleText4.destroy();
                                 }
 
+                                // Ajout du texte d'intro
                                 screenBackgroundContainer.addChild(getTogetherTitle);
+
+                                
+                                // Ajout des logos d'intro
+                                const screenFactor = toileScreen.width / 6000;
+
+                                // HTML
+                                logoHTML.x = toileScreen.x + (toileScreen.width / 2);
+                                logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                logoHTML.scale.set(screenFactor);
+                                screenBackgroundContainer.addChild(logoHTML);
+
+                                // JS
+                                logoJS.x = logoHTML.x - logoHTML.width;
+                                logoJS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                logoJS.scale.set(screenFactor);
+                                screenBackgroundContainer.addChild(logoJS);
+
+                                // PHP
+                                logoPHP.x = logoJS.x - logoJS.width;
+                                logoPHP.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                logoPHP.scale.set(screenFactor);
+                                screenBackgroundContainer.addChild(logoPHP);
+
+                                // Symfony
+                                logoSymfony.x = logoPHP.x - logoPHP.width;
+                                logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                logoSymfony.scale.set(screenFactor);
+                                screenBackgroundContainer.addChild(logoSymfony);
+                                                                
+                                // CSS
+                                logoCSS.x = logoHTML.x + logoHTML.width;
+                                logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                logoCSS.scale.set(screenFactor);
+                                screenBackgroundContainer.addChild(logoCSS);
+                                
+                                // MongoDB
+                                logoMongo.x = logoCSS.x + logoCSS.width;
+                                logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                logoMongo.scale.set(screenFactor);
+                                screenBackgroundContainer.addChild(logoMongo);
+                               
+
+                                // Ajout de la bulle de Romain après avoir sélectionné GetTogether
                                 screenBackgroundContainer.addChild(bulleTextGT1);
 
                                 setTimeout(() => {
