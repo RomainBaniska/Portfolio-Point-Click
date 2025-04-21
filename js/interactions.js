@@ -338,6 +338,7 @@ export async function interactions(apps, sprites, texts) {
                     toileScreenProject1.interactive = false;
                     toileScreenProject2.interactive = false;
                     toileScreenProject3.interactive = false;
+
                     // Apparition des 3 projets
                     toileScreenProjectAppear();
                     
@@ -387,7 +388,17 @@ export async function interactions(apps, sprites, texts) {
             toileScreenProject1.alpha = 0;
             toileScreenProject2.alpha = 0;
             toileScreenProject3.alpha = 0;
-        
+
+            // Dimensionnement des sprites toileScreenProjects
+            // toileScreenProject2.width = toileScreen.width * 0.8;
+            // toileScreenProject2.height = toileScreen.width * 9 / 16;
+
+            // ToileScreen: Width=968.821, Height=665 | Video: Width=775.057, Height=435.598 (968.821 * 0.8 = 775.057)
+            // Pour conserver le même ratio d'aspect, si la largeur passe à 775.057, la hauteur correspondante sera de 775.057 × 0.5625 = 435.60 px.
+            toileScreenProject2.width = toileScreen.width * 0.8;
+            toileScreenProject2.height = toileScreen.height * 0.655;
+
+            // Ajout des sprites
             screenBackgroundContainer.addChild(toileScreenProject1);
             screenBackgroundContainer.addChild(toileScreenProject2);
             screenBackgroundContainer.addChild(toileScreenProject3);
@@ -780,16 +791,12 @@ export async function interactions(apps, sprites, texts) {
                                     // Génération de la vidéo dans le DOM
                                     const video = document.createElement("video");
                                     video.id = "pixi-video";
-                                    // video.src = "../videos/RebatierePF.mp4";
                                     video.src = videoArray[currentVideoIndex];
                                     video.autoplay = true;
                                     video.controls = false;
                                     video.style.zIndex = "10";
-                                    video.style.width = "100%";
-                                    video.style.height = "auto";
-                                    video.style.maxHeight = toileScreen.width * 9 / 16 + "px";
-                                    video.style.maxWidth = toileScreen.width * 0.8 + "px";
-
+                                    // video.style.pointerEvents = "none";
+                                    video.style.width = (toileScreen.width * 0.8) + "px"; // Le ratio sera toujours respecté car la video a une propriété {object-fit: contain;} donc inutile de mettre une height
                                     video.style.opacity = "0";
                                     video.style.transition = "opacity 1s ease";
 
