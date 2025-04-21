@@ -545,7 +545,7 @@ export async function interactions(apps, sprites, texts) {
                                             screenBackgroundContainer.removeChild(bulleTextGT3);
                                             screenBackgroundContainer.addChild(bulleTextGT4);
                                                                     setTimeout(() => {
-                                                                gettogetherVideo();
+                                                                launchProjectVideo(videoList);
                                                             }, 3000);
                                         }, 6000);
                                     }, 7000);
@@ -655,10 +655,9 @@ export async function interactions(apps, sprites, texts) {
                                 logoMongo.x = logoCSS.x + logoCSS.width;
                                 logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
                                 screenBackgroundContainer.addChild(logoMongo);
-    
 
                                 setTimeout(() => {
-                                    gettogetherVideo();
+                                    launchProjectVideo(videoList2);
                                 }, 3000);
                                 }
                             });
@@ -759,9 +758,9 @@ export async function interactions(apps, sprites, texts) {
                         logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
                         screenBackgroundContainer.addChild(logoSymfony);
 
-                        // setTimeout(() => {
-                        //     gettogetherVideo();
-                        // }, 3000);
+                        setTimeout(() => {
+                            launchProjectVideo(videoList2);
+                        }, 3000);
                         }
                     });
                     alphaTicker.start();
@@ -771,9 +770,7 @@ export async function interactions(apps, sprites, texts) {
         });
         //////////////////////////////////////
         
-        
-
-                                    function gettogetherVideo() {
+                                    function launchProjectVideo(videoArray) {
                                     // guybrushClone.addEventListener("click", () => {
                             
                                     // Vérifier si la vidéo existe déjà pour éviter les doublons
@@ -784,7 +781,7 @@ export async function interactions(apps, sprites, texts) {
                                     const video = document.createElement("video");
                                     video.id = "pixi-video";
                                     // video.src = "../videos/RebatierePF.mp4";
-                                    video.src = videoList[currentVideoIndex];
+                                    video.src = videoArray[currentVideoIndex];
                                     video.autoplay = true;
                                     video.controls = false;
                                     video.style.zIndex = "10";
@@ -892,12 +889,12 @@ export async function interactions(apps, sprites, texts) {
                                         nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
                                     });
                                     nextVideo.on('click', () => {
-                                        if (currentVideoIndex < videoList.length - 1) {
+                                        if (currentVideoIndex < videoArray.length - 1) {
                                             currentVideoIndex++; 
                                         } else {
                                             currentVideoIndex = 0; 
                                         }
-                                        video.src = videoList[currentVideoIndex]; 
+                                        video.src = videoArray[currentVideoIndex]; 
                                         video.play(); 
                                     });
 
@@ -913,9 +910,9 @@ export async function interactions(apps, sprites, texts) {
                                         if (currentVideoIndex > 0) {
                                             currentVideoIndex--;
                                         } else {
-                                            currentVideoIndex = videoList.length - 1;
+                                            currentVideoIndex = videoArray.length - 1;
                                         }
-                                        video.src = videoList[currentVideoIndex]; 
+                                        video.src = videoArray[currentVideoIndex]; 
                                         video.play();
                                     });
                                     // Supprimer la vidéo quand on ferme l'écran
