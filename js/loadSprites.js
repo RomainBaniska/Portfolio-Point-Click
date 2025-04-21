@@ -709,6 +709,7 @@ export async function loadSprites(apps, sounds) {
     // toileScreenProject2.height = 436;
     // toileScreenProject2.width = 178;
     // toileScreenProject2.height = 100;
+    // toileScreenProject2.maxWidth = 
     toileScreenProject2.interactive = true;
     toileScreenProject2.zIndex = 10;
 

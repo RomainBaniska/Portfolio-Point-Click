@@ -15,10 +15,10 @@ export async function interactions(apps, sprites, texts) {
 
     const videoList2 = [
         "../videos/Rebatiere/PART1-LOGINSIGNUP.mp4",
-        "../videos/TimeOut/PART2-RESERVATION.mp4",
-        "../videos/TimeOut/PART2-RESERVATION&DELETE&PROFILE.mp4",
-        "../videos/TimeOut/PART3-CONTRAINTES.mp4",
-        "../videos/TimeOut/PART4-PISCINE&ADMIN.mp4",
+        "../videos/Rebatiere/PART2-RESERVATION.mp4",
+        "../videos/Rebatiere/PART2-RESERVATION&DELETE&PROFILE.mp4",
+        "../videos/Rebatiere/PART3-CONTRAINTES.mp4",
+        "../videos/Rebatiere/PART4-PISCINE&ADMIN.mp4",
     ];
     // Index en cours de la video (initialisation)
     let currentVideoIndex = 0;
