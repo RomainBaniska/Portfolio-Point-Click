@@ -700,13 +700,10 @@ export async function loadSprites(apps, sounds) {
     const toileScreenProject1 = new PIXI.Sprite(toileScreenProject1Asset);
     // toileScreenProject1.width = 178;
     // toileScreenProject1.height = 100;
-
-    
-
     toileScreenProject1.interactive = true;
     toileScreenProject1.zIndex = 10;
 
-    const toileScreenProject2Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/jsigneselect.png');
+    const toileScreenProject2Asset = await PIXI.Assets.load('../sprites/SPECIAL/SELECTVIDEO/rebatiereselect.png');
     const toileScreenProject2 = new PIXI.Sprite(toileScreenProject2Asset);
     toileScreenProject2.interactive = true;
     toileScreenProject2.zIndex = 10;

@@ -320,6 +320,26 @@ export async function interactions(apps, sprites, texts) {
             bulleText(bulleTextGT2);
             bulleText(bulleTextGT3);
             bulleText(bulleTextGT4);
+
+            // Bulles Romain Rebatiere
+            // const bulleTextGT1 = new PIXI.Text({ text: "GetTogether ? Très bon choix", style: dialogueStyleLong });
+            // const bulleTextGT2 = new PIXI.Text({ text: "C’est une application pensée pour le site TimeOut, qui permet aux utilisateurs de filtrer les événements selon leurs intérêts et d’échanger facilement avec d’autres personnes partageant les mêmes centres d’intérêt.", style: dialogueStyleLong });
+            // const bulleTextGT3 = new PIXI.Text({ text: "Ce projet a été développé à l'aide du framework Symfony, en utilisant les langages PHP, HTML, CSS et JavaScript, avec une base de données MongoDB.", style: dialogueStyleLong });
+            // const bulleTextGT4 = new PIXI.Text({ text: "Clique sur play pour lancer la video", style: dialogueStyleLong });
+            // bulleText(bulleTextGT1);
+            // bulleText(bulleTextGT2);
+            // bulleText(bulleTextGT3);
+            // bulleText(bulleTextGT4);
+
+            // Bulles Romain Jsigné
+            // const bulleTextGT1 = new PIXI.Text({ text: "GetTogether ? Très bon choix", style: dialogueStyleLong });
+            // const bulleTextGT2 = new PIXI.Text({ text: "C’est une application pensée pour le site TimeOut, qui permet aux utilisateurs de filtrer les événements selon leurs intérêts et d’échanger facilement avec d’autres personnes partageant les mêmes centres d’intérêt.", style: dialogueStyleLong });
+            // const bulleTextGT3 = new PIXI.Text({ text: "Ce projet a été développé à l'aide du framework Symfony, en utilisant les langages PHP, HTML, CSS et JavaScript, avec une base de données MongoDB.", style: dialogueStyleLong });
+            // const bulleTextGT4 = new PIXI.Text({ text: "Clique sur play pour lancer la video", style: dialogueStyleLong });
+            // bulleText(bulleTextGT1);
+            // bulleText(bulleTextGT2);
+            // bulleText(bulleTextGT3);
+            // bulleText(bulleTextGT4);
             
             
             // Ajout des bulles avec chrono
@@ -370,6 +390,30 @@ export async function interactions(apps, sprites, texts) {
         toileScreenProject2.anchor.set(0.5);
         toileScreenProject3.anchor.set(0.5);
 
+        // Taille cible 
+        const targetWidth = toileScreen.width * 0.8;
+        const targetHeight = toileScreen.height * 0.655;
+
+        // Dimensionnement des sprites toileScreenProjects
+        // ToileScreen: Width=968.821, Height=665 | Video: Width=775.057, Height=435.598 (968.821 * 0.8 = 775.057)
+        // Pour conserver le même ratio d'aspect, si la largeur passe à 775.057, la hauteur correspondante sera de 775.057 × 0.5625 = 435.60 px.
+        // toileScreenProject1.width = toileScreen.width * 0.8;
+        // toileScreenProject1.height = toileScreen.height * 0.655;  
+        // toileScreenProject2.width = toileScreen.width * 0.8;
+        // toileScreenProject2.height = toileScreen.height * 0.655;
+        // toileScreenProject3.width = toileScreen.width * 0.8;
+        // toileScreenProject3.height = toileScreen.height * 0.655;
+        // // Taille cible 
+        // const targetWidth = toileScreen.width * 0.8;
+        // const targetHeight = toileScreen.height * 0.655;
+        // Taille initiale = 4.5 fois plus petit
+        toileScreenProject1.width = targetWidth / 4.5;
+        toileScreenProject1.height = targetHeight / 4.5;
+        toileScreenProject2.width = targetWidth / 4.5;
+        toileScreenProject2.height = targetHeight / 4.5;
+        toileScreenProject3.width = targetWidth / 4.5;
+        toileScreenProject3.height = targetHeight / 4.5;
+
         // On ajuste la position de tous les projets avec pour point de départ le centre de la toile
         toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
         toileScreenProject1.x = toileScreenProject2.x - toileScreenProject2.width - totalSpacing;
@@ -389,14 +433,6 @@ export async function interactions(apps, sprites, texts) {
             toileScreenProject2.alpha = 0;
             toileScreenProject3.alpha = 0;
 
-            // Dimensionnement des sprites toileScreenProjects
-            // toileScreenProject2.width = toileScreen.width * 0.8;
-            // toileScreenProject2.height = toileScreen.width * 9 / 16;
-
-            // ToileScreen: Width=968.821, Height=665 | Video: Width=775.057, Height=435.598 (968.821 * 0.8 = 775.057)
-            // Pour conserver le même ratio d'aspect, si la largeur passe à 775.057, la hauteur correspondante sera de 775.057 × 0.5625 = 435.60 px.
-            toileScreenProject2.width = toileScreen.width * 0.8;
-            toileScreenProject2.height = toileScreen.height * 0.655;
 
             // Ajout des sprites
             screenBackgroundContainer.addChild(toileScreenProject1);
@@ -434,6 +470,7 @@ export async function interactions(apps, sprites, texts) {
 
         //////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT 1 ///
+        //////////////////////////////////////
 
         // Hover qui affiche le nom du projet
         let project1Description = null;
@@ -475,11 +512,18 @@ export async function interactions(apps, sprites, texts) {
                     // Deuxième Ticker qui agrandit screenProject1
                     let scaleTicker = new PIXI.Ticker();
                     scaleTicker.add(() => {
-                        if (toileScreenProject1.scale.x < 4.5) { 
-                            toileScreenProject1.scale.x += 0.1; 
-                            toileScreenProject1.scale.y += 0.1; 
+                        // if (toileScreenProject1.scale.x < 4.5) { 
+                        //     toileScreenProject1.scale.x += 0.1; 
+                        //     toileScreenProject1.scale.y += 0.1; 
+                        if (toileScreenProject1.width < targetWidth) {
+                            toileScreenProject1.width += 10;
+                            toileScreenProject1.height += (targetHeight / targetWidth) * 10;
                         } else {
-                            scaleTicker.stop(); 
+                            // scaleTicker.stop(); 
+                            // console.log("Agrandissement terminé !");
+                            toileScreenProject1.width = targetWidth;
+                            toileScreenProject1.height = targetHeight;
+                            scaleTicker.stop();
                             console.log("Agrandissement terminé !");
 
                             screenBackgroundContainer.addChild(introSlide);
@@ -572,8 +616,117 @@ export async function interactions(apps, sprites, texts) {
             localTicker.start(); // Démarre le ticker de déplacement
         });
 
+        // ______________________________________________________________________________ //
+
         /////////////////////////////////////
-        /// MOUVEMENT TOILESCREENPROJECT3 ///
+        /// MOUVEMENT TOILESCREENPROJECT2 ///
+        /////////////////////////////////////
+
+        // Hover qui affiche le nom du projet
+        let project2Description = null;
+        toileScreenProject2.on('pointerover', () => {
+            project2Description = new PIXI.Text({ text: "Rebatière", style: titleStyle2 });
+            project2Description.x = toileScreenProject2.x;
+            project2Description.y = toileScreenProject2.y + project2Description.height * 2;
+            project2Description.anchor.set(0.5, 0);
+            project2Description.zIndex = 12;
+            screenBackgroundContainer.addChild(project2Description);
+        });
+        toileScreenProject2.on('pointerout', () => {
+            if (project2Description) {
+                project2Description.destroy();
+            }
+        });
+
+        toileScreenProject2.addEventListener("click", () => {
+            // destruction si existe
+            if (project2Description) {
+                project2Description.destroy();
+            }
+            // On invisibilise les projets non sélectionnés
+            toileScreenProject2.interactive = false;
+            toileScreenProject1.visible = false;
+            toileScreenProject3.visible = false;
+        
+            // Ticker qui agrandit screenProject2
+            let scaleTicker = new PIXI.Ticker();
+            scaleTicker.add(() => {
+                if (toileScreenProject2.width < targetWidth) {
+                    toileScreenProject2.width += 10;
+                    toileScreenProject2.height += (targetHeight / targetWidth) * 10;
+                } else {
+                    toileScreenProject2.width = targetWidth;
+                    toileScreenProject2.height = targetHeight;
+                    scaleTicker.stop();
+                    console.log("Agrandissement terminé !");
+
+                    screenBackgroundContainer.addChild(introSlide);
+
+                    // Troisième Ticker qui fait disparaitre le screenProject2
+                    let alphaTicker = new PIXI.Ticker();
+                    alphaTicker.add(() => {
+                        if (toileScreenProject2.alpha > 0) {
+                            toileScreenProject2.alpha -= 0.1;
+                        } else {
+                        alphaTicker.stop(); 
+                        // screenBackgroundContainer.removeChild(toileScreenProject1);
+                        screenBackgroundContainer.addChild(rebatiereTitle);
+
+                        // Ajout des logos d'intro
+                        const screenFactor = toileScreen.width / 5000;
+
+                        // HTML
+                        logoHTML.scale.set(screenFactor);
+                        logoHTML.x = toileScreen.x + (toileScreen.width / 2) - (logoHTML.width / 2);
+                        logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoHTML);
+
+                        // JS
+                        logoJS.scale.set(screenFactor);
+                        logoJS.x = logoHTML.x - logoHTML.width;
+                        logoJS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoJS);
+
+                        // PHP
+                        logoPHP.scale.set(screenFactor);
+                        logoPHP.x = logoJS.x - logoJS.width;
+                        logoPHP.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoPHP);
+
+                        // CSS
+                        logoCSS.scale.set(screenFactor);
+                        logoCSS.x = logoHTML.x + logoHTML.width;
+                        logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoCSS);
+
+                        // MongoDB
+                        logoMongo.scale.set(screenFactor);
+                        logoMongo.x = logoCSS.x + logoCSS.width;
+                        logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoMongo);
+
+                        // Symfony
+                        logoSymfony.scale.set(screenFactor);
+                        logoSymfony.x = logoMongo.x + logoMongo.width;
+                        logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoSymfony);
+
+                        setTimeout(() => {
+                            launchProjectVideo(videoList2);
+                        }, 3000);
+                        }
+                    });
+                    alphaTicker.start();
+                }
+            });
+            scaleTicker.start();
+        });
+
+        // ______________________________________________________________________________ //
+
+        //////////////////////////////////////
+        /// MOUVEMENT TOILESCREENPROJECT3 ////
+        //////////////////////////////////////
 
         // Hover qui affiche le nom du projet
         let project3Description = null;
@@ -681,105 +834,7 @@ export async function interactions(apps, sprites, texts) {
             localTicker.start();
         });
 
-        // Hover qui affiche le nom du projet
-        let project2Description = null;
-        toileScreenProject2.on('pointerover', () => {
-            project2Description = new PIXI.Text({ text: "Rebatière", style: titleStyle2 });
-            project2Description.x = toileScreenProject2.x;
-            project2Description.y = toileScreenProject2.y + project2Description.height * 2;
-            project2Description.anchor.set(0.5, 0);
-            project2Description.zIndex = 12;
-            screenBackgroundContainer.addChild(project2Description);
-        });
-        toileScreenProject2.on('pointerout', () => {
-            if (project2Description) {
-                project2Description.destroy();
-            }
-        });
-        /////////////////////////////////////
-        /// MOUVEMENT TOILESCREENPROJECT2 ///
-        toileScreenProject2.addEventListener("click", () => {
-            // destruction si existe
-            if (project2Description) {
-                project2Description.destroy();
-            }
-            // On invisibilise les projets non sélectionnés
-            toileScreenProject2.interactive = false;
-            toileScreenProject1.visible = false;
-            toileScreenProject3.visible = false;
-        
-            // Ticker qui agrandit screenProject2
-            let scaleTicker = new PIXI.Ticker();
-            scaleTicker.add(() => {
-                if (toileScreenProject2.scale.x < 4.5) {
-                    toileScreenProject2.scale.x += 0.1;
-                    toileScreenProject2.scale.y += 0.1;
-                } else {
-                    scaleTicker.stop();
-                    console.log("Agrandissement terminé !");
-
-                    screenBackgroundContainer.addChild(introSlide);
-
-                    // Troisième Ticker qui fait disparaitre le screenProject2
-                    let alphaTicker = new PIXI.Ticker();
-                    alphaTicker.add(() => {
-                        if (toileScreenProject2.alpha > 0) {
-                            toileScreenProject2.alpha -= 0.1;
-                        } else {
-                        alphaTicker.stop(); 
-                        // screenBackgroundContainer.removeChild(toileScreenProject1);
-                        screenBackgroundContainer.addChild(rebatiereTitle);
-
-                        // Ajout des logos d'intro
-                        const screenFactor = toileScreen.width / 5000;
-
-                        // HTML
-                        logoHTML.scale.set(screenFactor);
-                        logoHTML.x = toileScreen.x + (toileScreen.width / 2) - (logoHTML.width / 2);
-                        logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoHTML);
-
-                        // JS
-                        logoJS.scale.set(screenFactor);
-                        logoJS.x = logoHTML.x - logoHTML.width;
-                        logoJS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoJS);
-
-                        // PHP
-                        logoPHP.scale.set(screenFactor);
-                        logoPHP.x = logoJS.x - logoJS.width;
-                        logoPHP.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoPHP);
-
-                        // CSS
-                        logoCSS.scale.set(screenFactor);
-                        logoCSS.x = logoHTML.x + logoHTML.width;
-                        logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoCSS);
-
-                        // MongoDB
-                        logoMongo.scale.set(screenFactor);
-                        logoMongo.x = logoCSS.x + logoCSS.width;
-                        logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoMongo);
-
-                        // Symfony
-                        logoSymfony.scale.set(screenFactor);
-                        logoSymfony.x = logoMongo.x + logoMongo.width;
-                        logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoSymfony);
-
-                        setTimeout(() => {
-                            launchProjectVideo(videoList2);
-                        }, 3000);
-                        }
-                    });
-                    alphaTicker.start();
-                }
-            });
-            scaleTicker.start();
-        });
-        //////////////////////////////////////
+    
         
                                     function launchProjectVideo(videoArray) {
                                     // guybrushClone.addEventListener("click", () => {
