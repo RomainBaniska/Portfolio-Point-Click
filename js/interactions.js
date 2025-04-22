@@ -423,10 +423,6 @@ export async function interactions(apps, sprites, texts) {
         toileScreenProject2.y = yCenter;
         toileScreenProject3.y = yCenter;
 
-        // screenBackgroundContainer.addChild(toileScreenProject1);
-        // screenBackgroundContainer.addChild(toileScreenProject2);
-        // screenBackgroundContainer.addChild(toileScreenProject3);
-
         function toileScreenProjectAppear() {
             // Les projets commencent invisibles (alpha 0)
             toileScreenProject1.alpha = 0;
@@ -512,19 +508,14 @@ export async function interactions(apps, sprites, texts) {
                     // Deuxième Ticker qui agrandit screenProject1
                     let scaleTicker = new PIXI.Ticker();
                     scaleTicker.add(() => {
-                        // if (toileScreenProject1.scale.x < 4.5) { 
-                        //     toileScreenProject1.scale.x += 0.1; 
-                        //     toileScreenProject1.scale.y += 0.1; 
                         if (toileScreenProject1.width < targetWidth) {
                             toileScreenProject1.width += 10;
                             toileScreenProject1.height += (targetHeight / targetWidth) * 10;
                         } else {
-                            // scaleTicker.stop(); 
-                            // console.log("Agrandissement terminé !");
                             toileScreenProject1.width = targetWidth;
                             toileScreenProject1.height = targetHeight;
                             scaleTicker.stop();
-                            console.log("Agrandissement terminé !");
+                            console.log("Agrandissement screenProject1 terminé !");
 
                             screenBackgroundContainer.addChild(introSlide);
                             // Troisième Ticker qui fait disparaitre le screenProject1
@@ -769,10 +760,17 @@ export async function interactions(apps, sprites, texts) {
                     // Deuxième Ticker qui agrandit screenProject3
                     let scaleTicker = new PIXI.Ticker();
                     scaleTicker.add(() => {
-                        if (toileScreenProject3.scale.x < 4.5) {
-                            toileScreenProject3.scale.x += 0.1;
-                            toileScreenProject3.scale.y += 0.1;
+                        // if (toileScreenProject3.scale.x < 4.5) {
+                        //     toileScreenProject3.scale.x += 0.1;
+                        //     toileScreenProject3.scale.y += 0.1;
+                        if (toileScreenProject3.width < targetWidth) {
+                            toileScreenProject3.width += 10;
+                            toileScreenProject3.height += (targetHeight / targetWidth) * 10;
                         } else {
+                            // scaleTicker.stop();
+                            // console.log("Agrandissement terminé !");
+                            toileScreenProject3.width = targetWidth;
+                            toileScreenProject3.height = targetHeight;
                             scaleTicker.stop();
                             console.log("Agrandissement terminé !");
 
@@ -834,8 +832,6 @@ export async function interactions(apps, sprites, texts) {
             localTicker.start();
         });
 
-    
-        
                                     function launchProjectVideo(videoArray) {
                                     // guybrushClone.addEventListener("click", () => {
                             
