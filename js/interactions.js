@@ -400,7 +400,7 @@ export async function interactions(apps, sprites, texts) {
 
         // Positionnement des Sprites Projets Videos
         // taille d'espacement entre les sprites
-        const totalSpacing = toileScreen.width * 0.1;
+        const totalSpacing = toileScreen.width * 0.05;
 
         // On définit l'ancrage de chaque sprite à 0.5 pour les centrer
         toileScreenProject1.anchor.set(0.5);
@@ -414,12 +414,16 @@ export async function interactions(apps, sprites, texts) {
         const targetWidth = toileScreen.width * 0.8;
         const targetHeight = toileScreen.height * 0.655;
         // Taille initiale = 4.5 fois plus petit
-        toileScreenProject1.width = targetWidth / 4.5;
-        toileScreenProject1.height = targetHeight / 4.5;
-        toileScreenProject2.width = targetWidth / 4.5;
-        toileScreenProject2.height = targetHeight / 4.5;
-        toileScreenProject3.width = targetWidth / 4.5;
-        toileScreenProject3.height = targetHeight / 4.5;
+        // toileScreenProject1.width = targetWidth / 4.5;
+        // toileScreenProject1.height = targetHeight / 4.5;
+        toileScreenProject1.scale.set(0.18);
+        // toileScreenProject2.width = targetWidth / 4.5;
+        // toileScreenProject2.height = targetHeight / 4.5;
+        toileScreenProject2.scale.set(0.18);
+        // toileScreenProject3.width = targetWidth / 4.5;
+        // toileScreenProject3.height = targetHeight / 4.5;
+        toileScreenProject3.scale.set(0.18);
+
 
         // On ajuste la position de tous les projets avec pour point de départ le centre de la toile
         toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
@@ -484,10 +488,23 @@ export async function interactions(apps, sprites, texts) {
             project1Description.anchor.set(0.5, 0);
             project1Description.zIndex = 12;
             screenBackgroundContainer.addChild(project1Description);
+            // Petit GSAP pour animation simple
+            gsap.to(toileScreenProject1.scale, {
+                x: 0.23,
+                y: 0.23,
+                duration: 0.5,
+                ease: "power1.out"
+              });
         });
         toileScreenProject1.on('pointerout', () => {
             if (project1Description) {
                 project1Description.destroy();
+                gsap.to(toileScreenProject1.scale, {
+                    x: 0.18,
+                    y: 0.18,
+                    duration: 0.5,
+                    ease: "power1.out"
+                  });
             }
         });
         // On crée une petite animation lors de la sélection du projet
@@ -627,10 +644,23 @@ export async function interactions(apps, sprites, texts) {
             project2Description.anchor.set(0.5, 0);
             project2Description.zIndex = 12;
             screenBackgroundContainer.addChild(project2Description);
+            // Petit GSAP pour animation simple
+            gsap.to(toileScreenProject2.scale, {
+                x: 0.23,
+                y: 0.23,
+                duration: 0.5,
+                ease: "power1.out"
+              });
         });
         toileScreenProject2.on('pointerout', () => {
             if (project2Description) {
                 project2Description.destroy();
+                gsap.to(toileScreenProject2.scale, {
+                    x: 0.18,
+                    y: 0.18,
+                    duration: 0.5,
+                    ease: "power1.out"
+                  });
             }
         });
 
@@ -733,12 +763,26 @@ export async function interactions(apps, sprites, texts) {
             project3Description.anchor.set(0.5, 0);
             project3Description.zIndex = 12;
             screenBackgroundContainer.addChild(project3Description);
+            // Petit GSAP pour animation simple
+            gsap.to(toileScreenProject3.scale, {
+                x: 0.23,
+                y: 0.23,
+                duration: 0.5,
+                ease: "power1.out"
+              });
         });
         toileScreenProject3.on('pointerout', () => {
             if (project3Description) {
                 project3Description.destroy();
+                gsap.to(toileScreenProject3.scale, {
+                    x: 0.18,
+                    y: 0.18,
+                    duration: 0.5,
+                    ease: "power1.out"
+                  });
             }
         });
+
 
         toileScreenProject3.addEventListener("click", () => {
             // destruction si existe
