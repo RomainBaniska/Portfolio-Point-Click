@@ -1204,20 +1204,20 @@ export async function interactions(apps, sprites, texts) {
     });
 
     // Empoisonner le verre d'eau avec du donormyl
-    menuItemTabletPack.on('click', () => {
-        if (menuButton7.isActive && menuItemGlassWater.isActive) {
-            console.log(menuItemGlassWater.isActive);
-            console.log("yeah !");
-            // console.log(menuItemTabletPackSelected.isActive);
-        }
-        console.log(menuItemGlassWater.isActive);
+    // menuItemTabletPack.on('click', () => {
+    //     if (menuButton7.isActive && menuItemGlassWater.isActive) {
+    //         console.log(menuItemGlassWater.isActive);
+    //         console.log("yeah !");
+    //         // console.log(menuItemTabletPackSelected.isActive);
+    //     }
+    //     console.log(menuItemGlassWater.isActive);
   
-        if (menuButton7.isActive && menuItemTabletPack.isActive) {
-            console.log("yeah2 !");
-            spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
-            app.stage.emit('rightdown');
-        }
-    });
+    //     if (menuButton7.isActive && menuItemTabletPack.isActive) {
+    //         console.log("yeah2 !");
+    //         spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
+    //         app.stage.emit('rightdown');
+    //     }
+    // });
         
     // Donner le verre d'eau à Romain
     guybrushSO.on('click', () => {
