@@ -386,8 +386,8 @@ export async function interactions(apps, sprites, texts) {
             bulleText(bulleTextGT3);
             bulleText(bulleTextGT4);
             // SignUp - Login
-            const bulleTextGT5 = new PIXI.Text({ text: "On va commencer par s'inscrire et renseigner les informations de base lors de la création de compte", style: dialogueStyleLong });
-            const bulleTextGT6 = new PIXI.Text({ text: "Une fois fait, lors de notre première connexion on est amené à compléter notre profil.", style: dialogueStyleLong });
+            const bulleTextGT5 = new PIXI.Text({ text: "On va commencer par s'inscrire et entrer nos informations", style: dialogueStyleLong });
+            const bulleTextGT6 = new PIXI.Text({ text: "Ensuite lors de notre première connexion on est invité à compléter notre profil.", style: dialogueStyleLong });
             const bulleTextGT7 = new PIXI.Text({ text: "Petit Nom-Prénom-Pseudo classique ainsi que le nom de la ville (pour l'instant l'application est limitée à Paris)", style: dialogueStyleLong });
             const bulleTextGT8 = new PIXI.Text({ text: "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini", style: dialogueStyleLong });
             const bulleTextGT9 = new PIXI.Text({ text: "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations.", style: dialogueStyleLong });
@@ -685,6 +685,66 @@ export async function interactions(apps, sprites, texts) {
                                     await wait(3000);
                                 
                                     launchProjectVideo(videoList);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT4);
+                                    screenBackgroundContainer.addChild(bulleTextGT5);
+                                    await wait(1000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT5);
+                                    screenBackgroundContainer.addChild(bulleTextGT6);
+                                    await wait(6000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT6);
+                                    screenBackgroundContainer.addChild(bulleTextGT7);
+                                    await wait(7000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT7);
+                                    screenBackgroundContainer.addChild(bulleTextGT8);
+                                    await wait(6000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT8);
+                                    screenBackgroundContainer.addChild(bulleTextGT9);
+                                    await wait(7000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT9);
+                                    screenBackgroundContainer.addChild(bulleTextGT10);
+                                    await wait(4000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT10);
+                                    screenBackgroundContainer.addChild(bulleTextGT11);
+                                    await wait(5000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT11);
+                                    screenBackgroundContainer.addChild(bulleTextGT12);
+                                    await wait(6000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT12);
+                                    screenBackgroundContainer.addChild(bulleTextGT13);
+                                    await wait(5000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT13);
+                                    screenBackgroundContainer.addChild(bulleTextGT14);
+                                    await wait(6000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT14);
+                                    screenBackgroundContainer.addChild(bulleTextGT15);
+                                    await wait(5000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT15);
+                                    screenBackgroundContainer.addChild(bulleTextGT17);
+                                    await wait(5000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT17);
+                                    screenBackgroundContainer.addChild(bulleTextGT18);
+                                    await wait(2000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT18);
+                                    screenBackgroundContainer.addChild(bulleTextGT19);
+                                    await wait(5000);
+
+                                    screenBackgroundContainer.removeChild(bulleTextGT19);
+                                    screenBackgroundContainer.addChild(bulleTextGT20);
+                                    await wait(4000);
                                 }
 
                                 playSequence();

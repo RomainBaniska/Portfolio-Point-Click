@@ -30,7 +30,7 @@ export async function loadTexts(sprites) {
     const generalFontSize = window.innerHeight * 0.02624;
     const titleFontSize = window.innerHeight * 0.04;
     const menuResponsesFontSize = window.innerHeight * 0.031;
-    const wrapWidth = Math.min(830, window.innerHeight);
+    const wrapWidth = Math.min(820, window.innerHeight);
     const wrapWidthTitle = Math.min(900, window.innerHeight);
     // console.log(window.innerHeight);
 
@@ -43,7 +43,7 @@ export async function loadTexts(sprites) {
     const titleStyle = { fontFamily: 'ChelseaMarket, arial', fontSize: titleFontSize, fill: '#000000', stroke: { color: 'black', width: 1 }, wordWrap: true, wordWrapWidth: wrapWidthTitle, lineHeight: 40, align: 'center'}; // Titre style
     const titleStyle2 = { fontFamily: 'ChelseaMarket, arial', fontSize: titleFontSize, fill: '#000000', stroke: { color: 'black', width: 1 }, wordWrap: true, wordWrapWidth: wrapWidthTitle * 0.2, lineHeight: 40, align: 'center'}; // Titre style evanescent
     const dialogueStyle2 = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize * 1.1, fill: '#FFFFFF', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Player style
-    const responseStyle = { fontFamily: 'arial', fontSize: menuResponsesFontSize, fill: '#772a76', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Style des réponses lors du dialogue
+    const responseStyle = { fontFamily: 'arial', fontSize: /*menuResponsesFontSize */ 20, fill: '#772a76', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 800, lineHeight: 40}; // Style des réponses lors du dialogue
 
 
     // Textes hors action & dialogue
