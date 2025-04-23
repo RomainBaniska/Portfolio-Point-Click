@@ -371,16 +371,16 @@ export async function loadTexts(sprites) {
                         // Si cette action n'est pas un simple TEXTE, mais une véritable ACTION COMPLEXE (fonction)
                         if (typeof actionEvent === "function") {
                             const result = response();
-                            await displayText(result, 1000); // On joue l'action
+                            await displayText(result, 4000); // On joue l'action
                             // activatedMenuButton.isActive === false;
 
                         // Si l'actionEvent n'est pas un simple TEXTE, mais un plusieurs LIGNES DE TEXTES
                         } else if (Array.isArray(actionEvent)) {
-                            await displayTextSequence(actionEvent, 1000); // On affiche la séquence entière
+                            await displayTextSequence(actionEvent, 2000); // On affiche la séquence entière
 
                         // Si l'actionEvent est une simple ligne de TEXTE, alors on l'affiche
                         } else {
-                            await displayText(actionEvent, 1000); // On affiche le texte
+                            await displayText(actionEvent, 2000); // On affiche le texte
                             // activatedMenuButton.isActive === false;
                         }
 
@@ -395,7 +395,7 @@ export async function loadTexts(sprites) {
   
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR 
     function displayText(text, time) {
-        return new Promise(resolve => {
+        // return new Promise(resolve => {
             
         // Détruit la précédente ligne de réaction (Seulement Ok s'il n'y a qu'une ligne de réaction)
         if (currentText) {
@@ -409,9 +409,9 @@ export async function loadTexts(sprites) {
         houseContainer.addChild(currentText);
         setTimeout(() => {
             currentText.destroy();
-            resolve();
+            // resolve();
         }, time);
-    });
+    // });
     }
 
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR SI IL Y EN A PLUS D'UNE
