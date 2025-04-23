@@ -912,7 +912,7 @@ export async function loadSprites(apps, sounds) {
         questionMark.texture = questionMarkspriteAsset.textures[questionMarkframes[0]]; 
     });
     questionMark.on('click', () => {
-        app.stage.addChild(noPanikContainer);
+        screenBackgroundContainer.addChild(noPanikContainer);
         questionMark.texture = questionMarkspriteAsset.textures[questionMarkframes[0]]; 
     });
 
@@ -921,17 +921,16 @@ export async function loadSprites(apps, sounds) {
     const arrowActive = await displaySprite('SPECIAL/arrow.json', 0.12);
     const arrowspriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/arrow.json');
     const arrowframes = Object.keys(arrowspriteAsset.textures);
-
     arrow.interactive = true;
     arrowActive.interactive = true;
     arrow.stop();
     arrowActive.stop();
-    
     arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
     arrowActive.texture = arrowspriteAsset.textures[arrowframes[1]];
     arrow.zIndex = 96;
-
-    arrow.anchor.set (0.5, 0.5);
+    // arrow.anchor.set (0.5, 0.5);
+    // arrow.x = noPanik.x + (noPanik.width * 0.9);
+    // arrow.y = noPanik.y + (noPanik.height * 0.9);
 
     noPanikContainer.addChild(arrow);
 
@@ -943,7 +942,7 @@ export async function loadSprites(apps, sounds) {
         arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
     });
     arrow.on('click', () => {
-        app.stage.removeChild(noPanikContainer);
+        screenBackgroundContainer.removeChild(noPanikContainer);
         arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
     });
 

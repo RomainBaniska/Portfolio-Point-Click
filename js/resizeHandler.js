@@ -54,8 +54,8 @@ function adjustCanvasSize() {
 
     // METHODE DE POSITIONNEMENT SUR L'ECRAN HELP (NOPANIK)  
     function setSpritePositionAndScaleSPECIAL(sprite, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
-        sprite.x = noPanik.x  * positionXFactor;
-        sprite.y = noPanik.y * positionYFactor;
+        sprite.x = noPanik.x + ((noPanik.width / 2) * positionXFactor);
+        sprite.y = noPanik.y + ((noPanik.height / 2) * positionYFactor);
     
         // Ajustement de l'échelle proportionnelle
         const scaleFactor = Math.min(
@@ -294,7 +294,7 @@ resizeButtons();
     /// SPECIAL ///
 
     // Position Arrow
-    setSpritePositionAndScaleSPECIAL(arrow, 1.7, 1.9, 300, 2300);
+    setSpritePositionAndScaleSPECIAL(arrow, 0.88, 0.88, 300, 2300);
 
     // Position playVideo
     setSpritePositionAndScale(playVideo, 0.65, 1.20, 300, 1000);
