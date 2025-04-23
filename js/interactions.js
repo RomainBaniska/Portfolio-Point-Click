@@ -65,8 +65,10 @@ export async function interactions(apps, sprites, texts) {
             done = false;
         }
 
-        if (done) dePixelateTicker.stop();
-        screenBackgroundContainer.filters = null;
+        if (done) {
+            dePixelateTicker.stop();
+            screenBackgroundContainer.filters = null;
+        }
     });
     dePixelateTicker.start();
     }
@@ -327,8 +329,6 @@ export async function interactions(apps, sprites, texts) {
             projectTitle(getTogetherTitle);
             projectTitle(rebatiereTitle);
             projectTitle(jsigneTitle);
-            // screenBackgroundContainer.addChild(introSlide);
-            // screenBackgroundContainer.addChild(getTogetherTitle);
 
             // Positionnement de la bulle info avec le portrait de Romain (fondPortrait & fondPortraitMask)            
             // Positionner le cercle en haut à gauche de l'écran
