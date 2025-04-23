@@ -91,17 +91,34 @@ export async function loadTexts(sprites) {
     // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
+            donner: "",
+            ouvrir : "Hmm, non",
+            fermer: "Hmm, non",
+            prendre: "ça m'étonnerait qu'il rentre dans ma poche",
             regarder: ["Il semble être le maître de ces lieux", "De toute évidence il est extrêmement musclé", "Pourtant, je ne vois aucune haltère dans cette maison", "Curieux..."],
-            parler: ""
+            parler: "",
+            utiliser: "",
+            pousser: "Non, il pèse une tonne et je pense pas qu'il apprécierait",
+            tirer: "Si je veux l'éloigner de son ordinateur, je dois trouver un autre moyen",
         },
         lavabo: {
-            regarder: "un lavabo, probablement raccordé à la citerne contre la façade de la maison",
-            tirer: "hmmm, non.",
+            donner: "",
+            ouvrir : "Hmm, non",
+            fermer: "Hmm, non",
+            prendre: "ça m'étonnerait qu'il rentre dans ma poche",
+            regarder: ["Le siphon est à moitié obstrué par des mégots de clope", "Beuuurk... Mais qui est ce type ?"],
+            parler: "",
+            utiliser: "",
+            pousser: "Hmm, non",
+            tirer: "J'ai pas envie d'arracher son mobilier",
         },
         guybrushLD: {
+            donner: "",
+            ouvrir : "Hmm, non",
+            fermer: "Hmm, non",
             regarder: "il dort profondément",
             parler: ["Eh ho !",
-                "Rien à faire, il dort comme une enclume"
+                "Rien à faire, il ronfle comme un cochon"
             ],
             pousser: ["Si je le bouscule un peu trop, j'ai peur qu'il le prenne mal à son réveil",
                 "Et puis avec autant de muscles il doit peser au moins une tonne"
@@ -112,103 +129,181 @@ export async function loadTexts(sprites) {
             utiliser: "",
         },
         toilePoulieRun: {
-            prendre: "Si je lui déchire son petit home cinéma, il risque de pas être très content.",
-            regarder: [
-            "Voyons voir...",
-            "Hey Romain, si j'ai une question tu es là ?"
-        ]
+            donner: "",
+            ouvrir : "Hmm, non",
+            fermer: "Hmm, non",
+            prendre: "Pas sûr qu'il apprécie si j'embarque son petit home cinema",
+            regarder: "",
+            parler: "Je ferais mieux de me contenter de regarder la projection",
+            utiliser: "Je ferais mieux de me contenter de regarder la projection",
+            pousser: "Hmm, non",
+            tirer: "Hmm, non",
         },
         ordiRun: {
-            ouvrir: "L'ordinateur est déjà démarré",
-            utiliser: "Voyons voir...",
-            fermer: "Pas sûr qu'il apprécie",
-            regarder: "Sous l'écran il y a une interstice qui semble pouvoir accueillir une disquette",
+            donner: "",
+            ouvrir: "Vu l'âge des composants, je pense que même un tamagochi a une meilleure puissance de calcul",
+            fermer: "Ça ne m'avancera à rien",
             prendre: [
-                "Trimballer cette épave ? Non merci.",
-                "Cette machine date de Mathusalem, même sur leboncoin j'en tire même pas 50 euros",
-                "Comment fait-il pour coder là-dessus ??"
-            ]
+                "Excellente idée... Je vais voler son outil de travail à ce pauvre type",
+                "Avec un peu de chance je pourrais en tirer 30 euros sur leboncoin...",
+                "...Non merci même pas en rêve."
+            ],
+            regarder: "Sous l'écran il y a une interstice qui semble pouvoir accueillir une disquette",
+            parler:  [
+                "Coucou ma petite machine",
+                "Il serait pas grand temps pour toi de passer sur Windows 2000 ?",
+            ],
+            utiliser: "Je ne peux pas y accéder tant qu'il travaille dessus",
+            pousser: "ça ne m'avancera pas à grand chose",
+            tirer: "ça ne m'avancera pas à grand chose",            
         },
         ordi: {
-            utiliser: "Aucune idée de comment allumer ce truc",
-            ouvrir: "L'ordinateur s'allume avec un bruit de ventilateur.",
-            fermer: "L'ordinateur est déjà éteint",
-            regarder: ["L'ordinateur est éteint", "Sous l'écran il y a une interstice qui semble pouvoir accueillir une disquette", "Mais de quand date ce truc ?"],
-            prendre:
-            [
-                "Trimballer cette épave ? Non merci.",
-                "Cette machine date de Mathusalem, même sur leboncoin j'en tire même pas 50 euros",
-                "Comment fait-il pour coder là-dessus ??"
-            ]
+            donner: "",
+            ouvrir: "Vu l'âge des composants, je pense que même un tamagochi a une meilleure puissance de calcul",
+            fermer: "Ça ne m'avancera à rien",
+            prendre: "Me trimballer cette épave ? Non merci.",
+            regarder: [
+                "Pas de lecteur CD, en revanche il semble pouvoir accueillir une disquette",
+                "Mais de quelle année date ce truc ?"
+            ],
+            parler:  [
+                "Alexa ? Siri ? Allume toi !",
+                "Rien ne se passe."
+            ],
+            utiliser: "L'ordi est éteint et je ne vois pas comment l'allumer",
+            pousser: "ça ne m'avancera pas à grand chose",
+            tirer: "ça ne m'avancera pas à grand chose",  
         },
         reveil: {
-            utiliser: "Eh t'as assez ronflé coco !",
-            regarder:  ["1"] // Action changeante dynamiquement
+            donner: "",
+            ouvrir: "Hmm, non",
+            fermer: "Hmm, non",
+            prendre: "Pas envie de me trimballer ça",
+            regarder: ["1"], // Action changeante dynamiquement
+            parler: "Hmm, non",
+            utiliser: "Je pourrais démarrer l'alarme manuellement mais j'ai peur de tout dérégler",
+            pousser: "Hmm, non",
+            tirer: "Hmm, non",            
         },
         glasswater: {
-            utiliser: "Non merci je n'ai pas soif",
+            donner: "Hmm, non",
+            ouvrir: "Hmm, non",
+            fermer: "Hmm, non",
+            prendre: "Je vais prendre ça",
             regarder: "Le verre est rempli d'eau",
-            prendre: "Je vais prendre ça"
+            parler: "Ça ne m'avancera à rien",
+            utiliser: [
+                "Non merci je n'ai pas soif",
+                "D'ailleurs ma maman m'a toujours dit, de ne jamais boire dans le verre d'un inconnu",
+                "Surtout si le liquide est bleu comme les balloches d'un moine"
+            ],
+            pousser: "Hmm, non",
+            tirer: "Hmm, non",
         },
         gamingChair: {
+            donner: "Hmm, non",
+            ouvrir: "Hmm, non",
+            fermer: "Hmm, non",
+            prendre: "Hmm, non",
+            regarder: "Le dossier du fauteuil est tellement usé qu'il en tombe des miettes de skaï sur le sol",
+            parler: "Je ne parle pas aux fauteuils",
             utiliser: [
                 "Non merci",
                 "Savoir que l'individu qui habite cette cabane passe littéralement TOUTES ses journées les fesses collées sur ce fauteuil ne me tente pas du tout."
             ],
-            regarder:  [
-                "À en juger par son allure, la bête n'est plus toute jeune",
-                "Le dossier du fauteuil est tellement usé qu'il en tombe des miettes de skaï sur le sol"
-            ],
-            pousser:  "Je le trouve déjà très bien là où il est",
-            tirer:  "Je le trouve déjà très bien là où il est",
+            pousser: "Je le trouve déjà très bien là où il est",
+            tirer: "Je le trouve déjà très bien là où il est",
         },
         chest: {
-            regarder:  [
-                "Eh !",
-                "On dirait un coffre en métal, avec une serrure électronique"
-            ],
-            utiliser: [
-                "Impossible, il est fermé",
-                "Et encore faudrait-il trouver un moyen de l'atteindre"
-            ],
-            ouvrir: "Tant que je n'aurai pas trouvé le moyen de le déverrouiller, je ne pourrai pas l'ouvrir",
+            donner: "Hmm, non",
+            ouvrir: "Le coffre est verrouillé",
             fermer: "Il est déjà fermé",
+            prendre: "Je ne peux pas l'atteindre",
+            regarder: [
+                "Le coffre semble verrouillé avec une serrure électronique",
+                "'SwitchBot'... Le type de serrure intelligente qui s'ouvre à distance"
+            ],
+            parler: [
+                "Sésame, ouvre toi !",
+                "... Bien essayé"
+            ],
+            utiliser: "Je ne peux ni l'atteindre, ni l'ouvrir de mes mains",
+            pousser: "Hmm, non",
+            tirer: "Hmm, non",
         },
         goldkey: {
-            regarder: "une petite clé dorée est posée sur l'armoire",
+            donner: "Ça ne m'avancera à rien",
+            ouvrir: "Ça ne m'avancera à rien",
+            fermer: "Ça ne m'avancera à rien",
             prendre: [
                 "Toi, dans ma poche",
                 "Je me demande ce qu'elle peut bien ouvrir ?"
             ],
-            utiliser : "",
+            regarder: "une petite clé dorée est posée sur l'armoire",
+            parler: "Hmm, non",
+            utiliser: "Ça ne m'avancera à rien",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",            
         },
         boutdemetalShine: {
-            regarder: "Un bout de métal assez fin s'est détaché du meuble lorsque j'ai refermé le tiroir",
+            donner: "Ça ne m'avancera à rien",
+            ouvrir: "Ça ne m'avancera à rien",
+            fermer: "Ça ne m'avancera à rien",
             prendre: "ça pourra toujours m'être utile",
-            utiliser : "",
+            regarder: "Un bout de métal assez fin s'est détaché du meuble lorsque j'ai refermé le tiroir",
+            parler: "Hmm, non",
+            utiliser: "Hmm, non",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",
         },
         menuItemGoldKey: {
-            utiliser: "",
+            donner: "",
+            ouvrir: "Ça ne m'avancera à rien",
+            fermer: "Ça ne m'avancera à rien",
+            prendre: "",
             regarder: "Je me demande ce qu'elle peut bien ouvrir ?",
+            parler: "Ça ne m'avancera à rien",
+            utiliser: "",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",
             item: true,
         },
         menuItemGlassWater: {
-            utiliser: "",
+            donner: "",
+            ouvrir: "Ça ne m'avancera à rien",
+            fermer: "Ça ne m'avancera à rien",
+            prendre: "",
             regarder: "Le verre est rempli d'eau",
+            parler: "Ça ne m'avancera à rien",
+            utiliser: "",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",
             item: true,
         },
         menuItemGlassWaterEmpty: {
-            utiliser: "",
+            donner: "",
+            ouvrir: "Ça ne m'avancera à rien",
+            fermer: "Ça ne m'avancera à rien",
+            prendre: "",
             regarder: "Le verre est vide",
-            item: true,
+            parler: "Ça ne m'avancera à rien",
+            utiliser: "",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",
+            item: true,            
         },
         menuItemMetalStrip: {
-            utiliser: "",
+            donner: "",
+            ouvrir: "Ça ne m'avancera à rien",
+            fermer: "Ça ne m'avancera à rien",
+            prendre: "",
             regarder: "Un bon de métal plat qui s'est décroché du tiroir",
-            item: true,
+            parler: "Ça ne m'avancera à rien",
+            utiliser: "",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",
+            item: true,            
         },
-
-
     };
 
     // Pour tous les sprites interactifs à l'écran

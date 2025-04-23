@@ -144,6 +144,7 @@ export async function interactions(apps, sprites, texts) {
             table.texture = defaultTexture;
             isTableOpenned = false;
             innerHouseContainer.addChild(boutdemetal);
+            table.interactive = false;
 
             if (!boutdemetal.visible) {
                 boutdemetal.visible = true;
