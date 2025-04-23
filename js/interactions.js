@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, toileScreenProject1, toileScreenProject2, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, /*musicthemePLAY*/ } = sprites;
+    const { houseContainer, toileScreenProject1, toileScreenProject2, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, /*musicthemePLAY*/ } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -1197,9 +1197,24 @@ export async function interactions(apps, sprites, texts) {
 
     // Remplir le verre d'eau
     lavabo.on('click', () => {
-        console.log(menuItemGlassWaterEmpty.isActive);
         if (menuButton7.isActive && menuItemGlassWaterEmpty.isActive) {
             spriteSwap(menuContainer, menuItemGlassWaterEmpty, menuItemGlassWater);
+            app.stage.emit('rightdown');
+        }
+    });
+
+    // Empoisonner le verre d'eau avec du donormyl
+    menuItemTabletPack.on('click', () => {
+        if (menuButton7.isActive && menuItemGlassWater.isActive) {
+            console.log(menuItemGlassWater.isActive);
+            console.log("yeah !");
+            // console.log(menuItemTabletPackSelected.isActive);
+        }
+        console.log(menuItemGlassWater.isActive);
+  
+        if (menuButton7.isActive && menuItemTabletPack.isActive) {
+            console.log("yeah2 !");
+            spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
             app.stage.emit('rightdown');
         }
     });

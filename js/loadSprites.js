@@ -1130,9 +1130,18 @@ export async function loadSprites(apps, sounds) {
                 currentlyActiveItem = item;
                 console.log("item activé");  
             }
+
+            // On vérifie si deux items combinés déclenchent une action
+            handleCombinedItemAction();
             });
     });
 
+    function handleCombinedItemAction() {
+        if (!currentActionButton || !currentActionButton.isActive) return;
+    
+        // Vérifie que l'action en cours est "donner" ou "utiliser"
+        if (currentActionButton.action !== "donner" && currentActionButton.action !== "utiliser") return;
+    }
 
     const menuActionButtons = [
         { menuAction: menuButton, defaultTexture: menuButtonSprite, selectedTexture: menuButtonSpriteActive, text: 'Donner' },
