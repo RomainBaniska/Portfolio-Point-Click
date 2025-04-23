@@ -509,7 +509,7 @@ export async function interactions(apps, sprites, texts) {
         });
         // On crée une petite animation lors de la sélection du projet
         // guybrushClone.addEventListener("click", async () => {
-        toileScreenProject1.addEventListener("click", async () => {
+        toileScreenProject1.addEventListener("click", () => {
             // destruction si existe
             if (project1Description) {
                 project1Description.destroy();
@@ -539,7 +539,6 @@ export async function interactions(apps, sprites, texts) {
                             toileScreenProject1.width = targetWidth;
                             toileScreenProject1.height = targetHeight;
                             scaleTicker.stop();
-                            console.log("Agrandissement screenProject1 terminé !");
 
                             screenBackgroundContainer.addChild(introSlide);
                             // Troisième Ticker qui fait disparaitre le screenProject1
@@ -600,24 +599,50 @@ export async function interactions(apps, sprites, texts) {
                                 logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
                                 screenBackgroundContainer.addChild(logoSymfony);
 
-                                // Ajout de la bulle de Romain après avoir sélectionné GetTogether
-                                screenBackgroundContainer.addChild(bulleTextGT1);
+                                // On va créer des séquences de texte pour la narration du projet
+                                function wait(ms) {
+                                    return new Promise(resolve => setTimeout(resolve, ms));
+                                }
 
-                                setTimeout(() => {
+                                async function playSequence() {
+                                    screenBackgroundContainer.addChild(bulleTextGT1);
+                                    await wait(3000);
+                                
                                     screenBackgroundContainer.removeChild(bulleTextGT1);
                                     screenBackgroundContainer.addChild(bulleTextGT2);
-                                    setTimeout(() => {
-                                        screenBackgroundContainer.removeChild(bulleTextGT2);
-                                        screenBackgroundContainer.addChild(bulleTextGT3);
-                                        setTimeout(() => {
-                                            screenBackgroundContainer.removeChild(bulleTextGT3);
-                                            screenBackgroundContainer.addChild(bulleTextGT4);
-                                                                    setTimeout(() => {
-                                                                launchProjectVideo(videoList);
-                                                            }, 3000);
-                                        }, 6000);
-                                    }, 7000);
-                                }, 3000);
+                                    await wait(7000);
+                                
+                                    screenBackgroundContainer.removeChild(bulleTextGT2);
+                                    screenBackgroundContainer.addChild(bulleTextGT3);
+                                    await wait(6000);
+                                
+                                    screenBackgroundContainer.removeChild(bulleTextGT3);
+                                    screenBackgroundContainer.addChild(bulleTextGT4);
+                                    await wait(3000);
+                                
+                                    launchProjectVideo(videoList);
+                                }
+
+                                playSequence();
+
+                                // Ajout de la bulle de Romain après avoir sélectionné GetTogether
+                                // screenBackgroundContainer.addChild(bulleTextGT1);
+
+                                // setTimeout(() => {
+                                //     screenBackgroundContainer.removeChild(bulleTextGT1);
+                                //     screenBackgroundContainer.addChild(bulleTextGT2);
+                                //     setTimeout(() => {
+                                //         screenBackgroundContainer.removeChild(bulleTextGT2);
+                                //         screenBackgroundContainer.addChild(bulleTextGT3);
+                                //         setTimeout(() => {
+                                //             screenBackgroundContainer.removeChild(bulleTextGT3);
+                                //             screenBackgroundContainer.addChild(bulleTextGT4);
+                                //                                     setTimeout(() => {
+                                //                                 launchProjectVideo(videoList);
+                                //                             }, 3000);
+                                //         }, 6000);
+                                //     }, 7000);
+                                // }, 3000);
                                 }
                             });
                             alphaTicker.start();
