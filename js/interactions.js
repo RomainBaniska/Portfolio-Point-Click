@@ -23,6 +23,60 @@ export async function interactions(apps, sprites, texts) {
     // Index en cours de la video (initialisation)
     let currentVideoIndex = 0;
 
+    // FILTRE - Pixelisation (transition)
+    function pixelisation() {
+        const pixelate = new PIXI.filters.PixelateFilter([0, 0]);
+        screenBackgroundContainer.filters = [pixelate];
+        // Transition avec un filtre de Pixelisation
+        const pixelateTicker = new PIXI.Ticker();
+        pixelateTicker.add(() => {
+            let done = true;
+
+            if (pixelate.size[0] < 20) {
+                pixelate.size[0] += 0.9;
+                done = false;
+            }
+        
+            if (pixelate.size[1] < 20) {
+                pixelate.size[1] += 0.9;
+                done = false;
+            }
+        
+            if (done) pixelateTicker.stop();
+        });
+        pixelateTicker.start();
+    }
+
+    function dePixelisation() {
+    const pixelate = new PIXI.filters.PixelateFilter([20, 20]);
+    screenBackgroundContainer.filters = [pixelate];
+    // Transition vers la toile avec un filtre dépixelisation
+    const dePixelateTicker = new PIXI.Ticker();
+    dePixelateTicker.add(() => {
+        let done = true;
+
+        if (pixelate.size[0] > 0) {
+            pixelate.size[0] -= 0.9;
+            done = false;
+        }
+
+        if (pixelate.size[1] > 0) {
+            pixelate.size[1] -= 0.9;
+            done = false;
+        }
+
+        if (done) dePixelateTicker.stop();
+    });
+    dePixelateTicker.start();
+    }
+
+    async function transitionPixelisation () {
+        pixelisation();
+        await new Promise(resolve => setTimeout(resolve, 300));
+        dePixelisation();
+    }
+
+
     // GUYBRUSH START SETUP (Sleeping)
     setPosition(guybrushLD, 0.7, 0.775);
     innerHouseContainer.addChild(guybrushLD);
@@ -238,6 +292,15 @@ export async function interactions(apps, sprites, texts) {
     toilePoulieRun.on('click', async () => {
         // Quand on clique sur la toile
         if (menuButton5.isActive) {
+
+            // Joue le son du succès:
+            PIXI.sound.play("itemFoundPokemon");
+            await new Promise(resolve => setTimeout(resolve, 4000));
+
+            // On appelle notre transition en pixelisation
+            await transitionPixelisation();
+
+            // Puis envoie l'écran "toileScreen"
             screenBackgroundContainer.addChild(toileScreen);
 
             // Ajout d'un sprite de présentation de "GetTogether"

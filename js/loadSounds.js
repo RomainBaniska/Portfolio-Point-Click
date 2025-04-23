@@ -51,6 +51,10 @@ export async function loadSounds() {
     ewsthemeSound.volume = 0.3;
     ewsthemeSound.speed = 1;
 
+    const itemFoundPokemonSound = PIXI.sound.add('itemFoundPokemon', '../sounds/itemFoundPokemon.mp3');
+    itemFoundPokemonSound.volume = 0.3;
+    itemFoundPokemonSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,
@@ -63,6 +67,7 @@ export async function loadSounds() {
         inputSound,
         passwordValidSound,
         ewsthemeSound,
-        accessDeniedSound
+        accessDeniedSound,
+        itemFoundPokemonSound
     };
 }
