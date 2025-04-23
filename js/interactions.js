@@ -302,46 +302,63 @@ export async function interactions(apps, sprites, texts) {
                 bulleText.anchor.set(0.5, 0);
             }
             // Bulles Romain Toile
-            const bulleText1 = new PIXI.Text({ text: "Bravo, content de voir que tu sois arrivé jusqu'ici!", style: dialogueStyleLong });
-            const bulleText2 = new PIXI.Text({ text: "Le but de cette interface est que tu puisses avoir une idée plus précise de mes compétences en dev", style: dialogueStyleLong });
-            const bulleText3 = new PIXI.Text({ text: "Voici une sélection de 3 projets sur lesquel j'ai pu travailler", style: dialogueStyleLong });
-            const bulleText4 = new PIXI.Text({ text: "Sélectionne le projet qui t'intéresse", style: dialogueStyleLong });
+            const bulleText1 = new PIXI.Text({ text: "Bravo d'être arrivé jusque là!", style: dialogueStyleLong });
+            const bulleText2 = new PIXI.Text({ text: "Tu vas pouvoir avoir une idée un peu plus précise de ce que je suis capable de faire", style: dialogueStyleLong });
+            const bulleText3 = new PIXI.Text({ text: "Voici une petite sélection de projets que j'ai réalisé", style: dialogueStyleLong });
+            const bulleText4 = new PIXI.Text({ text: "Clique sur le projet qui t'intéresse ! Tu pourras revenir consulter les autres.", style: dialogueStyleLong });
             bulleText(bulleText1);
             bulleText(bulleText2);
             bulleText(bulleText3);
             bulleText(bulleText4);
 
-            // Bulles Romain GetTogether
-            const bulleTextGT1 = new PIXI.Text({ text: "GetTogether ? Très bon choix", style: dialogueStyleLong });
-            const bulleTextGT2 = new PIXI.Text({ text: "C’est une application pensée pour le site TimeOut, qui permet aux utilisateurs de filtrer les événements selon leurs intérêts et d’échanger facilement avec d’autres personnes partageant les mêmes centres d’intérêt.", style: dialogueStyleLong });
-            const bulleTextGT3 = new PIXI.Text({ text: "Ce projet a été développé à l'aide du framework Symfony, en utilisant les langages PHP, HTML, CSS et JavaScript, avec une base de données MongoDB.", style: dialogueStyleLong });
-            const bulleTextGT4 = new PIXI.Text({ text: "Clique sur play pour lancer la video", style: dialogueStyleLong });
+            //// Bulles Romain GETTOGETHER ////
+            // Intro
+            const bulleTextGT1 = new PIXI.Text({ text: "GetTogether, un projet pensé comme une extension pour TimeOut", style: dialogueStyleLong });
+            const bulleTextGT2 = new PIXI.Text({ text: "L'application permet aux utilisateurs de filtrer les événements selon leurs centres intérêts et de tchater en amont de l'événement.", style: dialogueStyleLong });
+            const bulleTextGT3 = new PIXI.Text({ text: "À tout moment tu peux mettre la vidéo en pause, passer à la fonctionnalité suivante ou revenir en arrière.", style: dialogueStyleLong });
+            const bulleTextGT4 = new PIXI.Text({ text: "Prêt ? Alors c'est parti !", style: dialogueStyleLong });
             bulleText(bulleTextGT1);
             bulleText(bulleTextGT2);
             bulleText(bulleTextGT3);
             bulleText(bulleTextGT4);
+            // SignUp - Login
+            const bulleTextGT5 = new PIXI.Text({ text: "On va commencer par s'inscrire et renseigner les informations de base lors de la création de compte", style: dialogueStyleLong });
+            const bulleTextGT6 = new PIXI.Text({ text: "Une fois fait, lors de notre première connexion on est amené à compléter notre profil.", style: dialogueStyleLong });
+            const bulleTextGT7 = new PIXI.Text({ text: "Petit Nom-Prénom-Pseudo classique ainsi que le nom de la ville (pour l'instant l'application est limitée à Paris)", style: dialogueStyleLong });
+            const bulleTextGT8 = new PIXI.Text({ text: "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini", style: dialogueStyleLong });
+            const bulleTextGT9 = new PIXI.Text({ text: "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations.", style: dialogueStyleLong });
+            const bulleTextGT10 = new PIXI.Text({ text: "Clique sur 'suivant' pour passer au Dashboard", style: dialogueStyleLong });
+            bulleText(bulleTextGT5);
+            bulleText(bulleTextGT6);
+            bulleText(bulleTextGT7);
+            bulleText(bulleTextGT8);
+            bulleText(bulleTextGT9);
+            bulleText(bulleTextGT10);
+            // Dashboard - Event
+            const bulleTextGT11 = new PIXI.Text({ text: "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux...", style: dialogueStyleLong });
+            const bulleTextGT12 = new PIXI.Text({ text: "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés", style: dialogueStyleLong });
+            const bulleTextGT13 = new PIXI.Text({ text: "Mais allons plutot faire un petit tour sur la page d'un évenement", style: dialogueStyleLong });
+            const bulleTextGT14 = new PIXI.Text({ text: "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat", style: dialogueStyleLong });
+            const bulleTextGT15 = new PIXI.Text({ text: "Marquons un petit message et tentons d'y répondre avec une autre session", style: dialogueStyleLong });
+            bulleText(bulleTextGT11);
+            bulleText(bulleTextGT12);
+            bulleText(bulleTextGT13);
+            bulleText(bulleTextGT14);
+            bulleText(bulleTextGT15);
+            // Tags 
+            const bulleTextGT17 = new PIXI.Text({ text: "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations", style: dialogueStyleLong });
+            const bulleTextGT18 = new PIXI.Text({ text: "Ta-da !", style: dialogueStyleLong });
+            const bulleTextGT19 = new PIXI.Text({ text: "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska", style: dialogueStyleLong });
+            const bulleTextGT20 = new PIXI.Text({ text: "Clique sur 'Retour' pour parcourir les autres projets", style: dialogueStyleLong });
+            bulleText(bulleTextGT17);
+            bulleText(bulleTextGT18);
+            bulleText(bulleTextGT19);
+            bulleText(bulleTextGT20);
 
-            // Bulles Romain Rebatiere
-            // const bulleTextGT1 = new PIXI.Text({ text: "GetTogether ? Très bon choix", style: dialogueStyleLong });
-            // const bulleTextGT2 = new PIXI.Text({ text: "C’est une application pensée pour le site TimeOut, qui permet aux utilisateurs de filtrer les événements selon leurs intérêts et d’échanger facilement avec d’autres personnes partageant les mêmes centres d’intérêt.", style: dialogueStyleLong });
-            // const bulleTextGT3 = new PIXI.Text({ text: "Ce projet a été développé à l'aide du framework Symfony, en utilisant les langages PHP, HTML, CSS et JavaScript, avec une base de données MongoDB.", style: dialogueStyleLong });
-            // const bulleTextGT4 = new PIXI.Text({ text: "Clique sur play pour lancer la video", style: dialogueStyleLong });
-            // bulleText(bulleTextGT1);
-            // bulleText(bulleTextGT2);
-            // bulleText(bulleTextGT3);
-            // bulleText(bulleTextGT4);
+            // Bulles Romain REBATIERE
 
-            // Bulles Romain Jsigné
-            // const bulleTextGT1 = new PIXI.Text({ text: "GetTogether ? Très bon choix", style: dialogueStyleLong });
-            // const bulleTextGT2 = new PIXI.Text({ text: "C’est une application pensée pour le site TimeOut, qui permet aux utilisateurs de filtrer les événements selon leurs intérêts et d’échanger facilement avec d’autres personnes partageant les mêmes centres d’intérêt.", style: dialogueStyleLong });
-            // const bulleTextGT3 = new PIXI.Text({ text: "Ce projet a été développé à l'aide du framework Symfony, en utilisant les langages PHP, HTML, CSS et JavaScript, avec une base de données MongoDB.", style: dialogueStyleLong });
-            // const bulleTextGT4 = new PIXI.Text({ text: "Clique sur play pour lancer la video", style: dialogueStyleLong });
-            // bulleText(bulleTextGT1);
-            // bulleText(bulleTextGT2);
-            // bulleText(bulleTextGT3);
-            // bulleText(bulleTextGT4);
-            
-            
+            // Bulles Romain JSIGNE
+  
             // Ajout des bulles avec chrono
             screenBackgroundContainer.addChild(bulleText1);
             setTimeout(() => {
@@ -390,22 +407,12 @@ export async function interactions(apps, sprites, texts) {
         toileScreenProject2.anchor.set(0.5);
         toileScreenProject3.anchor.set(0.5);
 
-        // Taille cible 
-        const targetWidth = toileScreen.width * 0.8;
-        const targetHeight = toileScreen.height * 0.655;
-
         // Dimensionnement des sprites toileScreenProjects
         // ToileScreen: Width=968.821, Height=665 | Video: Width=775.057, Height=435.598 (968.821 * 0.8 = 775.057)
         // Pour conserver le même ratio d'aspect, si la largeur passe à 775.057, la hauteur correspondante sera de 775.057 × 0.5625 = 435.60 px.
-        // toileScreenProject1.width = toileScreen.width * 0.8;
-        // toileScreenProject1.height = toileScreen.height * 0.655;  
-        // toileScreenProject2.width = toileScreen.width * 0.8;
-        // toileScreenProject2.height = toileScreen.height * 0.655;
-        // toileScreenProject3.width = toileScreen.width * 0.8;
-        // toileScreenProject3.height = toileScreen.height * 0.655;
-        // // Taille cible 
-        // const targetWidth = toileScreen.width * 0.8;
-        // const targetHeight = toileScreen.height * 0.655;
+        // Taille cible 
+        const targetWidth = toileScreen.width * 0.8;
+        const targetHeight = toileScreen.height * 0.655;
         // Taille initiale = 4.5 fois plus petit
         toileScreenProject1.width = targetWidth / 4.5;
         toileScreenProject1.height = targetHeight / 4.5;
@@ -564,19 +571,17 @@ export async function interactions(apps, sprites, texts) {
                                 logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
                                 screenBackgroundContainer.addChild(logoCSS);
 
-                                // MySQL
-                                logoMySQL.scale.set(screenFactor);
-                                logoMySQL.x = logoCSS.x + logoCSS.width;
-                                logoMySQL.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                screenBackgroundContainer.addChild(logoMySQL);
+                                // MongoDB
+                                logoMongo.scale.set(screenFactor);
+                                logoMongo.x = logoCSS.x + logoCSS.width;
+                                logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                screenBackgroundContainer.addChild(logoMongo);
 
                                 // Symfony
                                 logoSymfony.scale.set(screenFactor);
-                                logoSymfony.x = logoMySQL.x + logoMySQL.width;
+                                logoSymfony.x = logoMongo.x + logoMongo.width;
                                 logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
                                 screenBackgroundContainer.addChild(logoSymfony);
-
-                               
 
                                 // Ajout de la bulle de Romain après avoir sélectionné GetTogether
                                 screenBackgroundContainer.addChild(bulleTextGT1);
@@ -690,15 +695,15 @@ export async function interactions(apps, sprites, texts) {
                         logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
                         screenBackgroundContainer.addChild(logoCSS);
 
-                        // MongoDB
-                        logoMongo.scale.set(screenFactor);
-                        logoMongo.x = logoCSS.x + logoCSS.width;
-                        logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoMongo);
+                        // MySQL
+                        logoMySQL.scale.set(screenFactor);
+                        logoMySQL.x = logoCSS.x + logoCSS.width;
+                        logoMySQL.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                        screenBackgroundContainer.addChild(logoMySQL);
 
                         // Symfony
                         logoSymfony.scale.set(screenFactor);
-                        logoSymfony.x = logoMongo.x + logoMongo.width;
+                        logoSymfony.x = logoMySQL.x + logoMySQL.width;
                         logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
                         screenBackgroundContainer.addChild(logoSymfony);
 
