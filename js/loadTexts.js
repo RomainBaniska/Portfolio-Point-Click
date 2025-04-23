@@ -25,6 +25,8 @@ export async function loadTexts(sprites) {
     let currentText = null;
     // Initialisation de la variable de la séquence de texte affichée à l'écran
     let currentTextSequence = null;
+    // Initialisation de la variable du time-out du texte affiché à l'écran
+    let currentTextTimeout;  
     
     // FontSizes
     const generalFontSize = window.innerHeight * 0.02624;
@@ -365,14 +367,13 @@ export async function loadTexts(sprites) {
                             }
                         }
                 
-                        // Alors on définit l'action qui va être exécutée (ex texte : "l'ordinateur est éteint")
+                        // Alors on définit l'action qui va être exécutée (ex spriteBehaviors.ordi.utiliser)
                         const actionEvent = spriteBehaviors[spriteName][action];
 
                         // Si cette action n'est pas un simple TEXTE, mais une véritable ACTION COMPLEXE (fonction)
                         if (typeof actionEvent === "function") {
-                            const result = response();
-                            await displayText(result, 4000); // On joue l'action
-                            // activatedMenuButton.isActive === false;
+                            // const result = response();
+                            // await displayText(result, 4000); // On joue l'action
 
                         // Si l'actionEvent n'est pas un simple TEXTE, mais un plusieurs LIGNES DE TEXTES
                         } else if (Array.isArray(actionEvent)) {
@@ -397,6 +398,11 @@ export async function loadTexts(sprites) {
     function displayText(text, time) {
         // return new Promise(resolve => {
             
+        // Annule le précédent timeout s’il existe
+        if (currentTextTimeout) {
+            clearTimeout(currentTextTimeout);
+        }
+
         // Détruit la précédente ligne de réaction (Seulement Ok s'il n'y a qu'une ligne de réaction)
         if (currentText) {
             currentText.destroy();
@@ -407,11 +413,13 @@ export async function loadTexts(sprites) {
         currentText.x = houseContainer.width / 2 ;
         currentText.y = houseContainer.y + (houseContainer.height * 0.3);
         houseContainer.addChild(currentText);
-        setTimeout(() => {
-            currentText.destroy();
-            // resolve();
-        }, time);
-    // });
+
+        // Lance un nouveau timeout et stocke son identifiant
+        currentTextTimeout = setTimeout(() => {
+        currentText.destroy();
+        currentText = null;
+        currentTextTimeout = null;
+     }, time);
     }
 
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR SI IL Y EN A PLUS D'UNE
@@ -419,68 +427,41 @@ export async function loadTexts(sprites) {
 
          // Vérifie et annule une séquence précédente si elle existe
         if (currentTextSequence) {
-            console.log("Séquence en cours, arrêt et suppression de la précédente");
-            currentTextSequence = null;  // Réinitialiser la séquence précédente
+            currentTextSequence.destroy();
+            // currentTextSequence = null;  // Réinitialiser la séquence précédente
+        }
+
+        if (currentText) {
+            currentText.destroy();
         }
 
         // Lancer la nouvelle séquence
         for (let i = 0; i < textSequence.length; i++) {
             const text = textSequence[i];
+            currentTextSequence = new PIXI.Text({ text: text, style: dialogueStyle2 });
+            currentTextSequence.anchor.set(0.5);
+            currentTextSequence.zIndex = 99;
+            currentTextSequence.x = houseContainer.width / 2 ;
+            currentTextSequence.y = houseContainer.y + (houseContainer.height * 0.3);
+            setTimeout(() => {
+                currentTextSequence.destroy();
+                // resolve();
+            }, time);
+
             // Vérifier si la séquence a été annulée
-            if (currentTextSequence && currentTextSequence.canceled) {
-                console.log("Séquence annulée.");
-                return;
-            }
+            // if (currentTextSequence && currentTextSequence.canceled) {
+            //     console.log("Séquence annulée.");
+            //     return;
+            // }
 
         // Affichage du texte actuel
-            await displayText(text, time);
+            // await displayText(text, time);
         }
 
         // Séquence terminée
-        currentTextSequence = null;
-        console.log("Séquence terminée, currentTextSequence remis à null");
-
-        // if (currentTextSequence) {
-        //     console.log("Séquence en cours, arrêt et suppression de la précédente");
-        //     currentTextSequence = null;  // Réinitialiser la séquence précédente
-        // }
-    
-        // // Lancer la nouvelle séquence
-        // for (let i = 0; i < textSequence.length; i++) {
-        //     const text = textSequence[i];
-        //     // Vérifier si la séquence a été annulée par un autre processus
-        //     if (currentTextSequence && currentTextSequence.canceled) {
-        //         console.log("Séquence annulée.");
-        //         return;
-        //     }
-    
-        //     // Affichage du texte actuel
-        //     await displayText(text, time);
-        // }
-    
-        // // Séquence terminée
         // currentTextSequence = null;
         // console.log("Séquence terminée, currentTextSequence remis à null");
-
-
-        // // Création d'une référence unique pour la séquence
-        // currentTextSequence = { canceled: false };
-
-        // for (let i = 0; i < textSequence.length; i++) {
-        //     const text = textSequence[i];
-        //     // Si une nouvelle séquence est démarrée, arrêter l'ancienne
-        //     if (currentTextSequence && currentTextSequence.canceled) {
-        //         console.log("Séquence annulée.");
-        //         return;
-        //     }
-        //     await displayText(text, time);
-        // }
-        // // Séquence terminée
-        // currentTextSequence = null;
-        // console.log("currentTextSequence remis à null", currentTextSequence)
     }
-
-    console.log(menuItemGlassWater.label)
 
     return {
         wakeUpText,
