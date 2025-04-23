@@ -27,7 +27,9 @@ export async function loadTexts(sprites) {
     let currentTextSequence = null;
     // Initialisation de la variable du time-out du texte affiché à l'écran
     let currentTextTimeout;  
-    
+    // Initialisation de la variable des time-outs de la séquence de textes - On stocke tous les setTimeout actifs dans un tableau, pour pouvoir les annuler plus tard si besoin
+    let currentTextSequenceTimeouts = [];
+
     // FontSizes
     const generalFontSize = window.innerHeight * 0.02624;
     const titleFontSize = window.innerHeight * 0.04;
@@ -396,7 +398,13 @@ export async function loadTexts(sprites) {
   
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR 
     function displayText(text, time) {
-        // return new Promise(resolve => {
+        //Annuler toute séquence active
+        currentTextSequenceTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+        currentTextSequenceTimeouts = [];
+        if (currentTextSequence) {
+            currentTextSequence.destroy();
+            currentTextSequence = null;
+        }
             
         // Annule le précédent timeout s’il existe
         if (currentTextTimeout) {
@@ -416,51 +424,62 @@ export async function loadTexts(sprites) {
 
         // Lance un nouveau timeout et stocke son identifiant
         currentTextTimeout = setTimeout(() => {
-        currentText.destroy();
-        currentText = null;
-        currentTextTimeout = null;
-     }, time);
+                        currentText.destroy();
+                        currentText = null;
+                        currentTextTimeout = null;
+                    }, time);
     }
 
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR SI IL Y EN A PLUS D'UNE
     async function displayTextSequence(textSequence, time) {
 
+
+        // Annule et nettoie les anciens timeouts
+        currentTextSequenceTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+        currentTextSequenceTimeouts = [];
+
+        // Détruit le texte en cours s'il existe
+        if (currentText) {
+            currentText.destroy();
+            currentText = null;
+        }
+
          // Vérifie et annule une séquence précédente si elle existe
         if (currentTextSequence) {
             currentTextSequence.destroy();
-            // currentTextSequence = null;  // Réinitialiser la séquence précédente
+            currentTextSequence = null;
         }
 
-        if (currentText) {
-            currentText.destroy();
-        }
-
-        // Lancer la nouvelle séquence
-        for (let i = 0; i < textSequence.length; i++) {
-            const text = textSequence[i];
+        // Affiche chaque texte du tableau avec un délai entre chaque
+        textSequence.forEach((text, index) => {
+        const timeoutId = setTimeout(() => {
+            // Supprime l’ancien texte s’il y en a un
+            if (currentTextSequence) {
+                currentTextSequence.destroy();
+            }
+            
+            // Crée et affiche le nouveau texte
             currentTextSequence = new PIXI.Text({ text: text, style: dialogueStyle2 });
             currentTextSequence.anchor.set(0.5);
             currentTextSequence.zIndex = 99;
-            currentTextSequence.x = houseContainer.width / 2 ;
+            currentTextSequence.x = houseContainer.width / 2;
             currentTextSequence.y = houseContainer.y + (houseContainer.height * 0.3);
-            setTimeout(() => {
-                currentTextSequence.destroy();
-                // resolve();
+            houseContainer.addChild(currentTextSequence);
+
+            // Auto-destruction du texte affiché après `time` ms
+            const destroyId = setTimeout(() => {
+                if (currentTextSequence) {
+                    currentTextSequence.destroy();
+                    currentTextSequence = null;
+                }
             }, time);
 
-            // Vérifier si la séquence a été annulée
-            // if (currentTextSequence && currentTextSequence.canceled) {
-            //     console.log("Séquence annulée.");
-            //     return;
-            // }
+            currentTextSequenceTimeouts.push(destroyId); // Stocke ce timeout aussi
 
-        // Affichage du texte actuel
-            // await displayText(text, time);
-        }
-
-        // Séquence terminée
-        // currentTextSequence = null;
-        // console.log("Séquence terminée, currentTextSequence remis à null");
+        }, index * (time + 300));
+        currentTextSequenceTimeouts.push(timeoutId);
+    });
+        
     }
 
     return {
