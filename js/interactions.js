@@ -66,6 +66,7 @@ export async function interactions(apps, sprites, texts) {
         }
 
         if (done) dePixelateTicker.stop();
+        screenBackgroundContainer.filters = null;
     });
     dePixelateTicker.start();
     }
