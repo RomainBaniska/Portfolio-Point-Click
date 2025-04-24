@@ -55,6 +55,10 @@ export async function loadSounds() {
     itemFoundPokemonSound.volume = 0.3;
     itemFoundPokemonSound.speed = 1;
 
+    const unlockTableSound = PIXI.sound.add('unlockTable', '../sounds/unlocktable.mp3');
+    unlockTableSound.volume = 1;
+    unlockTableSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,
@@ -68,6 +72,7 @@ export async function loadSounds() {
         passwordValidSound,
         ewsthemeSound,
         accessDeniedSound,
-        itemFoundPokemonSound
+        itemFoundPokemonSound,
+        unlockTableSound
     };
 }

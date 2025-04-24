@@ -22,6 +22,8 @@ export async function interactions(apps, sprites, texts) {
     ];
     // Index en cours de la video (initialisation)
     let currentVideoIndex = 0;
+    // table de nuit verrouillée par défaut
+    let tableLocked = true;
 
     // FILTRE - Pixelisation (transition)
     function pixelisation() {
@@ -118,11 +120,50 @@ export async function interactions(apps, sprites, texts) {
         }
     });
 
+    // Déverrouiller la table de nuit
+    table.on('click', () => {
+
+    })
+
     // Ouvrir le tiroir
     const defaultTexture = table.texture;
     let isTableOpenned = false;
 
     table.on('click', () => {
+        // Déverrouille la porte
+        if (menuButton7.isActive && menuItemGoldKey.isActive) {
+            menuContainer.removeChild(menuItemGoldKey);
+            app.stage.emit('rightdown');
+            PIXI.sound.play('unlockTable');
+            const successOpen = new PIXI.Text({ text: "Bingo ! la table de nuit est déverrouillée", style: dialogueStyle2 });
+            successOpen.anchor.set(0.5);
+            successOpen.x = houseContainer.width / 2 ;
+            successOpen.y = houseContainer.y + (houseContainer.height * 0.3);
+            houseContainer.addChild(successOpen);
+            setTimeout(() => {
+                houseContainer.removeChild(successOpen);
+                successOpen.destroy();
+            }, 2000);
+
+            menuItemGoldKey.destroy();
+            tableLocked = false;
+            return;
+        }
+        // Echec si la table est fermée
+        if(tableLocked) {
+            if (menuButton2.isActive) {
+            const failOpen = new PIXI.Text({ text: "Hmmm... C'est verrouillé", style: dialogueStyle2 });
+            failOpen.anchor.set(0.5);
+            failOpen.x = houseContainer.width / 2 ;
+            failOpen.y = houseContainer.y + (houseContainer.height * 0.3);
+            houseContainer.addChild(failOpen);
+            setTimeout(() => {
+                houseContainer.removeChild(failOpen);
+            }, 2000);
+            return;
+        }
+        }
+        // On ouvre le tiroir si la table est ouverte
         if (isTableOpenned === false) {
         if (menuButton2.isActive) {
             app.stage.emit('rightdown');
@@ -1202,6 +1243,8 @@ export async function interactions(apps, sprites, texts) {
             app.stage.emit('rightdown');
         }
     });
+
+
 
     // Empoisonner le verre d'eau avec du donormyl
     // menuItemTabletPack.on('click', () => {
