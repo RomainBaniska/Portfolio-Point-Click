@@ -2,7 +2,7 @@
 export async function loadTexts(sprites) {
 
     // Sprites
-    const { houseContainer, houseSprite, itemClicked, lavabo, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater,
+    const { houseContainer, houseSprite, itemClicked, lavabo, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater,
         menuButton,
         menuButton2,
         menuButton3,
@@ -91,7 +91,7 @@ export async function loadTexts(sprites) {
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
-    const interactableSprites = [guybrushSO, guybrushLD, lavabo, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine];
+    const interactableSprites = [guybrushSO, guybrushLD, lavabo, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack];
     // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
@@ -301,12 +301,31 @@ export async function loadTexts(sprites) {
             ouvrir: "Ça ne m'avancera à rien",
             fermer: "Ça ne m'avancera à rien",
             prendre: "",
-            regarder: "Un bon de métal plat qui s'est décroché du tiroir",
+            regarder: "Un bout de métal plat qui s'est décroché du tiroir",
             parler: "Ça ne m'avancera à rien",
             utiliser: "",
             pousser: "Ça ne m'avancera à rien",
             tirer: "Ça ne m'avancera à rien",
             item: true,            
+        },
+        menuItemTabletPack: {
+            donner: "",
+            ouvrir: "Tant que je n'ai pas trouvé quoi en faire je préfère ne pas les éparpiller",
+            fermer: "Ça ne m'avancera à rien",
+            prendre: "",
+            regarder: [
+                "Donormyl Ultra©",
+                '"Pour un sommeil aussi profond que le tunnel de Morphée"',
+                "Médicament à ne pas prendre avant 15 ans...",
+                "...ni avant le rituel Dafu Mamé",
+                "Wow ça a l'air puissant",
+
+            ],
+            parler: "Ça ne m'avancera à rien",
+            utiliser: "",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",
+            item: true, 
         },
     };
 
