@@ -182,6 +182,19 @@ export async function loadSprites(apps, sounds) {
 
     //////////////////////////////////////// ELEMENTS & OBJECTS ////////////////////////////////
 
+    // MACHINE A CAFE
+    const coffeMachine = await displaySprite('ELEMENTS/coffemachine/coffemachine.json', 0.12);
+    // coffeMachine.gotoAndStop(0); 
+    coffeMachine.interactive = true;
+    coffeMachine.zIndex = 3;
+    innerHouseContainer.addChild(coffeMachine);
+
+    // TABLE ETROITE
+    const narrowTableAsset = await PIXI.Assets.load('../sprites/ELEMENTS/coffemachine/narrowtable2.png');
+    const narrowTable = new PIXI.Sprite(narrowTableAsset);
+    narrowTableAsset.interactive = false;
+    innerHouseContainer.addChild(narrowTable);
+
     // ORDINATEUR
     const ordi = await displaySprite('ELEMENTS/ordi/ordi.json', 0.12);
     const ordiRun = await displaySprite('ELEMENTS/ordi/ordiRun.json', 0.12);
@@ -195,8 +208,7 @@ export async function loadSprites(apps, sounds) {
     // BUREAU
     const deskAsset = await PIXI.Assets.load('../sprites/ELEMENTS/ordi/desk.png');
     const desk = new PIXI.Sprite(deskAsset);
-    // desk.anchor.set(0.5); 
-    desk.interactive = true;
+    // desk.interactive = true;
     innerHouseContainer.addChild(desk);
 
 
@@ -319,17 +331,10 @@ export async function loadSprites(apps, sounds) {
     interrupteur.zIndex = 3;
     innerHouseContainer.addChild(interrupteur);
 
-    // INTERRUPTEUR
-    const coffeMachine = await displaySprite('ELEMENTS/coffemachine/coffemachine.json', 0.12);
-    coffeMachine.gotoAndStop(0); 
-    coffeMachine.interactive = true;
-    coffeMachine.zIndex = 3;
-    innerHouseContainer.addChild(coffeMachine);
-
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
     const bed = new PIXI.Sprite(bedAsset);
-    desk.interactive = false;
+    // desk.interactive = false;
     innerHouseContainer.addChild(bed);
 
     // LOGOS DES TECHNOS
@@ -1532,6 +1537,7 @@ export async function loadSprites(apps, sounds) {
         lavabo,
         interrupteur,
         coffeMachine,
+        narrowTable,
         // ACTIONS MENU
         menuContainer,
         menuSprite,

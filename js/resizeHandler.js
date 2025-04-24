@@ -3,7 +3,7 @@
 export async function resizeHandler(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseSprite, houseContainer, coffeMachine, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
+    const { houseSprite, houseContainer, coffeMachine, narrowTable, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
@@ -229,7 +229,13 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(ordiRun, 0.096, 0.666, 770, 790);
 
     // Position machine à café
-    setSpritePositionAndScaleINNERHOUSE(coffeMachine, 0.25, 0.666, 770, 3790);
+    // setSpritePositionAndScaleINNERHOUSE(coffeMachine, 0.55, 0.78, 770, 4590);
+    setSpritePositionAndScaleINNERHOUSE(coffeMachine, 0.016, 0.705, 770, 4590);
+
+
+    // Position table étroite
+    // setSpritePositionAndScaleINNERHOUSE(narrowTable, 0.52, 0.76, 770, 5090);
+    setSpritePositionAndScaleINNERHOUSE(narrowTable, 0.015, 0.76, 770, 5590);
 
     // Position Poulie&Toile
     setSpritePositionAndScaleINNERHOUSE(toilePoulie, 0.37, 0.43, 770, 700);
