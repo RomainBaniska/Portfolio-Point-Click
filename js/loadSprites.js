@@ -319,6 +319,13 @@ export async function loadSprites(apps, sounds) {
     interrupteur.zIndex = 3;
     innerHouseContainer.addChild(interrupteur);
 
+    // INTERRUPTEUR
+    const coffeMachine = await displaySprite('ELEMENTS/coffemachine/coffemachine.json', 0.12);
+    coffeMachine.gotoAndStop(0); 
+    coffeMachine.interactive = true;
+    coffeMachine.zIndex = 3;
+    innerHouseContainer.addChild(coffeMachine);
+
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
     const bed = new PIXI.Sprite(bedAsset);
@@ -1524,6 +1531,7 @@ export async function loadSprites(apps, sounds) {
         boutdemetalShine,
         lavabo,
         interrupteur,
+        coffeMachine,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
