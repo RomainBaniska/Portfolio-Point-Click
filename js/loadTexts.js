@@ -198,7 +198,7 @@ export async function loadTexts(sprites) {
             parler: "Ça ne m'avancera à rien",
             utiliser: [
                 "Non merci je n'ai pas soif",
-                "D'ailleurs ma maman m'a toujours dit, de ne jamais boire dans le verre d'un inconnu",
+                "D'ailleurs maman m'a toujours dit de ne jamais boire dans le verre d'un inconnu",
                 "Surtout si le liquide est bleu comme les balloches d'un moine"
             ],
             pousser: "Hmm, non",
