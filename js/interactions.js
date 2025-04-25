@@ -120,12 +120,14 @@ export async function interactions(apps, sprites, texts) {
         }
     });
 
+    // let coffePicked = false;
     // Prendre la capsule de café
     trash.on('click', () => {
         if (menuButton4.isActive) {
             app.stage.emit('rightdown');
             PIXI.sound.play('pickup');
             menuContainer.addChild(menuItemCoffePod);
+            let coffePicked = true;
         }
     });
 

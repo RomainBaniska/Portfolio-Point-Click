@@ -88,6 +88,8 @@ export async function loadTexts(sprites) {
     ];
 
     // TEXTE OU ACTION DU JOUEUR LORS DU CLIC SUR UN SPRITE AVEC UN MENUBUTTON ACTIF
+    // Actions réalisées initialisées à false
+    let coffePicked = false;
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
@@ -253,10 +255,17 @@ export async function loadTexts(sprites) {
             donner: "Ça ne m'avancera à rien",
             ouvrir: "Ça ne m'avancera à rien",
             fermer: "Ça ne m'avancera à rien",
-            prendre: [
+            prendre: () => { 
+                if (!coffePicked) {
+                    coffePicked = true;
+                    return [
                 "Il y a une petite capsule de café usagée au fond de la poubelle",
                 "Je vais la récupérer"
-            ],
+            ];
+            } else {
+                return "Plus je ne vois rien d'autre d'intéressant dans ce tas d'ordures";
+            }
+            },
             regarder: [
                 "Une petite corbeille à papier remplie de déchets alimentaires",
                 "Je me disais bien que ce petit fumet de pourri ne venait pas de nulle part"
@@ -448,16 +457,20 @@ export async function loadTexts(sprites) {
 
                         // Si cette action n'est pas un simple TEXTE, mais une véritable ACTION COMPLEXE (fonction)
                         if (typeof actionEvent === "function") {
-                            // const result = response();
-                            // await displayText(result, 4000); // On joue l'action
+                            const result = actionEvent();
+                            if (Array.isArray(result)) {
+                                await displayTextSequence(result, 3000);
+                            } else if (typeof result === "string") {
+                                await displayText(result, 3000);
+                            }
 
                         // Si l'actionEvent n'est pas un simple TEXTE, mais un plusieurs LIGNES DE TEXTES
                         } else if (Array.isArray(actionEvent)) {
-                            await displayTextSequence(actionEvent, 2000); // On affiche la séquence entière
+                            await displayTextSequence(actionEvent, 3000); // On affiche la séquence entière
 
                         // Si l'actionEvent est une simple ligne de TEXTE, alors on l'affiche
                         } else {
-                            await displayText(actionEvent, 2000); // On affiche le texte
+                            await displayText(actionEvent, 3000); // On affiche le texte
                             // activatedMenuButton.isActive === false;
                         }
 
@@ -506,7 +519,6 @@ export async function loadTexts(sprites) {
 
     // METHODE QUI AFFICHE LES REACTIONS DU JOUEUR SI IL Y EN A PLUS D'UNE
     async function displayTextSequence(textSequence, time) {
-
 
         // Annule et nettoie les anciens timeouts
         currentTextSequenceTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
