@@ -122,12 +122,15 @@ export async function interactions(apps, sprites, texts) {
 
     // let coffePicked = false;
     // Prendre la capsule de café
+    let interactionCoffePicked = false;
     trash.on('click', () => {
         if (menuButton4.isActive) {
+            if (!interactionCoffePicked) {
             app.stage.emit('rightdown');
             PIXI.sound.play('pickup');
             menuContainer.addChild(menuItemCoffePod);
-            let coffePicked = true;
+            interactionCoffePicked = true;
+        }
         }
     });
 
