@@ -59,6 +59,10 @@ export async function loadSounds() {
     unlockTableSound.volume = 1;
     unlockTableSound.speed = 1;
 
+    const drawerStuckSound = PIXI.sound.add('drawerStuck', '../sounds/drawerstuck.mp3');
+    drawerStuckSound.volume = 0.3;
+    drawerStuckSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,
@@ -73,6 +77,7 @@ export async function loadSounds() {
         ewsthemeSound,
         accessDeniedSound,
         itemFoundPokemonSound,
-        unlockTableSound
+        unlockTableSound,
+        drawerStuckSound,
     };
 }

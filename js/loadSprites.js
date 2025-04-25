@@ -106,7 +106,7 @@ export async function loadSprites(apps, sounds) {
 
 
     // INNER HOUSE SPRITE
-    const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimedopenpannel.png');
+    const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimed.png');
     const innerHouseSprite = new PIXI.Sprite(innerHouseAsset); 
     innerHouseContainer.addChild(innerHouseSprite); 
     innerHouseSprite.height = app.screen.height * 0.74;
@@ -183,8 +183,8 @@ export async function loadSprites(apps, sounds) {
     //////////////////////////////////////// ELEMENTS & OBJECTS ////////////////////////////////
 
     // MACHINE A CAFE
-    const coffeMachine = await displaySprite('ELEMENTS/coffemachine/coffemachine.json', 0.12);
-    // coffeMachine.gotoAndStop(0); 
+    const coffeMachine = await displaySprite('ELEMENTS/coffemachine/coffemachineflip.json', 0.12);
+    coffeMachine.gotoAndStop(0); 
     coffeMachine.interactive = true;
     coffeMachine.zIndex = 3;
     innerHouseContainer.addChild(coffeMachine);
@@ -192,8 +192,30 @@ export async function loadSprites(apps, sounds) {
     // TABLE ETROITE
     const narrowTableAsset = await PIXI.Assets.load('../sprites/ELEMENTS/coffemachine/narrowtable2.png');
     const narrowTable = new PIXI.Sprite(narrowTableAsset);
+    narrowTable.tint = 0xcb796e;
     narrowTableAsset.interactive = false;
+    // const colorMatrix = new PIXI.filters.ColorMatrixFilter();
+    // colorMatrix.tint(0x5b3631, 0.3); 
+    // narrowTable.filters = [colorMatrix];
     innerHouseContainer.addChild(narrowTable);
+
+    // POUBELLE
+    const trash = new PIXI.Graphics();
+    // trash.beginFill(0x000000, 0);
+    trash.beginFill(0xFF0000, 1); 
+    trash.drawRect(0, 0, 200, 100); 
+    trash.endFill();
+    trash.interactive = true;
+    innerHouseContainer.addChild(trash);
+
+    // POSTER
+    const poster = new PIXI.Graphics();
+    // trash.beginFill(0x000000, 0);
+    poster.beginFill(0xFF0000, 1); 
+    poster.drawRect(0, 0, 200, 100); 
+    poster.endFill();
+    poster.interactive = true;
+    innerHouseContainer.addChild(poster);
 
     // ORDINATEUR
     const ordi = await displaySprite('ELEMENTS/ordi/ordi.json', 0.12);
@@ -218,7 +240,7 @@ export async function loadSprites(apps, sounds) {
     // desk.anchor.set(0.5); 
     pannel.interactive = true;
     pannel.alpha = 0;
-    innerHouseContainer.addChild(pannel);
+    // innerHouseContainer.addChild(pannel);
 
      // LAVABO
      const lavaboAsset = await PIXI.Assets.load('../sprites/lavabo2.png');
@@ -335,7 +357,7 @@ export async function loadSprites(apps, sounds) {
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
     const bed = new PIXI.Sprite(bedAsset);
     // desk.interactive = false;
-    innerHouseContainer.addChild(bed);
+    // innerHouseContainer.addChild(bed);
 
     // LOGOS DES TECHNOS
     const logoPHPAsset = await PIXI.Assets.load('../sprites/SPECIAL/LOGOS/logoPHP.png');
@@ -1009,7 +1031,6 @@ export async function loadSprites(apps, sounds) {
     const menuItemGoldKey = new PIXI.Sprite(menuItemGoldKeyAsset);
     menuItemGoldKey.interactive = true;
     menuItemGoldKey.item = true;
-
     // Clé en or Sélectionnée
     const menuItemGoldKeySelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/goldkeyItemSelected.png');
     const menuItemGoldKeySelected = new PIXI.Sprite(menuItemGoldKeySelectedAsset);
@@ -1021,7 +1042,6 @@ export async function loadSprites(apps, sounds) {
     const menuItemTabletPack = new PIXI.Sprite(menuItemTabletPackAsset);
     menuItemTabletPack.interactive = true;
     menuItemTabletPack.item = true;
-
     // Tablette de comprimés Sélectionnée
     const menuItemTabletPackSelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/tabletpackItemSelected.png');
     const menuItemTabletPackSelected = new PIXI.Sprite(menuItemTabletPackSelectedAsset);
@@ -1033,7 +1053,6 @@ export async function loadSprites(apps, sounds) {
     const menuItemMetalStrip = new PIXI.Sprite(menuItemMetalStripAsset);
     menuItemMetalStrip.interactive = true;
     menuItemMetalStrip.item = true;
-
     // Bout métallique sélectionnée
     const menuItemMetalStripSelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/boutdemetalItemSelected.png');
     const menuItemMetalStripSelected = new PIXI.Sprite(menuItemMetalStripSelectedAsset);
@@ -1050,6 +1069,17 @@ export async function loadSprites(apps, sounds) {
     const menuItemGlassWaterEmptySelected = new PIXI.Sprite(menuItemGlassWaterEmptySelectedAsset);
     menuItemGlassWaterEmptySelected.interactive = true;
     menuItemGlassWaterEmptySelected.item = true;
+
+    // Capsule de café
+    const menuItemCoffePodAsset = await PIXI.Assets.load('../sprites/ELEMENTS/coffemachine/menuItemPod.png');
+    const menuItemCoffePod = new PIXI.Sprite(menuItemCoffePodAsset);
+    menuItemCoffePod.interactive = true;
+    menuItemCoffePod.item = true;
+    // Verre vide Sélectionné
+    const menuItemCoffePodSelectedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/coffemachine/menuItemPodSelected.png');
+    const menuItemCoffePodSelected = new PIXI.Sprite(menuItemCoffePodSelectedAsset);
+    menuItemCoffePodSelected.interactive = true;
+    menuItemCoffePodSelected.item = true;
     
     // MENU BUTTONS Textures
     const menuButtonSprite = await displaySpriteButton('MENUACTION/inactive/button.json');
@@ -1111,6 +1141,7 @@ export async function loadSprites(apps, sounds) {
         { item: menuItemGoldKey, defaultTexture: menuItemGoldKey.texture, selectedTexture: menuItemGoldKeySelected.texture },
         { item: menuItemTabletPack, defaultTexture: menuItemTabletPack.texture, selectedTexture: menuItemTabletPackSelected.texture },
         { item: menuItemMetalStrip, defaultTexture: menuItemMetalStrip.texture, selectedTexture: menuItemMetalStripSelected.texture },
+        { item: menuItemCoffePod, defaultTexture: menuItemCoffePod.texture, selectedTexture: menuItemCoffePodSelected.texture },
     ];
 
     // On parcourt le tableau des items
@@ -1293,7 +1324,10 @@ export async function loadSprites(apps, sounds) {
         { sprite: interrupteur, spriteName: "interrupteur" },
         { sprite: boutdemetalShine, spriteName: "bout de metal" },
         { sprite: lavabo, spriteName: "lavabo" },
+        { sprite: trash, spriteName: "poubelle" },
+        { sprite: poster, spriteName: "displate" },
         { sprite: menuItemGoldKey, spriteName: "clé"},
+        { sprite: menuItemCoffePod, spriteName: "capsule de café"},
         { sprite: menuItemGlassWater, spriteName: "verre"},
         { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"},
         { sprite: menuItemTabletPack, spriteName: "comprimés"},
@@ -1463,7 +1497,10 @@ export async function loadSprites(apps, sounds) {
     chest.label = "chest";
     goldkey.label = "goldkey";
     lavabo.label = "lavabo";
-    boutdemetalShine.label = "boutdemetalShine"
+    trash.label = "trash";
+    poster.label = "poster";
+    boutdemetalShine.label = "boutdemetalShine";
+    menuItemCoffePod.label = "menuItemCoffePod";
     menuItemGoldKey.label = "menuItemGoldKey";
     menuItemGlassWater.label ="menuItemGlassWater";
     menuItemGlassWaterEmpty.label ="menuItemGlassWaterEmpty";    
@@ -1517,6 +1554,8 @@ export async function loadSprites(apps, sounds) {
         // ELEMENTS & OBJECTS
         ordi,
         ordiRun,
+        trash,
+        poster,
         desk,
         pannel,
         gamingChair,
@@ -1561,6 +1600,8 @@ export async function loadSprites(apps, sounds) {
         menuItemMetalStrip,
         menuItemMetalStripSelected,
         menuItemTabletPack,
+        menuItemCoffePod,
+        menuItemCoffePodSelected,
         // MENU DIALOGUE
         menuCoverDialogue,
         menuCoverDialogueOverlay,

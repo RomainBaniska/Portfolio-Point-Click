@@ -3,7 +3,7 @@
 export async function resizeHandler(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseSprite, houseContainer, coffeMachine, narrowTable, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
+    const { houseSprite, houseContainer, coffeMachine, trash, poster, narrowTable, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
@@ -50,6 +50,43 @@ function adjustCanvasSize() {
         if (sprite.y + spriteHeight > innerHouseSprite.height) {
             sprite.y = innerHouseSprite.height - spriteHeight;
         }
+    }
+
+    function setZonePositionAndSizeINNERHOUSE(zone, positionXFactor, positionYFactor, scaleWidthFactor, scaleHeightFactor) {
+        // Calcul de la taille de la zone
+        const scaleFactor = Math.min(
+            innerHouseSprite.width / scaleWidthFactor,
+            innerHouseSprite.height / scaleHeightFactor
+        );
+    
+        const zoneWidth = scaleFactor;
+        const zoneHeight = scaleFactor;
+    
+        // Calcul de la position
+        let x = innerHouseSprite.width * positionXFactor;
+        let y = innerHouseSprite.height * positionYFactor;
+    
+        // Clamp horizontal
+        if (x < 0) x = 0;
+        if (x + zoneWidth > innerHouseSprite.width) {
+            x = innerHouseSprite.width - zoneWidth;
+        }
+    
+        // Clamp vertical
+        if (y < 0) y = 0;
+        if (y + zoneHeight > innerHouseSprite.height) {
+            y = innerHouseSprite.height - zoneHeight;
+        }
+    
+        // Appliquer position
+        zone.x = x;
+        zone.y = y;
+    
+        // Redessiner le rectangle
+        zone.clear();
+        zone.beginFill(0xFF0000, 0.5);
+        zone.drawRect(0, 0, zoneWidth, zoneHeight);
+        zone.endFill();
     }
 
     // METHODE DE POSITIONNEMENT SUR L'ECRAN HELP (NOPANIK)  
@@ -182,7 +219,8 @@ resizeButtons();
     adjustMenuItemsPosition(menuItemGoldKey, 1, 0);
     adjustMenuItemsPosition(menuItemTabletPack, 2, 0);
     adjustMenuItemsPosition(menuItemMetalStrip, 3, 0);
-
+    adjustMenuItemsPosition(menuItemCoffePod, 0, 1);
+    
     // sprite, scaleWidthFactor, scaleHeightFactor
 
     // Position du Crosshair
@@ -230,12 +268,11 @@ resizeButtons();
 
     // Position machine à café
     // setSpritePositionAndScaleINNERHOUSE(coffeMachine, 0.55, 0.78, 770, 4590);
-    setSpritePositionAndScaleINNERHOUSE(coffeMachine, 0.016, 0.705, 770, 4590);
-
+    setSpritePositionAndScaleINNERHOUSE(coffeMachine, 0.025, 0.715, 770, 4590);
 
     // Position table étroite
     // setSpritePositionAndScaleINNERHOUSE(narrowTable, 0.52, 0.76, 770, 5090);
-    setSpritePositionAndScaleINNERHOUSE(narrowTable, 0.015, 0.76, 770, 5590);
+    setSpritePositionAndScaleINNERHOUSE(narrowTable, 0.016, 0.768, 770, 5590);
 
     // Position Poulie&Toile
     setSpritePositionAndScaleINNERHOUSE(toilePoulie, 0.37, 0.43, 770, 700);
@@ -290,6 +327,12 @@ resizeButtons();
 
     // Position Bed
     setSpritePositionAndScaleINNERHOUSE(bed, 0.68, 0.77, 500, 850);
+
+    // Position Poubelle
+    setZonePositionAndSizeINNERHOUSE(trash, 0.715, 0.8, 15, 15);
+
+    // Position Poubelle
+    setZonePositionAndSizeINNERHOUSE(poster, 0.483, 0.6, 9.5, 9.5);
 
     // Position Goldkey
     setSpritePositionAndScaleINNERHOUSE(goldkey, 0.81, 0.63, 400, 750);

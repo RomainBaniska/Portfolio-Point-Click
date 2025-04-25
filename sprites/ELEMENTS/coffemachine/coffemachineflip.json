@@ -1,0 +1,98 @@
+{ "frames": {
+   "coffeMachineFlip 0.ase": {
+    "frame": { "x": 0, "y": 0, "w": 288, "h": 262 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 288, "h": 262 },
+    "sourceSize": { "w": 288, "h": 262 },
+    "duration": 100
+   },
+   "coffeMachineFlip 1.ase": {
+    "frame": { "x": 288, "y": 0, "w": 288, "h": 262 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 288, "h": 262 },
+    "sourceSize": { "w": 288, "h": 262 },
+    "duration": 100
+   },
+   "coffeMachineFlip 2.ase": {
+    "frame": { "x": 576, "y": 0, "w": 288, "h": 262 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 288, "h": 262 },
+    "sourceSize": { "w": 288, "h": 262 },
+    "duration": 100
+   },
+   "coffeMachineFlip 3.ase": {
+    "frame": { "x": 864, "y": 0, "w": 288, "h": 262 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 288, "h": 262 },
+    "sourceSize": { "w": 288, "h": 262 },
+    "duration": 100
+   },
+   "coffeMachineFlip 4.ase": {
+    "frame": { "x": 1152, "y": 0, "w": 288, "h": 262 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 288, "h": 262 },
+    "sourceSize": { "w": 288, "h": 262 },
+    "duration": 100
+   },
+   "coffeMachineFlip 5.ase": {
+    "frame": { "x": 1440, "y": 0, "w": 288, "h": 262 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 288, "h": 262 },
+    "sourceSize": { "w": 288, "h": 262 },
+    "duration": 100
+   },
+   "coffeMachineFlip 6.ase": {
+    "frame": { "x": 1728, "y": 0, "w": 288, "h": 262 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 288, "h": 262 },
+    "sourceSize": { "w": 288, "h": 262 },
+    "duration": 100
+   },
+   "coffeMachineFlip 7.ase": {
+    "frame": { "x": 2016, "y": 0, "w": 288, "h": 262 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 288, "h": 262 },
+    "sourceSize": { "w": 288, "h": 262 },
+    "duration": 100
+   },
+   "coffeMachineFlip 8.ase": {
+    "frame": { "x": 2304, "y": 0, "w": 288, "h": 262 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 288, "h": 262 },
+    "sourceSize": { "w": 288, "h": 262 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.13-x64",
+  "image": "coffeMachineFlip.png",
+  "format": "RGBA8888",
+  "size": { "w": 2592, "h": 262 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "café", "opacity": 255, "blendMode": "normal" },
+   { "name": "machineacafe", "opacity": 255, "blendMode": "normal" },
+   { "name": "cafecoule0", "opacity": 255, "blendMode": "normal" },
+   { "name": "cafecoule1", "opacity": 255, "blendMode": "normal" },
+   { "name": "cafecoule2", "opacity": 255, "blendMode": "normal" },
+   { "name": "cafecoule3", "opacity": 255, "blendMode": "normal" },
+   { "name": "cafecoule4", "opacity": 255, "blendMode": "normal" },
+   { "name": "cafecoule5", "opacity": 255, "blendMode": "normal" },
+   { "name": "cafecoule6", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
