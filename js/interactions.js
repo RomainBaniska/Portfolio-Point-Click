@@ -1308,7 +1308,7 @@ export async function interactions(apps, sprites, texts) {
             if (alreadyPoisoned) {
                 // Lancer l'animation de la machine à café
 
-                // modifier le sprite du verre d'eau par le verre rempli de café
+                // modifier le sprite du verre d'eau par le verre rempli de caféD
             }
         }
     });
