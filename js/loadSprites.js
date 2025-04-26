@@ -189,6 +189,28 @@ export async function loadSprites(apps, sounds) {
     coffeMachine.zIndex = 3;
     innerHouseContainer.addChild(coffeMachine);
 
+    // MACHINE A CAFE CUTSCENE CONTAINER
+    const coffeMachineCutsceneContainer = new PIXI.Container();
+    coffeMachineCutsceneContainer.sortableChildren = true;
+    houseContainer.addChild(coffeMachineCutsceneContainer);
+
+    // MACHINE A CAFE CUTSCENE BG
+    const coffeMachineCutsceneBG = new PIXI.Graphics();
+    // poster.beginFill(0x000000, 0);
+    // coffeMachineCutsceneBG.beginFill(0xFF0000, 1); 
+    // coffeMachineCutsceneBG.drawRect(0, 0, 200, 200); 
+    // coffeMachineCutsceneBG.endFill();
+    coffeMachineCutsceneBG.lineStyle(6, 0x222222, 1);
+    coffeMachineCutsceneBG.interactive = true;
+    coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+    coffeMachineCutsceneBG.zIndex = 80;
+
+    const coffeMachineClone = await displaySprite('ELEMENTS/coffemachine/coffemachineflip.json', 0.12);
+    coffeMachineClone.gotoAndStop(0); 
+    coffeMachineClone.interactive = true;
+    coffeMachineClone.zIndex = 81;
+    coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+
     // TABLE ETROITE
     const narrowTableAsset = await PIXI.Assets.load('../sprites/ELEMENTS/coffemachine/narrowtable2.png');
     const narrowTable = new PIXI.Sprite(narrowTableAsset);
@@ -1540,6 +1562,7 @@ export async function loadSprites(apps, sounds) {
         innerHouseContainer,
         screenBackgroundContainer,
         specialScreenContainer,
+        coffeMachineCutsceneContainer,
         // innerHouseBGSprite,
         houseSprite,
         innerHouseSprite,
@@ -1639,6 +1662,8 @@ export async function loadSprites(apps, sounds) {
         arrow,
         music,
         musicActive,
+        coffeMachineCutsceneBG,
+        coffeMachineClone,
         // PROJECT SELECTION
         toileScreenProject1,
         toileScreenProject2,

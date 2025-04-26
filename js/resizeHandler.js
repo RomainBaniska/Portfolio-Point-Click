@@ -3,7 +3,7 @@
 export async function resizeHandler(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseSprite, houseContainer, coffeMachine, trash, poster, narrowTable, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
+    const { houseSprite, houseContainer, coffeMachine, coffeMachineCutsceneBG, coffeMachineClone, trash, poster, narrowTable, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
@@ -84,7 +84,8 @@ function adjustCanvasSize() {
     
         // Redessiner le rectangle
         zone.clear();
-        zone.beginFill(0xFF0000, 0.5);
+        // zone.beginFill(0xFF0000, 1);
+        zone.beginFill(0xCCCCCC, 1);
         zone.drawRect(0, 0, zoneWidth, zoneHeight);
         zone.endFill();
     }
@@ -364,6 +365,19 @@ resizeButtons();
     setSpritePositionAndScale(prevVideo, 0.65 - (100 / window.innerWidth), 1.20, 300, 900);
 
     // Dimensions Logos Technos
+
+    // Machine à café cutscene BG
+    setZonePositionAndSizeINNERHOUSE(coffeMachineCutsceneBG, 0.3, 0.2, 1.5, 1.5);
+    // Machine à café Clone
+    // setSpritePositionAndScale(coffeMachineClone, 0.1, 0.2, 700, 700);
+   
+    let scaleFactorCoffeMachine = (coffeMachineCutsceneBG.width * 0.71) / coffeMachineClone.width;
+    coffeMachineClone.x = coffeMachineCutsceneBG.x + (coffeMachineCutsceneBG.width / 2);
+    coffeMachineClone.y = coffeMachineCutsceneBG.y + (coffeMachineCutsceneBG.height / 2);
+    coffeMachineClone.anchor.set(0.5);
+    coffeMachineClone.play();
+    coffeMachineClone.scale.set(scaleFactorCoffeMachine);
+    
     
 }
 

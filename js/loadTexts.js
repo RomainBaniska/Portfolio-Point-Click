@@ -259,8 +259,8 @@ export async function loadTexts(sprites) {
                     return "J'ai rempli le réservoir d'eau de la machine";     
                 } else if (coffeMachine.waterFilled && !coffeMachine.coffeFilled) {
                     return [
-                        "Si j'étais british, j'aurais pu me contenter d'un nuage de lait avec mon eau chaude",
-                        "Mais fort heureusement je bronze au soleil et je parle plus d'une seule langue"
+                        "Si j'étais british, j'aurais pu me contenter d'un nuage de lait avec de eau chaude",
+                        "Mais fort heureusement pour moi, je bronze au soleil et je parle plus d'une seule langue"
                     ]
                 } else if (coffeMachine.coffeFilled && !coffeMachine.waterFilled) {
                     return "Il manque de l'eau dans la machine";
