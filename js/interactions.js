@@ -1312,17 +1312,7 @@ export async function interactions(apps, sprites, texts) {
                 setTimeout(() => {
                     coffeMachineClone.play();
                     coffeMachineClone.gotoAndStop(8);
-                }, 1000);
-
-                // modifier le sprite du verre d'eau par le verre rempli de caféD
-            }
-        }
-    });
-
-    ///////////////////////////////// TEST
-    guybrushLD.on("click", () => {
-                        // Lancer l'animation de la machine à café
-                        coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+                    coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
                         coffeMachineCutsceneContainer.addChild(coffeMachineClone);
                         setTimeout(() => {
                             coffeMachine.gotoAndStop(1);
@@ -1354,9 +1344,51 @@ export async function interactions(apps, sprites, texts) {
                                     }, 2000);
                                 }, 6000);
                             }, 2000);
-                        }, 1000);
-                        
-    })
+                        }, 1000);       
+                }, 1000);
+
+                // modifier le sprite du verre d'eau par le verre rempli de caféD
+            }
+        }
+    });
+
+    ///////////////////////////////// TEST
+    // guybrushLD.on("click", () => {
+    //                     // Lancer l'animation de la machine à café
+    //                     coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+    //                     coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+    //                     setTimeout(() => {
+    //                         coffeMachine.gotoAndStop(1);
+    //                         coffeMachineClone.gotoAndStop(1);
+    //                         setTimeout(() => {
+    //                             coffeMachineClone.play();
+    //                             coffeMachineClone.loop = false;
+    //                             coffeMachine.play();
+    //                             coffeMachine.loop = false;
+    //                             setTimeout(() => {
+    //                                 coffeMachineCutsceneContainer.removeChild(coffeMachineCutsceneBG);
+    //                                 coffeMachineCutsceneContainer.removeChild(coffeMachineClone);
+    //                                 menuContainer.removeChild(menuItemGlassWaterEmpty);
+    //                                 PIXI.sound.play('pickup');
+    //                                 menuContainer.addChild(menuItemGlassCoffe);
+    //                                 coffeMachine.gotoAndStop(0);
+    //                                 // Ajout d'un petit texte de réussite
+    //                                 const successCoffe = new PIXI.Text({ text: "Et voilà le travail !", style: dialogueStyle2 });
+    //                                 successCoffe.anchor.set(0.5);
+    //                                 successCoffe.x = houseContainer.width / 2 ;
+    //                                 successCoffe.y = houseContainer.y + (houseContainer.height * 0.3);
+    //                                 houseContainer.addChild(successCoffe);
+    //                                 setTimeout(() => {
+    //                                     // retrait du texte et libération de la mémoire
+    //                                     houseContainer.removeChild(successCoffe);
+    //                                     coffeMachineClone.destroy();
+    //                                     coffeMachineCutsceneContainer.destroy();
+    //                                     successCoffe.destroy();
+    //                                 }, 2000);
+    //                             }, 6000);
+    //                         }, 2000);
+    //                     }, 1000);       
+    // })
 
     // Actionner l'interrupteur
     interrupteur.on('click', () => {

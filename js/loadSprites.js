@@ -98,11 +98,7 @@ export async function loadSprites(apps, sounds) {
     innerHouseContainer.sortableChildren = true;
     houseContainer.addChild(innerHouseContainer);
 
-    // // Positionnement du innerHouseContainer "au MILIEU de la page"
-    innerHouseContainer.position.set(
-        ((app.stage.width - houseSprite.width)) / 2 - (app.stage.width * 0.02),
-        0
-      );
+    
 
 
     // INNER HOUSE SPRITE
@@ -114,6 +110,16 @@ export async function loadSprites(apps, sounds) {
     // Position du sprite innerHouseSprite (position 0 par rapport au innerHouseContainer)
     innerHouseSprite.x = 0;
     innerHouseSprite.y = 0;
+
+
+    // // Positionnement du innerHouseContainer "au MILIEU de la page"
+    innerHouseContainer.position.set(
+        // ((app.stage.width - houseSprite.width)) / 2 - (app.stage.width * 0.02),
+        // ((app.stage.width) / 2) - (houseSprite.width / 2) - (app.stage.width * 0.02),
+        // houseSprite.x + ((app.stage.width) / 2) - (houseSprite.width / 2),
+        houseSprite.x + (houseSprite.width / 2) - (innerHouseSprite.width / 2.17),
+        0
+    );
 
     // CROSSHAIR
     const crosshair = await displaySprite('CROSSHAIR/crosshair2.json', 0.08);

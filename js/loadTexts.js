@@ -211,7 +211,7 @@ export async function loadTexts(sprites) {
             ouvrir: "Hmm, non",
             fermer: "Hmm, non",
             prendre: "Hmm, non",
-            regarder: "Le dossier du fauteuil est tellement usé qu'il en tombe des miettes de skaï sur le sol",
+            regarder: "Le skaï du fauteuil est tellement usé qu'il en tombe des miettes sur le sol",
             parler: "Je ne parle pas aux fauteuils",
             utiliser: [
                 "Non merci",
@@ -245,10 +245,34 @@ export async function loadTexts(sprites) {
                 '"Il faut prendre le problème à bras-le-corps" qu\'il disait',
                 "Non merci. Si je veux du café, autant le faire à la machine directement"
             ],
-            regarder: [
-                "La machine à expresso, un nectar pour les open-spaces",
-                "Actuellement elle n'a pas de capsule et le réservoir d'eau est vide"
-            ],
+            regarder: () => {
+                if (!coffeMachine.waterFilled && !coffeMachine.coffeFilled) {
+                    return [
+                        "La machine à expresso, du nectar pour les jeunes cadres dynamiques",
+                        "Actuellement elle n'a pas de capsule et le réservoir d'eau est vide"
+                    ];
+                } else if (coffeMachine.waterFilled && !coffeMachine.coffeFilled) {
+                    return [
+                        "La machine à expresso, du nectar pour les jeunes cadres dynamiques",
+                        "J'ai mis de l'eau dans la machine"
+                    ];
+                } else if (!coffeMachine.waterFilled && coffeMachine.coffeFilled) {
+                    return [
+                        "La machine à expresso, du nectar pour les jeunes cadres dynamiques",
+                        "J'ai inséré la capsule mais sans eau, même le meilleur café ne pourra pas couler."
+                    ];
+                } else if (coffeMachine.waterFilled && coffeMachine.coffeFilled && !coffeMachine.poisoned) {
+                    return [
+                        "La machine à expresso, du nectar pour les jeunes cadres dynamiques",
+                        "Je pourrais lancer la machine mais il manque encore quelque chose"
+                    ];
+                } else if (coffeMachine.poisoned) {
+                    return [
+                        "Qui veut un petit verre de Turbo Sommeil ?",
+                        "Il est pas impossible que j'aie pété la machine avec ces carabistouilles"
+                    ];
+                }
+            },
             parler: "what else ?",
             utiliser: () => { 
                 if (menuItemCoffePod.isActive) {
