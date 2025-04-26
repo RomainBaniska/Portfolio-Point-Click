@@ -1325,6 +1325,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: pannel, spriteName: "displate" },
         { sprite: interrupteur, spriteName: "interrupteur" },
         { sprite: boutdemetalShine, spriteName: "bout de metal" },
+        { sprite: coffeMachine, spriteName: "machine à café" },
         { sprite: lavabo, spriteName: "lavabo" },
         { sprite: trash, spriteName: "poubelle" },
         { sprite: poster, spriteName: "displate" },
@@ -1501,6 +1502,7 @@ export async function loadSprites(apps, sounds) {
     lavabo.label = "lavabo";
     trash.label = "trash";
     poster.label = "poster";
+    coffeMachine.label = "coffeMachine";
     boutdemetalShine.label = "boutdemetalShine";
     menuItemCoffePod.label = "menuItemCoffePod";
     menuItemGoldKey.label = "menuItemGoldKey";

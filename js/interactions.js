@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
+    const { houseContainer, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -1258,33 +1258,62 @@ export async function interactions(apps, sprites, texts) {
             app.stage.emit('rightdown');
         }
     });
-
-
-
-    // Empoisonner le verre d'eau avec du donormyl
-    // menuItemTabletPack.on('click', () => {
-    //     if (menuButton7.isActive && menuItemGlassWater.isActive) {
-    //         console.log(menuItemGlassWater.isActive);
-    //         console.log("yeah !");
-    //         // console.log(menuItemTabletPackSelected.isActive);
-    //     }
-    //     console.log(menuItemGlassWater.isActive);
-  
-    //     if (menuButton7.isActive && menuItemTabletPack.isActive) {
-    //         console.log("yeah2 !");
-    //         spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
-    //         app.stage.emit('rightdown');
-    //     }
-    // });
         
     // Donner le verre d'eau à Romain
-    guybrushSO.on('click', () => {
-    if (menuButton.isActive && menuItemGlassWater.isActive) {
-        spriteSwap(innerHouseContainer, guybrushSO, guybrushD);
-    }
-});
+//     guybrushSO.on('click', () => {
+//     if (menuButton.isActive && menuItemGlassWater.isActive) {
+//         spriteSwap(innerHouseContainer, guybrushSO, guybrushD);
+//     }
+// });
 
-    // Ationner l'interrupteur
+    let alreadyCoffeFilled = false;
+    let alreadyWaterFilled = false;
+    let alreadyPoisoned = false;
+    // Mettre la capsule, l'eau, ou empoisonner la machine à café
+    coffeMachine.on('click', () => {
+        if (menuButton7.isActive) {
+            if (menuItemCoffePod.isActive) {
+                if (!alreadyCoffeFilled) {
+                    alreadyCoffeFilled = true;
+                }
+                menuContainer.removeChild(menuItemCoffePod);
+                app.stage.emit('rightdown');
+                // PIXI.sound.play('putPod');
+                menuItemCoffePod.destroy();
+                return;
+            }
+
+            if (menuItemGlassWater.isActive) {
+                if (!alreadyWaterFilled) {
+                    alreadyWaterFilled = true;
+                }
+                spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
+                app.stage.emit('rightdown');
+                // PIXI.sound.play('pourWater');
+                return;
+            }
+
+            if (menuItemTabletPack.isActive) {
+                if (alreadyWaterFilled && alreadyCoffeFilled) {
+                    alreadyPoisoned = true;
+                    spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
+                    menuContainer.removeChild(menuItemTabletPack);
+                    app.stage.emit('rightdown');
+                    // PIXI.sound.play('putPod');
+                    menuItemCoffePod.destroy();
+                    return;
+                }
+            }
+
+            if (alreadyPoisoned) {
+                // Lancer l'animation de la machine à café
+
+                // modifier le sprite du verre d'eau par le verre rempli de café
+            }
+        }
+    });
+
+    // Actionner l'interrupteur
     interrupteur.on('click', () => {
         if (menuButton7.isActive || menuButton8.isActive) {
             interrupteur.play();

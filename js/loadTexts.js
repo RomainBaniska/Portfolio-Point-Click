@@ -2,7 +2,7 @@
 export async function loadTexts(sprites) {
 
     // Sprites
-    const { houseContainer, houseSprite, itemClicked, lavabo, trash, poster, menuItemCoffePod, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater,
+    const { houseContainer, houseSprite, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater,
         menuButton,
         menuButton2,
         menuButton3,
@@ -93,7 +93,7 @@ export async function loadTexts(sprites) {
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
-    const interactableSprites = [guybrushSO, guybrushLD, lavabo, trash, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod];
+    const interactableSprites = [guybrushSO, guybrushLD, lavabo, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod];
     // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
@@ -234,6 +234,52 @@ export async function loadTexts(sprites) {
                 "... Bien essayé"
             ],
             utiliser: "Je ne peux ni l'atteindre, ni l'ouvrir de mes mains",
+            pousser: "Hmm, non",
+            tirer: "Hmm, non",
+        },
+        coffeMachine: {
+            donner: "",
+            ouvrir: "Hmm, je l'ouvrirai quand j'aurai de quoi la remplir",
+            fermer: "Elle est déjà fermée",
+            prendre:  [
+                '"Il faut prendre le problème à bras-le-corps" qu\'il disait',
+                "Non merci. Si je veux du café, autant le faire à la machine directement"
+            ],
+            regarder: [
+                "La machine à expresso, un nectar pour les open-spaces",
+                "Actuellement elle n'a pas de capsule et le réservoir d'eau est vide"
+            ],
+            parler: "what else ?",
+            utiliser: () => { 
+                if (menuItemCoffePod.isActive) {
+                    coffeMachine.coffeFilled = true;
+                    return "Ne dit-on pas que c'est dans les vieilles capsules qu'on fait les meilleurs cafés ?";
+                } else if (menuItemGlassWater.isActive) {   
+                    coffeMachine.waterFilled = true;
+                    return "J'ai rempli le réservoir d'eau de la machine";     
+                } else if (coffeMachine.waterFilled && !coffeMachine.coffeFilled) {
+                    return [
+                        "Si j'étais british, j'aurais pu me contenter d'un nuage de lait avec mon eau chaude",
+                        "Mais fort heureusement je bronze au soleil et je parle plus d'une seule langue"
+                    ]
+                } else if (coffeMachine.coffeFilled && !coffeMachine.waterFilled) {
+                    return "Il manque de l'eau dans la machine";
+                } else if (coffeMachine.coffeFilled && coffeMachine.waterFilled && menuItemTabletPack.isActive) {
+                    coffeMachine.poisoned = true;
+                    return [
+                        "Bonne idée, s'il fait une petite sieste je pourrai accéder à son ordinateur",
+                        "Ceci dit j'ai peur que caféine annule l'effet du somnifère",
+                        "Bon autant mettre toute la tablette. De toute façon, à part faire un gros dodo qu'est-ce qu'il risque ?",
+                        "Il ne me reste plus qu'à lancer la machine"
+                    ]
+                } else if (coffeMachine.coffeFilled && coffeMachine.waterFilled && !coffeMachine.poisoned) {
+                    return "Hmmm... J'ai comme l'impression qu'il manque quelque chose";
+                } else if (coffeMachine.coffeFilled && coffeMachine.waterFilled && coffeMachine.poisoned) {
+                    return ""
+                } else {
+                    return "Je me ferais bien un café, mais elle est vide pour le moment";
+                }
+            },
             pousser: "Hmm, non",
             tirer: "Hmm, non",
         },
