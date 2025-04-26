@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
+    const { houseContainer, menuItemGlassCoffe, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -149,7 +149,7 @@ export async function interactions(apps, sprites, texts) {
             menuContainer.removeChild(menuItemGoldKey);
             app.stage.emit('rightdown');
             PIXI.sound.play('unlockTable');
-            const successOpen = new PIXI.Text({ text: "Bingo ! la table de nuit est déverrouillée", style: dialogueStyle2 });
+            const successOpen = new PIXI.Text({ text: "Ca a marché ! la table de nuit est déverrouillée", style: dialogueStyle2 });
             successOpen.anchor.set(0.5);
             successOpen.x = houseContainer.width / 2 ;
             successOpen.y = houseContainer.y + (houseContainer.height * 0.3);
@@ -1307,11 +1307,56 @@ export async function interactions(apps, sprites, texts) {
 
             if (alreadyPoisoned) {
                 // Lancer l'animation de la machine à café
+                coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+                coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+                setTimeout(() => {
+                    coffeMachineClone.play();
+                    coffeMachineClone.gotoAndStop(8);
+                }, 1000);
 
                 // modifier le sprite du verre d'eau par le verre rempli de caféD
             }
         }
     });
+
+    ///////////////////////////////// TEST
+    guybrushLD.on("click", () => {
+                        // Lancer l'animation de la machine à café
+                        coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+                        coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+                        setTimeout(() => {
+                            coffeMachine.gotoAndStop(1);
+                            coffeMachineClone.gotoAndStop(1);
+                            setTimeout(() => {
+                                coffeMachineClone.play();
+                                coffeMachineClone.loop = false;
+                                coffeMachine.play();
+                                coffeMachine.loop = false;
+                                setTimeout(() => {
+                                    coffeMachineCutsceneContainer.removeChild(coffeMachineCutsceneBG);
+                                    coffeMachineCutsceneContainer.removeChild(coffeMachineClone);
+                                    menuContainer.removeChild(menuItemGlassWaterEmpty);
+                                    PIXI.sound.play('pickup');
+                                    menuContainer.addChild(menuItemGlassCoffe);
+                                    coffeMachine.gotoAndStop(0);
+                                    // Ajout d'un petit texte de réussite
+                                    const successCoffe = new PIXI.Text({ text: "Et voilà le travail !", style: dialogueStyle2 });
+                                    successCoffe.anchor.set(0.5);
+                                    successCoffe.x = houseContainer.width / 2 ;
+                                    successCoffe.y = houseContainer.y + (houseContainer.height * 0.3);
+                                    houseContainer.addChild(successCoffe);
+                                    setTimeout(() => {
+                                        // retrait du texte et libération de la mémoire
+                                        houseContainer.removeChild(successCoffe);
+                                        coffeMachineClone.destroy();
+                                        coffeMachineCutsceneContainer.destroy();
+                                        successCoffe.destroy();
+                                    }, 2000);
+                                }, 6000);
+                            }, 2000);
+                        }, 1000);
+                        
+    })
 
     // Actionner l'interrupteur
     interrupteur.on('click', () => {

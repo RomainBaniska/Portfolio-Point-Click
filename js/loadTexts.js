@@ -2,7 +2,7 @@
 export async function loadTexts(sprites) {
 
     // Sprites
-    const { houseContainer, houseSprite, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater,
+    const { houseContainer, houseSprite, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
         menuButton,
         menuButton2,
         menuButton3,
@@ -93,7 +93,7 @@ export async function loadTexts(sprites) {
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
-    const interactableSprites = [guybrushSO, guybrushLD, lavabo, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod];
+    const interactableSprites = [guybrushSO, guybrushLD, lavabo, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod];
     // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
@@ -375,6 +375,18 @@ export async function loadTexts(sprites) {
             tirer: "Ça ne m'avancera à rien",
             item: true,
         },
+        menuItemGlassCoffe: {
+            donner: "",
+            ouvrir: "Ça ne m'avancera à rien",
+            fermer: "Ça ne m'avancera à rien",
+            prendre: "",
+            regarder: "Un cocktail fait maison aux mille saveurs",
+            parler: "Ça ne m'avancera à rien",
+            utiliser: "",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",
+            item: true,
+        },
         menuItemGlassWaterEmpty: {
             donner: "",
             ouvrir: "Ça ne m'avancera à rien",
@@ -429,7 +441,7 @@ export async function loadTexts(sprites) {
             regarder: [
                 "Une capsule de café qui ne semble avoir été percée qu'une fois",
                 "Sur youtube j'ai vu un gars que pour économiser, il utilisait au moins 4 à 5 fois la même infusion",
-                "Non ce n'est pas de être un rat, non non"
+                "Non ce n'est pas de être un rat, on appelle ça 'consommer avec parcimonie'"
             ],
             parler: "Ça ne m'avancera à rien",
             utiliser: "",

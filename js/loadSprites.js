@@ -202,14 +202,14 @@ export async function loadSprites(apps, sounds) {
     // coffeMachineCutsceneBG.endFill();
     coffeMachineCutsceneBG.lineStyle(6, 0x222222, 1);
     coffeMachineCutsceneBG.interactive = true;
-    coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+    // coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
     coffeMachineCutsceneBG.zIndex = 80;
 
-    const coffeMachineClone = await displaySprite('ELEMENTS/coffemachine/coffemachineflip.json', 0.12);
+    const coffeMachineClone = await displaySprite('ELEMENTS/coffemachine/coffemachineflip.json', 0.095);
     coffeMachineClone.gotoAndStop(0); 
     coffeMachineClone.interactive = true;
     coffeMachineClone.zIndex = 81;
-    coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+    // coffeMachineCutsceneContainer.addChild(coffeMachineClone);
 
     // TABLE ETROITE
     const narrowTableAsset = await PIXI.Assets.load('../sprites/ELEMENTS/coffemachine/narrowtable2.png');
@@ -1094,6 +1094,17 @@ export async function loadSprites(apps, sounds) {
     menuItemGlassWaterEmptySelected.interactive = true;
     menuItemGlassWaterEmptySelected.item = true;
 
+    // Verre de café
+    const menuItemGlassCoffeAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasscoffeItem.png');
+    const menuItemGlassCoffe = new PIXI.Sprite(menuItemGlassCoffeAsset);
+    menuItemGlassCoffe.interactive = true;
+    menuItemGlassCoffe.item = true;
+    // Verre de café Sélectionné
+    const menuItemGlassCoffeSelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/glasscoffeItemSelected.png');
+    const menuItemGlassCoffeSelected = new PIXI.Sprite(menuItemGlassCoffeSelectedAsset);
+    menuItemGlassCoffeSelected.interactive = true;
+    menuItemGlassCoffeSelected.item = true;
+
     // Capsule de café
     const menuItemCoffePodAsset = await PIXI.Assets.load('../sprites/ELEMENTS/coffemachine/menuItemPod.png');
     const menuItemCoffePod = new PIXI.Sprite(menuItemCoffePodAsset);
@@ -1161,6 +1172,7 @@ export async function loadSprites(apps, sounds) {
     // On crée un tableau des items avec leur texture de surbrillance respective
     const menuItems = [
         { item: menuItemGlassWater, defaultTexture: menuItemGlassWater.texture, selectedTexture: menuItemGlassWaterSelected.texture },
+        { item: menuItemGlassCoffe, defaultTexture: menuItemGlassCoffe.texture, selectedTexture: menuItemGlassCoffeSelected.texture },
         { item: menuItemGlassWaterEmpty, defaultTexture: menuItemGlassWaterEmpty.texture, selectedTexture: menuItemGlassWaterEmptySelected.texture },
         { item: menuItemGoldKey, defaultTexture: menuItemGoldKey.texture, selectedTexture: menuItemGoldKeySelected.texture },
         { item: menuItemTabletPack, defaultTexture: menuItemTabletPack.texture, selectedTexture: menuItemTabletPackSelected.texture },
@@ -1354,6 +1366,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: menuItemGoldKey, spriteName: "clé"},
         { sprite: menuItemCoffePod, spriteName: "capsule de café"},
         { sprite: menuItemGlassWater, spriteName: "verre"},
+        { sprite: menuItemGlassCoffe, spriteName: "café revisité"},
         { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"},
         { sprite: menuItemTabletPack, spriteName: "comprimés"},
         { sprite: menuItemMetalStrip, spriteName: "petit bout de tiroir"}
@@ -1529,6 +1542,7 @@ export async function loadSprites(apps, sounds) {
     menuItemCoffePod.label = "menuItemCoffePod";
     menuItemGoldKey.label = "menuItemGoldKey";
     menuItemGlassWater.label ="menuItemGlassWater";
+    menuItemGlassCoffe.label ="menuItemGlassCoffe";
     menuItemGlassWaterEmpty.label ="menuItemGlassWaterEmpty";    
     menuItemTabletPack.label ="menuItemTabletPack";    
     menuItemMetalStrip.label ="menuItemMetalStrip"; 
@@ -1620,6 +1634,8 @@ export async function loadSprites(apps, sounds) {
         // itemClicked,
         menuItemGlassWater,
         menuItemGlassWaterSelected,
+        menuItemGlassCoffe,
+        menuItemGlassCoffeSelected,
         menuItemGlassWaterEmpty,
         menuItemGlassWaterEmptySelected,
         menuItemGoldKey,
