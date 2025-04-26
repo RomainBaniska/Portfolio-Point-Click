@@ -280,10 +280,10 @@ export async function loadTexts(sprites) {
             ouvrir: "J'aime bien l'idée, mais le displate semble bien accroché",
             fermer: "Ça ne m'avancera à rien",
             prendre: [
-                "Même si j'avais besoin de décorer mon logement, j'éviterais qu'il ait l'air de la chambre d'un ado de 15 ans",
+                "Même si j'avais besoin de décorer mon logement, j'aimerais éviter qu'il ait l'air d'une chambre d'ado de 15 ans",
                 "Sérieusement, le type qui habite ici a la 30aine passée, mais il ne semble pas avoir passé l'âge",
                 "Hahaha...",
-                "Bon ça aurait pu être pire, ça aurait pu être un displate de One Piece"
+                "Bon on a évité le pire, ça aurait pu être un displate de One Piece"
             ],
             regarder: [
                 "Un displate de ce qui semble être un moine armé d'un sabre de lumière suivi par un petit robot en forme de corbeille à bascule",
@@ -362,7 +362,7 @@ export async function loadTexts(sprites) {
                 "Donormyl Ultra©",
                 '"Pour un sommeil profond comme le tunnel de Morphée"',
                 "Médicament à ne pas prendre avant 15 ans...",
-                "...ni avant le rituel Dafu Mamé",
+                "...ni avant de compléter le rituel Dafu Mamé",
                 "Wow ça a l'air puissant",
 
             ],

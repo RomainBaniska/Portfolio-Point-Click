@@ -206,15 +206,17 @@ export async function loadSprites(apps, sounds) {
     trash.drawRect(0, 0, 200, 100); 
     trash.endFill();
     trash.interactive = true;
+    trash.alpha = 0; 
     innerHouseContainer.addChild(trash);
 
     // POSTER
     const poster = new PIXI.Graphics();
-    // trash.beginFill(0x000000, 0);
+    // poster.beginFill(0x000000, 0);
     poster.beginFill(0xFF0000, 1); 
     poster.drawRect(0, 0, 200, 100); 
     poster.endFill();
     poster.interactive = true;
+    poster.alpha = 0; 
     innerHouseContainer.addChild(poster);
 
     // ORDINATEUR
@@ -341,7 +343,7 @@ export async function loadSprites(apps, sounds) {
     // COFFRE
     const chest = await displaySprite('ELEMENTS/chest/chest.json', 0.12);
     chest.gotoAndStop(0); 
-    chest.interactive = true;
+    // chest.interactive = true;
     chest.zIndex = 3;
     chest.tint = 0x6B4423;
     innerHouseContainer.addChild(chest);
@@ -356,8 +358,8 @@ export async function loadSprites(apps, sounds) {
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
     const bed = new PIXI.Sprite(bedAsset);
-    // desk.interactive = false;
-    // innerHouseContainer.addChild(bed);
+    bed.eventMode = "none";
+    innerHouseContainer.addChild(bed);
 
     // LOGOS DES TECHNOS
     const logoPHPAsset = await PIXI.Assets.load('../sprites/SPECIAL/LOGOS/logoPHP.png');

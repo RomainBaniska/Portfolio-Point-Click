@@ -84,7 +84,7 @@ export async function interactions(apps, sprites, texts) {
 
     // GUYBRUSH START SETUP (Sleeping)
     setPosition(guybrushLD, 0.7, 0.775);
-    // innerHouseContainer.addChild(guybrushLD);
+    innerHouseContainer.addChild(guybrushLD);
 
     // Prendre le verre
     // Si le bouton menuButton4 est actif et qu'on clique sur le sprite "glasswater" on destroy le sprite glasswater et on ajoute l'item glasswateritem
