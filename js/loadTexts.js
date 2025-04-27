@@ -462,8 +462,8 @@ export async function loadTexts(sprites) {
             regarder: [
                 "Donormyl Ultra©",
                 '"Pour un sommeil profond comme le tunnel de Morphée"',
-                "Médicament à ne pas prendre avant 15 ans...",
-                "...ni avant de compléter le rituel Dafu Mamé",
+                '"Médicament à ne pas prendre avant 15 ans..."',
+                '"...ou avant de compléter le rituel Dafu Mamé"',
                 "Wow ça a l'air puissant",
 
             ],

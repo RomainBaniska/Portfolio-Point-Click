@@ -1254,8 +1254,11 @@ export async function interactions(apps, sprites, texts) {
     // Remplir le verre d'eau
     lavabo.on('click', () => {
         if (menuButton7.isActive && menuItemGlassWaterEmpty.isActive) {
+            PIXI.sound.play('lavaboSound');
+            setTimeout(() => {
             spriteSwap(menuContainer, menuItemGlassWaterEmpty, menuItemGlassWater);
             app.stage.emit('rightdown');
+            }, 2000);
         }
     });
         

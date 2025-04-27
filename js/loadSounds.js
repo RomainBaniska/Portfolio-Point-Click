@@ -64,8 +64,12 @@ export async function loadSounds() {
     drawerStuckSound.speed = 1;
 
     const nespressoSound = PIXI.sound.add('nespresso', '../sounds/nespressoSound.mp3');
-    nespressoSound.volume = 0.15;
+    nespressoSound.volume = 0.05;
     nespressoSound.speed = 1;
+
+    const lavaboSound = PIXI.sound.add('lavaboSound', '../sounds/lavabo.mp3');
+    lavaboSound.volume = 0.09;
+    lavaboSound.speed = 1;
 
     return {
         unrollSound,
