@@ -66,7 +66,7 @@ export async function loadSprites(apps, sounds) {
 
     let currentDate = new Date();
     let currentHour = currentDate.getHours();
-    currentHour = 23;
+    // currentHour = 23;
     let houseTexturePath;
     let houseTexturePathSoM;
     if (currentHour >= 7 && currentHour < 22) {
@@ -98,14 +98,14 @@ export async function loadSprites(apps, sounds) {
         0
       );
 
-      let filterX = houseSprite.x + houseSprite.width * 0.15;
+      let filterX = houseSprite.x + houseSprite.width * 0.14;
       let filterY = houseSprite.y + houseSprite.height * 0.1;
     // Application du GodrayFilter
     const godrayFilter = new PIXI.filters.GodrayFilter({
         parallel: false,
         gain: 0.3,
         lacunarity: 5,
-        alpha: 0.4,
+        alpha: 0.2,
         time: 0,
         angle: 0,
         parallel: false,
@@ -1731,9 +1731,10 @@ export async function loadSprites(apps, sounds) {
         logoJS,
         logoMongo,
         logoMySQL,
-        logoSymfony
+        logoSymfony,
         // NOT A SPRITE
         // musicthemePLAY,
+        // currentHour,
     };
 }
 

@@ -71,6 +71,10 @@ export async function loadSounds() {
     lavaboSound.volume = 0.09;
     lavaboSound.speed = 1;
 
+    const beefEyeOpenSound = PIXI.sound.add('beefEyeOpen', '../sounds/openbeefeye.mp3');
+    beefEyeOpenSound.volume = 0.8;
+    beefEyeOpenSound.speed = 1.4;
+
     return {
         unrollSound,
         daythemeSound,

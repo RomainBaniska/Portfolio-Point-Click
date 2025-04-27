@@ -21,6 +21,11 @@ export async function loadTexts(sprites) {
     let currentMinutes =  null;
     let currentTimeHourMinutes = "";
 
+    // Heure lors du lancement de l'app
+    let currentDateInit = new Date();
+    let currentHourInit = currentDateInit.getHours();
+    // let currentHourInit = 23;
+
     // Initialisation de la variable de text affiché à l'écran
     let currentText = null;
     // Initialisation de la variable de la séquence de texte affichée à l'écran
@@ -51,8 +56,13 @@ export async function loadTexts(sprites) {
 
 
     // Textes hors action & dialogue
-    const wakeUpText = new PIXI.Text({ text: 'Non mais je rêve', style: dialogueStyle });
-    const wakeUpText2 = new PIXI.Text({ text: 'T\'es qui toi ? Et pourquoi tu fais sonner mon réveil si tôt ?', style: dialogueStyle });
+    const wakeUpText = new PIXI.Text({ text: 'Hein quoi ?!', style: dialogueStyle });
+    let wakeUpText2;
+    if (currentHourInit >= 7 && currentHourInit < 22) {
+        wakeUpText2 = new PIXI.Text({ text: "Je rêve ou tu forces ma baraque pour venir me réveiller en pleine nu...", style: dialogueStyle });
+    } else {
+        wakeUpText2 = new PIXI.Text({ text: "Je rêve ou tu forces ma baraque pour venir me réveiller en pleine nuit avec de la flotte ?", style: dialogueStyle });
+    }
     const wakeUpText3 = new PIXI.Text({ text: 'Bon si on a fini, moi j\'ai du travail', style: dialogueStyle });
     const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
 

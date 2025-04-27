@@ -1315,8 +1315,8 @@ export async function interactions(apps, sprites, texts) {
                 setTimeout(() => {
                     coffeMachineClone.play();
                     coffeMachineClone.gotoAndStop(8);
-                    coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
-                        coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+                    // coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+                    //     coffeMachineCutsceneContainer.addChild(coffeMachineClone);
                         setTimeout(() => {
                             coffeMachine.gotoAndStop(1);
                             coffeMachineClone.gotoAndStop(1);
@@ -1329,6 +1329,7 @@ export async function interactions(apps, sprites, texts) {
                                     coffeMachineCutsceneContainer.removeChild(coffeMachineCutsceneBG);
                                     coffeMachineCutsceneContainer.removeChild(coffeMachineClone);
                                     menuContainer.removeChild(menuItemGlassWaterEmpty);
+                                    menuContainer.removeChild(menuItemGlassWater);
                                     PIXI.sound.play('pickup');
                                     menuContainer.addChild(menuItemGlassCoffe);
                                     coffeMachine.gotoAndStop(0);
@@ -1344,6 +1345,8 @@ export async function interactions(apps, sprites, texts) {
                                         coffeMachineClone.destroy();
                                         coffeMachineCutsceneContainer.destroy();
                                         successCoffe.destroy();
+                                        menuItemGlassWaterEmpty.destroy();
+                                        menuItemGlassWater.destroy();
                                     }, 2000);
                                 }, 6000);
                             }, 2000);
@@ -1355,50 +1358,12 @@ export async function interactions(apps, sprites, texts) {
         }
     });
 
-    ///////////////////////////////// TEST
-    // guybrushLD.on("click", () => {
-    //                     // Lancer l'animation de la machine à café
-    //                     coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
-    //                     coffeMachineCutsceneContainer.addChild(coffeMachineClone);
-    //                     setTimeout(() => {
-    //                         coffeMachine.gotoAndStop(1);
-    //                         coffeMachineClone.gotoAndStop(1);
-    //                         setTimeout(() => {
-    //                             coffeMachineClone.play();
-    //                             coffeMachineClone.loop = false;
-    //                             coffeMachine.play();
-    //                             coffeMachine.loop = false;
-    //                             setTimeout(() => {
-    //                                 coffeMachineCutsceneContainer.removeChild(coffeMachineCutsceneBG);
-    //                                 coffeMachineCutsceneContainer.removeChild(coffeMachineClone);
-    //                                 menuContainer.removeChild(menuItemGlassWaterEmpty);
-    //                                 PIXI.sound.play('pickup');
-    //                                 menuContainer.addChild(menuItemGlassCoffe);
-    //                                 coffeMachine.gotoAndStop(0);
-    //                                 // Ajout d'un petit texte de réussite
-    //                                 const successCoffe = new PIXI.Text({ text: "Et voilà le travail !", style: dialogueStyle2 });
-    //                                 successCoffe.anchor.set(0.5);
-    //                                 successCoffe.x = houseContainer.width / 2 ;
-    //                                 successCoffe.y = houseContainer.y + (houseContainer.height * 0.3);
-    //                                 houseContainer.addChild(successCoffe);
-    //                                 setTimeout(() => {
-    //                                     // retrait du texte et libération de la mémoire
-    //                                     houseContainer.removeChild(successCoffe);
-    //                                     coffeMachineClone.destroy();
-    //                                     coffeMachineCutsceneContainer.destroy();
-    //                                     successCoffe.destroy();
-    //                                 }, 2000);
-    //                             }, 6000);
-    //                         }, 2000);
-    //                     }, 1000);       
-    // })
-
-
     // Actionner l'interrupteur
     let interrupteurSwitched = false;
     interrupteur.on('click', async () => {
         if (menuButton7.isActive || menuButton8.isActive) {
             if (!interrupteurSwitched) {
+            PIXI.sound.play('beefEyeOpen');
             interrupteur.play();
             interrupteur.gotoAndStop(1); 
             app.stage.emit('rightdown');
