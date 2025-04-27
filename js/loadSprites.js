@@ -66,24 +66,32 @@ export async function loadSprites(apps, sounds) {
 
     let currentDate = new Date();
     let currentHour = currentDate.getHours();
-    // currentHour = 23;
+    currentHour = 23;
     let houseTexturePath;
+    let houseTexturePathSoM;
     if (currentHour >= 7 && currentHour < 22) {
         houseTexturePath = '../sprites/jardin.jpg';
+        houseTexturePathSoM = '../sprites/jardinSun.png';
     } else {
         houseTexturePath = '../sprites/jardinnuit.jpg';
+        houseTexturePathSoM = '../sprites/jardinMoon.png';
     }
     const houseAsset = await PIXI.Assets.load(houseTexturePath);
+    const houseAssetSunOrMoon = await PIXI.Assets.load(houseTexturePathSoM);
     const houseSprite = new PIXI.Sprite(houseAsset);
+    const houseSpriteSoM = new PIXI.Sprite(houseAssetSunOrMoon);
     houseContainer.addChild(houseSprite);
+    houseContainer.addChild(houseSpriteSoM);
 
         // Sprite houseContainer : Hauteur occupe 74% de l'écran / Largeur 60% de l'écran
-        houseSprite.height = app.screen.height * 0.74;
-        houseSprite.width = (houseSprite.height / 1024) * 1440 * 1.4; // à changer 
+        houseSprite.height = houseSpriteSoM.height = app.screen.height * 0.74;
+        houseSprite.width = houseSpriteSoM.width = (houseSprite.height / 1024) * 1440 * 1.4; // à changer 
 
         // Juste pour info : houseSprite correspond à 0, 0 de son conteneur qui est positionné déjà
         houseSprite.x = 0; 
         houseSprite.y = 0;
+        houseSpriteSoM.x = 0; 
+        houseSpriteSoM.y = 0;
 
     houseContainer.position.set(
         (app.stage.width - houseSprite.width) / 2,
@@ -93,19 +101,30 @@ export async function loadSprites(apps, sounds) {
     // Application du GodrayFilter
     const godrayFilter = new PIXI.filters.GodrayFilter({
         parallel: false,
-        gain: 0.1,
-        lacunarity: 3.3,
-        time: 0
+        gain: 0.3,
+        lacunarity: 5,
+        alpha: 0.4,
+        time: 0,
+        angle: 0,
+        parallel: false,
+        center: {x:130, y:45},
+        color: 0xffff66,
     });
+
+    // godrayFilter.center.x = 130;
+    // godrayFilter.center.y = 45;
+    // godrayFilter.color = 0xffff66;
 
     // On applique le filtre sur houseSprite
     houseSprite.filters = [godrayFilter];
     
-    // // Animation des rayons (optionnel pour que ça bouge un peu)
+    // Animation des rayons (optionnel pour que ça bouge un peu)
     // app.ticker.add((delta) => {
-    // godrayFilter.gain += 0.1 * delta;
-    // // console.log("ololo", delta)
-    // });
+    app.ticker.add(() => {
+    // godrayFilter.time += 0.1 * delta;
+    godrayFilter.time += 0.03;
+    });
+
 
     // INNER HOUSE CONTAINER
     const innerHouseContainer = new PIXI.Container();
@@ -152,7 +171,7 @@ export async function loadSprites(apps, sounds) {
         console.log("yolo");
     });
 
-    innerHouseSprite.filters = [godrayFilter];
+    // innerHouseSprite.filters = [godrayFilter];
 
     ///////////////TEST/////////////////
 
