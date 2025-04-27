@@ -152,6 +152,8 @@ export async function loadSprites(apps, sounds) {
         console.log("yolo");
     });
 
+    innerHouseSprite.filters = [godrayFilter];
+
     ///////////////TEST/////////////////
 
     innerHouseContainer.addChild(innerHouseSprite); 

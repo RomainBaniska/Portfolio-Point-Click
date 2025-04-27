@@ -424,7 +424,7 @@ export async function interactions(apps, sprites, texts) {
             }
             // Bulles Romain Toile
             const bulleText1 = new PIXI.Text({ text: "Bravo d'être arrivé jusque là!", style: dialogueStyleLong });
-            const bulleText2 = new PIXI.Text({ text: "Tu vas pouvoir avoir une idée un peu plus précise de ce que je suis capable de faire", style: dialogueStyleLong });
+            const bulleText2 = new PIXI.Text({ text: "Tu vas pouvoir avoir une idée un peu plus précise de mes compétences en dev web", style: dialogueStyleLong });
             const bulleText3 = new PIXI.Text({ text: "Voici une petite sélection de projets que j'ai réalisé", style: dialogueStyleLong });
             const bulleText4 = new PIXI.Text({ text: "Clique sur le projet qui t'intéresse ! Tu pourras revenir consulter les autres.", style: dialogueStyleLong });
             bulleText(bulleText1);
