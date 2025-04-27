@@ -867,10 +867,11 @@ export async function loadSprites(apps, sounds) {
 
     music.anchor.set(1, 0);
     // music.x = houseContainer.width - music.width - 20;
-    music.x = houseContainer.width - music.width - (houseContainer.width * 0.015);
+    // music.x = houseContainer.width - music.width - (houseContainer.width * 0.015);
+    music.x = houseSprite.x + houseSprite.width * 0.98;
     // music.y = 0 + 20;
-    music.y = 0 + (houseContainer.height * 0.03);
-    music.scale = 0.3;
+    music.y = houseSprite.y + (houseContainer.height * 0.03);
+    // music.scale = 0.3;
 
     const originalWidthNote = music.texture.width;
     const originalHeightNote = music.texture.height;
@@ -1541,6 +1542,7 @@ export async function loadSprites(apps, sounds) {
     chest.label = "chest";
     goldkey.label = "goldkey";
     lavabo.label = "lavabo";
+    table.label = "table";
     trash.label = "trash";
     poster.label = "poster";
     coffeMachine.label = "coffeMachine";

@@ -366,13 +366,16 @@ resizeButtons();
     // Position prevVideo
     setSpritePositionAndScale(prevVideo, 0.65 - (100 / window.innerWidth), 1.20, 300, 900);
 
+    // Position Music Note
+    // music.x = houseContainer.width - music.width - (houseContainer.width * 0.015);
+    // music.y = 0 + (houseContainer.height * 0.03);
+
     // Dimensions Logos Technos
 
     // Machine à café cutscene BG
     setZonePositionAndSizeINNERHOUSE(coffeMachineCutsceneBG, 0.3, 0.2, 1.5, 1.5);
     // Machine à café Clone
     // setSpritePositionAndScale(coffeMachineClone, 0.1, 0.2, 700, 700);
-   
     let scaleFactorCoffeMachine = (coffeMachineCutsceneBG.width * 0.71) / coffeMachineClone.width;
     coffeMachineClone.x = coffeMachineCutsceneBG.x + (coffeMachineCutsceneBG.width / 2);
     coffeMachineClone.y = coffeMachineCutsceneBG.y + (coffeMachineCutsceneBG.height / 2);
