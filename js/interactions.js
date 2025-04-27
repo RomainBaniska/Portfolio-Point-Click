@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, menuItemGlassCoffe, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
+    const { houseContainer, menuItemGlassCoffe, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -1393,13 +1393,51 @@ export async function interactions(apps, sprites, texts) {
     //                     }, 1000);       
     // })
 
+
     // Actionner l'interrupteur
-    interrupteur.on('click', () => {
+    let interrupteurSwitched = false;
+    interrupteur.on('click', async () => {
         if (menuButton7.isActive || menuButton8.isActive) {
+            if (!interrupteurSwitched) {
             interrupteur.play();
             interrupteur.gotoAndStop(1); 
             app.stage.emit('rightdown');
+
+        // Ouverture de l'oeil de boeuf
+        const innerHouseAsset2 = await PIXI.Assets.load('../sprites/innerhouseopen1.png');
+        const innerHouseAsset3 = await PIXI.Assets.load('../sprites/innerhouseopen2.png');
+        const innerHouseAsset4 = await PIXI.Assets.load('../sprites/innerhouseopenend.png');
+        // Crée les sprites une fois les assets chargés
+        let innerHouseSprites = [
+            new PIXI.Sprite(innerHouseAsset2),
+            new PIXI.Sprite(innerHouseAsset3),
+            new PIXI.Sprite(innerHouseAsset4)
+        ];
+
+        // Affiche le premier sprite
+        let currentIndex = 0;
+        // Défilement des sprites avec un intervalle de 1 seconde
+        let interval = 1000; 
+
+        // Fonction pour changer de sprite après un délai
+        function changeSprite(index) {
+            if (index < innerHouseSprites.length) {
+                innerHouseSprite.texture = innerHouseSprites[index].texture;
+                currentIndex = index + 1;
+                if (currentIndex >= 2) {
+                    chest.tint = 0xFFFFFF;
+                }
+                if (currentIndex < innerHouseSprites.length) {
+                    setTimeout(() => changeSprite(currentIndex), interval);
+                }
+            }
         }
+
+        // Démarre le défilement des sprites
+        changeSprite(currentIndex);
+        interrupteurSwitched = true;
+        }
+    }
     });
 
 

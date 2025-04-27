@@ -66,7 +66,7 @@ export async function loadSprites(apps, sounds) {
 
     let currentDate = new Date();
     let currentHour = currentDate.getHours();
-    currentHour = 23;
+    // currentHour = 23;
     let houseTexturePath;
     let houseTexturePathSoM;
     if (currentHour >= 7 && currentHour < 22) {
@@ -131,63 +131,19 @@ export async function loadSprites(apps, sounds) {
     innerHouseContainer.sortableChildren = true;
     houseContainer.addChild(innerHouseContainer);
 
-    
-
 
     // INNER HOUSE SPRITE
-    // const innerHouseAsset = await PIXI.Assets.load('../sprites/maisontrimed.png');
     const innerHouseAsset = await PIXI.Assets.load('../sprites/innerhousestart.png');
-    const innerHouseAsset2 = await PIXI.Assets.load('../sprites/innerhouseopen1.png');
-    const innerHouseAsset3 = await PIXI.Assets.load('../sprites/innerhouseopen2.png');
-    const innerHouseAsset4 = await PIXI.Assets.load('../sprites/innerhouseopenend.png');
-    // const innerHouseSprite = new PIXI.Sprite(innerHouseAsset); 
-    // let innerHouseSprite = new PIXI.Sprite(innerHouseAsset); 
-    let innerHouseSprite2 = new PIXI.Sprite(innerHouseAsset2); 
-    let innerHouseSprite3 = new PIXI.Sprite(innerHouseAsset3); 
-    let innerHouseSprite4 = new PIXI.Sprite(innerHouseAsset4); 
+    let innerHouseSprite = new PIXI.Sprite(innerHouseAsset);
+    innerHouseContainer.addChild(innerHouseSprite);
 
-    // app.stage.on('click', () => {
-    //     innerHouseSprite.texture = innerHouseSprite2.texture;
-    //     console.log("yolo");
-    // })
-
-    /////////////// TEST ////////////////
-
-    let innerHouseSprites = [
-        new PIXI.Sprite(innerHouseAsset),
-        new PIXI.Sprite(innerHouseAsset2),
-        new PIXI.Sprite(innerHouseAsset3),
-        new PIXI.Sprite(innerHouseAsset4)
-    ];
-    
-    let currentIndex = 0;
-    let innerHouseSprite = innerHouseSprites[0]; // le sprite affiché au début
-    
-    app.stage.addChild(innerHouseSprite); // il faut bien l'ajouter à la scène
-    
-    app.stage.on('click', () => {
-        currentIndex = (currentIndex + 1) % innerHouseSprites.length; // boucle de 0 à 3
-        innerHouseSprite.texture = innerHouseSprites[currentIndex].texture;
-        console.log("yolo");
-    });
-
-    // innerHouseSprite.filters = [godrayFilter];
-
-    ///////////////TEST/////////////////
-
-    innerHouseContainer.addChild(innerHouseSprite); 
     innerHouseSprite.height = app.screen.height * 0.74;
     innerHouseSprite.width = (innerHouseSprite.height / 1024) * 1055 * 1.4; // à changer 
-    // Position du sprite innerHouseSprite (position 0 par rapport au innerHouseContainer)
     innerHouseSprite.x = 0;
     innerHouseSprite.y = 0;
 
-
     // // Positionnement du innerHouseContainer "au MILIEU de la page"
     innerHouseContainer.position.set(
-        // ((app.stage.width - houseSprite.width)) / 2 - (app.stage.width * 0.02),
-        // ((app.stage.width) / 2) - (houseSprite.width / 2) - (app.stage.width * 0.02),
-        // houseSprite.x + ((app.stage.width) / 2) - (houseSprite.width / 2),
         houseSprite.x + (houseSprite.width / 2) - (innerHouseSprite.width / 2.17),
         0
     );
@@ -1656,6 +1612,7 @@ export async function loadSprites(apps, sounds) {
         screenBackgroundContainer,
         specialScreenContainer,
         coffeMachineCutsceneContainer,
+        innerHouseAsset,
         // innerHouseBGSprite,
         houseSprite,
         innerHouseSprite,
