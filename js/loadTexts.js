@@ -90,6 +90,8 @@ export async function loadTexts(sprites) {
     // TEXTE OU ACTION DU JOUEUR LORS DU CLIC SUR UN SPRITE AVEC UN MENUBUTTON ACTIF
     // Actions réalisées initialisées à false
     let coffePicked = false;
+    //
+    let parlerCount = 0; 
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
@@ -284,7 +286,13 @@ export async function loadTexts(sprites) {
                     ];
                 }
             },
-            parler: "what else ?",
+            parler: () => { 
+                parlerCount++;
+                if (parlerCount === 5) {
+                    PIXI.sound.play('nespresso');
+                }
+                return "Hmm, what else ?";
+            },
             utiliser: () => { 
                 if (menuItemCoffePod.isActive) {
                     coffeMachine.coffeFilled = true;

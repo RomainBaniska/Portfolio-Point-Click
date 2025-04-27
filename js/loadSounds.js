@@ -63,6 +63,10 @@ export async function loadSounds() {
     drawerStuckSound.volume = 0.3;
     drawerStuckSound.speed = 1;
 
+    const nespressoSound = PIXI.sound.add('nespresso', '../sounds/nespressoSound.mp3');
+    nespressoSound.volume = 0.15;
+    nespressoSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,
