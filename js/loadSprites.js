@@ -90,8 +90,22 @@ export async function loadSprites(apps, sounds) {
         0
       );
 
+    // Application du GodrayFilter
+    const godrayFilter = new PIXI.filters.GodrayFilter({
+        parallel: false,
+        gain: 0.1,
+        lacunarity: 3.3,
+        time: 0
+    });
+
+    // On applique le filtre sur houseSprite
+    houseSprite.filters = [godrayFilter];
     
-      
+    // // Animation des rayons (optionnel pour que ça bouge un peu)
+    // app.ticker.add((delta) => {
+    // godrayFilter.gain += 0.1 * delta;
+    // // console.log("ololo", delta)
+    // });
 
     // INNER HOUSE CONTAINER
     const innerHouseContainer = new PIXI.Container();
