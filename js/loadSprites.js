@@ -66,7 +66,7 @@ export async function loadSprites(apps, sounds) {
 
     let currentDate = new Date();
     let currentHour = currentDate.getHours();
-    // currentHour = 23;
+    currentHour = 23;
     let houseTexturePath;
     let houseTexturePathSoM;
     if (currentHour >= 7 && currentHour < 22) {
@@ -98,6 +98,8 @@ export async function loadSprites(apps, sounds) {
         0
       );
 
+      let filterX = houseSprite.x + houseSprite.width * 0.15;
+      let filterY = houseSprite.y + houseSprite.height * 0.1;
     // Application du GodrayFilter
     const godrayFilter = new PIXI.filters.GodrayFilter({
         parallel: false,
@@ -107,7 +109,7 @@ export async function loadSprites(apps, sounds) {
         time: 0,
         angle: 0,
         parallel: false,
-        center: {x:130, y:45},
+        center: {x:filterX, y:filterY},
         color: 0xffff66,
     });
 

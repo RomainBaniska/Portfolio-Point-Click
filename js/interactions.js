@@ -1425,10 +1425,26 @@ export async function interactions(apps, sprites, texts) {
                 innerHouseSprite.texture = innerHouseSprites[index].texture;
                 currentIndex = index + 1;
                 if (currentIndex >= 2) {
+                    // On retire la teinte du chest et on l'active
                     chest.tint = 0xFFFFFF;
+                    chest.interactive = true;
                 }
                 if (currentIndex < innerHouseSprites.length) {
                     setTimeout(() => changeSprite(currentIndex), interval);
+                }
+
+                if (currentIndex === 3) {
+                    setTimeout(() => {
+                    const beefEyeOpened = new PIXI.Text({ text: "Eh, on dirait bien qu'il y a un coffre dans le grenier", style: dialogueStyle2 });
+                    beefEyeOpened.anchor.set(0.5);
+                    beefEyeOpened.x = houseContainer.width / 2 ;
+                    beefEyeOpened.y = houseContainer.y + (houseContainer.height * 0.3);
+                    houseContainer.addChild(beefEyeOpened);
+                    setTimeout(() => {
+                        houseContainer.removeChild(beefEyeOpened);
+                        beefEyeOpened.destroy();
+                    }, 2000);
+                }, 1000); 
                 }
             }
         }

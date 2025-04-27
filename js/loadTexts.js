@@ -240,7 +240,7 @@ export async function loadTexts(sprites) {
             prendre: "Je ne peux pas l'atteindre",
             regarder: [
                 "Le coffre semble verrouillé avec une serrure électronique",
-                "'SwitchBot'... Le type de serrure intelligente qui s'ouvre à distance"
+                "'SwitchBot'... Un nouveau type de serrure intelligente capable de s'ouvrir à distance"
             ],
             parler: [
                 "Sésame, ouvre toi !",
