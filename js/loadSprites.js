@@ -1397,6 +1397,7 @@ export async function loadSprites(apps, sounds) {
             }});            
 
             menuContainer.addChild(currentActionText);
+            // Par défaut si le texte d'action est seul, placé verticalement au milieu de l'écran
             currentActionText.x = app.screen.width / 2;
             currentActionText.y = houseSprite.height + (houseSprite.height * 0.005);
 
@@ -1456,25 +1457,24 @@ export async function loadSprites(apps, sounds) {
                 align: 'center',
                 fontWeight: 'bold'
             }});            
+            // S'il y a un texte d'action existant
             if (currentActionText) {
-                // const spacing = 10;
-                // const totalWidth = currentActionText.width + spacing + currentSpriteText.width;
-                // const center = app.screen.width / 2;
-
+                // Et qu'il y a (aussi) un item cliqué (et donc que son texte apparaisse)
                     if (itemClicked) {
-                        currentActionText.x = app.screen.width / 2 - offset;
-                        currentSpriteText.x = app.screen.width / 2 + offset2;
-                        // currentActionText.x = center - totalWidth / 2;
-                        // currentSpriteText.x = currentActionText.x + currentActionText.width + spacing;
+                        // L'action text est décalé à gauche
+                        // currentActionText.x = app.screen.width / 2 - offset;
+                        currentActionText.x = app.screen.width / 2 - offset - (currentActionText.width / 2);
+                        // Le sprite text est décalé à droite
+                        // currentSpriteText.x = app.screen.width / 2 + offset2;
+                        currentSpriteText.x = app.screen.width / 2 + offset2 - (currentSpriteText.width / 2);
+                        
+                // Si en revanche un item n'est pas cliqué
                     }else {
                 currentActionText.x = app.screen.width / 2 - offset;
                 currentSpriteText.x = app.screen.width / 2 + offset;
-                // currentActionText.x = center - totalWidth / 2;
-                // currentSpriteText.x = currentActionText.x + currentActionText.width + spacing;
             }
             } else {
                 currentSpriteText.x = app.screen.width / 2;
-                // currentSpriteText.x = app.screen.width / 2 - currentSpriteText.width / 2;
             }
             currentSpriteText.y = houseSprite.height + (houseSprite.height * 0.005);
             menuContainer.addChild(currentSpriteText);
@@ -1514,25 +1514,18 @@ export async function loadSprites(apps, sounds) {
                             }});                            
                         }
                         if (currentActionText) {
-                        // const spacing = 10;
-                        // const totalWidth = currentActionText.width + spacing + currentItemText.width;
-                        // const center = app.screen.width / 2;
-            
-                        currentActionText.x = app.screen.width / 2 - offset;
-                        currentItemText.x = app.screen.width / 2 + offset;
-                        // currentActionText.x = center - totalWidth / 2;
-                        // currentItemText.x = currentActionText.x + currentActionText.width + spacing;
-
-                        // ajout 
-                        // currentSpriteText.x = currentActionText.x + currentItemText.x + spacing;
+                        // currentActionText.x = app.screen.width / 2 - offset;
+                        currentActionText.x = app.screen.width / 2 - offset - (currentActionText.width / 2);
+                        // currentItemText.x = app.screen.width / 2 + offset;
+                        currentItemText.x = app.screen.width / 2 + offset - (currentItemText.width / 2);
                         } else {
                         currentItemText.x = app.screen.width / 2;
-                        // currentItemText.x = app.screen.width / 2 - currentItemText.width / 2;
                         }
+                    // Position verticale du texte
                     currentItemText.y = houseSprite.height + (houseSprite.height * 0.005);
                     menuContainer.addChild(currentItemText);
                 } else {
-                    app.stage.removeChild(currentItemText);
+                    menuContainer.removeChild(currentItemText);
                     currentItemText.destroy();
                     currentItemText = null;
                     itemClicked = false;
@@ -1550,7 +1543,6 @@ export async function loadSprites(apps, sounds) {
                             currentlyActiveItem.texture = currentlyActiveItem.defaultTexture; 
                             currentlyActiveItem.isActive = false;
                             currentlyActiveItem = null;
-                            // console.log("Item actif désactivé");
                         }
                         // On clean le texte de l'item s'il existe
                         if (currentItemText) {
@@ -1561,7 +1553,6 @@ export async function loadSprites(apps, sounds) {
                         }
                         // On passe "itemClicked" à false
                         itemClicked = false;
-                        // console.log("décliqué");
                        
                         // Si un bouton d'action est actif, on le passe en null
                         if (currentActionButton) {
@@ -1577,7 +1568,6 @@ export async function loadSprites(apps, sounds) {
                             currentActionText.destroy();
                             currentActionText = null;
                         }
-            // console.log("Clic droit détecté - tout est déselectionné");
         });
         
         function cleanupText() {
@@ -1628,10 +1618,7 @@ export async function loadSprites(apps, sounds) {
     menuButton7.action = "utiliser";
     menuButton8.action = "pousser";
     menuButton9.action = "tirer";
-
-    // console.log(menuButton.action);
-    // console.log(menuButton.text);
-
+    
     // FONDU DU NOIR AU SPRITE
     function fadeInEffect() {
         gsap.to(blackScreen, { alpha: 0, duration: 1, onComplete: () => {
