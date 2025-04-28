@@ -83,6 +83,10 @@ export async function loadSounds() {
     pouringWaterSound.volume = 0.8;
     pouringWaterSound.speed = 1;
 
+    const podputSound = PIXI.sound.add('podput', '../sounds/podputSound.mp3');
+    podputSound.volume = 1;
+    podputSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,

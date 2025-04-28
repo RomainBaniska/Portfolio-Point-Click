@@ -1281,7 +1281,7 @@ export async function interactions(apps, sprites, texts) {
                 }
                 menuContainer.removeChild(menuItemCoffePod);
                 app.stage.emit('rightdown');
-                // PIXI.sound.play('putPod');
+                PIXI.sound.play('podput');
                 menuItemCoffePod.destroy();
                 return;
             }
