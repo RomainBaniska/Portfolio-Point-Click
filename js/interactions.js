@@ -1363,9 +1363,13 @@ export async function interactions(apps, sprites, texts) {
     interrupteur.on('click', async () => {
         if (menuButton7.isActive || menuButton8.isActive) {
             if (!interrupteurSwitched) {
-            PIXI.sound.play('beefEyeOpen');
+            PIXI.sound.play('switchOn');
             interrupteur.play();
             interrupteur.gotoAndStop(1); 
+
+            // Démarrage du reste des animations après 1 seconde
+        setTimeout(async () => {
+            PIXI.sound.play('beefEyeOpen');
             app.stage.emit('rightdown');
 
         // Ouverture de l'oeil de boeuf
@@ -1413,10 +1417,10 @@ export async function interactions(apps, sprites, texts) {
                 }
             }
         }
-
         // Démarre le défilement des sprites
         changeSprite(currentIndex);
         interrupteurSwitched = true;
+                }, 1000);
         }
     }
     });

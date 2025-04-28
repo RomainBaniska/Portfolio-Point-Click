@@ -22,7 +22,7 @@ export async function loadSprites(apps, sounds) {
        // l'item actif
        let currentlyActiveItem = null;
        // Taille de texte de l'action & sprite
-       let actionTextAndSpriteSize =  (app.screen.width / app.screen.width ) * 11;
+       let actionTextAndSpriteSize =  0;
 
     // Fonction D'affichage des sprites
     async function displaySprite(path, speed) {
@@ -1357,6 +1357,8 @@ export async function loadSprites(apps, sounds) {
         // menuAction.selectedTexture = selectedTexture;
     });
 
+    // Taille texte
+    actionTextAndSpriteSize =  houseSprite.height * 0.02;
     // On associe un texte à un menuAction (exemple : utiliser) visible sur le menuContainer
     // On utilise le tableau menuActionButtons et on le parcourt
     menuActionButtons.forEach(({ menuAction, text }) => {

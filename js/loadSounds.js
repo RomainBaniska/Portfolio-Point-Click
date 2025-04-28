@@ -75,6 +75,10 @@ export async function loadSounds() {
     beefEyeOpenSound.volume = 0.8;
     beefEyeOpenSound.speed = 1.4;
 
+    const switchOnSound = PIXI.sound.add('switchOn', '../sounds/switchOnSound.mp3');
+    switchOnSound.volume = 0.8;
+    switchOnSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,
