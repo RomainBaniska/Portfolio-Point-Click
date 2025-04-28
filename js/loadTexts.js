@@ -247,7 +247,7 @@ export async function loadTexts(sprites) {
             donner: "Hmm, non",
             ouvrir: "Le coffre est verrouillé",
             fermer: "Il est déjà fermé",
-            prendre: "Je ne peux pas l'atteindre",
+            prendre: "Je ne peux pas l'atteindre. Il faudrait trouver un moyen de le descendre dans la pièce principale",
             regarder: [
                 "Le coffre semble verrouillé avec une serrure électronique",
                 "'SwitchBot'... Un nouveau type de serrure intelligente capable de s'ouvrir à distance"
@@ -309,7 +309,8 @@ export async function loadTexts(sprites) {
                     return "Ne dit-on pas que c'est dans les vieilles capsules qu'on fait les meilleurs cafés ?";
                 } else if (menuItemGlassWater.isActive) {   
                     coffeMachine.waterFilled = true;
-                    return "J'ai rempli le réservoir d'eau de la machine";     
+                    // return "J'ai rempli le réservoir d'eau de la machine";
+                    return "";     
                 } else if (coffeMachine.waterFilled && !coffeMachine.coffeFilled) {
                     return [
                         "Si j'étais british, j'aurais pu me contenter d'un nuage de lait avec de eau chaude",

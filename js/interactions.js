@@ -1290,9 +1290,20 @@ export async function interactions(apps, sprites, texts) {
                 if (!alreadyWaterFilled) {
                     alreadyWaterFilled = true;
                 }
-                spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
+                PIXI.sound.play('pouringWater');
+                setTimeout(() => {
+                    spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
+                    const waterPouredText = new PIXI.Text({ text: "J'ai rempli d'eau le réservoir de la machine", style: dialogueStyle2 });
+                    waterPouredText.anchor.set(0.5);
+                    waterPouredText.x = houseContainer.width / 2 ;
+                    waterPouredText.y = houseContainer.y + (houseContainer.height * 0.3);
+                    houseContainer.addChild(waterPouredText);
+                    setTimeout(() => {
+                        houseContainer.removeChild(waterPouredText);
+                        waterPouredText.destroy();
+                    }, 2000);
+                }, 2500);
                 app.stage.emit('rightdown');
-                // PIXI.sound.play('pourWater');
                 return;
             }
 

@@ -1573,7 +1573,8 @@ export async function loadSprites(apps, sounds) {
         function cleanupText() {
             // Si le nom du sprite existe on le détruit
                 if (currentSpriteText) {
-                    app.stage.removeChild(currentSpriteText);
+                    // app.stage.removeChild(currentSpriteText);
+                    menuContainer.removeChild(currentSpriteText);
                     currentSpriteText.destroy();
                     currentSpriteText = null;
                 }

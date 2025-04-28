@@ -79,6 +79,10 @@ export async function loadSounds() {
     switchOnSound.volume = 0.8;
     switchOnSound.speed = 1;
 
+    const pouringWaterSound = PIXI.sound.add('pouringWater', '../sounds/pouringWaterSound.mp3');
+    pouringWaterSound.volume = 0.8;
+    pouringWaterSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,
