@@ -1312,11 +1312,11 @@ export async function interactions(apps, sprites, texts) {
                 // Lancer l'animation de la machine à café
                 coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
                 coffeMachineCutsceneContainer.addChild(coffeMachineClone);
-                setTimeout(() => {
-                    coffeMachineClone.play();
-                    coffeMachineClone.gotoAndStop(8);
-                    // coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
-                    //     coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+                // setTimeout(() => {
+                //     coffeMachineClone.play();
+                //     coffeMachineClone.gotoAndStop(8);
+                    coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+                        coffeMachineCutsceneContainer.addChild(coffeMachineClone);
                         setTimeout(() => {
                             coffeMachine.gotoAndStop(1);
                             coffeMachineClone.gotoAndStop(1);
@@ -1351,7 +1351,7 @@ export async function interactions(apps, sprites, texts) {
                                 }, 6000);
                             }, 2000);
                         }, 1000);       
-                }, 1000);
+                // }, 1000);
 
                 // modifier le sprite du verre d'eau par le verre rempli de caféD
             }

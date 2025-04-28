@@ -574,6 +574,37 @@ export async function loadSprites(apps, sounds) {
             if (currentInput.toLowerCase() === "tezcatlipoca") {
                 
                 PIXI.sound.play('passwordValid');
+                PIXI.sound.stop('nighttheme');
+                PIXI.sound.stop('daytheme');
+
+// https://codesandbox.io/p/sandbox/pixijs-examples-sound-fade-out-qcos8n?file=%2Fsrc%2Findex.ts%3A1%2C1-26%2C8
+
+// import "./styles.css";
+// import { Application, Assets } from "pixi.js";
+// import type { Sound } from "@pixi/sound";
+// import "@pixi/sound";
+// import buzzerUrl from "./buzzer.mp3";
+// import gsap from "gsap";
+// import { createButton } from "./createButton";
+
+// const app = new Application<HTMLCanvasElement>({
+//   resizeTo: window,
+//   background: "#999"
+// });
+// document.body.appendChild(app.view);
+
+// async function main() {
+//   Assets.add("buzzer", buzzerUrl);
+//   const buzzer = (await Assets.load("buzzer")) as Sound;
+//   const playButton = createButton(app.screen);
+//   playButton.on("click", () => {
+//     const instance = buzzer.play();
+//     gsap.to(instance, { volume: 0, duration: 1 });
+//   });
+//   app.stage.addChild(playButton);
+// }
+
+// main();
 
                 setTimeout(() => { // recalage d'un léger délai au départ du sound
                     specialScreenContainer.addChild(greenled); 

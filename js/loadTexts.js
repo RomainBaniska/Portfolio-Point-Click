@@ -271,28 +271,28 @@ export async function loadTexts(sprites) {
             regarder: () => {
                 if (!coffeMachine.waterFilled && !coffeMachine.coffeFilled) {
                     return [
-                        "La machine à expresso, du nectar pour les jeunes cadres dynamiques",
+                        "La machine à expresso, du nectar pour tout jeune cadre dynamique",
                         "Actuellement elle n'a pas de capsule et le réservoir d'eau est vide"
                     ];
                 } else if (coffeMachine.waterFilled && !coffeMachine.coffeFilled) {
                     return [
-                        "La machine à expresso, du nectar pour les jeunes cadres dynamiques",
+                        "La machine à expresso, du nectar pour tout jeune cadre dynamique",
                         "J'ai mis de l'eau dans la machine"
                     ];
                 } else if (!coffeMachine.waterFilled && coffeMachine.coffeFilled) {
                     return [
-                        "La machine à expresso, du nectar pour les jeunes cadres dynamiques",
+                        "La machine à expresso, du nectar pour tout jeune cadre dynamique",
                         "J'ai inséré la capsule mais sans eau, même le meilleur café ne pourra pas couler."
                     ];
                 } else if (coffeMachine.waterFilled && coffeMachine.coffeFilled && !coffeMachine.poisoned) {
                     return [
-                        "La machine à expresso, du nectar pour les jeunes cadres dynamiques",
+                        "La machine à expresso, du nectar pour tout jeune cadre dynamique",
                         "Je pourrais lancer la machine mais il manque encore quelque chose"
                     ];
                 } else if (coffeMachine.poisoned) {
                     return [
                         "Qui veut un petit verre de Turbo Sommeil ?",
-                        "Il est pas impossible que j'aie pété la machine avec ces carabistouilles"
+                        "Il est pas impossible que j'aie pété la machine avec mes carabistouilles"
                     ];
                 }
             },
