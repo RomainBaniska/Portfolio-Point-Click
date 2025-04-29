@@ -81,6 +81,18 @@ export async function interactions(apps, sprites, texts) {
         dePixelisation();
     }
 
+    // Petite fonction pour ajouter du texte du player lors d'actions 
+    function playerNewText(text, textcontent) {
+        text = new PIXI.Text({ text: textcontent, style: dialogueStyle2 });
+        text.anchor.set(0.5);
+        text.x = houseContainer.width / 2 ;
+        text.y = houseContainer.y + (houseContainer.height * 0.3);
+            houseContainer.addChild(text);
+            setTimeout(() => {
+                houseContainer.removeChild(text);
+                text.destroy();
+            }, 2000);
+    }
 
     // GUYBRUSH START SETUP (Sleeping)
     setPosition(guybrushLD, 0.7, 0.775);
@@ -149,16 +161,8 @@ export async function interactions(apps, sprites, texts) {
             menuContainer.removeChild(menuItemGoldKey);
             app.stage.emit('rightdown');
             PIXI.sound.play('unlockTable');
-            const successOpen = new PIXI.Text({ text: "Ca a marché ! la table de nuit est déverrouillée", style: dialogueStyle2 });
-            successOpen.anchor.set(0.5);
-            successOpen.x = houseContainer.width / 2 ;
-            successOpen.y = houseContainer.y + (houseContainer.height * 0.3);
-            houseContainer.addChild(successOpen);
-            setTimeout(() => {
-                houseContainer.removeChild(successOpen);
-                successOpen.destroy();
-            }, 2000);
-
+            let successOpen;
+            playerNewText(successOpen, "Ca a marché ! la table de nuit est déverrouillée");
             menuItemGoldKey.destroy();
             tableLocked = false;
             return;
@@ -166,15 +170,9 @@ export async function interactions(apps, sprites, texts) {
         // Echec si la table est fermée
         if(tableLocked) {
             if (menuButton2.isActive) {
-            const failOpen = new PIXI.Text({ text: "Hmmm... C'est verrouillé", style: dialogueStyle2 });
-            failOpen.anchor.set(0.5);
-            failOpen.x = houseContainer.width / 2 ;
-            failOpen.y = houseContainer.y + (houseContainer.height * 0.3);
-            houseContainer.addChild(failOpen);
             PIXI.sound.play('drawerStuck');
-            setTimeout(() => {
-                houseContainer.removeChild(failOpen);
-            }, 2000);
+            let failOpen;
+            playerNewText(failOpen, "Hmmm... C'est verrouillé");
             return;
         }
         }
@@ -1269,7 +1267,7 @@ export async function interactions(apps, sprites, texts) {
     // guybrushSO.on('click', () => {
     guybrushLD.on('click', () => {
     if (menuButton.isActive && menuItemGlassWater.isActive) {
-
+        app.stage.emit('rightdown');
         // on ajoute une bande noire (seulement l'overlay nous intéresse)
         menuContainer.addChild(menuCoverDialogueOverlay);
 
@@ -1282,16 +1280,8 @@ export async function interactions(apps, sprites, texts) {
                     setPosition(guybrushSOT, 0.2, 0.68);
                     spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
                     guybrushSOT.gotoAndStop(0);
-
-                    // const reponsedekon = new PIXI.Text({ text: "Avec plaisir bg", style: dialogueStyle });
-                    // reponsedekon.anchor.set(0.5);
-                    // reponsedekon.x = houseContainer.width / 2 ;
-                    // reponsedekon.y = houseContainer.y + (houseContainer.height * 0.3);
-                    // houseContainer.addChild(reponsedekon);
-                    // setTimeout(() => {
-                    //     houseContainer.removeChild(reponsedekon);
-                    //     reponsedekon.destroy();
-                    // }, 2000);
+                    let giveCoffeText;
+                    playerNewText(giveCoffeText, "Eh un petit café l'ami ?");
                     textFollowSprite(guybrushSOT, coffeText);
                 }, 1000);
         }, 2000);
@@ -1402,7 +1392,9 @@ export async function interactions(apps, sprites, texts) {
     let interrupteurSwitched = false;
     interrupteur.on('click', async () => {
         if (menuButton7.isActive || menuButton8.isActive) {
+
             if (!interrupteurSwitched) {
+            menuContainer.addChild(menuCoverDialogueOverlay);
             PIXI.sound.play('switchOn');
             interrupteur.play();
             interrupteur.gotoAndStop(1); 
@@ -1444,15 +1436,9 @@ export async function interactions(apps, sprites, texts) {
 
                 if (currentIndex === 3) {
                     setTimeout(() => {
-                    const beefEyeOpened = new PIXI.Text({ text: "Eh, on dirait bien qu'il y a un coffre dans le grenier", style: dialogueStyle2 });
-                    beefEyeOpened.anchor.set(0.5);
-                    beefEyeOpened.x = houseContainer.width / 2 ;
-                    beefEyeOpened.y = houseContainer.y + (houseContainer.height * 0.3);
-                    houseContainer.addChild(beefEyeOpened);
-                    setTimeout(() => {
-                        houseContainer.removeChild(beefEyeOpened);
-                        beefEyeOpened.destroy();
-                    }, 2000);
+                        let beefEyeOpened;
+                        playerNewText(beefEyeOpened, "Eh, on dirait bien qu'il y a un coffre dans le grenier")
+                        menuContainer.removeChild(menuCoverDialogueOverlay);
                 }, 1000); 
                 }
             }
