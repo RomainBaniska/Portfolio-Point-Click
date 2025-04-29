@@ -64,6 +64,7 @@ export async function loadTexts(sprites) {
         wakeUpText2 = new PIXI.Text({ text: "Je rêve ou tu forces ma baraque pour venir me réveiller en pleine nuit avec de la flotte ?", style: dialogueStyle });
     }
     const wakeUpText3 = new PIXI.Text({ text: 'Bon si on a fini, moi j\'ai du travail', style: dialogueStyle });
+    const coffeText = new PIXI.Text({ text: 'Carrément avec plaisir !', style: dialogueStyle });
     const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
 
 
@@ -238,7 +239,7 @@ export async function loadTexts(sprites) {
             parler: "Je ne parle pas aux fauteuils",
             utiliser: [
                 "Non merci",
-                "Savoir que l'individu qui habite cette cabane passe littéralement TOUTES ses journées les fesses collées sur ce fauteuil ne me tente pas du tout."
+                "Le fauteuil est encore chaud et le skaï semble avoir épousé les formes de son propriétaire."
             ],
             pousser: "Je le trouve déjà très bien là où il est",
             tirer: "Je le trouve déjà très bien là où il est",
@@ -692,6 +693,7 @@ export async function loadTexts(sprites) {
         dialogueStyleLong,
         titleStyle,
         titleStyle2,
+        coffeText
     };
 
 }

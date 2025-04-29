@@ -2,7 +2,7 @@ export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
     const { houseContainer, menuItemGlassCoffe, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
+    const { wakeUpText, wakeUpText2, wakeUpText3, coffeText, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Vidéos de la toile
@@ -226,6 +226,9 @@ export async function interactions(apps, sprites, texts) {
     guybrushLD.on('click', () => {
 
         if (menuButton7.isActive && menuItemGlassWater.isActive) {
+            
+            // On rend la poubelle interactive
+            trash.interactive = true;
         
         // console.log ("Action verre d'eau - Romain réussie");
         PIXI.sound.play('watersplash');
@@ -1262,12 +1265,38 @@ export async function interactions(apps, sprites, texts) {
         }
     });
         
-    // Donner le verre d'eau à Romain
-//     guybrushSO.on('click', () => {
-//     if (menuButton.isActive && menuItemGlassWater.isActive) {
-//         spriteSwap(innerHouseContainer, guybrushSO, guybrushD);
-//     }
-// });
+    // TEST Donner le verre d'eau à Romain
+    // guybrushSO.on('click', () => {
+    guybrushLD.on('click', () => {
+    if (menuButton.isActive && menuItemGlassWater.isActive) {
+
+        // on ajoute une bande noire (seulement l'overlay nous intéresse)
+        menuContainer.addChild(menuCoverDialogueOverlay);
+
+        setPosition(guybrushSO, 0.2, 0.68);
+        spriteSwap(innerHouseContainer, guybrushLD, guybrushSO);
+
+        setTimeout(() => {
+                guybrushSO.gotoAndStop(0);
+                setTimeout(() => {
+                    setPosition(guybrushSOT, 0.2, 0.68);
+                    spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
+                    guybrushSOT.gotoAndStop(0);
+
+                    // const reponsedekon = new PIXI.Text({ text: "Avec plaisir bg", style: dialogueStyle });
+                    // reponsedekon.anchor.set(0.5);
+                    // reponsedekon.x = houseContainer.width / 2 ;
+                    // reponsedekon.y = houseContainer.y + (houseContainer.height * 0.3);
+                    // houseContainer.addChild(reponsedekon);
+                    // setTimeout(() => {
+                    //     houseContainer.removeChild(reponsedekon);
+                    //     reponsedekon.destroy();
+                    // }, 2000);
+                    textFollowSprite(guybrushSOT, coffeText);
+                }, 1000);
+        }, 2000);
+    }
+});
 
     let alreadyCoffeFilled = false;
     let alreadyWaterFilled = false;

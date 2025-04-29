@@ -262,7 +262,8 @@ export async function loadSprites(apps, sounds) {
     trash.beginFill(0xFF0000, 1); 
     trash.drawRect(0, 0, 200, 100); 
     trash.endFill();
-    trash.interactive = true;
+    // On masque la poubelle au départ par Romain qui dort
+    trash.interactive = false;
     trash.alpha = 0; 
     innerHouseContainer.addChild(trash);
 
@@ -1417,7 +1418,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: guybrushSO, spriteName: "Romain" },
         { sprite: ordi, spriteName: "ordinateur" },
         { sprite: ordiRun, spriteName: "ordinateur" },
-        { sprite: gamingChair, spriteName: "chaise de bureau" },
+        { sprite: gamingChair, spriteName: "fauteuil" },
         { sprite: toilePoulie, spriteName: "toile" },
         { sprite: toilePoulieRun, spriteName: "toile" },
         { sprite: reveil, spriteName: "réveil matin" },
@@ -1452,7 +1453,8 @@ export async function loadSprites(apps, sounds) {
         sprite.on('pointerover', () => {
             // lors du hover d'un sprite on clean le champs quoi qu'il arrive
             cleanupText();
-            // Et on rajoute le nom du sprite 
+            
+            // lors du hover on crée le nom du sprite 
             currentSpriteText = new PIXI.Text({ text: spriteName, style: {
                 fontFamily: 'MonkeyIslandMenu',
                 fontSize: actionTextAndSpriteSize,
@@ -1460,33 +1462,49 @@ export async function loadSprites(apps, sounds) {
                 align: 'center',
                 fontWeight: 'bold'}}); 
             currentSpriteText.anchor.set(0.5, 0);
+            // On l'ajoute, on voit par exemple juste le nom du sprite
+            menuContainer.addChild(currentSpriteText);
+            currentSpriteText.x = screenCenter;
 
-            // S'il y a un texte d'action existant
-            if (currentActionText) {
-            // Alors l'actionText sera décalé à gauche avec la moitié de la taille de l'actionText (à cause de l'anchor set à 0.5)
-            currentActionText.x = screenCenter - (currentActionText.width / 2) - spacing;
-            // le currenSpriteText quant à lui sera décalé à droite de manière symétrique
-            currentSpriteText.x = screenCenter + (currentSpriteText.width / 2) + spacing;
+            // S'il y a une action en cours mais qu'aucun item n'est cliqué pour le moment
+            if (currentActionText && !itemClicked) {
+                    // Alors l'actionText sera décalé à gauche avec la moitié de la taille de l'actionText (à cause de l'anchor set à 0.5)
+                    // currentActionText.x = screenCenter - (currentActionText.width / 2) - spacing;
+                    let totalWidth = currentActionText.width + currentSpriteText.width;
+                    // currentActionText.x = app.screen.width * 0.40;
+                    currentActionText.x = screenCenter - (totalWidth / 2);
+                    // le currenSpriteText quant à lui sera décalé à droite de manière symétrique
+                    // currentSpriteText.x = screenCenter + (currentSpriteText.width / 2) + spacing;
+                    // currentSpriteText.x = app.screen.width * 0.60
+                    currentSpriteText.x = screenCenter + (totalWidth / 2);
+                }
 
-            // Si un item est cliqué
-                if (itemClicked) {
-                    // L'action text est décalé à gauche
-                    currentActionText.x = screenCenter - spacing - (currentItemText.width);
-                    // Le sprite text est décalé à droite
-                    currentSpriteText.x = screenCenter + spacing + (currentItemText.width);
-            }
+                if (currentItemText) {
+                    currentSpriteText.x = app.screen.width * 0.60;
+                }
 
-            // Si aucune action n'est active, le sprite du texte est centré
-            } else if (!currentActionText) {
-                currentSpriteText.x = screenCenter;
-            }
+            // // Si un item est cliqué est 
+            // if (currentActionText && itemClicked) {
+            //         // L'action text est décalé à gauche
+            //         currentActionText.x = screenCenter - spacing - (currentItemText.width);
+            //         // Le sprite text est décalé à droite
+            //         currentSpriteText.x = screenCenter + spacing + (currentSpriteText.width);
+            // }
+
+            // // Si aucune action n'est active, le sprite du texte est centré
+            // } else if (!currentActionText) {
+            //     currentSpriteText.x = screenCenter;
+            
             // Le positionnement vertical reste invariablement le même
             currentSpriteText.y = houseSprite.height + (houseSprite.height * 0.005);
-            menuContainer.addChild(currentSpriteText);
+           
         });
 
         sprite.on('pointerout', () => {
             cleanupText();
+            if (currentActionText && !currentItemText) { // on peut aussi écrire currentActionText && !itemClicked
+                currentActionText.x = screenCenter;
+            }
         });
         sprite.on('removed', () => {
             cleanupText();
@@ -1499,6 +1517,9 @@ export async function loadSprites(apps, sounds) {
                 // Si l'item n'était pas déjà cliqué, on passe le clicked en "true" et on fait un cleanUp
                 if (!itemClicked) {
                     itemClicked = true;
+                    // if (currentItemText) {
+                    //     currentItemText.destroy();
+                    // } 
                     // SI l'action est "utiliser"
                         if (currentActionButton == menuButton7) { 
                             currentItemText = new PIXI.Text({ text: `${spriteName} avec `, style: {
@@ -1521,9 +1542,10 @@ export async function loadSprites(apps, sounds) {
                             currentItemText.anchor.set(0.5, 0);                           
                         }
                         // Position horizontale du texte
-                        currentActionText.x = screenCenter - spacing - currentItemText.width;
+                        currentActionText.x = app.screen.width * 0.40;
                         currentItemText.x = screenCenter;
-                        currentSpriteText.x = screenCenter + spacing + currentItemText.width;    
+                        currentSpriteText.x = app.screen.width * 0.60;   
+
                         // Position verticale du texte
                         currentItemText.y = houseSprite.height + (houseSprite.height * 0.005);
 
@@ -1534,20 +1556,13 @@ export async function loadSprites(apps, sounds) {
                 } else {
                     menuContainer.removeChild(currentItemText);
                     currentItemText.destroy();
-                    // currentItemText = null;
+                    currentItemText = null;
                     itemClicked = false;
+                    cleanupText();
+                    currentActionText.x = screenCenter;
                 }
             }
         });
-
-
-        // Fonction de positionnement horizontale des textes
-        function positonnementHorizontal (text, xPosition, spacing) {
-            (currentItemText ? currentItemText.width : 0) +
-            (currentSpriteText ? currentSpriteText.width : 0) +
-            (currentActionText ? currentActionText.width : 0) +
-            spacing * 2;
-        }
 
          // Ajout d'une action du clic-droit censé tout déselectionner :
         app.stage.on('rightdown', () => {
