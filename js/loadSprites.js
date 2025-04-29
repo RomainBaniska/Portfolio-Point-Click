@@ -1540,6 +1540,15 @@ export async function loadSprites(apps, sounds) {
             }
         });
 
+
+        // Fonction de positionnement horizontale des textes
+        function positonnementHorizontal (text, xPosition, spacing) {
+            (currentItemText ? currentItemText.width : 0) +
+            (currentSpriteText ? currentSpriteText.width : 0) +
+            (currentActionText ? currentActionText.width : 0) +
+            spacing * 2;
+        }
+
          // Ajout d'une action du clic-droit censé tout déselectionner :
         app.stage.on('rightdown', () => {
             document.addEventListener('contextmenu', (event) => {
