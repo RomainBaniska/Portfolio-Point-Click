@@ -1395,6 +1395,7 @@ export async function loadSprites(apps, sounds) {
                 align: 'center',
                 fontWeight: 'bold'
             }});            
+            currentActionText.anchor.set(0.5, 0);
 
             menuContainer.addChild(currentActionText);
             // Par défaut si le texte d'action est seul, placé verticalement au milieu de l'écran
@@ -1442,10 +1443,12 @@ export async function loadSprites(apps, sounds) {
         { sprite: menuItemMetalStrip, spriteName: "petit bout de tiroir"}
     ];
     
-    const offset = app.screen.width * 0.04;
-    const offset2 = app.screen.width * 0.15;
+    const spacing = 20;
+    const screenCenter = app.screen.width / 2;
+    
     // On associer un texte/nom visible sur le menuContainer pour tout item ou d'un sprite lors du hover ou clic
     spriteTexts.forEach(({ sprite, spriteName }) => {
+        // Lors du HOVER sur le sprite
         sprite.on('pointerover', () => {
             // lors du hover d'un sprite on clean le champs quoi qu'il arrive
             cleanupText();
@@ -1455,47 +1458,48 @@ export async function loadSprites(apps, sounds) {
                 fontSize: actionTextAndSpriteSize,
                 fill: 0x772a76,
                 align: 'center',
-                fontWeight: 'bold'
-            }});            
+                fontWeight: 'bold'}}); 
+            currentSpriteText.anchor.set(0.5, 0);
+
             // S'il y a un texte d'action existant
             if (currentActionText) {
-                // Et qu'il y a (aussi) un item cliqué (et donc que son texte apparaisse)
-                    if (itemClicked) {
-                        // L'action text est décalé à gauche
-                        // currentActionText.x = app.screen.width / 2 - offset;
-                        currentActionText.x = app.screen.width / 2 - offset - (currentActionText.width / 2);
-                        // Le sprite text est décalé à droite
-                        // currentSpriteText.x = app.screen.width / 2 + offset2;
-                        currentSpriteText.x = app.screen.width / 2 + offset2 - (currentSpriteText.width / 2);
-                        
-                // Si en revanche un item n'est pas cliqué
-                    }else {
-                currentActionText.x = app.screen.width / 2 - offset;
-                currentSpriteText.x = app.screen.width / 2 + offset;
+            // Alors l'actionText sera décalé à gauche avec la moitié de la taille de l'actionText (à cause de l'anchor set à 0.5)
+            currentActionText.x = screenCenter - (currentActionText.width / 2) - spacing;
+            // le currenSpriteText quant à lui sera décalé à droite de manière symétrique
+            currentSpriteText.x = screenCenter + (currentSpriteText.width / 2) + spacing;
+
+            // Si un item est cliqué
+                if (itemClicked) {
+                    // L'action text est décalé à gauche
+                    currentActionText.x = screenCenter - spacing - (currentItemText.width);
+                    // Le sprite text est décalé à droite
+                    currentSpriteText.x = screenCenter + spacing + (currentItemText.width);
             }
-            } else {
-                currentSpriteText.x = app.screen.width / 2;
+
+            // Si aucune action n'est active, le sprite du texte est centré
+            } else if (!currentActionText) {
+                currentSpriteText.x = screenCenter;
             }
+            // Le positionnement vertical reste invariablement le même
             currentSpriteText.y = houseSprite.height + (houseSprite.height * 0.005);
             menuContainer.addChild(currentSpriteText);
         });
 
         sprite.on('pointerout', () => {
-                cleanupText();
+            cleanupText();
         });
         sprite.on('removed', () => {
             cleanupText();
         });
 
-         // Rajoute une condition : si le sprite est un item, alors cliquer sur le sprite enclenche une action
-         sprite.on('click', () => {
-            // menuButton7 équivaut à "utiliser"
+        // Lors du CLICK sur le sprite
+        sprite.on('click', () => {
+            // Si le sprite est un ITEM (item = true) et que l'action active est "utiliser" ou "donner"
             if (sprite.item && (currentActionButton == menuButton7 || currentActionButton == menuButton)) {
+                // Si l'item n'était pas déjà cliqué, on passe le clicked en "true" et on fait un cleanUp
                 if (!itemClicked) {
                     itemClicked = true;
-                    // console.log("item cliqué");
-                    cleanupText();
-                    // Création du texte pour l'item cliqué
+                    // SI l'action est "utiliser"
                         if (currentActionButton == menuButton7) { 
                             currentItemText = new PIXI.Text({ text: `${spriteName} avec `, style: {
                                 fontFamily: 'MonkeyIslandMenu',
@@ -1503,7 +1507,9 @@ export async function loadSprites(apps, sounds) {
                                 fill: 0x772a76,
                                 align: 'center',
                                 fontWeight: 'bold'
-                            }});                            
+                            }});   
+                            currentItemText.anchor.set(0.5, 0);   
+                    // SI l'action est "donner"
                         } else { 
                             currentItemText = new PIXI.Text({ text: `${spriteName} à `, style: {
                                 fontFamily: 'MonkeyIslandMenu',
@@ -1511,23 +1517,24 @@ export async function loadSprites(apps, sounds) {
                                 fill: 0x772a76,
                                 align: 'center',
                                 fontWeight: 'bold'
-                            }});                            
+                            }}); 
+                            currentItemText.anchor.set(0.5, 0);                           
                         }
-                        if (currentActionText) {
-                        // currentActionText.x = app.screen.width / 2 - offset;
-                        currentActionText.x = app.screen.width / 2 - offset - (currentActionText.width / 2);
-                        // currentItemText.x = app.screen.width / 2 + offset;
-                        currentItemText.x = app.screen.width / 2 + offset - (currentItemText.width / 2);
-                        } else {
-                        currentItemText.x = app.screen.width / 2;
-                        }
-                    // Position verticale du texte
-                    currentItemText.y = houseSprite.height + (houseSprite.height * 0.005);
+                        // Position horizontale du texte
+                        currentActionText.x = screenCenter - spacing - currentItemText.width;
+                        currentItemText.x = screenCenter;
+                        currentSpriteText.x = screenCenter + spacing + currentItemText.width;    
+                        // Position verticale du texte
+                        currentItemText.y = houseSprite.height + (houseSprite.height * 0.005);
+
+                    // On ajoute le currentitemtext    
                     menuContainer.addChild(currentItemText);
+
+                // Si l'item était déjà cliqué
                 } else {
                     menuContainer.removeChild(currentItemText);
                     currentItemText.destroy();
-                    currentItemText = null;
+                    // currentItemText = null;
                     itemClicked = false;
                 }
             }
