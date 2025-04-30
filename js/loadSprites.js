@@ -181,7 +181,7 @@ export async function loadSprites(apps, sounds) {
     guybrushWL.play();
 
     // DRINK
-    const guybrushD = await displaySprite('DRINK/drink.json', 0.13);
+    const guybrushD = await displaySprite('DRINK/drink.json', 0.10);
     guybrushD.play();
     // innerHouseContainer.addChild(guybrushD);
     guybrushD.x = innerHouseSprite.width * 0.22;
@@ -1436,7 +1436,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: trash, spriteName: "poubelle" },
         { sprite: poster, spriteName: "displate" },
         { sprite: menuItemGoldKey, spriteName: "clé"},
-        { sprite: menuItemCoffePod, spriteName: "capsule de café"},
+        { sprite: menuItemCoffePod, spriteName: "capsule"},
         { sprite: menuItemGlassWater, spriteName: "verre"},
         { sprite: menuItemGlassCoffe, spriteName: "café revisité"},
         { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"},

@@ -2,7 +2,7 @@ export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
     const { houseContainer, menuItemGlassCoffe, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, coffeText, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
+    const { wakeUpText, wakeUpText2, wakeUpText3, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Vidéos de la toile
@@ -82,7 +82,7 @@ export async function interactions(apps, sprites, texts) {
     }
 
     // Petite fonction pour ajouter du texte du player lors d'actions 
-    function playerNewText(text, textcontent) {
+    function playerNewText(text, textcontent, time = 2000) {
         text = new PIXI.Text({ text: textcontent, style: dialogueStyle2 });
         text.anchor.set(0.5);
         text.x = houseContainer.width / 2 ;
@@ -91,7 +91,7 @@ export async function interactions(apps, sprites, texts) {
             setTimeout(() => {
                 houseContainer.removeChild(text);
                 text.destroy();
-            }, 2000);
+            }, time);
     }
 
     // GUYBRUSH START SETUP (Sleeping)
@@ -1281,8 +1281,52 @@ export async function interactions(apps, sprites, texts) {
                     spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
                     guybrushSOT.gotoAndStop(0);
                     let giveCoffeText;
-                    playerNewText(giveCoffeText, "Eh un petit café l'ami ?");
-                    textFollowSprite(guybrushSOT, coffeText);
+                    playerNewText(giveCoffeText, "Eh un petit café l'ami ?", 2500);
+                    setTimeout(() => {
+                        textFollowSprite(guybrushSOT, coffeText);
+                        setTimeout(() => {
+                            houseContainer.removeChild(coffeText);
+                            spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
+                            coffeText.destroy();
+                            setTimeout(() => {
+                                guybrushD.gotoAndStop(0)
+                                spriteSwap(innerHouseContainer, guybrushSOT, guybrushD);
+                                setTimeout(() => {
+                                    guybrushD.play();
+                                    guybrushD.loop = false;
+                                    setTimeout(() => {
+                                        spriteSwap(innerHouseContainer, guybrushD, guybrushSOT);
+                                        setTimeout(() => {
+                                            guybrushSOT.play();
+                                            textFollowSprite(guybrushSOT, coffeText2);
+                                            setTimeout(() => {
+                                                textFollowSprite(guybrushSOT, coffeText3);
+                                                houseContainer.removeChild(coffeText2);
+                                                coffeText2.destroy();
+                                                setTimeout(() => {
+                                                    textFollowSprite(guybrushSOT, coffeText4);
+                                                    houseContainer.removeChild(coffeText3);
+                                                    coffeText3.destroy();
+                                                    setTimeout(() => {
+                                                        houseContainer.removeChild(coffeText4);
+                                                        coffeText4.destroy();
+                                                        guybrushSOT.gotoAndStop(0);
+                                                        setTimeout(() => {
+                                                            // setPosition(guybrushSO, 0.2, 0.68);
+                                                            spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
+                                                            guybrushSO.play();
+                                                            guybrushSO.interactive = false;
+                                                            menuContainer.removeChild(menuCoverDialogueOverlay);
+                                                        }, 1500);
+                                                    }, 3000);
+                                                }, 3000);
+                                            }, 3000);
+                                        }, 1000);
+                                    }, 2000);
+                                }, 1000);
+                            }, 1000);
+                        }, 2500);
+                    }, 2500);
                 }, 1000);
         }, 2000);
     }

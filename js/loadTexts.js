@@ -65,6 +65,9 @@ export async function loadTexts(sprites) {
     }
     const wakeUpText3 = new PIXI.Text({ text: 'Bon si on a fini, moi j\'ai du travail', style: dialogueStyle });
     const coffeText = new PIXI.Text({ text: 'Carrément avec plaisir !', style: dialogueStyle });
+    const coffeText2 = new PIXI.Text({ text: 'Il est pas mauvais du tout ce café', style: dialogueStyle });
+    const coffeText3 = new PIXI.Text({ text: "J'aime beaucoup l'aspect léger de la caféine et la texture un peu granuleuse, ça me rappelle l'époque de ma grand mère", style: dialogueStyle });
+    const coffeText4 = new PIXI.Text({ text: 'Merci en tout cas !', style: dialogueStyle });
     const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
 
 
@@ -693,7 +696,10 @@ export async function loadTexts(sprites) {
         dialogueStyleLong,
         titleStyle,
         titleStyle2,
-        coffeText
+        coffeText,
+        coffeText2,
+        coffeText3,
+        coffeText4
     };
 
 }
