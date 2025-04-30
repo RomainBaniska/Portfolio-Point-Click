@@ -25,6 +25,11 @@ export async function interactions(apps, sprites, texts) {
     // table de nuit verrouillée par défaut
     let tableLocked = true;
 
+    // Fonction wait utile
+    function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     // FILTRE - Pixelisation (transition)
     function pixelisation() {
         const pixelate = new PIXI.filters.PixelateFilter([0, 0]);
@@ -722,9 +727,9 @@ export async function interactions(apps, sprites, texts) {
                                 screenBackgroundContainer.addChild(logoSymfony);
 
                                 // On va créer des séquences de texte pour la narration du projet
-                                function wait(ms) {
-                                    return new Promise(resolve => setTimeout(resolve, ms));
-                                }
+                                // function wait(ms) {
+                                //     return new Promise(resolve => setTimeout(resolve, ms));
+                                // }
 
                                 async function playSequence() {
                                     screenBackgroundContainer.addChild(bulleTextGT1);
@@ -1265,72 +1270,70 @@ export async function interactions(apps, sprites, texts) {
         
     // TEST Donner le verre d'eau à Romain
     // guybrushSO.on('click', () => {
-    guybrushLD.on('click', () => {
-    if (menuButton.isActive && menuItemGlassWater.isActive) {
-        app.stage.emit('rightdown');
-        // on ajoute une bande noire (seulement l'overlay nous intéresse)
-        menuContainer.addChild(menuCoverDialogueOverlay);
-
-        setPosition(guybrushSO, 0.2, 0.68);
-        spriteSwap(innerHouseContainer, guybrushLD, guybrushSO);
-
-        setTimeout(() => {
+        guybrushLD.on('click', async () => {
+            if (menuButton.isActive && menuItemGlassWater.isActive) {
+                app.stage.emit('rightdown');
+                menuContainer.addChild(menuCoverDialogueOverlay);
+        
+                setPosition(guybrushSO, 0.2, 0.68);
+                spriteSwap(innerHouseContainer, guybrushLD, guybrushSO);
+                await wait(2000);
+        
                 guybrushSO.gotoAndStop(0);
-                setTimeout(() => {
-                    setPosition(guybrushSOT, 0.2, 0.68);
-                    spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
-                    guybrushSOT.gotoAndStop(0);
-                    let giveCoffeText;
-                    playerNewText(giveCoffeText, "Eh un petit café l'ami ?", 2500);
-                    setTimeout(() => {
-                        textFollowSprite(guybrushSOT, coffeText);
-                        setTimeout(() => {
-                            houseContainer.removeChild(coffeText);
-                            spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
-                            coffeText.destroy();
-                            setTimeout(() => {
-                                guybrushD.gotoAndStop(0)
-                                spriteSwap(innerHouseContainer, guybrushSOT, guybrushD);
-                                setTimeout(() => {
-                                    guybrushD.play();
-                                    guybrushD.loop = false;
-                                    setTimeout(() => {
-                                        spriteSwap(innerHouseContainer, guybrushD, guybrushSOT);
-                                        setTimeout(() => {
-                                            guybrushSOT.play();
-                                            textFollowSprite(guybrushSOT, coffeText2);
-                                            setTimeout(() => {
-                                                textFollowSprite(guybrushSOT, coffeText3);
-                                                houseContainer.removeChild(coffeText2);
-                                                coffeText2.destroy();
-                                                setTimeout(() => {
-                                                    textFollowSprite(guybrushSOT, coffeText4);
-                                                    houseContainer.removeChild(coffeText3);
-                                                    coffeText3.destroy();
-                                                    setTimeout(() => {
-                                                        houseContainer.removeChild(coffeText4);
-                                                        coffeText4.destroy();
-                                                        guybrushSOT.gotoAndStop(0);
-                                                        setTimeout(() => {
-                                                            // setPosition(guybrushSO, 0.2, 0.68);
-                                                            spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
-                                                            guybrushSO.play();
-                                                            guybrushSO.interactive = false;
-                                                            menuContainer.removeChild(menuCoverDialogueOverlay);
-                                                        }, 1500);
-                                                    }, 3000);
-                                                }, 3000);
-                                            }, 3000);
-                                        }, 1000);
-                                    }, 2000);
-                                }, 1000);
-                            }, 1000);
-                        }, 2500);
-                    }, 2500);
-                }, 1000);
-        }, 2000);
-    }
-});
+                await wait(1000);
+        
+                setPosition(guybrushSOT, 0.2, 0.68);
+                spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
+                guybrushSOT.gotoAndStop(0);
+        
+                let giveCoffeText;
+                playerNewText(giveCoffeText, "Eh un petit café l'ami ?", 2500);
+                await wait(2500);
+        
+                textFollowSprite(guybrushSOT, coffeText);
+                await wait(2500);
+        
+                houseContainer.removeChild(coffeText);
+                spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
+                coffeText.destroy();
+                await wait(1000);
+        
+                guybrushD.gotoAndStop(0);
+                spriteSwap(innerHouseContainer, guybrushSOT, guybrushD);
+                await wait(1000);
+        
+                guybrushD.play();
+                guybrushD.loop = false;
+                await wait(2000);
+        
+                spriteSwap(innerHouseContainer, guybrushD, guybrushSOT);
+                await wait(1000);
+        
+                guybrushSOT.play();
+                textFollowSprite(guybrushSOT, coffeText2);
+                await wait(3000);
+        
+                textFollowSprite(guybrushSOT, coffeText3);
+                houseContainer.removeChild(coffeText2);
+                coffeText2.destroy();
+                await wait(3000);
+        
+                textFollowSprite(guybrushSOT, coffeText4);
+                houseContainer.removeChild(coffeText3);
+                coffeText3.destroy();
+                await wait(3000);
+        
+                houseContainer.removeChild(coffeText4);
+                coffeText4.destroy();
+                guybrushSOT.gotoAndStop(0);
+                await wait(1500);
+        
+                spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
+                guybrushSO.play();
+                guybrushSO.interactive = false;
+                menuContainer.removeChild(menuCoverDialogueOverlay);
+            }
+        });
 
     let alreadyCoffeFilled = false;
     let alreadyWaterFilled = false;
