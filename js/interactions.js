@@ -1661,34 +1661,68 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 }, 2000);
                 });
 
+
                 // 2eme promesse
-                await new Promise((resolve) => {
-                // On masque les réponses avec un overlay
+            await new Promise(async (resolve) => {
                 menuContainer.addChild(menuCoverDialogueOverlay);
-                // Configuration et ajouts des réponses que va répondre Guybrush
-                const guybrushResponseText = new PIXI.Text({ text: response.guybrushResponse, style: dialogueStyle });
-                guybrushResponseText.anchor.set(0.5);
-                guybrushResponseText.zIndex = 4;
-                guybrushResponseText.x = guybrushSO.x + (guybrushSO.width / 2);
-                guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
 
-                innerHouseContainer.addChild(guybrushResponseText);
-                spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
-                guybrushSOT.x = guybrushSO.x + (innerHouseSprite.width * 0.022);
-                guybrushSOT.y = guybrushSO.y;
+                // Si c’est un tableau, on enchaîne les réponses
+                const responses = Array.isArray(response.guybrushResponse)
+                    ? response.guybrushResponse
+                    : [response.guybrushResponse];
 
-                // Supprimer la réponse après un délai
-                setTimeout(() => {
-                    if (guybrushResponseText) {
-                        guybrushResponseText.destroy();
-                        // et l'animation
-                        spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
-                        // Et bien sûr l'Overlay
-                        menuContainer.removeChild(menuCoverDialogueOverlay); 
-                    } 
-                    resolve();
-                }, 3000);
+                for (const reply of responses) {
+                    const guybrushResponseText = new PIXI.Text({ text: reply, style: dialogueStyle });
+                    guybrushResponseText.anchor.set(0.5);
+                    guybrushResponseText.zIndex = 4;
+                    guybrushResponseText.x = guybrushSO.x + (guybrushSO.width / 2);
+                    guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
+
+                    innerHouseContainer.addChild(guybrushResponseText);
+                    spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
+                    guybrushSOT.x = guybrushSO.x + (innerHouseSprite.width * 0.022);
+                    guybrushSOT.y = guybrushSO.y;
+
+                    await new Promise((r) => {
+                        setTimeout(() => {
+                            guybrushResponseText.destroy();
+                            spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
+                            r();
+                        }, 3000);
+                    });
+                }
+
+                menuContainer.removeChild(menuCoverDialogueOverlay);
+                resolve();
             });
+            //     // 2eme promesse
+            //     await new Promise((resolve) => {
+            //     // On masque les réponses avec un overlay
+            //     menuContainer.addChild(menuCoverDialogueOverlay);
+            //     // Configuration et ajouts des réponses que va répondre Guybrush
+            //     const guybrushResponseText = new PIXI.Text({ text: response.guybrushResponse, style: dialogueStyle });
+            //     guybrushResponseText.anchor.set(0.5);
+            //     guybrushResponseText.zIndex = 4;
+            //     guybrushResponseText.x = guybrushSO.x + (guybrushSO.width / 2);
+            //     guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
+
+            //     innerHouseContainer.addChild(guybrushResponseText);
+            //     spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
+            //     guybrushSOT.x = guybrushSO.x + (innerHouseSprite.width * 0.022);
+            //     guybrushSOT.y = guybrushSO.y;
+
+            //     // Supprimer la réponse après un délai
+            //     setTimeout(() => {
+            //         if (guybrushResponseText) {
+            //             guybrushResponseText.destroy();
+            //             // et l'animation
+            //             spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
+            //             // Et bien sûr l'Overlay
+            //             menuContainer.removeChild(menuCoverDialogueOverlay); 
+            //         } 
+            //         resolve();
+            //     }, 3000);
+            // });
 
 
                 // Si la réponse du JOUEUR a une propriété "exit: true", réinitialiser les réponses et quitter

@@ -90,7 +90,7 @@ export async function loadTexts(sprites) {
         },
         {
             text: "Etrange comme Portfolio, pourquoi ça ressemble à un jeu vidéo ?",
-            guybrushResponse: "C'est pas tes oignons",
+            guybrushResponse: ["C'est pas tes oignons","arrrgh"],
             reset: true,
             exit: false
         },
