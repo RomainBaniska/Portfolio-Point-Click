@@ -63,9 +63,9 @@ export async function loadTexts(sprites) {
     } else {
         wakeUpText2 = new PIXI.Text({ text: "Je rêve ou tu forces ma baraque pour venir me réveiller en pleine nuit avec de la flotte ?", style: dialogueStyle });
     }
-    const wakeUpText3 = new PIXI.Text({ text: 'Bon finalement c\'est pas plus mal que tu m\'aies réveillé, moi j\'ai du pain sur la planche.', style: dialogueStyle });
-    const wakeUpText4 = new PIXI.Text({ text: 'Faut absolument que je termine de coder ce Portfolio et je suis grave à la bourre.', style: dialogueStyle });
-    const wakeUpText5 = new PIXI.Text({ text: 'Mais qu\'est-ce qui m\'a pris de me lancer dans un projet pareil...', style: dialogueStyle });
+    const wakeUpText3 = new PIXI.Text({ text: 'Bon finalement c\'est pas plus mal que tu m\'aies réveillé, j\'ai du pain sur la planche.', style: dialogueStyle });
+    const wakeUpText4 = new PIXI.Text({ text: 'Il faut absolument que je termine de coder ce Portfolio au plus vite, je suis super à la bourre.', style: dialogueStyle });
+    const wakeUpText5 = new PIXI.Text({ text: 'Non mais qu\'est-ce qui m\'a pris de me lancer dans un projet pareil...', style: dialogueStyle });
     const coffeText = new PIXI.Text({ text: 'Carrément avec plaisir !', style: dialogueStyle });
     const coffeText2 = new PIXI.Text({ text: "Bon sang mais il est immonde ton café tu l'as coupé avec du platre ou quoi ?", style: dialogueStyle });
     const coffeText3 = new PIXI.Text({ text: "J'espère au moins que ça va me tenir éveiller j'ai absolument besoin de terminer ce projet avant l'été", style: dialogueStyle });
@@ -77,26 +77,30 @@ export async function loadTexts(sprites) {
     const wakeUpResponses = [
         {
             text: "Qui es-tu ?",
-            guybrushResponse: "Moi c'est Romain Cabanis, enchanté. Ou du moins son avatar",
+            guybrushResponse: ["C'est vrai que je ne me suis pas présenté, mais tu n’as pas vraiment fait d’effort non plus !",
+            "Mon prénom c'est Romain, je suis dev web FullStack depuis 2 ans", "Je bosse surtout avec PHP et JavaScript, et je maîtrise plutôt bien Symfony.", "Et pour finir, j’essaie de me former autant que possible à l’infra et au DevOps.", "Autre chose ?"], 
             reset: true,
             exit: false
         },
         {
             text: "Un portfolio ? Je suis justement là pour ça",
-            guybrushResponse: "Attends je vais dérouler l'écran tu vas comprendre",
+            guybrushResponse: ["Ah oui c'est vrai que tu es là pour mon portfolio", "Je vais dérouler la toile tu vas comprendre"],
             unrollScreen: true,
             reset: true,
             exit: false
         },
         {
-            text: "Etrange comme Portfolio, pourquoi ça ressemble à un jeu vidéo ?",
-            guybrushResponse: ["C'est pas tes oignons","arrrgh"],
+            text: "C'est quoi cet endroit ? Où on est ici ?",
+            guybrushResponse: ["Je comprends que tu sois un peu confus, installe toi je vais t'expliquer", 
+                "J'avais besoin de créer un portfolio comme beaucoup de devs junior et je trouvais que tous se ressemblaient pas mal finalement",
+                "J'avais envie de créer quelque chose quelque chose d'un peu original et qui puisse constituer un vrai challenge technique",
+                "C'est de là que m'est venue l'idée de faire un portfolio... Dynamique si l'on peut dire"],
             reset: true,
             exit: false
         },
         {
-            text: "Bye bye zobi",
-            guybrushResponse: "Ouais ouais à plus tard",
+            text: "Ce sera tout pour le moment.",
+            guybrushResponse: "Ok à plus tard !",
             reset: true,
             exit: true,
             // rerollScreen: true,
