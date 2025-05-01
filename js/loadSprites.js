@@ -207,6 +207,9 @@ export async function loadSprites(apps, sounds) {
     const guybrushSOT = await displaySprite('SITORDI/sitorditalk.json', 0.12);
     // guybrushSOT.play();
 
+    // SIT ORDI DISGUSTED
+    const guybrushSODISGUSTED = await displaySprite('SITORDI/sitorditalkdisgust.json', 0.12);
+
     // SIT ORDI TIRED
     const guybrushSOTIRED = await displaySprite('SITORDI/sitorditired.json', 0.12);
 
@@ -1690,6 +1693,7 @@ export async function loadSprites(apps, sounds) {
         guybrushClone,
         guybrushSOTIRED,
         guybrushSOSLEEPY,
+        guybrushSODISGUSTED,
         // ELEMENTS & OBJECTS
         ordi,
         ordiRun,

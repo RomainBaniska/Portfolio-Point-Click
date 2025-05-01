@@ -1,0 +1,35 @@
+{ "frames": {
+   "orditalk.ase": {
+    "frame": { "x": 0, "y": 0, "w": 240, "h": 368 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 240, "h": 368 },
+    "sourceSize": { "w": 240, "h": 368 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.13-x64",
+  "image": "sitorditalkdisgust.png",
+  "format": "RGBA8888",
+  "size": { "w": 240, "h": 368 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "model", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "model1", "opacity": 255, "blendMode": "normal" },
+   { "name": "face1", "opacity": 255, "blendMode": "normal" },
+   { "name": "model2", "opacity": 255, "blendMode": "normal" },
+   { "name": "face2", "opacity": 255, "blendMode": "normal" },
+   { "name": "model3", "opacity": 255, "blendMode": "normal" },
+   { "name": "face3", "opacity": 255, "blendMode": "normal" },
+   { "name": "model4", "opacity": 255, "blendMode": "normal" },
+   { "name": "face4", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
