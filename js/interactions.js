@@ -339,6 +339,7 @@ export async function interactions(apps, sprites, texts) {
     // Si on veut relancer le dialogue avec Romain après l'intro
     guybrushSO.on('click', () => {
         if (menuButton6.isActive) {
+            setPosition(guybrushSOT, 0.22, 0.68);
             spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
             app.stage.emit('rightdown');
             guybrushSOT.play();
@@ -1680,15 +1681,14 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
 
                     innerHouseContainer.addChild(guybrushResponseText);
                     spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
-                    guybrushSOT.x = guybrushSO.x + (innerHouseSprite.width * 0.022);
-                    guybrushSOT.y = guybrushSO.y;
+                    setPosition(guybrushSOT, 0.22, 0.68);
 
                     await new Promise((r) => {
                         setTimeout(() => {
                             guybrushResponseText.destroy();
                             spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
                             r();
-                        }, 3000);
+                        }, 4000);
                     });
                 }
 

@@ -47,7 +47,7 @@ export async function loadTexts(sprites) {
     
 
     // Styles
-    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize * 1.1, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 1000, lineHeight: 40, align: 'center'}; // Romain-Guybrush Style
+    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize * 1.1, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 900, lineHeight: 40, align: 'center'}; // Romain-Guybrush Style
     const dialogueStyleLong = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: wrapWidth, lineHeight: 40, align: 'center'}; // Romain bulle style
     const titleStyle = { fontFamily: 'ChelseaMarket, arial', fontSize: titleFontSize, fill: '#000000', stroke: { color: 'black', width: 1 }, wordWrap: true, wordWrapWidth: wrapWidthTitle, lineHeight: 40, align: 'center'}; // Titre style
     const titleStyle2 = { fontFamily: 'ChelseaMarket, arial', fontSize: titleFontSize, fill: '#000000', stroke: { color: 'black', width: 1 }, wordWrap: true, wordWrapWidth: wrapWidthTitle * 0.2, lineHeight: 40, align: 'center'}; // Titre style evanescent
