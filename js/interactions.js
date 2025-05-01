@@ -1,8 +1,8 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, menuItemGlassCoffe, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
+    const { houseContainer, menuItemGlassCoffe, guybrushSOTIRED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
+    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Vidéos de la toile
@@ -279,7 +279,11 @@ export async function interactions(apps, sprites, texts) {
 
                                         // Texte 3
                                         textFollowSprite(guybrush, wakeUpText3);
-                                        await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);                                
+                                        await skipDialogue(houseContainer, guybrush, wakeUpText3, 4000);  
+                                        
+                                        // Texte 4
+                                        textFollowSprite(guybrush, wakeUpText4);
+                                        await skipDialogue(houseContainer, guybrush, wakeUpText4, 4000); 
 
                                         // Se déplace vers la gauche
                                         setPosition(guybrushWL, 0.45, 0.67);
@@ -307,8 +311,8 @@ export async function interactions(apps, sprites, texts) {
                                         spriteSwap(innerHouseContainer, guybrushWR, guybrushSO); 
                                         innerHouseContainer.addChild(gamingChairAR);
                                         guybrushSO.interactive = true;
-                                        textFollowSprite(guybrushSO, wakeUpText, dialogueStyle);  
-                                        await skipDialogue(houseContainer, guybrushSO, wakeUpText, 4000); 
+                                        textFollowSprite(guybrushSO, wakeUpText5, dialogueStyle);  
+                                        await skipDialogue(houseContainer, guybrushSO, wakeUpText5, 4000); 
 
                                         // TEST RESPONSES ZONE TEST
                                         await initResponses(menuCoverDialogue, wakeUpResponses, responseStyle);
@@ -1282,7 +1286,7 @@ export async function interactions(apps, sprites, texts) {
                 guybrushSO.gotoAndStop(0);
                 await wait(1000);
         
-                setPosition(guybrushSOT, 0.2, 0.68);
+                setPosition(guybrushSOT, 0.22, 0.68);
                 spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
                 guybrushSOT.gotoAndStop(0);
         
@@ -1300,6 +1304,7 @@ export async function interactions(apps, sprites, texts) {
         
                 guybrushD.gotoAndStop(0);
                 spriteSwap(innerHouseContainer, guybrushSOT, guybrushD);
+                setPosition(guybrushD, 0.22, 0.66);
                 await wait(1000);
         
                 guybrushD.play();
@@ -1326,12 +1331,20 @@ export async function interactions(apps, sprites, texts) {
                 houseContainer.removeChild(coffeText4);
                 coffeText4.destroy();
                 guybrushSOT.gotoAndStop(0);
-                await wait(1500);
+                let giveCoffeText2;
+                playerNewText(giveCoffeText2, "Mais de rien.", 2500);
+                await wait(2500);
         
                 spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
                 guybrushSO.play();
                 guybrushSO.interactive = false;
                 menuContainer.removeChild(menuCoverDialogueOverlay);
+                await wait(5000);
+                setPosition(guybrushSOTIRED, 0.2, 0.68);
+                spriteSwap(innerHouseContainer, guybrushSO, guybrushSOTIRED);
+                await wait(5000);
+                setPosition(guybrushSOSLEEPY, 0.2, 0.68);
+                spriteSwap(innerHouseContainer, guybrushSOTIRED, guybrushSOSLEEPY);
             }
         });
 
@@ -1658,7 +1671,7 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 guybrushResponseText.zIndex = 4;
                 guybrushResponseText.x = guybrushSO.x + (guybrushSO.width / 2);
                 guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
-                // houseContainer.addChild(guybrushResponseText);
+
                 innerHouseContainer.addChild(guybrushResponseText);
                 spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
                 guybrushSOT.x = guybrushSO.x + (innerHouseSprite.width * 0.022);

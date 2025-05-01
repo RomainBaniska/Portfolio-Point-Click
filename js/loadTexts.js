@@ -47,7 +47,7 @@ export async function loadTexts(sprites) {
     
 
     // Styles
-    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize * 1.1, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 600, lineHeight: 40, align: 'center'}; // Romain-Guybrush Style
+    const dialogueStyle = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize * 1.1, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: 1000, lineHeight: 40, align: 'center'}; // Romain-Guybrush Style
     const dialogueStyleLong = { fontFamily: 'MonkeyIsland, arial', fontSize: generalFontSize, fill: '#31ACD3', stroke: { color: 'black', width: 6 }, wordWrap: true, wordWrapWidth: wrapWidth, lineHeight: 40, align: 'center'}; // Romain bulle style
     const titleStyle = { fontFamily: 'ChelseaMarket, arial', fontSize: titleFontSize, fill: '#000000', stroke: { color: 'black', width: 1 }, wordWrap: true, wordWrapWidth: wrapWidthTitle, lineHeight: 40, align: 'center'}; // Titre style
     const titleStyle2 = { fontFamily: 'ChelseaMarket, arial', fontSize: titleFontSize, fill: '#000000', stroke: { color: 'black', width: 1 }, wordWrap: true, wordWrapWidth: wrapWidthTitle * 0.2, lineHeight: 40, align: 'center'}; // Titre style evanescent
@@ -63,11 +63,13 @@ export async function loadTexts(sprites) {
     } else {
         wakeUpText2 = new PIXI.Text({ text: "Je rêve ou tu forces ma baraque pour venir me réveiller en pleine nuit avec de la flotte ?", style: dialogueStyle });
     }
-    const wakeUpText3 = new PIXI.Text({ text: 'Bon si on a fini, moi j\'ai du travail', style: dialogueStyle });
+    const wakeUpText3 = new PIXI.Text({ text: 'Bon finalement c\'est pas plus mal que tu m\'aies réveillé, moi j\'ai du pain sur la planche.', style: dialogueStyle });
+    const wakeUpText4 = new PIXI.Text({ text: 'Faut absolument que je termine de coder ce Portfolio et je suis grave à la bourre.', style: dialogueStyle });
+    const wakeUpText5 = new PIXI.Text({ text: 'Mais qu\'est-ce qui m\'a pris de me lancer dans un projet pareil...', style: dialogueStyle });
     const coffeText = new PIXI.Text({ text: 'Carrément avec plaisir !', style: dialogueStyle });
-    const coffeText2 = new PIXI.Text({ text: 'Il est pas mauvais du tout ce café', style: dialogueStyle });
-    const coffeText3 = new PIXI.Text({ text: "J'aime beaucoup l'aspect léger de la caféine et la texture un peu granuleuse, ça me rappelle l'époque de ma grand mère", style: dialogueStyle });
-    const coffeText4 = new PIXI.Text({ text: 'Merci en tout cas !', style: dialogueStyle });
+    const coffeText2 = new PIXI.Text({ text: "Bon sang mais il est immonde ton café tu l'as coupé avec du platre ou quoi ?", style: dialogueStyle });
+    const coffeText3 = new PIXI.Text({ text: "J'espère au moins que ça va me tenir éveiller j'ai absolument besoin de terminer ce projet avant l'été", style: dialogueStyle });
+    const coffeText4 = new PIXI.Text({ text: 'Merci quand même !', style: dialogueStyle });
     const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
 
 
@@ -80,7 +82,7 @@ export async function loadTexts(sprites) {
             exit: false
         },
         {
-            text: "Je suis ici pour voir un portfolio, qu'as-tu à me montrer ?",
+            text: "Un portfolio ? Je suis justement là pour ça",
             guybrushResponse: "Attends je vais dérouler l'écran tu vas comprendre",
             unrollScreen: true,
             reset: true,
@@ -688,6 +690,8 @@ export async function loadTexts(sprites) {
         wakeUpText,
         wakeUpText2,
         wakeUpText3,
+        wakeUpText4,
+        wakeUpText5,
         startDialogue,
         wakeUpResponses,
         responseStyle,
