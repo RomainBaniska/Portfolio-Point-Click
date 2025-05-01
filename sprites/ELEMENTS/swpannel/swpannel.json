@@ -1,0 +1,35 @@
+{ "frames": {
+   "panneau 0.png": {
+    "frame": { "x": 0, "y": 0, "w": 119, "h": 132 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 119, "h": 132 },
+    "sourceSize": { "w": 119, "h": 132 },
+    "duration": 100
+   },
+   "panneau 1.png": {
+    "frame": { "x": 119, "y": 0, "w": 119, "h": 132 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 119, "h": 132 },
+    "sourceSize": { "w": 119, "h": 132 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.13-x64",
+  "image": "swpannel.png",
+  "format": "RGBA8888",
+  "size": { "w": 238, "h": 132 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

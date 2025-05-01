@@ -3,7 +3,7 @@
 export async function resizeHandler(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseSprite, houseContainer, menuItemGlassCoffe, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, coffeMachine, coffeMachineCutsceneBG, coffeMachineClone, trash, poster, narrowTable, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
+    const { houseSprite, houseContainer, menuItemGlassCoffe, guybrushSOTIRED, guybrushSODISGUSTED, swPannel, guybrushSOSLEEPY, coffeMachine, coffeMachineCutsceneBG, coffeMachineClone, trash, poster, narrowTable, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
@@ -294,14 +294,22 @@ resizeButtons();
     // Position Bureau
     setSpritePositionAndScaleINNERHOUSE(desk, 0.09, 0.793, 800, 780);
 
-    // Position displate
-    setSpritePositionAndScaleINNERHOUSE(pannel, 0.49, 0.59, 800, 960);
+    // // Position displate
+    // setSpritePositionAndScaleINNERHOUSE(pannel, 0.49, 0.59, 800, 960);
     
     // Position interrupteur
     setSpritePositionAndScaleINNERHOUSE(interrupteur, 0.105, 0.85, 800, 4000);
 
     // Position lavabo
     setSpritePositionAndScaleINNERHOUSE(lavabo, 0.42, 0.69, 800, 2300);
+
+    // Position swPannel
+    swPannel.height = innerHouseSprite.height * 0.13;
+    swPannel.width = innerHouseSprite.width * 0.111;
+    swPannel.x = innerHouseSprite.width * 0.472;
+    swPannel.y = innerHouseSprite.height * 0.585;
+    // swPannel.tint = 0x00FF00;
+    // swPannel.alpha = 0.5;
 
     // Position Table et réveil
     setSpritePositionAndScaleINNERHOUSE(reveil, 0.9, 0.84, 800, 780);

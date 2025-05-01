@@ -87,6 +87,14 @@ export async function loadSounds() {
     podputSound.volume = 1;
     podputSound.speed = 1;
 
+    const openPannelSound = PIXI.sound.add('openPannel', '../sounds/openPannel.mp3');
+    openPannelSound.volume = 1;
+    openPannelSound.speed = 1.3;
+
+    const unscrewSound = PIXI.sound.add('unscrew', '../sounds/unscrew.mp3');
+    unscrewSound.volume = 1.2;
+    unscrewSound.speed = 1.4;
+
     return {
         unrollSound,
         daythemeSound,

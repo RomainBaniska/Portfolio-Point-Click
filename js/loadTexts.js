@@ -2,7 +2,7 @@
 export async function loadTexts(sprites) {
 
     // Sprites
-    const { houseContainer, houseSprite, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, table, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
+    const { houseContainer, houseSprite, swPannel, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, table, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
         menuButton,
         menuButton2,
         menuButton3,
@@ -68,7 +68,7 @@ export async function loadTexts(sprites) {
     const wakeUpText5 = new PIXI.Text({ text: 'Non mais qu\'est-ce qui m\'a pris de me lancer dans un projet pareil...', style: dialogueStyle });
     const coffeText = new PIXI.Text({ text: 'Carrément avec plaisir !', style: dialogueStyle });
     const coffeText2 = new PIXI.Text({ text: "Bon sang mais il est immonde ton café tu l'as coupé avec du platre ou quoi ?", style: dialogueStyle });
-    const coffeText3 = new PIXI.Text({ text: "J'espère au moins que ça va me tenir éveiller j'ai absolument besoin de terminer ce projet avant l'été", style: dialogueStyle });
+    const coffeText3 = new PIXI.Text({ text: "J'espère au moins que tu l'as fait serré, j'ai absolument besoin de terminer ce projet avant l'été", style: dialogueStyle });
     const coffeText4 = new PIXI.Text({ text: 'Merci quand même !', style: dialogueStyle });
     const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
 
@@ -115,7 +115,7 @@ export async function loadTexts(sprites) {
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
-    const interactableSprites = [guybrushSO, guybrushLD, lavabo, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, table];
+    const interactableSprites = [guybrushSO, guybrushLD, lavabo, swPannel, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, table];
     // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
@@ -385,7 +385,7 @@ export async function loadTexts(sprites) {
             pousser: "Ça ne m'avancera à rien",
             tirer: "Ça ne m'avancera à rien",            
         },
-        poster: {
+        displate: {
             donner: "Ça ne m'avancera à rien",
             ouvrir: "J'aime bien l'idée, mais le displate semble bien accroché",
             fermer: "Ça ne m'avancera à rien",
@@ -400,9 +400,26 @@ export async function loadTexts(sprites) {
                 "Etrangement, le displate n'est pas simplement collé au mur, mais vissé à une plaque métallique"
             ],
             parler: "Je sens une perturbation dans la force...",
-            utiliser: "Ça ne m'avancera à rien",
+            utiliser: () => { 
+                if (menuItemMetalStrip.isActive) {
+                      return ["Le bout de la lamelle rentre parfaitement dans l'empreinte des vis", "Voyons voir ce qui se cache derrière..."];
+                } else {   
+                    return "Ça ne m'avancera à rien";
+                }
+            },
             pousser: "Impossible, il est solidement fixé",
             tirer: "Impossible, il est solidement fixé",            
+        },
+        poster: {
+            donner: "Ça ne m'avancera à rien",
+            ouvrir: "Ça ne m'avancera à rien",
+            fermer: "Ça ne m'avancera à rien",
+            prendre: "ça pourra toujours m'être utile",
+            regarder: "Un bout de métal assez fin s'est détaché du meuble lorsque j'ai refermé le tiroir",
+            parler: "Hmm, non",
+            utiliser: "Hmm, non",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",
         },
         boutdemetalShine: {
             donner: "Ça ne m'avancera à rien",
@@ -468,7 +485,7 @@ export async function loadTexts(sprites) {
             ouvrir: "Ça ne m'avancera à rien",
             fermer: "Ça ne m'avancera à rien",
             prendre: "",
-            regarder: "Un bout de métal plat qui s'est décroché du tiroir",
+            regarder: "Un bout de métal plat qui s'est détaché du tiroir",
             parler: "Ça ne m'avancera à rien",
             utiliser: "",
             pousser: "Ça ne m'avancera à rien",

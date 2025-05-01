@@ -303,13 +303,13 @@ export async function loadSprites(apps, sounds) {
     innerHouseContainer.addChild(desk);
 
 
-    // PANNEAU
-    const pannelAsset = await PIXI.Assets.load('../sprites/panneauDimension.png');
-    const pannel = new PIXI.Sprite(pannelAsset);
-    // desk.anchor.set(0.5); 
-    pannel.interactive = true;
-    pannel.alpha = 0;
-    // innerHouseContainer.addChild(pannel);
+    // // PANNEAU
+    // const pannelAsset = await PIXI.Assets.load('../sprites/panneauDimension.png');
+    // const pannel = new PIXI.Sprite(pannelAsset);
+    // // desk.anchor.set(0.5); 
+    // pannel.interactive = true;
+    // pannel.alpha = 0;
+    // // innerHouseContainer.addChild(pannel);
 
      // LAVABO
      const lavaboAsset = await PIXI.Assets.load('../sprites/lavabo2.png');
@@ -421,6 +421,13 @@ export async function loadSprites(apps, sounds) {
     interrupteur.interactive = true;
     interrupteur.zIndex = 3;
     innerHouseContainer.addChild(interrupteur);
+
+    // PANNEAU OUVRABLE
+    const swPannel = await displaySprite('ELEMENTS/swpannel/swpannel.json', 0.12);
+    swPannel.gotoAndStop(0); 
+    swPannel.interactive = true;
+    swPannel.zIndex = 3;
+    innerHouseContainer.addChild(swPannel);
 
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
@@ -1437,20 +1444,21 @@ export async function loadSprites(apps, sounds) {
         { sprite: chest, spriteName: "coffre en métal" },
         { sprite: glasswater, spriteName: "verre" },
         { sprite: goldkey, spriteName: "clé" },
-        { sprite: pannel, spriteName: "displate" },
+        // { sprite: pannel, spriteName: "panneau secret" },
+        { sprite: swPannel, spriteName: "displate" },
         { sprite: interrupteur, spriteName: "interrupteur" },
         { sprite: boutdemetalShine, spriteName: "bout de metal" },
         { sprite: coffeMachine, spriteName: "machine à café" },
         { sprite: lavabo, spriteName: "lavabo" },
         { sprite: trash, spriteName: "poubelle" },
-        { sprite: poster, spriteName: "displate" },
+        { sprite: poster, spriteName: "panneau secret" },
         { sprite: menuItemGoldKey, spriteName: "clé"},
         { sprite: menuItemCoffePod, spriteName: "capsule"},
         { sprite: menuItemGlassWater, spriteName: "verre"},
         { sprite: menuItemGlassCoffe, spriteName: "café revisité"},
         { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"},
         { sprite: menuItemTabletPack, spriteName: "comprimés"},
-        { sprite: menuItemMetalStrip, spriteName: "petit bout de tiroir"}
+        { sprite: menuItemMetalStrip, spriteName: "lamelle"}
     ];
     
     const spacing = 20;
@@ -1638,6 +1646,7 @@ export async function loadSprites(apps, sounds) {
     table.label = "table";
     trash.label = "trash";
     poster.label = "poster";
+    swPannel.label = "displate";
     coffeMachine.label = "coffeMachine";
     boutdemetalShine.label = "boutdemetalShine";
     menuItemCoffePod.label = "menuItemCoffePod";
@@ -1700,7 +1709,7 @@ export async function loadSprites(apps, sounds) {
         trash,
         poster,
         desk,
-        pannel,
+        // pannel,
         gamingChair,
         gamingChairAR,
         reveil,
@@ -1720,6 +1729,7 @@ export async function loadSprites(apps, sounds) {
         interrupteur,
         coffeMachine,
         narrowTable,
+        swPannel,
         // ACTIONS MENU
         menuContainer,
         menuSprite,

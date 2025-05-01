@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, menuItemGlassCoffe, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
+    const { houseContainer, menuItemGlassCoffe, swPannel, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -97,7 +97,7 @@ export async function interactions(apps, sprites, texts) {
                 houseContainer.removeChild(text);
                 text.destroy();
             }, time);
-    }
+    }    
 
     // GUYBRUSH START SETUP (Sleeping)
     setPosition(guybrushLD, 0.7, 0.775);
@@ -151,15 +151,40 @@ export async function interactions(apps, sprites, texts) {
         }
     });
 
-    // Déverrouiller la table de nuit
-    table.on('click', () => {
 
-    })
+    // Ouvrir le panneau-displate
+    swPannel.on('click', async () => {
+        if (menuButton7.isActive && menuItemMetalStrip.isActive) {
+
+            menuContainer.addChild(menuCoverDialogueOverlay);
+            app.stage.emit('rightdown');
+
+            await wait(4000);
+            PIXI.sound.play('unscrew');
+
+            await wait(6000);
+            PIXI.sound.play('openPannel');
+            swPannel.gotoAndStop(1);
+
+            await wait(1000);
+            let successPannel;
+            playerNewText(successPannel, "Eh beh ça valait le coup d'insister !", 3000);
+
+            await wait(3000);
+            playerNewText(successPannel, "On dirait qu'un étrange dispositif est incrusté dans le mur", 3000);
+            menuContainer.removeChild(menuItemMetalStrip);
+            menuItemMetalStrip.destroy();
+            swPannel.interactive = false;
+
+            await wait(3000);
+            menuContainer.removeChild(menuCoverDialogueOverlay);
+            swPannel.eventMode = "none";
+        }
+    });
 
     // Ouvrir le tiroir
     const defaultTexture = table.texture;
     let isTableOpenned = false;
-
     table.on('click', () => {
         // Déverrouille la porte
         if (menuButton7.isActive && menuItemGoldKey.isActive) {
@@ -194,16 +219,17 @@ export async function interactions(apps, sprites, texts) {
     }
     })
 
+    // On ferme le tiroir
     table.on('click', () => {
         if (isTableOpenned === true ) {
         if (menuButton3.isActive) {
             PIXI.sound.play('drawerClose');
-            app.stage.emit('rightdown');
             if (isTableOpenned === true) {
             table.texture = defaultTexture;
             isTableOpenned = false;
             innerHouseContainer.addChild(boutdemetal);
             table.interactive = false;
+            app.stage.emit('rightdown');
 
             if (!boutdemetal.visible) {
                 boutdemetal.visible = true;
@@ -1320,7 +1346,7 @@ export async function interactions(apps, sprites, texts) {
                 await wait(1000);
 
                 spriteSwap(innerHouseContainer, guybrushSODISGUSTED, guybrushSOT);
-                await wait(1000);
+                await wait(300);
 
                 guybrushSOT.play();
                 textFollowSprite(guybrushSOT, coffeText2);
