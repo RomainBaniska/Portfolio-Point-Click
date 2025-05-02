@@ -224,6 +224,10 @@ export async function loadSprites(apps, sounds) {
     const guybrushIUR = await displaySprite('IDLEUSE/utilisemiddleright.json', 0.12);
     guybrushIUR.play();
 
+    // FALLEN
+    const guybrushF = await displaySprite('FALLEN/fallen.json', 0.08);
+    guybrushF.play();
+
     //////////////////////////////////////// ELEMENTS & OBJECTS ////////////////////////////////
 
     // MACHINE A CAFE
@@ -1703,6 +1707,7 @@ export async function loadSprites(apps, sounds) {
         guybrushSOTIRED,
         guybrushSOSLEEPY,
         guybrushSODISGUSTED,
+        guybrushF,
         // ELEMENTS & OBJECTS
         ordi,
         ordiRun,
