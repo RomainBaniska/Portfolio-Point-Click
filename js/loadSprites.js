@@ -410,6 +410,14 @@ export async function loadSprites(apps, sounds) {
     toilePoulieRun.interactive = false;
     innerHouseContainer.addChild(toilePoulie);
 
+    // TOILEPOULIE416
+    const toilePoulie416 = await displaySprite('ELEMENTS/toilepoulie/toilepoulie416.json', 0.12);
+    toilePoulie416.gotoAndStop(0); 
+    toilePoulie416.interactive = false;
+    toilePoulie416.zIndex = 3;
+    toilePoulie416.eventMode = "none";
+    // innerHouseContainer.addChild(toilePoulie416);
+
     // TOILEPOULIE - Reverse
     const toilePoulieReverse = await displaySprite('ELEMENTS/toilepoulie/toilepoulieReverse.json', 0.12);
     toilePoulieReverse.zIndex = 3;
@@ -1728,6 +1736,7 @@ export async function loadSprites(apps, sounds) {
         toilePoulie,
         toilePoulieRun,
         toilePoulieReverse,
+        toilePoulie416,
         glasswater,
         waterpouring,
         chest,
