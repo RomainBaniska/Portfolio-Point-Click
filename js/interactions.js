@@ -385,7 +385,7 @@ export async function interactions(apps, sprites, texts) {
     });
 
     // unroll();
-    unroll416();
+    // unroll416();
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
         // Quand on clique sur la toile
@@ -1383,6 +1383,18 @@ export async function interactions(apps, sprites, texts) {
                 await wait(5000);
                 setPosition(guybrushSOSLEEPY, 0.2, 0.68);
                 spriteSwap(innerHouseContainer, guybrushSOTIRED, guybrushSOSLEEPY);
+
+                // Se relève après 6 secondes
+                await wait(6000);
+                spriteSwap(innerHouseContainer, guybrushSOSLEEPY, guybrushWL);
+                setPosition(guybrushWL, 0.2, 0.67);
+                await walkLeft(0.1);
+                spriteSwap(innerHouseContainer, guybrushWL, guybrushWR);
+                setPosition(guybrushWR, 0.1, 0.67);
+                await walkRight(0.6);
+                spriteSwap(innerHouseContainer, guybrushWR, guybrush);
+                setPosition(guybrush, 0.6, 0.66);
+
             }
         });
 
@@ -1577,7 +1589,7 @@ function walkRight(positionFactor) {
     return new Promise((resolve) => {
     let moving = true;
     const speed = 2.7;
-    const stopPosition = houseSprite.width * positionFactor;
+    const stopPosition = innerHouseSprite.width * positionFactor;
     // Ticker
     app.ticker.add(() => {
         if (moving) {
@@ -1806,10 +1818,10 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
     }
 }
 
-setPosition(guybrushF, 0.63, 0.74);
-houseContainer.addChild(guybrushF);
-setPosition(guybrushP, 0.6, 0.6603);
-houseContainer.addChild(guybrushP);
+// setPosition(guybrushF, 0.63, 0.74);
+// houseContainer.addChild(guybrushF);
+// setPosition(guybrushP, 0.6, 0.6603);
+// houseContainer.addChild(guybrushP);
 
 // METHODE POUR QUE LE TEXTE FOLLOW LE SPRITE
 function textFollowSprite(sprite, textObject) {

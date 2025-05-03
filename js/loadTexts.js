@@ -70,6 +70,8 @@ export async function loadTexts(sprites) {
     const coffeText2 = new PIXI.Text({ text: "Bon sang mais il est immonde ton café tu l'as coupé avec du platre ou quoi ?", style: dialogueStyle });
     const coffeText3 = new PIXI.Text({ text: "J'espère au moins que tu l'as fait serré, j'ai absolument besoin de terminer ce projet avant l'été", style: dialogueStyle });
     const coffeText4 = new PIXI.Text({ text: 'Merci quand même !', style: dialogueStyle });
+    const sickText = new PIXI.Text({ text: 'Mais bordel t\'as mis quoi dans ce café ?', style: dialogueStyle });
+    const sickText2 = new PIXI.Text({ text: 'J\'ai des palpitations dans tout le corps c\'est horrible', style: dialogueStyle });
     const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
 
 
@@ -724,7 +726,9 @@ export async function loadTexts(sprites) {
         coffeText,
         coffeText2,
         coffeText3,
-        coffeText4
+        coffeText4,
+        sickText,
+        sickText2
     };
 
 }
