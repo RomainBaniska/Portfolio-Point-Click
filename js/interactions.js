@@ -1379,11 +1379,11 @@ export async function interactions(apps, sprites, texts) {
                 menuContainer.removeChild(menuCoverDialogueOverlay);
                 await wait(5000);
                 setPosition(guybrushSOTIRED, 0.2, 0.68);
-                PIXI.sound.play('stomach3');
+                PIXI.sound.play('stomach2');
                 spriteSwap(innerHouseContainer, guybrushSO, guybrushSOTIRED);
                 await wait(5000);
                 setPosition(guybrushSOSLEEPY, 0.2, 0.68);
-                PIXI.sound.play('stomach1');
+                PIXI.sound.play('stomach3');
                 spriteSwap(innerHouseContainer, guybrushSOTIRED, guybrushSOSLEEPY);
 
                 // Se relève après 6 secondes
@@ -1392,7 +1392,7 @@ export async function interactions(apps, sprites, texts) {
                 menuContainer.addChild(menuCoverDialogueOverlay);
                 spriteSwap(innerHouseContainer, guybrushSOSLEEPY, guybrushWL);
                 setPosition(guybrushWL, 0.2, 0.67);
-                PIXI.sound.play('stomach2');
+                PIXI.sound.play('stomach1');
                 await walkLeft(0.1);
                 spriteSwap(innerHouseContainer, guybrushWL, guybrushWR);
                 setPosition(guybrushWR, 0.1, 0.67);
@@ -1417,7 +1417,21 @@ export async function interactions(apps, sprites, texts) {
                 setPosition(guybrushF, 0.4, 0.69);
                 guybrushF.gotoAndPlay(0);
                 guybrushF.loop = false;
-                await wait(1000);
+                await wait(5000);
+                // Réflexion basse
+                let giveCoffeText3;
+                let giveCoffeText4;
+                let giveCoffeText5;
+                let giveCoffeText6;
+                playerNewText(giveCoffeText3, "Euh...", 2500);
+                await wait(2500);
+                playerNewText(giveCoffeText4, "C'est pas vraiment ce que j'avais prévu", 2500);
+                await wait(3500);
+                playerNewText(giveCoffeText5, "Bon, au moins maintenant j'ai accès à son ordinateur", 2500);
+                await wait(3500);
+                playerNewText(giveCoffeText6, "La fin justifie les moyens, non ?", 2500);
+                await wait(3500);
+                menuContainer.removeChild(menuCoverDialogueOverlay);
             }
         });
 
