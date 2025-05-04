@@ -95,6 +95,10 @@ export async function loadSounds() {
     unscrewSound.volume = 1.2;
     unscrewSound.speed = 1.4;
 
+    const hitSound = PIXI.sound.add('hit', '../sounds/hits.mp3');
+    hitSound.volume = 1;
+    hitSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,

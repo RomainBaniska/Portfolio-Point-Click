@@ -2,7 +2,7 @@ export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
     const { houseContainer, guybrushF, guybrushP, toilePoulie416, menuItemGlassCoffe, swPannel, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
+    const { sickText, sickText2, wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Vidéos de la toile
@@ -1386,15 +1386,32 @@ export async function interactions(apps, sprites, texts) {
 
                 // Se relève après 6 secondes
                 await wait(6000);
+                app.stage.emit('rightdown');
+                menuContainer.addChild(menuCoverDialogueOverlay);
                 spriteSwap(innerHouseContainer, guybrushSOSLEEPY, guybrushWL);
                 setPosition(guybrushWL, 0.2, 0.67);
                 await walkLeft(0.1);
                 spriteSwap(innerHouseContainer, guybrushWL, guybrushWR);
                 setPosition(guybrushWR, 0.1, 0.67);
-                await walkRight(0.6);
+                await walkRight(0.4);
                 spriteSwap(innerHouseContainer, guybrushWR, guybrush);
-                setPosition(guybrush, 0.6, 0.66);
-
+                setPosition(guybrush, 0.4, 0.66);
+                textFollowSprite(guybrush, sickText);
+                await wait(2000);
+                innerHouseContainer.removeChild(sickText);
+                textFollowSprite(guybrush, sickText2);
+                await wait(2000);
+                innerHouseContainer.removeChild(sickText2);
+                spriteSwap(innerHouseContainer, guybrush, guybrushP);
+                PIXI.sound.play('hit');
+                guybrushP.gotoAndPlay(0);
+                setPosition(guybrushP, 0.4, 0.67);
+                await wait(4000);
+                spriteSwap(innerHouseContainer, guybrushP, guybrushF);
+                setPosition(guybrushF, 0.4, 0.69);
+                guybrushF.gotoAndPlay(0);
+                guybrushF.loop = false;
+                await wait(1000);
             }
         });
 

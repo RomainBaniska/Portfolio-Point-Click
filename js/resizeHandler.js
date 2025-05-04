@@ -272,7 +272,7 @@ resizeButtons();
     setMovingSpriteScale(guybrushIUR, 600, 800);
 
     // Position fallen
-    setMovingSpriteScale(guybrushF, 600, 650);
+    setMovingSpriteScale(guybrushF, 600, 550);
 
     // Position pain
     setMovingSpriteScale(guybrushP, 600, 600);

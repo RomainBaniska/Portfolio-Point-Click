@@ -225,7 +225,7 @@ export async function loadSprites(apps, sounds) {
     guybrushIUR.play();
 
     // FALLEN
-    const guybrushF = await displaySprite('FALLEN/fallen.json', 0.08);
+    const guybrushF = await displaySprite('FALLEN/fallen2.json', 0.08);
     guybrushF.play();
 
     // PAIN
