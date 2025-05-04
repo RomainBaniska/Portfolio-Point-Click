@@ -99,6 +99,22 @@ export async function loadSounds() {
     hitSound.volume = 1;
     hitSound.speed = 1;
 
+    const deathSound = PIXI.sound.add('death', '../sounds/death.mp3');
+    deathSound.volume = 1;
+    deathSound.speed = 1;
+
+    const stomachSound1 = PIXI.sound.add('stomach1', '../sounds/stomach1.mp3');
+    stomachSound1.volume = 1;
+    stomachSound1.speed = 1;
+
+    const stomachSound2 = PIXI.sound.add('stomach2', '../sounds/stomach2.mp3');
+    stomachSound2.volume = 1;
+    stomachSound2.speed = 1;
+
+    const stomachSound3 = PIXI.sound.add('stomach3', '../sounds/stomach3.mp3');
+    stomachSound3.volume = 0.5;
+    stomachSound3.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,

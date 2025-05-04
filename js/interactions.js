@@ -1379,9 +1379,11 @@ export async function interactions(apps, sprites, texts) {
                 menuContainer.removeChild(menuCoverDialogueOverlay);
                 await wait(5000);
                 setPosition(guybrushSOTIRED, 0.2, 0.68);
+                PIXI.sound.play('stomach3');
                 spriteSwap(innerHouseContainer, guybrushSO, guybrushSOTIRED);
                 await wait(5000);
                 setPosition(guybrushSOSLEEPY, 0.2, 0.68);
+                PIXI.sound.play('stomach1');
                 spriteSwap(innerHouseContainer, guybrushSOTIRED, guybrushSOSLEEPY);
 
                 // Se relève après 6 secondes
@@ -1390,6 +1392,7 @@ export async function interactions(apps, sprites, texts) {
                 menuContainer.addChild(menuCoverDialogueOverlay);
                 spriteSwap(innerHouseContainer, guybrushSOSLEEPY, guybrushWL);
                 setPosition(guybrushWL, 0.2, 0.67);
+                PIXI.sound.play('stomach2');
                 await walkLeft(0.1);
                 spriteSwap(innerHouseContainer, guybrushWL, guybrushWR);
                 setPosition(guybrushWR, 0.1, 0.67);
@@ -1402,11 +1405,14 @@ export async function interactions(apps, sprites, texts) {
                 textFollowSprite(guybrush, sickText2);
                 await wait(2000);
                 innerHouseContainer.removeChild(sickText2);
+                // Souffre
                 spriteSwap(innerHouseContainer, guybrush, guybrushP);
                 PIXI.sound.play('hit');
                 guybrushP.gotoAndPlay(0);
                 setPosition(guybrushP, 0.4, 0.67);
                 await wait(4000);
+                // Meurt
+                PIXI.sound.play('death');
                 spriteSwap(innerHouseContainer, guybrushP, guybrushF);
                 setPosition(guybrushF, 0.4, 0.69);
                 guybrushF.gotoAndPlay(0);
