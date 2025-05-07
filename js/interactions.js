@@ -1427,7 +1427,7 @@ export async function interactions(apps, sprites, texts) {
                 let giveCoffeText6;
                 playerNewText(giveCoffeText3, "Euh...", 2500);
                 await wait(2500);
-                playerNewText(giveCoffeText4, "C'est pas vraiment ce que j'avais prévu", 2500);
+                playerNewText(giveCoffeText4, "C'est pas vraiment ce que j'avais imaginé", 2500);
                 await wait(3500);
                 playerNewText(giveCoffeText5, "Bon, au moins maintenant j'ai accès à son ordinateur", 2500);
                 await wait(3500);
