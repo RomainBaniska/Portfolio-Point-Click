@@ -226,6 +226,7 @@ export async function loadSprites(apps, sounds) {
 
     // FALLEN
     const guybrushF = await displaySprite('FALLEN/fallen2.json', 0.08);
+    guybrushF.interactive = true;
     guybrushF.play();
 
     // PAIN
@@ -1448,6 +1449,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: guybrushWL, spriteName: "Romain" },
         { sprite: guybrushWR, spriteName: "Romain" },
         { sprite: guybrushSO, spriteName: "Romain" },
+        { sprite: guybrushF, spriteName: "cadavre" },
         { sprite: ordi, spriteName: "ordinateur" },
         { sprite: ordiRun, spriteName: "ordinateur" },
         { sprite: gamingChair, spriteName: "fauteuil" },
@@ -1649,6 +1651,7 @@ export async function loadSprites(apps, sounds) {
     // On va assigner un ensemble de propriétés aux sprites clés pour les interactions (à repositionner dans chaque élément de sprite)
     guybrushSO.label = "guybrushSO";
     guybrushLD.label = "guybrushLD";
+    guybrushF.label = "guybrushF";
     toilePoulie.label = "toilePoulie";
     toilePoulieRun.label = "toilePoulieRun";
     reveil.label = "reveil";

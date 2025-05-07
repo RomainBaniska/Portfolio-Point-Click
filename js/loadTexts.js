@@ -2,7 +2,7 @@
 export async function loadTexts(sprites) {
 
     // Sprites
-    const { houseContainer, houseSprite, swPannel, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, table, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
+    const { houseContainer, guybrushF, houseSprite, swPannel, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, table, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
         menuButton,
         menuButton2,
         menuButton3,
@@ -117,19 +117,30 @@ export async function loadTexts(sprites) {
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
-    const interactableSprites = [guybrushSO, guybrushLD, lavabo, swPannel, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, table];
+    const interactableSprites = [guybrushSO, guybrushF, guybrushLD, lavabo, swPannel, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, table];
     // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
             donner: "",
             ouvrir : "Hmm, non",
             fermer: "Hmm, non",
-            prendre: "ça m'étonnerait qu'il rentre dans ma poche",
+            prendre: "Nope",
             regarder: ["Il semble être le maître de ces lieux", "De toute évidence il est extrêmement musclé", "Pourtant, je ne vois aucune haltère dans cette maison", "Curieux..."],
             parler: "",
             utiliser: "",
             pousser: "Non, il pèse une tonne et je pense pas qu'il apprécierait",
             tirer: "Si je veux l'éloigner de son ordinateur, je dois trouver un autre moyen",
+        },
+        guybrushF: {
+            donner: "",
+            ouvrir : "Hmm, non",
+            fermer: "Hmm, non",
+            prendre: "Non merci, endormi c'était déjà non et mort encore moins !",
+            regarder: ["Il n'a plus de poult, ses yeux sont révulsés et un filet de bave s'échappe de sa bouche", "je pense qu'il s'en remettra"],
+            parler: ["Eh Romain tout va bien ?", "It's a prank bro", "Bon je pense que c'est terminé pour lui."],
+            utiliser: "Hmmm... Non les morts ont droit au respect",
+            pousser: "Non, il doit peser une tonne",
+            tirer: "Non, il doit peser une tonne",
         },
         lavabo: {
             donner: "",

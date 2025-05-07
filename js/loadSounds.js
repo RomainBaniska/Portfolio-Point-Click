@@ -115,6 +115,10 @@ export async function loadSounds() {
     stomachSound3.volume = 0.5;
     stomachSound3.speed = 1;
 
+    const drinkSound = PIXI.sound.add('drink', '../sounds/drink.mp3');
+    drinkSound.volume = 0.9;
+    drinkSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,

@@ -1338,6 +1338,8 @@ export async function interactions(apps, sprites, texts) {
                 setPosition(guybrushD, 0.22, 0.66);
                 await wait(1000);
         
+                // Boit le café
+                PIXI.sound.play('drink');
                 guybrushD.play();
                 guybrushD.loop = false;
                 await wait(2000);
@@ -1584,7 +1586,7 @@ export async function interactions(apps, sprites, texts) {
                 if (currentIndex === 3) {
                     setTimeout(() => {
                         let beefEyeOpened;
-                        playerNewText(beefEyeOpened, "Eh, on dirait bien qu'il y a un coffre dans le grenier")
+                        playerNewText(beefEyeOpened, "Eh, il y a un coffre dans le grenier !")
                         menuContainer.removeChild(menuCoverDialogueOverlay);
                 }, 1000); 
                 }
