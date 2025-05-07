@@ -3,7 +3,7 @@
 export async function resizeHandler(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseSprite, houseContainer, toilePoulie416, guybrushP, guybrushF, menuItemGlassCoffe, guybrushSOTIRED, guybrushSODISGUSTED, swPannel, guybrushSOSLEEPY, coffeMachine, coffeMachineCutsceneBG, coffeMachineClone, trash, poster, narrowTable, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
+    const { houseSprite, houseContainer, metroTicket, toilePoulie416, guybrushP, guybrushF, menuItemGlassCoffe, menuItemMetroTicket, guybrushSOTIRED, guybrushSODISGUSTED, swPannel, guybrushSOSLEEPY, coffeMachine, coffeMachineCutsceneBG, coffeMachineClone, trash, poster, narrowTable, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
     const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
@@ -223,6 +223,7 @@ resizeButtons();
     adjustMenuItemsPosition(menuItemTabletPack, 2, 0);
     adjustMenuItemsPosition(menuItemMetalStrip, 3, 0);
     adjustMenuItemsPosition(menuItemCoffePod, 0, 1);
+    adjustMenuItemsPosition(menuItemMetroTicket, 1, 1);
     
     // sprite, scaleWidthFactor, scaleHeightFactor
 
@@ -369,6 +370,9 @@ resizeButtons();
 
     // (Action) verre d'eau qui se renverse
     setSpritePositionAndScaleINNERHOUSE(waterpouring, 0.84, 0.73, 600, 600);
+
+    // Position ticket de métro sol
+    setSpritePositionAndScaleINNERHOUSE(metroTicket, 0.57, 0.94, 900, 5000);
 
     /// SPECIAL ///
 

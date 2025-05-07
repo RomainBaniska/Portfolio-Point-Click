@@ -386,6 +386,13 @@ export async function loadSprites(apps, sounds) {
     const waterpouring = await displaySprite('ELEMENTS/glasswater/waterpouring.json', 0.13);
     waterpouring.zIndex = 7;
 
+     // TICKET DE METRO SPRITE
+    const metroTicketAsset = await PIXI.Assets.load('../sprites/ELEMENTS/metroTicket/metroticket.png');
+    const metroTicket = new PIXI.Sprite(metroTicketAsset);
+    metroTicket.interactive = true;
+    metroTicket.zIndex = 5;
+    innerHouseContainer.addChild(metroTicket);
+
     // GAMINGCHAIR
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');
     const gamingChair = new PIXI.Sprite(gcAsset);
@@ -1216,6 +1223,17 @@ export async function loadSprites(apps, sounds) {
     const menuItemCoffePodSelected = new PIXI.Sprite(menuItemCoffePodSelectedAsset);
     menuItemCoffePodSelected.interactive = true;
     menuItemCoffePodSelected.item = true;
+
+    // Ticket de métro
+    const menuItemMetroTicketAsset = await PIXI.Assets.load('../sprites/MENUITEM/metroticketItem.png');
+    const menuItemMetroTicket = new PIXI.Sprite(menuItemMetroTicketAsset);
+    menuItemMetroTicket.interactive = true;
+    menuItemMetroTicket.item = true;
+    // Ticket de métro
+    const menuItemMetroTicketSelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/metroticketItemSelected.png');
+    const menuItemMetroTicketSelected = new PIXI.Sprite(menuItemMetroTicketSelectedAsset);
+    menuItemMetroTicketSelected.interactive = true;
+    menuItemMetroTicketSelected.item = true;
     
     // MENU BUTTONS Textures
     const menuButtonSprite = await displaySpriteButton('MENUACTION/inactive/button.json');
@@ -1464,6 +1482,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: goldkey, spriteName: "clé" },
         // { sprite: pannel, spriteName: "panneau secret" },
         { sprite: swPannel, spriteName: "displate" },
+        { sprite: metroTicket, spriteName: "ticket de métro" },
         { sprite: interrupteur, spriteName: "interrupteur" },
         { sprite: boutdemetalShine, spriteName: "bout de metal" },
         { sprite: coffeMachine, spriteName: "machine à café" },
@@ -1476,7 +1495,8 @@ export async function loadSprites(apps, sounds) {
         { sprite: menuItemGlassCoffe, spriteName: "café revisité"},
         { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"},
         { sprite: menuItemTabletPack, spriteName: "comprimés"},
-        { sprite: menuItemMetalStrip, spriteName: "lamelle"}
+        { sprite: menuItemMetalStrip, spriteName: "lamelle"},
+        { sprite: menuItemMetroTicket, spriteName: "ticket"},
     ];
     
     const spacing = 20;
@@ -1648,7 +1668,7 @@ export async function loadSprites(apps, sounds) {
     });
 
 
-    // On va assigner un ensemble de propriétés aux sprites clés pour les interactions (à repositionner dans chaque élément de sprite)
+    // On va assigner un ensemble de propriétés aux sprites clés pour les interactions 
     guybrushSO.label = "guybrushSO";
     guybrushLD.label = "guybrushLD";
     guybrushF.label = "guybrushF";
@@ -1668,6 +1688,9 @@ export async function loadSprites(apps, sounds) {
     swPannel.label = "displate";
     coffeMachine.label = "coffeMachine";
     boutdemetalShine.label = "boutdemetalShine";
+    metroTicket.label = "metroTicket";
+    // Items
+    menuItemMetroTicket.label = "menuItemMetroTicket";
     menuItemCoffePod.label = "menuItemCoffePod";
     menuItemGoldKey.label = "menuItemGoldKey";
     menuItemGlassWater.label ="menuItemGlassWater";
@@ -1752,6 +1775,7 @@ export async function loadSprites(apps, sounds) {
         coffeMachine,
         narrowTable,
         swPannel,
+        metroTicket,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
@@ -1779,6 +1803,8 @@ export async function loadSprites(apps, sounds) {
         menuItemTabletPack,
         menuItemCoffePod,
         menuItemCoffePodSelected,
+        menuItemMetroTicket,
+        menuItemMetroTicketSelected,
         // MENU DIALOGUE
         menuCoverDialogue,
         menuCoverDialogueOverlay,

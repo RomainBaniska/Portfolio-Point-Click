@@ -2,7 +2,7 @@
 export async function loadTexts(sprites) {
 
     // Sprites
-    const { houseContainer, guybrushF, houseSprite, swPannel, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, table, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
+    const { houseContainer, guybrushF, metroTicket, menuItemMetroTicket, houseSprite, swPannel, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, table, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
         menuButton,
         menuButton2,
         menuButton3,
@@ -117,7 +117,7 @@ export async function loadTexts(sprites) {
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
-    const interactableSprites = [guybrushSO, guybrushF, guybrushLD, lavabo, swPannel, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, table];
+    const interactableSprites = [guybrushSO, guybrushF, guybrushLD, lavabo, swPannel, metroTicket, menuItemMetroTicket, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, table];
     // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
@@ -434,6 +434,17 @@ export async function loadTexts(sprites) {
             pousser: "Ça ne m'avancera à rien",
             tirer: "Ça ne m'avancera à rien",
         },
+        metroTicket: {
+            donner: "Ça ne m'avancera à rien",
+            ouvrir: "Ça ne m'avancera à rien",
+            fermer: "Ça ne m'avancera à rien",
+            prendre: "ça pourra toujours m'être utile",
+            regarder: "Un bout de métal assez fin s'est détaché du meuble lorsque j'ai refermé le tiroir",
+            parler: "Hmm, non",
+            utiliser: "Hmm, non",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",
+        },
         boutdemetalShine: {
             donner: "Ça ne m'avancera à rien",
             ouvrir: "Ça ne m'avancera à rien",
@@ -525,6 +536,25 @@ export async function loadTexts(sprites) {
             item: true, 
         },
         menuItemCoffePod: {
+            donner: "",
+            ouvrir:   [
+                "Merci, fouiller dans cette corbeille était déjà une expérience très désagréable",
+                "Et j'ai pas non plus envie d'avoir du café périmé plein les mains",
+            ],
+            fermer: "Ça ne m'avancera à rien",
+            prendre: "",
+            regarder: [
+                "Une capsule de café qui ne semble avoir été percée qu'une fois",
+                "Sur youtube j'ai vu un gars que pour économiser, il utilisait au moins 4 à 5 fois la même infusion",
+                "Non ce n'est pas de être un rat, on appelle ça 'consommer avec parcimonie'"
+            ],
+            parler: "Ça ne m'avancera à rien",
+            utiliser: "",
+            pousser: "Ça ne m'avancera à rien",
+            tirer: "Ça ne m'avancera à rien",
+            item: true, 
+        },
+        menuItemMetroTicket: {
             donner: "",
             ouvrir:   [
                 "Merci, fouiller dans cette corbeille était déjà une expérience très désagréable",
