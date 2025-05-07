@@ -119,6 +119,10 @@ export async function loadSounds() {
     drinkSound.volume = 0.9;
     drinkSound.speed = 1;
 
+    const ratpSound = PIXI.sound.add('ratp', '../sounds/whooshratp.mp3');
+    ratpSound.volume = 0.9;
+    ratpSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,

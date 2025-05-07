@@ -425,21 +425,21 @@ export async function loadTexts(sprites) {
         },
         poster: {
             donner: "Ça ne m'avancera à rien",
-            ouvrir: "Ça ne m'avancera à rien",
-            fermer: "Ça ne m'avancera à rien",
-            prendre: "ça pourra toujours m'être utile",
-            regarder: "Un bout de métal assez fin s'est détaché du meuble lorsque j'ai refermé le tiroir",
+            ouvrir: "C'est déjà ouvert",
+            fermer: "Je ne vois pas pourquoi je ferai ça",
+            prendre: "C'est encastré dans le mur",
+            regarder: ["On dirait une de ces espèces de borne de validation qu'on trouve dans le métro","À Paris...","Oui moi aussi ça me fait froid dans le dos"],
             parler: "Hmm, non",
-            utiliser: "Hmm, non",
+            utiliser: "",
             pousser: "Ça ne m'avancera à rien",
-            tirer: "Ça ne m'avancera à rien",
+            tirer: "Cette fois c'est bien encastré dans le mur",
         },
         metroTicket: {
             donner: "Ça ne m'avancera à rien",
             ouvrir: "Ça ne m'avancera à rien",
             fermer: "Ça ne m'avancera à rien",
-            prendre: "ça pourra toujours m'être utile",
-            regarder: "Un bout de métal assez fin s'est détaché du meuble lorsque j'ai refermé le tiroir",
+            prendre: "",
+            regarder: "Un ticket de métro traîne sur le sol",
             parler: "Hmm, non",
             utiliser: "Hmm, non",
             pousser: "Ça ne m'avancera à rien",
@@ -556,18 +556,15 @@ export async function loadTexts(sprites) {
         },
         menuItemMetroTicket: {
             donner: "",
-            ouvrir:   [
-                "Merci, fouiller dans cette corbeille était déjà une expérience très désagréable",
-                "Et j'ai pas non plus envie d'avoir du café périmé plein les mains",
-            ],
+            ouvrir:  "Non.",
             fermer: "Ça ne m'avancera à rien",
             prendre: "",
             regarder: [
-                "Une capsule de café qui ne semble avoir été percée qu'une fois",
-                "Sur youtube j'ai vu un gars que pour économiser, il utilisait au moins 4 à 5 fois la même infusion",
-                "Non ce n'est pas de être un rat, on appelle ça 'consommer avec parcimonie'"
+                "Le ticket est déjà usagé, en date du 16 Avril", "à 4h16...", "Techniquement s'il a été composté dans un noctilien c'est possible"
             ],
-            parler: "Ça ne m'avancera à rien",
+            parler: [
+                "Coucou petit ticket, c'est pour qui le beau petit ticket ?", "Attention le métro arrive, Tchou tchou !"
+            ],
             utiliser: "",
             pousser: "Ça ne m'avancera à rien",
             tirer: "Ça ne m'avancera à rien",

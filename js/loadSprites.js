@@ -1229,7 +1229,7 @@ export async function loadSprites(apps, sounds) {
     const menuItemMetroTicket = new PIXI.Sprite(menuItemMetroTicketAsset);
     menuItemMetroTicket.interactive = true;
     menuItemMetroTicket.item = true;
-    // Ticket de métro
+    // Ticket de métro Selectionné
     const menuItemMetroTicketSelectedAsset = await PIXI.Assets.load('../sprites/MENUITEM/metroticketItemSelected.png');
     const menuItemMetroTicketSelected = new PIXI.Sprite(menuItemMetroTicketSelectedAsset);
     menuItemMetroTicketSelected.interactive = true;
@@ -1297,6 +1297,7 @@ export async function loadSprites(apps, sounds) {
         { item: menuItemTabletPack, defaultTexture: menuItemTabletPack.texture, selectedTexture: menuItemTabletPackSelected.texture },
         { item: menuItemMetalStrip, defaultTexture: menuItemMetalStrip.texture, selectedTexture: menuItemMetalStripSelected.texture },
         { item: menuItemCoffePod, defaultTexture: menuItemCoffePod.texture, selectedTexture: menuItemCoffePodSelected.texture },
+        { item: menuItemMetroTicket, defaultTexture: menuItemMetroTicket.texture, selectedTexture: menuItemMetroTicketSelected.texture },
     ];
 
     // On parcourt le tableau des items
