@@ -1884,6 +1884,31 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
 // setPosition(guybrushP, 0.6, 0.6603);
 // houseContainer.addChild(guybrushP);
 
+// FONCTION CLICKBLOCKER qui ajoute un masque invisible pour bloquer les clics momentanément
+function toggleClickBlocker() {
+    const blocker = app.stage.getChildByName("ClickBlocker");
+    
+    if (blocker) {
+        blocker.destroy();
+    } else {
+        const clickBlockerLayer = new PIXI.Graphics()
+            .beginFill(0, 0)
+            .drawRect(0, 0, app.screen.width, app.screen.height)
+            .endFill();
+        
+        clickBlockerLayer.interactive = true;
+        clickBlockerLayer.cursor = "none";
+        clickBlockerLayer.zIndex = 9999;
+        clickBlockerLayer.name = "ClickBlocker";
+
+        app.stage.addChild(clickBlockerLayer);
+        app.stage.sortChildren();
+    }
+}
+
+// toggleClickBlocker();
+// toggleClickBlocker();
+
 // METHODE POUR QUE LE TEXTE FOLLOW LE SPRITE
 function textFollowSprite(sprite, textObject) {
     textObject.anchor.set(0.5);
