@@ -182,6 +182,7 @@ export async function loadTexts(sprites) {
         },
         guybrushLD: {
             donner: "",
+            prendre: "ého, jamais sans consentement !",
             ouvrir : "Hmm, non",
             fermer: "Hmm, non",
             regarder: "il dort profondément",
@@ -431,7 +432,7 @@ export async function loadTexts(sprites) {
             parler: "Je sens une perturbation dans la force...",
             utiliser: () => { 
                 if (menuItemMetalStrip.isActive) {
-                      return ["l'empreinte des vis correspondent parfaitement à l'épaisseur de la lamelle", "Voyons voir ce qui se cache derrière..."];
+                      return ["l'empreinte des vis correspond parfaitement à l'épaisseur de la lamelle", "Voyons voir ce qui se cache derrière..."];
                 } else {   
                     return "Ça ne m'avancera à rien";
                 }

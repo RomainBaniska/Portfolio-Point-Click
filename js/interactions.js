@@ -233,8 +233,49 @@ export async function interactions(apps, sprites, texts) {
             clearborders.zIndex = 4; // chest est à 3
 
             await wait(2000);
-            }
+            chest.y -= innerHouseSprite.height * 0.005;
+            await wait(1000);
 
+             // avance vers la droite
+            const stopPositionX = innerHouseSprite.x + innerHouseSprite.width * 0.58;
+            const speed = 1;
+
+            await new Promise((resolve) => {
+                const transportLargeurTicker = new PIXI.Ticker();
+                transportLargeurTicker.add(() => {
+                    chest.x += speed;
+                    if (chest.x >= stopPositionX) {
+                        chest.x = stopPositionX;
+                        transportLargeurTicker.stop();
+
+                        // On change l'ancrage en bas à gauche pour s'assurer que la rotation se fasse correctement 
+                        chest.anchor.set(0, 1);
+                        chest.y += chest.height;
+                        resolve();
+                    }
+                });
+                transportLargeurTicker.start();
+            });
+
+            const targetRotation = (100 * Math.PI) / 180;
+            const speedRotation = 1;
+
+            await new Promise((resolve) => {
+                const transportRotationTicker = new PIXI.Ticker();
+                transportRotationTicker.add(() => {
+                    if (chest.rotation < targetRotation) {
+                        chest.rotation += speedRotation;
+                        if (chest.rotation > targetRotation) {
+                            chest.rotation = targetRotation;
+                            transportRotationTicker.stop();
+                            resolve();
+                        }
+        }
+        });
+        transportRotationTicker.start();
+                    });
+            
+            }
         }
     })
 
