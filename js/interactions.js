@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, metroTicket, poster, menuItemMetroTicket, guybrushF, guybrushP, toilePoulie416, menuItemGlassCoffe, swPannel, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
+    const { houseContainer, metroTicket, achievement, poster, menuItemMetroTicket, guybrushF, guybrushP, toilePoulie416, menuItemGlassCoffe, swPannel, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
     const { sickText, sickText2, wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -1401,6 +1401,9 @@ export async function interactions(apps, sprites, texts) {
                 guybrushSO.play();
                 guybrushSO.interactive = false;
                 menuContainer.removeChild(menuCoverDialogueOverlay);
+
+                toggleClickBlocker();
+
                 await wait(5000);
                 setPosition(guybrushSOTIRED, 0.2, 0.68);
                 PIXI.sound.play('stomach2');
@@ -1456,6 +1459,11 @@ export async function interactions(apps, sprites, texts) {
                 playerNewText(giveCoffeText6, "La fin justifie les moyens, non ?", 2500);
                 await wait(3500);
                 menuContainer.removeChild(menuCoverDialogueOverlay);
+
+                toggleClickBlocker();
+
+                // Achievement unlocked
+                // screenBackgroundContainer.addChild(achievement);
             }
         });
 
@@ -1711,6 +1719,53 @@ function reroll() {
  
 
 }
+
+// METHODE POUR AFFICHER L'ACHIEVEMENT
+
+// let achievementTicker;
+// async function showAchievement() {
+
+//     // // BONUS : ACHIEVEMENT SPRITE
+//     const achievementAsset = await PIXI.Assets.load('../sprites/achievement.png');
+//     const achievement = new PIXI.Sprite(achievementAsset);
+//     achievement.eventMode = "none";
+//     achievement.zIndex = 9999;
+//     screenBackgroundContainer.addChild(achievement);  
+//     // menuContainer.addChild(achievement);  
+
+//     // Position Achievement
+//     const scaleFactorAchievement = Math.min(
+//         window.innerWidth * 0.0005,
+//         window.innerHeight * 0.0005
+//     );
+//     achievement.scale.set(scaleFactorAchievement);
+//     achievement.x = window.innerWidth - achievement.width;
+//     achievement.y = window.innerHeight;
+
+//     // screenBackgroundContainer.addChild(achievement);
+
+//     return new Promise((resolve) => {
+//         const speed = 1;
+//         const stopPosition = window.innerHeight - achievement.height;
+
+//         achievementTicker = new PIXI.Ticker();
+//         achievementTicker.add((delta) => {
+//             achievement.y -= speed * delta;
+//             if (achievement.y <= stopPosition) {
+//                 achievement.y = stopPosition;
+//                 achievementTicker.stop();
+//                 resolve();
+//             }
+//         });
+
+//         achievementTicker.start();
+//     });
+// }
+
+// glasswater.on('click', () => {
+//     showAchievement();
+//     console.log("done");
+// });
 
 /////////////////////////////// MISC METHODS ///////////////////////////////
 

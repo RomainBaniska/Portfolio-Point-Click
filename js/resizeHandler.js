@@ -1,10 +1,10 @@
 // import { loadSprites as default sprites} from './loadSprites.js';
 
-export async function resizeHandler(apps, sprites, texts) {
+export async function resizeHandler(apps, sprites) {
 
     const { app, blackScreen } = apps;
     const { houseSprite, houseContainer, metroTicket, toilePoulie416, guybrushP, guybrushF, menuItemGlassCoffe, menuItemMetroTicket, guybrushSOTIRED, guybrushSODISGUSTED, swPannel, guybrushSOSLEEPY, coffeMachine, coffeMachineCutsceneBG, coffeMachineClone, trash, poster, narrowTable, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, innerHouseBGSprite, guybrushClone, interrupteur, pannel, guybrushD, lavabo, boutdemetal, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, menuItemGlassWater, menuItemGlassWaterEmpty, menuButtonsInteractive, menuSprite, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, crosshair, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, ordi, ordiRun, desk, gamingChair, gamingChairAR, guybrushIUL, guybrushIUR, reveil, table, tableOpen, toilePoulie, toilePoulieRun, toilePoulieReverse, terminal, terminalbgSprite, questionMark, noPanik, arrow, glasswater, waterpouring, chest, bed, music, musicActive, goldkey, menuItemGoldKey, menuItemMetalStrip, menuItemMetalStripSelected, menuItemGoldKeySelected, toileScreen, film1, playVideo, stopVideo, nextVideo, prevVideo, exitVideo, innerHouseSprite} = sprites;
-    const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
+    // const { wakeUpText, wakeUpText2, wakeUpText3 } = texts;
 
 function adjustCanvasSize() {
     app.renderer.resize(window.innerWidth, window.innerHeight);
@@ -373,6 +373,7 @@ resizeButtons();
 
     // Position ticket de métro sol
     setSpritePositionAndScaleINNERHOUSE(metroTicket, 0.57, 0.94, 900, 5000);
+
 
     /// SPECIAL ///
 
