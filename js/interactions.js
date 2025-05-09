@@ -1319,6 +1319,10 @@ export async function interactions(apps, sprites, texts) {
         }
         // Si guybrush n'est pas MORT
         let useOrdiTextFail;
+        let useOrdiTextFail2;
+        let useOrdiTextFail3;
+        menuContainer.addChild(menuCoverDialogueOverlay);
+        app.stage.emit('rightdown');
         playerNewText(useOrdiTextFail, "Eh je peux voir un truc vite fait sur ta machine ?", 2500);
         await wait(2500);
         guybrushSO.gotoAndStop(0);
@@ -1339,8 +1343,22 @@ export async function interactions(apps, sprites, texts) {
         textFollowSprite(guybrushSOT, failText4);
         await wait(2500);
         innerHouseContainer.removeChild(failText4);
-        console.log("yay");
-
+        textFollowSprite(guybrushSOT, failText5);
+        await wait(2500);
+        innerHouseContainer.removeChild(failText5);
+        // await wait(2000);
+        guybrushSOT.gotoAndStop(0);
+        await wait (1000);
+        playerNewText(useOrdiTextFail2, "Bon très bien", 2500);
+        await wait(3500);
+        spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
+        guybrushSO.play();
+        await wait(1000);
+        menuContainer.removeChild(menuCoverDialogueOverlay);
+        await wait(1000);
+        playerNewText(useOrdiTextFail2, "Si je veux accéder à son ordinateur il faut que je trouve un moyen de l'écarter", 2500);
+        await wait(2500);
+        playerNewText(useOrdiTextFail3, "Mais comment ?", 2500);
 });
 
 
@@ -1491,6 +1509,9 @@ export async function interactions(apps, sprites, texts) {
                 await wait(3500);
                 playerNewText(giveCoffeText6, "La fin justifie les moyens, non ?", 2500);
                 await wait(3500);
+
+                // On désactive la réactivité de guybrush
+                guybrushReactive = false;
                 menuContainer.removeChild(menuCoverDialogueOverlay);
 
                 toggleClickBlocker();

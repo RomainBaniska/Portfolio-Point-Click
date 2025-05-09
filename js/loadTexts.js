@@ -2,7 +2,7 @@
 export async function loadTexts(sprites) {
 
     // Sprites
-    const { houseContainer, guybrushF, metroTicket, menuItemMetroTicket, houseSprite, swPannel, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, table, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
+    const { houseContainer, guybrushF, metroTicket, shelf, menuItemMetroTicket, houseSprite, swPannel, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, table, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
         menuButton,
         menuButton2,
         menuButton3,
@@ -75,7 +75,7 @@ export async function loadTexts(sprites) {
     const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
     const failText = new PIXI.Text({ text: 'ma "machine" ?', style: dialogueStyle });
     const failText2 = new PIXI.Text({ text: 'Ce n\'est pas une simple machine cher ami', style: dialogueStyle });
-    const failText3 = new PIXI.Text({ text: 'C\'est une COMMODORE 64, un bijoux de charme et d\'ingéniosité', style: dialogueStyle });
+    const failText3 = new PIXI.Text({ text: 'C\'est une COMMODORE 64, un bijou de charme et d\'ingéniosité', style: dialogueStyle });
     const failText4 = new PIXI.Text({ text: 'Encore parfaite pour compiler des langages modernes, je développe toutes mes apps avec.', style: dialogueStyle });
     const failText5 = new PIXI.Text({ text: 'Et non je ne prête pas ma "machine" au premier quidam venu qui s\'introduit chez moi sans invitation', style: dialogueStyle });
 
@@ -122,7 +122,7 @@ export async function loadTexts(sprites) {
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
-    const interactableSprites = [guybrushSO, guybrushF, guybrushLD, lavabo, swPannel, metroTicket, menuItemMetroTicket, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, table];
+    const interactableSprites = [guybrushSO, guybrushF, guybrushLD, lavabo, swPannel, shelf, metroTicket, menuItemMetroTicket, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, table];
     // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
@@ -165,6 +165,17 @@ export async function loadTexts(sprites) {
             prendre: "Non",
             regarder: "C'est une table de nuit",
             parler: "Non",
+            utiliser: "",
+            pousser: "Je n'ai pas de raison de déplacer ça",
+            tirer: "Je n'ai pas de raison de déplacer ça",
+        },
+        shelf: {
+            donner: "",
+            ouvrir : "",
+            fermer: "",
+            prendre: "Rien qui s'y trouve ne m'intéresse",
+            regarder: ["Son étagère est remplie de BDs franco-belges :",'On a du "Jehan Pistolet", "Bob et Bobette", "Spoon and White"...', '..."Druuna" ?', "Hmmm... et quelques bouquins sur les mythologies précolombiennes."],
+            parler: "Non je ne parle pas aux meubles.",
             utiliser: "",
             pousser: "Je n'ai pas de raison de déplacer ça",
             tirer: "Je n'ai pas de raison de déplacer ça",
@@ -420,7 +431,7 @@ export async function loadTexts(sprites) {
             parler: "Je sens une perturbation dans la force...",
             utiliser: () => { 
                 if (menuItemMetalStrip.isActive) {
-                      return ["Le bout de la lamelle rentre parfaitement dans l'empreinte des vis", "Voyons voir ce qui se cache derrière..."];
+                      return ["l'empreinte des vis correspondent parfaitement à l'épaisseur de la lamelle", "Voyons voir ce qui se cache derrière..."];
                 } else {   
                     return "Ça ne m'avancera à rien";
                 }

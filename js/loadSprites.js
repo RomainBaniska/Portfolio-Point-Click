@@ -327,6 +327,18 @@ export async function loadSprites(apps, sounds) {
      lavabo.zIndex = 3;
      innerHouseContainer.addChild(lavabo);
 
+    // ETAGERE
+    const shelf = new PIXI.Graphics();
+    // shelf.beginFill(0x000000, 0);
+    // shelf.beginFill(0xFF0000, 1); 
+    shelf.drawRect(0, 0, 200, 100); 
+    // shelf.endFill();
+    // On masque l'étagère au départ par Romain qui dort
+    shelf.interactive = true;
+    // shelf.alpha = 0.5; 
+    shelf.alpha = 0;
+    innerHouseContainer.addChild(shelf);
+
     // GOLD KEY
     const goldkeyAsset = await PIXI.Assets.load('../sprites/ELEMENTS/goldkey/goldkey.png');
     const goldkey = new PIXI.Sprite(goldkeyAsset);
@@ -1483,6 +1495,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: goldkey, spriteName: "clé" },
         // { sprite: pannel, spriteName: "panneau secret" },
         { sprite: swPannel, spriteName: "displate" },
+        { sprite: shelf, spriteName: "étagère" },
         { sprite: metroTicket, spriteName: "ticket de métro" },
         { sprite: interrupteur, spriteName: "interrupteur" },
         { sprite: boutdemetalShine, spriteName: "bout de metal" },
@@ -1686,6 +1699,7 @@ export async function loadSprites(apps, sounds) {
     table.label = "table";
     trash.label = "trash";
     poster.label = "poster";
+    shelf.label = "shelf";
     swPannel.label = "displate";
     coffeMachine.label = "coffeMachine";
     boutdemetalShine.label = "boutdemetalShine";
@@ -1777,6 +1791,7 @@ export async function loadSprites(apps, sounds) {
         narrowTable,
         swPannel,
         metroTicket,
+        shelf,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
