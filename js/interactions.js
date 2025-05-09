@@ -1462,6 +1462,11 @@ export async function interactions(apps, sprites, texts) {
 
                 toggleClickBlocker();
 
+                await wait(1000);
+
+                PIXI.sound.play('steamnotif');
+                await showAchievement();
+
                 // Achievement unlocked
                 // screenBackgroundContainer.addChild(achievement);
             }
@@ -1722,45 +1727,59 @@ function reroll() {
 
 // METHODE POUR AFFICHER L'ACHIEVEMENT
 
-// let achievementTicker;
-// async function showAchievement() {
+let achievementTicker;
+async function showAchievement() {
+    const achievementAsset = await PIXI.Assets.load('../sprites/achievement.png');
+    const achievement = new PIXI.Sprite(achievementAsset);
+    achievement.eventMode = "none";
+    achievement.zIndex = 9999;
+    menuContainer.addChild(achievement);
 
-//     // // BONUS : ACHIEVEMENT SPRITE
-//     const achievementAsset = await PIXI.Assets.load('../sprites/achievement.png');
-//     const achievement = new PIXI.Sprite(achievementAsset);
-//     achievement.eventMode = "none";
-//     achievement.zIndex = 9999;
-//     screenBackgroundContainer.addChild(achievement);  
-//     // menuContainer.addChild(achievement);  
+    const scaleFactorAchievement = Math.min(
+        window.innerWidth * 0.0005,
+        window.innerHeight * 0.0005
+    );
+    achievement.scale.set(scaleFactorAchievement);
+    achievement.x = window.innerWidth - achievement.width;
+    achievement.y = window.innerHeight;
 
-//     // Position Achievement
-//     const scaleFactorAchievement = Math.min(
-//         window.innerWidth * 0.0005,
-//         window.innerHeight * 0.0005
-//     );
-//     achievement.scale.set(scaleFactorAchievement);
-//     achievement.x = window.innerWidth - achievement.width;
-//     achievement.y = window.innerHeight;
+    const stopPositionY = window.innerHeight - achievement.height - 20;
+    const speed = 7;
 
-//     // screenBackgroundContainer.addChild(achievement);
+    // Montée
+    await new Promise((resolve) => {
+        achievementTicker = new PIXI.Ticker();
+        achievementTicker.add(() => {
+            achievement.y -= speed;
+            if (achievement.y <= stopPositionY) {
+                achievement.y = stopPositionY;
+                achievementTicker.stop();
+                resolve();
+            }
+        });
+        achievementTicker.start();
+    });
 
-//     return new Promise((resolve) => {
-//         const speed = 1;
-//         const stopPosition = window.innerHeight - achievement.height;
+    await wait(3000);
 
-//         achievementTicker = new PIXI.Ticker();
-//         achievementTicker.add((delta) => {
-//             achievement.y -= speed * delta;
-//             if (achievement.y <= stopPosition) {
-//                 achievement.y = stopPosition;
-//                 achievementTicker.stop();
-//                 resolve();
-//             }
-//         });
+    // Descente
+    await new Promise((resolve) => {
+        achievementTicker = new PIXI.Ticker();
+        achievementTicker.add(() => {
+            achievement.y += speed;
+            if (achievement.y >= window.innerHeight) {
+                achievement.y = window.innerHeight;
+                achievementTicker.stop();
+                achievementTicker.destroy();
+                resolve();
+            }
+        });
+        achievementTicker.start();
+    });
 
-//         achievementTicker.start();
-//     });
-// }
+    // Destruction
+    achievement.destroy();
+}
 
 // glasswater.on('click', () => {
 //     showAchievement();

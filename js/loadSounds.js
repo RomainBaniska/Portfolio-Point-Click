@@ -123,6 +123,10 @@ export async function loadSounds() {
     ratpSound.volume = 0.9;
     ratpSound.speed = 1;
 
+    const steamSound = PIXI.sound.add('steamnotif', '../sounds/steamnotif.mp3');
+    steamSound.volume = 0.9;
+    steamSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,
