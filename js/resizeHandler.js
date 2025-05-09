@@ -274,6 +274,13 @@ resizeButtons();
 
     // Position fallen
     setMovingSpriteScale(guybrushF, 600, 550);
+    // réduction que son hitarea :
+    guybrushF.hitArea = new PIXI.Rectangle(
+        0,
+        guybrushF.height * 0.4,
+        guybrushF.width,
+        guybrushF.height * 0.6
+    );
 
     // Position pain
     setMovingSpriteScale(guybrushP, 600, 600);
