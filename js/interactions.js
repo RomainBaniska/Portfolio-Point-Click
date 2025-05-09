@@ -237,7 +237,7 @@ export async function interactions(apps, sprites, texts) {
             chest.y -= innerHouseSprite.height * 0.005;
             await wait(1000);
 
-             // avance vers la droite
+            // avance vers la droite
             const stopPositionX = innerHouseSprite.x + innerHouseSprite.width * 0.59;
             const speed = 1;
 
@@ -259,6 +259,7 @@ export async function interactions(apps, sprites, texts) {
                 transportLargeurTicker.start();
             });
 
+            // rotation de 85° avant de tomber 
             const targetRotation = (85 * Math.PI) / 180;
             const speedRotation = 0.1;
 
@@ -272,10 +273,29 @@ export async function interactions(apps, sprites, texts) {
                             transportRotationTicker.stop();
                             resolve();
                         }
-        }
-        });
+            }
+            });
         transportRotationTicker.start();
                     });
+
+
+            // tombe en piqué
+            const stopPositionYFall = innerHouseSprite.y + innerHouseSprite.height * 0.83;
+            const speedFall = 20;
+
+            await new Promise((resolve) => {
+                const transportFallTicker = new PIXI.Ticker();
+                transportFallTicker.add(() => {
+                    chest.y += speedFall;
+                    if (chest.y >= stopPositionYFall) {
+                        chest.y = stopPositionYFall;
+                        transportFallTicker.stop();
+                        resolve();
+                    }
+                });
+                
+                transportFallTicker.start();
+            });
             
             }
         }
