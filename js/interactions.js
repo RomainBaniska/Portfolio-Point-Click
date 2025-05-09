@@ -2,7 +2,7 @@ export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
     const { houseContainer, metroTicket, achievement, poster, menuItemMetroTicket, guybrushF, guybrushP, toilePoulie416, menuItemGlassCoffe, swPannel, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
-    const { sickText, sickText2, wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
+    const { failText, failText2, failText3, failText4, failText5, sickText, sickText2, wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Vidéos de la toile
@@ -24,6 +24,8 @@ export async function interactions(apps, sprites, texts) {
     let currentVideoIndex = 0;
     // table de nuit verrouillée par défaut
     let tableLocked = true;
+    // Guybrush sur ordi réagit si on touche à l'ordi ou au displate, 
+    let guybrushReactive = false;
 
     // Fonction wait utile
     function wait(ms) {
@@ -375,6 +377,9 @@ export async function interactions(apps, sprites, texts) {
                                         wakeUpText3.destroy();
                                         guybrushLD.destroy();
                                         guybrushGU.destroy();
+
+                                        // On rend Guybrush sensible aux actions ordinateur ou displate
+                                        guybrushReactive = true;
                                             }
                                         };
                                     };
@@ -1304,10 +1309,37 @@ export async function interactions(apps, sprites, texts) {
     });
 
     ordiRun.on('click', async () => {
+        // guybrushReactive = false;
         // Quand on "utiliser" l'ordi allumé
-        if (menuButton7.isActive) {
+        if (menuButton7.isActive && !guybrushReactive) {
+            let useOrdiText;
+            playerNewText(useOrdiText, "Voyons voir ça de plus près...", 2500);
+            await wait(2500);
             app.stage.addChild(specialScreenContainer);
         }
+        // Si guybrush n'est pas MORT
+        let useOrdiTextFail;
+        playerNewText(useOrdiTextFail, "Eh je peux voir un truc vite fait sur ta machine ?", 2500);
+        await wait(2500);
+        guybrushSO.gotoAndStop(0);
+        await wait(300);
+        spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
+        guybrushSOT.gotoAndStop(0);
+        await wait(1000);
+        guybrushSOT.play();
+        textFollowSprite(guybrushSOT, failText);
+        await wait(2500);
+        innerHouseContainer.removeChild(failText);
+        textFollowSprite(guybrushSOT, failText2);
+        await wait(2500);
+        innerHouseContainer.removeChild(failText2);
+        textFollowSprite(guybrushSOT, failText3);
+        await wait(2500);
+        innerHouseContainer.removeChild(failText3);
+        textFollowSprite(guybrushSOT, failText4);
+        await wait(2500);
+        innerHouseContainer.removeChild(failText4);
+
 });
 
 

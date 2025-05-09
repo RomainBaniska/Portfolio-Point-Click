@@ -73,6 +73,11 @@ export async function loadTexts(sprites) {
     const sickText = new PIXI.Text({ text: 'Mais bordel t\'as mis quoi dans ce café ?', style: dialogueStyle });
     const sickText2 = new PIXI.Text({ text: 'J\'ai des palpitations dans tout le corps c\'est horrible', style: dialogueStyle });
     const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
+    const failText = new PIXI.Text({ text: 'ma "machine" ?', style: dialogueStyle });
+    const failText2 = new PIXI.Text({ text: 'Ce n\'est pas une simple machine cher ami', style: dialogueStyle });
+    const failText3 = new PIXI.Text({ text: 'C\'est une COMMODORE 64, un bijoux de charme et d\'ingéniosité', style: dialogueStyle });
+    const failText4 = new PIXI.Text({ text: 'Encore parfaite pour compiler des langages modernes, je développe toutes mes apps avec.', style: dialogueStyle });
+    const failText5 = new PIXI.Text({ text: 'Et non je ne prête pas ma "machine" au premier quidam venu qui s\'introduit chez moi sans invitation', style: dialogueStyle });
 
 
     // DIALOGUE PLAYER - ROMAIN . TABLEAUX DES REPONSES DE ROMAIN
@@ -205,7 +210,7 @@ export async function loadTexts(sprites) {
                 "Coucou ma petite machine",
                 "Il serait pas grand temps pour toi de passer sur Windows 2000 ?",
             ],
-            utiliser: "Je ne peux pas y accéder tant qu'il travaille dessus",
+            utiliser: "",
             pousser: "ça ne m'avancera pas à grand chose",
             tirer: "ça ne m'avancera pas à grand chose",            
         },
@@ -766,7 +771,12 @@ export async function loadTexts(sprites) {
         coffeText3,
         coffeText4,
         sickText,
-        sickText2
+        sickText2,
+        failText,
+        failText2,
+        failText3,
+        failText4,
+        failText5,
     };
 
 }
