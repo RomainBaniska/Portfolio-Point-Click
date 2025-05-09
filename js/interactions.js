@@ -1339,6 +1339,7 @@ export async function interactions(apps, sprites, texts) {
         textFollowSprite(guybrushSOT, failText4);
         await wait(2500);
         innerHouseContainer.removeChild(failText4);
+        console.log("yay");
 
 });
 
