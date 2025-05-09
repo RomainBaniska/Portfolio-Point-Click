@@ -66,7 +66,7 @@ export async function loadTexts(sprites) {
     const wakeUpText3 = new PIXI.Text({ text: 'Bon finalement c\'est pas plus mal que tu m\'aies réveillé, j\'ai du pain sur la planche.', style: dialogueStyle });
     const wakeUpText4 = new PIXI.Text({ text: 'Il faut absolument que je termine de coder ce Portfolio au plus vite, je suis super à la bourre.', style: dialogueStyle });
     const wakeUpText5 = new PIXI.Text({ text: 'Non mais qu\'est-ce qui m\'a pris de me lancer dans un projet pareil...', style: dialogueStyle });
-    const coffeText = new PIXI.Text({ text: 'Carrément avec plaisir !', style: dialogueStyle });
+    const coffeText = new PIXI.Text({ text: 'Ah ouais carrément, avec plaisir !', style: dialogueStyle });
     const coffeText2 = new PIXI.Text({ text: "Bon sang mais il est immonde ton café tu l'as coupé avec du platre ou quoi ?", style: dialogueStyle });
     const coffeText3 = new PIXI.Text({ text: "J'espère au moins que tu l'as fait serré, j'ai absolument besoin de terminer ce projet avant l'été", style: dialogueStyle });
     const coffeText4 = new PIXI.Text({ text: 'Merci quand même !', style: dialogueStyle });

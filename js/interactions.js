@@ -200,9 +200,37 @@ export async function interactions(apps, sprites, texts) {
 
             menuContainer.addChild(menuCoverDialogueOverlay);
             app.stage.emit('rightdown');
-
             PIXI.sound.play('ratp');
             
+            // ajout des textures innerhouseasset5 ou 6 en fonction de si on a ouvert l'oeil de boeuf
+            await wait(1500);
+            if (!interrupteurSwitched) {
+            const innerHouseAsset5 = await PIXI.Assets.load('../sprites/darkwithtrapopentrimed.png');
+            const opennedTrapDark = new PIXI.Sprite(innerHouseAsset5);
+            innerHouseSprite.texture = opennedTrapDark.texture;
+            // ajout de la bordure pour que le coffre passe pas devant
+            const darkbordersAsset = await PIXI.Assets.load('../sprites/darktrapborders.png');
+            const darkborders = new PIXI.Sprite(darkbordersAsset);
+            darkborders.width = innerHouseSprite.width;
+            darkborders.height = innerHouseSprite.height;
+            darkborders.x = innerHouseSprite.x;
+            darkborders.y = innerHouseSprite.y;
+            innerHouseContainer.addChild(darkborders);
+            // darkborders.zIndex = ;
+            } else {
+            const innerHouseAsset6 = await PIXI.Assets.load('../sprites/clearwithtrapopentrimed.png');
+            const opennedTrapClear = new PIXI.Sprite(innerHouseAsset6);
+            innerHouseSprite.texture = opennedTrapClear.texture;
+            const clearbordersAsset = await PIXI.Assets.load('../sprites/cleartrapborders.png');
+            const clearborders = new PIXI.Sprite(clearbordersAsset);
+            clearborders.width = innerHouseSprite.width;
+            clearborders.height = innerHouseSprite.height;
+            clearborders.x = innerHouseSprite.x;
+            clearborders.y = innerHouseSprite.y;
+            innerHouseContainer.addChild(clearborders);
+            // clearborders.zIndex = ;
+            }
+
         }
     })
 
@@ -1335,16 +1363,16 @@ export async function interactions(apps, sprites, texts) {
         await wait(2500);
         innerHouseContainer.removeChild(failText);
         textFollowSprite(guybrushSOT, failText2);
-        await wait(2500);
+        await wait(3000);
         innerHouseContainer.removeChild(failText2);
         textFollowSprite(guybrushSOT, failText3);
-        await wait(2500);
+        await wait(3500);
         innerHouseContainer.removeChild(failText3);
         textFollowSprite(guybrushSOT, failText4);
-        await wait(2500);
+        await wait(3500);
         innerHouseContainer.removeChild(failText4);
         textFollowSprite(guybrushSOT, failText5);
-        await wait(2500);
+        await wait(3500);
         innerHouseContainer.removeChild(failText5);
         // await wait(2000);
         guybrushSOT.gotoAndStop(0);
@@ -1373,6 +1401,7 @@ export async function interactions(apps, sprites, texts) {
         }
     });
         
+    // Donner la tasse de café
     // TEST Donner le verre d'eau à Romain
     // guybrushSO.on('click', () => {
         guybrushLD.on('click', async () => {
@@ -1645,7 +1674,9 @@ export async function interactions(apps, sprites, texts) {
         // Ouverture de l'oeil de boeuf
         const innerHouseAsset2 = await PIXI.Assets.load('../sprites/innerhouseopen1.png');
         const innerHouseAsset3 = await PIXI.Assets.load('../sprites/innerhouseopen2.png');
-        const innerHouseAsset4 = await PIXI.Assets.load('../sprites/innerhouseopenend.png');
+        // const innerHouseAsset4 = await PIXI.Assets.load('../sprites/innerhouseopenend.png');
+        const innerHouseAsset4 = await PIXI.Assets.load('../sprites/clearwithtraptrimed.png');
+        
         // Crée les sprites une fois les assets chargés
         let innerHouseSprites = [
             new PIXI.Sprite(innerHouseAsset2),
