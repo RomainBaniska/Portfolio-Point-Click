@@ -194,6 +194,7 @@ export async function interactions(apps, sprites, texts) {
         }
     });
 
+    innerHouseContainer.removeChild(swPannel);
     // Utiliser le ticket de métro sur la borne de métro
     poster.on('click', async () => {
         if (menuButton7.isActive && menuItemMetroTicket.isActive) {
@@ -218,7 +219,7 @@ export async function interactions(apps, sprites, texts) {
             innerHouseContainer.addChild(darkborders);
              // on désactive l'interrupteur par sécurité
             interrupteur.interactive = false;
-            darkborders.zIndex = 4; // chest est à 3
+            darkborders.zIndex = 5; // chest est à 3
             } else {
             const innerHouseAsset6 = await PIXI.Assets.load('../sprites/clearwithtrapopentrimed.png');
             const opennedTrapClear = new PIXI.Sprite(innerHouseAsset6);
@@ -230,14 +231,14 @@ export async function interactions(apps, sprites, texts) {
             clearborders.x = innerHouseSprite.x;
             clearborders.y = innerHouseSprite.y;
             innerHouseContainer.addChild(clearborders);
-            clearborders.zIndex = 4; // chest est à 3
+            clearborders.zIndex = 5; // chest est à 3
 
             await wait(2000);
             chest.y -= innerHouseSprite.height * 0.005;
             await wait(1000);
 
              // avance vers la droite
-            const stopPositionX = innerHouseSprite.x + innerHouseSprite.width * 0.58;
+            const stopPositionX = innerHouseSprite.x + innerHouseSprite.width * 0.59;
             const speed = 1;
 
             await new Promise((resolve) => {
@@ -251,14 +252,15 @@ export async function interactions(apps, sprites, texts) {
                         // On change l'ancrage en bas à gauche pour s'assurer que la rotation se fasse correctement 
                         chest.anchor.set(0, 1);
                         chest.y += chest.height;
+                        chest.zIndex = 2;
                         resolve();
                     }
                 });
                 transportLargeurTicker.start();
             });
 
-            const targetRotation = (100 * Math.PI) / 180;
-            const speedRotation = 1;
+            const targetRotation = (85 * Math.PI) / 180;
+            const speedRotation = 0.1;
 
             await new Promise((resolve) => {
                 const transportRotationTicker = new PIXI.Ticker();
