@@ -216,7 +216,9 @@ export async function interactions(apps, sprites, texts) {
             darkborders.x = innerHouseSprite.x;
             darkborders.y = innerHouseSprite.y;
             innerHouseContainer.addChild(darkborders);
-            // darkborders.zIndex = ;
+             // on désactive l'interrupteur par sécurité
+            interrupteur.interactive = false;
+            darkborders.zIndex = 4; // chest est à 3
             } else {
             const innerHouseAsset6 = await PIXI.Assets.load('../sprites/clearwithtrapopentrimed.png');
             const opennedTrapClear = new PIXI.Sprite(innerHouseAsset6);
@@ -228,7 +230,9 @@ export async function interactions(apps, sprites, texts) {
             clearborders.x = innerHouseSprite.x;
             clearborders.y = innerHouseSprite.y;
             innerHouseContainer.addChild(clearborders);
-            // clearborders.zIndex = ;
+            clearborders.zIndex = 4; // chest est à 3
+
+            await wait(2000);
             }
 
         }
@@ -1715,6 +1719,8 @@ export async function interactions(apps, sprites, texts) {
         // Démarre le défilement des sprites
         changeSprite(currentIndex);
         interrupteurSwitched = true;
+        // on désactive l'interrupteur
+        interrupteur.interactive = false;
                 }, 1000);
         }
     }
