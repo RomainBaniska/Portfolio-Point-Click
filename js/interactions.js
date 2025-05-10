@@ -1459,7 +1459,7 @@ export async function interactions(apps, sprites, texts) {
     });
 
     ordiRun.on('click', async () => {
-        // guybrushReactive = false;
+        guybrushReactive = false;
         // Quand on "utiliser" l'ordi allumé
         if (menuButton7.isActive && !guybrushReactive) {
             let useOrdiText;

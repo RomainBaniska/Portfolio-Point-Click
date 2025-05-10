@@ -1449,6 +1449,7 @@ export async function loadSprites(apps, sounds) {
 
     // Taille texte
     actionTextAndSpriteSize =  houseSprite.height * 0.02;
+    const screenCenter = menuSprite.width / 2;
     // On associe un texte à un menuAction (exemple : utiliser) visible sur le menuContainer
     // On utilise le tableau menuActionButtons et on le parcourt
     menuActionButtons.forEach(({ menuAction, text }) => {
@@ -1488,8 +1489,13 @@ export async function loadSprites(apps, sounds) {
             currentActionText.anchor.set(0.5, 0);
 
             menuContainer.addChild(currentActionText);
+
+            /// TEMPORAIRE A BOUGER IMPERATIVEMENT A UN AUTRE ENDROIT ///
+            menuSprite.height = app.screen.height * 0.26;
+            menuSprite.width = (houseSprite.height / 1024) * 1440 * 1.4;
+            /////////////////////////////////////////////////////////////
             // Par défaut si le texte d'action est seul, placé verticalement au milieu de l'écran
-            currentActionText.x = menuSprite.width / 2;
+            currentActionText.x = screenCenter;
             currentActionText.y = menuSprite.height * 0.012;
 
             currentActionButton = menuAction;
@@ -1537,9 +1543,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: menuItemMetalStrip, spriteName: "lamelle"},
         { sprite: menuItemMetroTicket, spriteName: "ticket"},
     ];
-    
-    const spacing = 20;
-    const screenCenter = menuSprite.width / 2;
+
     
     // On associer un texte/nom visible sur le menuContainer pour tout item ou d'un sprite lors du hover ou clic
     spriteTexts.forEach(({ sprite, spriteName }) => {
@@ -1570,7 +1574,8 @@ export async function loadSprites(apps, sounds) {
                 }
 
                 if (currentItemText) {
-                    currentSpriteText.x = menuSprite.width * 0.60;
+                    currentActionText.x = menuSprite.width * 0.40 - currentActionText.width;
+                    currentSpriteText.x = menuSprite.width * 0.60 + currentSpriteText.width;
                 }
            
             // Le positionnement vertical reste invariablement le même
