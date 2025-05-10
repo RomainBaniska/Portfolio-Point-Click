@@ -296,10 +296,56 @@ export async function interactions(apps, sprites, texts) {
                 
                 transportFallTicker.start();
             });
-            
+
+            await wait(500);
+            chest.anchor.set(1, 1);
+            chest.y += chest.height;
+
+            // se redresse avec rotation
+            const targetRotationBack = ((-1) * Math.PI) / 180;
+            const speedRotationBack = 0.5;
+
+            await new Promise((resolve) => {
+                const transportBackTicker = new PIXI.Ticker();
+                transportBackTicker.add(() => {
+                    if (chest.rotation > targetRotationBack) {
+                        chest.rotation -= speedRotationBack;
+                        if (chest.rotation <= targetRotationBack) {
+                            chest.rotation = targetRotationBack;
+                            transportBackTicker.stop();
+                            shakeContainer(screenBackgroundContainer);
+                            resolve();
+                        }
+            }
+            });
+            transportBackTicker.start();
+                    });
             }
         }
     })
+
+    // SHAKY CAM EFFECT SUR N'IMPORTE QUEL CONTAINER
+    function shakeContainer(container, intensity = 10, duration = 1000, frequency = 200) {
+        const originalX = container.x;
+        const startTime = performance.now();
+    
+        function shakeStep(now) {
+            const elapsed = now - startTime;
+    
+            if (elapsed < duration) {
+                const angle = (elapsed / frequency) * Math.PI;
+                const offset = Math.sin(angle) * intensity;
+                container.x = originalX + offset;
+    
+                requestAnimationFrame(shakeStep);
+            } else {
+                container.x = originalX; 
+            }
+        }
+    
+        requestAnimationFrame(shakeStep);
+    }
+    
 
     // Ouvrir le tiroir
     const defaultTexture = table.texture;
