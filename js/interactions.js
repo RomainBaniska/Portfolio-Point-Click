@@ -1942,7 +1942,7 @@ async function showAchievement() {
     const achievement = new PIXI.Sprite(achievementAsset);
     achievement.eventMode = "none";
     achievement.zIndex = 9999;
-    menuContainer.addChild(achievement);
+    screenBackgroundContainer.addChild(achievement);
 
     const scaleFactorAchievement = Math.min(
         window.innerWidth * 0.0005,
@@ -1990,10 +1990,10 @@ async function showAchievement() {
     achievement.destroy();
 }
 
-// glasswater.on('click', () => {
-//     showAchievement();
-//     console.log("done");
-// });
+glasswater.on('click', () => {
+    showAchievement();
+    console.log("done");
+});
 
 /////////////////////////////// MISC METHODS ///////////////////////////////
 
