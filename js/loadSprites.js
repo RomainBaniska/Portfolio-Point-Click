@@ -1176,6 +1176,12 @@ export async function loadSprites(apps, sounds) {
     const menuCoverDialogueOverlay = new PIXI.Sprite(menuCoverDialogueAsset);
     menuCoverDialogueOverlay.zIndex = 10;
 
+    // Le menuContainer a la même position x que le container de la maison outside
+    menuContainer.position.set(
+        (houseContainer.x),
+        houseSprite.height
+      );
+
     // MENU ITEMS
     
     // Verre
@@ -1483,8 +1489,8 @@ export async function loadSprites(apps, sounds) {
 
             menuContainer.addChild(currentActionText);
             // Par défaut si le texte d'action est seul, placé verticalement au milieu de l'écran
-            currentActionText.x = app.screen.width / 2;
-            currentActionText.y = houseSprite.height + (houseSprite.height * 0.005);
+            currentActionText.x = menuSprite.width / 2;
+            currentActionText.y = menuSprite.height * 0.012;
 
             currentActionButton = menuAction;
         }
@@ -1533,7 +1539,7 @@ export async function loadSprites(apps, sounds) {
     ];
     
     const spacing = 20;
-    const screenCenter = app.screen.width / 2;
+    const screenCenter = menuSprite.width / 2;
     
     // On associer un texte/nom visible sur le menuContainer pour tout item ou d'un sprite lors du hover ou clic
     spriteTexts.forEach(({ sprite, spriteName }) => {
@@ -1559,32 +1565,17 @@ export async function loadSprites(apps, sounds) {
                     // Alors l'actionText sera décalé à gauche avec la moitié de la taille de l'actionText (à cause de l'anchor set à 0.5)
                     // currentActionText.x = screenCenter - (currentActionText.width / 2) - spacing;
                     let totalWidth = currentActionText.width + currentSpriteText.width;
-                    // currentActionText.x = app.screen.width * 0.40;
                     currentActionText.x = screenCenter - (totalWidth / 2);
-                    // le currenSpriteText quant à lui sera décalé à droite de manière symétrique
-                    // currentSpriteText.x = screenCenter + (currentSpriteText.width / 2) + spacing;
-                    // currentSpriteText.x = app.screen.width * 0.60
                     currentSpriteText.x = screenCenter + (totalWidth / 2);
                 }
 
                 if (currentItemText) {
-                    currentSpriteText.x = app.screen.width * 0.60;
+                    currentSpriteText.x = menuSprite.width * 0.60;
                 }
-
-            // // Si un item est cliqué est 
-            // if (currentActionText && itemClicked) {
-            //         // L'action text est décalé à gauche
-            //         currentActionText.x = screenCenter - spacing - (currentItemText.width);
-            //         // Le sprite text est décalé à droite
-            //         currentSpriteText.x = screenCenter + spacing + (currentSpriteText.width);
-            // }
-
-            // // Si aucune action n'est active, le sprite du texte est centré
-            // } else if (!currentActionText) {
-            //     currentSpriteText.x = screenCenter;
-            
+           
             // Le positionnement vertical reste invariablement le même
-            currentSpriteText.y = houseSprite.height + (houseSprite.height * 0.005);
+            // currentSpriteText.y = houseSprite.height + (houseSprite.height * 0.005);
+            currentSpriteText.y = menuSprite.height * 0.012;
            
         });
 
@@ -1630,12 +1621,12 @@ export async function loadSprites(apps, sounds) {
                             currentItemText.anchor.set(0.5, 0);                           
                         }
                         // Position horizontale du texte
-                        currentActionText.x = app.screen.width * 0.40;
+                        currentActionText.x = menuSprite.width * 0.40;
                         currentItemText.x = screenCenter;
-                        currentSpriteText.x = app.screen.width * 0.60;   
+                        currentSpriteText.x = menuSprite.width * 0.60;   
 
                         // Position verticale du texte
-                        currentItemText.y = houseSprite.height + (houseSprite.height * 0.005);
+                        currentItemText.y = currentSpriteText.y = menuSprite.height * 0.012;
 
                     // On ajoute le currentitemtext    
                     menuContainer.addChild(currentItemText);

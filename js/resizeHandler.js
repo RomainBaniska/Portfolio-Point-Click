@@ -150,10 +150,13 @@ function adjustCanvasSize() {
     menuSprite.height = app.screen.height * 0.26;
     menuSprite.width = (houseSprite.height / houseMaxHeight) * houseMaxWidth * 1.4;
 
-    menuSprite.x = (screenWidth - menuSprite.width) / 2;
+    // menuSprite.x = (screenWidth - menuSprite.width) / 2;
+    // menuSprite.x = (screenWidth - menuSprite.width) / 2;
+    menuSprite.x = 0;
     // menuSprite.x = screenWidth / 2;
     // Le menu commence lorsque la maison termine
-    menuSprite.y = houseSprite.height;
+    // menuSprite.y = houseSprite.height;
+    menuSprite.y = 0;
 
     // CONSTANTES MENU
     const menuHeight = menuSprite.height
