@@ -235,6 +235,13 @@ export async function loadSprites(apps, sounds) {
 
     //////////////////////////////////////// ELEMENTS & OBJECTS ////////////////////////////////
 
+    // RAILS
+    const rails = await displaySprite('ELEMENTS/rails/rails.json', 0.12);
+    rails.gotoAndStop(0); 
+    rails.interactive = true;
+    rails.zIndex = 1;
+    // innerHouseContainer.addChild(rails);
+
     // MACHINE A CAFE
     const coffeMachine = await displaySprite('ELEMENTS/coffemachine/coffemachineflip.json', 0.12);
     coffeMachine.gotoAndStop(0); 
@@ -1781,6 +1788,7 @@ export async function loadSprites(apps, sounds) {
         poster,
         desk,
         door,
+        rails,
         // pannel,
         gamingChair,
         gamingChairAR,
