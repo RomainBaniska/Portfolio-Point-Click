@@ -1497,7 +1497,7 @@ export async function interactions(apps, sprites, texts) {
         await wait(1000);
         menuContainer.removeChild(menuCoverDialogueOverlay);
         await wait(1000);
-        playerNewText(useOrdiTextFail2, "Si je veux accéder à son ordinateur il faut que je trouve un moyen de l'écarter", 2500);
+        playerNewText(useOrdiTextFail2, "Si je veux accéder à son ordinateur il faut que je trouve un moyen de l'en écarter", 2500);
         await wait(2500);
         playerNewText(useOrdiTextFail3, "Mais comment ?", 2500);
 });

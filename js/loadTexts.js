@@ -74,7 +74,7 @@ export async function loadTexts(sprites) {
     const sickText2 = new PIXI.Text({ text: 'J\'ai des palpitations dans tout le corps c\'est horrible', style: dialogueStyle });
     const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
     const failText = new PIXI.Text({ text: 'ma "machine" ?', style: dialogueStyle });
-    const failText2 = new PIXI.Text({ text: 'Ce n\'est pas une simple machine cher ami', style: dialogueStyle });
+    const failText2 = new PIXI.Text({ text: 'Ce n\'est pas une simple machine l\'ami', style: dialogueStyle });
     const failText3 = new PIXI.Text({ text: 'C\'est une COMMODORE 64, un bijou de charme et d\'ingéniosité', style: dialogueStyle });
     const failText4 = new PIXI.Text({ text: 'Encore parfaite pour compiler des langages modernes, je développe toutes mes apps avec.', style: dialogueStyle });
     const failText5 = new PIXI.Text({ text: 'Et non je ne prête pas ma "machine" au premier quidam venu qui s\'introduit chez moi sans invitation', style: dialogueStyle });

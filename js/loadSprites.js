@@ -465,6 +465,17 @@ export async function loadSprites(apps, sounds) {
     swPannel.zIndex = 3;
     innerHouseContainer.addChild(swPannel);
 
+
+    // PORTE INTERIEUR OUVERTE
+    const doorAsset = await PIXI.Assets.load('../sprites/innerOpennedDoor.png');
+    const door = new PIXI.Sprite(doorAsset);
+    door.eventMode = "none";
+    door.height = innerHouseSprite.height;
+    door.width = innerHouseSprite.width; 
+    door.x = innerHouseSprite.x;
+    door.y = innerHouseSprite.y;
+    // innerHouseContainer.addChild(door);
+
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
     const bed = new PIXI.Sprite(bedAsset);
@@ -834,6 +845,7 @@ export async function loadSprites(apps, sounds) {
                 // chestZoom.destroy();
                 // mask.destroy();
                 // specialScreenContainer.destroy();
+                innerHouseContainer.addChild(door); // On ajoute la porte entrouverte à la fin
                 app.stage.removeChild(specialScreenContainer);
             }, 15000);
 
@@ -1768,6 +1780,7 @@ export async function loadSprites(apps, sounds) {
         trash,
         poster,
         desk,
+        door,
         // pannel,
         gamingChair,
         gamingChairAR,
