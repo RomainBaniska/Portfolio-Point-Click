@@ -330,13 +330,46 @@ export async function interactions(apps, sprites, texts) {
             await wait(1000);
             innerHouseContainer.removeChild(rails);
 
-            // Génération de la disquette
+            // Création d'un masque pour la disquette
+            const disquetteMask = new PIXI.Graphics();
+            disquetteMask.beginFill(0xffffff); // La couleur n’a pas d’importance pour un masque
+            disquetteMask.drawRect(0, 0, chest.width, (chest.height * 2));
+            disquetteMask.position.set((chest.x - chest.width), (chest.y - (chest.height * 1.2) ));
+            disquetteMask.endFill();
+            innerHouseContainer.addChild(disquetteMask);
 
+            // Génération de la disquette
+            disquette.mask = disquetteMask;
             innerHouseContainer.addChild(disquette);
+             // la disquette s'envole
+             const stopPositionYRise = innerHouseSprite.y + innerHouseSprite.height * 0.76;
+             const speedRise = 1;
+ 
+             await new Promise((resolve) => {
+                 const transportRiseTicker = new PIXI.Ticker();
+                 transportRiseTicker.add(() => {
+                     disquette.y -= speedRise;
+                     if (disquette.y <= stopPositionYRise) {
+                        disquette.y = stopPositionYRise;
+                         transportRiseTicker.stop();
+                         resolve();
+                     }
+                 });
+                 
+                 transportRiseTicker.start();
+             });
 
             }
         }
     })
+
+    // // TEST MASQUE
+    // const disquetteMask = new PIXI.Graphics();
+    // disquetteMask.beginFill(0xffffff); // La couleur n’a pas d’importance pour un masque
+    // disquetteMask.drawRect(0, 0, chest.width, chest.height);
+    // disquetteMask.position.set((chest.x - chest.width), (chest.y + (chest.height / 2)));
+    // disquetteMask.endFill();
+    // innerHouseContainer.addChild(disquetteMask);
 
     // SHAKY CAM EFFECT SUR N'IMPORTE QUEL CONTAINER
     function shakeContainer(container, intensity = 10, duration = 1000, frequency = 200) {
