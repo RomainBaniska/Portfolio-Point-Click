@@ -780,42 +780,44 @@ export async function loadSprites(apps, sounds) {
 
     // 3. Animate the mask (clock wipe effect)
     let angle = -90;
-    let fadeInOpacity = 0;  // Variable d'opacité pour le fade-in
-    app.ticker.add(() => {
-        if (angle < 370) {
-            angle += 3;
+let fadeInOpacity = 0;
+let hasTransitionEnded = false;
 
-            // Clear the previous mask drawing
-            mask.clear();
+app.ticker.add(() => {
+    const cx = app.screen.width / 2;
+    const cy = app.screen.height / 2;
+    const radius = Math.max(cx, cy) * 2;
 
-            // On commence par dessiner un cercle complet pour cacher toute l'image de "scene2"
-            const cx = app.screen.width / 2;
-            const cy = app.screen.height / 2;
-            const radius = Math.max(cx, cy) * 2;
+    if (angle < 370) {
+        angle += 3;
+        mask.clear();
+        mask.beginFill(0xffffff);
+        mask.moveTo(cx, cy);
 
-            // Dessine un cercle qui devient un "trou" avec l'animation de l'angle
-            mask.beginFill(0xffffff);
+        for (let a = -90; a <= angle; a += 1) {
+            const rad = a * (Math.PI / 180);
+            mask.lineTo(cx + radius * Math.cos(rad), cy + radius * Math.sin(rad));
+        }
 
-            mask.moveTo(cx, cy);
-            for (let a = -90; a <= angle; a += 1) {
-                const rad = a * (Math.PI / 180);
-                mask.lineTo(cx + radius * Math.cos(rad), cy + radius * Math.sin(rad));
-            }
+        mask.lineTo(cx, cy);
+        mask.endFill();
+    } else {
+        // FADE IN dans le ticker
+        if (chestZoom.visible && fadeInOpacity < 1) {
+            fadeInOpacity += 0.01;
+            chestZoom.alpha = fadeInOpacity;
+        }
 
-            mask.lineTo(cx, cy); // Ferme le cercle pour avoir un contour complet
-            mask.endFill();
-        } else {
-            // Quand l'animation du volet est terminée, on affiche et anime chestZoom
-            if (!chestZoom.visible) {
-                chestZoom.visible = true;
-                setTimeout(() => {
-                    chestZoom.gotoAndStop(1);
-                }, 3650);
-                setTimeout(() => {
-                    chestZoom.play();
-                }, 5200);
+        // Bloque les setTimeout une seule fois
+        if (!hasTransitionEnded) {
+            hasTransitionEnded = true;
 
-            // Démarre le fadeOut après 9 secondes
+            chestZoom.visible = true;
+            chestZoom.alpha = 0; // Important pour que le fade-in parte de 0
+
+            setTimeout(() => chestZoom.gotoAndStop(1), 3650);
+            setTimeout(() => chestZoom.play(), 5200);
+
             setTimeout(() => {
                 let fadeOutOpacity = 1;
                 const fadeOutInterval = setInterval(() => {
@@ -826,15 +828,13 @@ export async function loadSprites(apps, sounds) {
                         clearInterval(fadeOutInterval);
                     }
                 }, 16);
-
-                // On ouvre le minisprite du chest à la dernière frame
                 chest.gotoAndStop(5);
             }, 12000);
 
             setTimeout(() => {
                 innerHouseContainer.removeChild(guybrushF);
                 innerHouseContainer.removeChild(bed);
-                innerHouseContainer.addChild(door); // On ajoute la porte entrouverte à la fin
+                innerHouseContainer.addChild(door);
                 innerHouseContainer.addChild(bed);
                 app.stage.removeChild(specialScreenContainer);
             }, 15000);
@@ -843,16 +843,10 @@ export async function loadSprites(apps, sounds) {
                 PIXI.sound.play('doorslam');
                 innerHouseContainer.removeChild(door);
             }, 16000);
-
-            }
-
-            // Anime l'opacité de 0 à 1
-            if (fadeInOpacity < 1) {
-                fadeInOpacity += 0.01;  // Change cette valeur pour ajuster la vitesse d'apparition
-                chestZoom.alpha = fadeInOpacity;
-            }
         }
-    });
+    }
+});
+
 }
 
 
