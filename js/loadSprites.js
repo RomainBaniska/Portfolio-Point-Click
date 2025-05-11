@@ -386,7 +386,7 @@ export async function loadSprites(apps, sounds) {
     //  disquette.visible = false;
      disquette.interactive = false;
      disquette.zIndex = 12;
-     innerHouseContainer.addChild(disquette);
+    //  innerHouseContainer.addChild(disquette);
 
     const boutdemetalShine = await displaySprite('ELEMENTS/boutdemetal/boutdemetalshine.json', 0.09);
     boutdemetalShine.play();
