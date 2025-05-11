@@ -1830,6 +1830,7 @@ export async function interactions(apps, sprites, texts) {
                 //     coffeMachineClone.gotoAndStop(8);
                     coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
                         coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+                        PIXI.sound.play('coffesound');
                         setTimeout(() => {
                             coffeMachine.gotoAndStop(1);
                             coffeMachineClone.gotoAndStop(1);

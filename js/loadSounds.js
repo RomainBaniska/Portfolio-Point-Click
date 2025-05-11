@@ -147,6 +147,10 @@ export async function loadSounds() {
     trapCloseSound.volume = 1;
     trapCloseSound.speed = 1;
 
+    const coffeSound = PIXI.sound.add('coffesound', '../sounds/cafesoundvideo3.mp3');
+    coffeSound.volume = 1;
+    coffeSound.speed = 1;
+
     return {
         unrollSound,
         daythemeSound,
