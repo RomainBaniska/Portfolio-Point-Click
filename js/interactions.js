@@ -646,7 +646,7 @@ export async function interactions(apps, sprites, texts) {
         }  
     });
 
-    // unroll();
+    unroll();
     // unroll416();
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
