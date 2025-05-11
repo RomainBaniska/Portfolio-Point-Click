@@ -221,6 +221,7 @@ export async function interactions(apps, sprites, texts) {
             interrupteur.interactive = false;
             darkborders.zIndex = 5; // chest est à 3
             } else {
+            PIXI.sound.play('trapopen');
             const innerHouseAsset6 = await PIXI.Assets.load('../sprites/clearwithtrapopentrimed.png');
             const opennedTrapClear = new PIXI.Sprite(innerHouseAsset6);
             innerHouseSprite.texture = opennedTrapClear.texture;
@@ -241,6 +242,7 @@ export async function interactions(apps, sprites, texts) {
             rails.gotoAndStop(1);
             chest.y -= innerHouseSprite.height * 0.005;
             await wait(1000);
+            PIXI.sound.play('rail');
 
             // avance vers la droite
             const stopPositionX = innerHouseSprite.x + innerHouseSprite.width * 0.59;
@@ -295,6 +297,7 @@ export async function interactions(apps, sprites, texts) {
                     if (chest.y >= stopPositionYFall) {
                         chest.y = stopPositionYFall;
                         transportFallTicker.stop();
+                        PIXI.sound.play('metalimpact');
                         resolve();
                     }
                 });

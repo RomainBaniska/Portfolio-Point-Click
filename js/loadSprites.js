@@ -38,6 +38,11 @@ export async function loadSprites(apps, sounds) {
         return sprite;
     }
 
+    // Fonction wait utile
+    function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     // CANVAS
     app.stage.interactive = true;
     app.stage.on("pointermove", moveCrosshair);
@@ -664,35 +669,6 @@ export async function loadSprites(apps, sounds) {
                 PIXI.sound.stop('nighttheme');
                 PIXI.sound.stop('daytheme');
 
-// https://codesandbox.io/p/sandbox/pixijs-examples-sound-fade-out-qcos8n?file=%2Fsrc%2Findex.ts%3A1%2C1-26%2C8
-
-// import "./styles.css";
-// import { Application, Assets } from "pixi.js";
-// import type { Sound } from "@pixi/sound";
-// import "@pixi/sound";
-// import buzzerUrl from "./buzzer.mp3";
-// import gsap from "gsap";
-// import { createButton } from "./createButton";
-
-// const app = new Application<HTMLCanvasElement>({
-//   resizeTo: window,
-//   background: "#999"
-// });
-// document.body.appendChild(app.view);
-
-// async function main() {
-//   Assets.add("buzzer", buzzerUrl);
-//   const buzzer = (await Assets.load("buzzer")) as Sound;
-//   const playButton = createButton(app.screen);
-//   playButton.on("click", () => {
-//     const instance = buzzer.play();
-//     gsap.to(instance, { volume: 0, duration: 1 });
-//   });
-//   app.stage.addChild(playButton);
-// }
-
-// main();
-
                 setTimeout(() => { // recalage d'un léger délai au départ du sound
                     specialScreenContainer.addChild(greenled); 
                 }, 400);
@@ -854,27 +830,19 @@ export async function loadSprites(apps, sounds) {
                 // On ouvre le minisprite du chest à la dernière frame
                 chest.gotoAndStop(5);
             }, 12000);
-            // On détruit absolument tous les sprites du terminal
-            // greenled.destroy();
-            // yellowled.destroy();
-            // inputText.destroy();
-            // terminal.destroy();
-            // terminalbgSprite.destroy();
-            // terminalPS.destroy();
-            // pendingLogo.destroy();
 
             setTimeout(() => {
-                innerHouseContainer.removeChild(guybrushSO);
-                // chestZoom.destroy();
-                // mask.destroy();
-                // specialScreenContainer.destroy();
-                
-
+                innerHouseContainer.removeChild(guybrushF);
                 innerHouseContainer.removeChild(bed);
                 innerHouseContainer.addChild(door); // On ajoute la porte entrouverte à la fin
                 innerHouseContainer.addChild(bed);
                 app.stage.removeChild(specialScreenContainer);
             }, 15000);
+
+            setTimeout(() => {
+                PIXI.sound.play('doorslam');
+                innerHouseContainer.removeChild(door);
+            }, 16000);
 
             }
 

@@ -126,6 +126,26 @@ export async function loadSounds() {
     const steamSound = PIXI.sound.add('steamnotif', '../sounds/steamnotif.mp3');
     steamSound.volume = 0.9;
     steamSound.speed = 1;
+ 
+    const railSound = PIXI.sound.add('rail', '../sounds/railtrainsound2.mp3');
+    railSound.volume = 0.4;
+    railSound.speed = 0.8;
+
+    const metalStompSound = PIXI.sound.add('metalimpact', '../sounds/metalimpact2.mp3');
+    metalStompSound.volume = 1;
+    metalStompSound.speed = 1;
+
+    const doorslamSound = PIXI.sound.add('doorslam', '../sounds/doorslam2.mp3');
+    doorslamSound.volume = 0.8;
+    doorslamSound.speed = 1;
+
+    const trapOpenSound = PIXI.sound.add('trapopen', '../sounds/trapopen.mp3');
+    trapOpenSound.volume = 1;
+    trapOpenSound.speed = 1;
+
+    const trapCloseSound = PIXI.sound.add('trapclose', '../sounds/trapclose.mp3');
+    trapCloseSound.volume = 1;
+    trapCloseSound.speed = 1;
 
     return {
         unrollSound,
