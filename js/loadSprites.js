@@ -481,12 +481,14 @@ export async function loadSprites(apps, sounds) {
     door.width = innerHouseSprite.width; 
     door.x = innerHouseSprite.x;
     door.y = innerHouseSprite.y;
+    // door.zIndex = 0;
     // innerHouseContainer.addChild(door);
 
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
     const bed = new PIXI.Sprite(bedAsset);
     bed.eventMode = "none";
+    // bed.zIndex = 1;
     innerHouseContainer.addChild(bed);
 
     // LOGOS DES TECHNOS
@@ -852,7 +854,11 @@ export async function loadSprites(apps, sounds) {
                 // chestZoom.destroy();
                 // mask.destroy();
                 // specialScreenContainer.destroy();
+                
+
+                innerHouseContainer.removeChild(bed);
                 innerHouseContainer.addChild(door); // On ajoute la porte entrouverte à la fin
+                innerHouseContainer.addChild(bed);
                 app.stage.removeChild(specialScreenContainer);
             }, 15000);
 
@@ -1449,7 +1455,9 @@ export async function loadSprites(apps, sounds) {
 
     // Taille texte
     actionTextAndSpriteSize =  houseSprite.height * 0.02;
-    const screenCenter = menuSprite.width / 2;
+    // const screenCenter = menuSprite.width / 2;
+    const screenCenter = ((houseSprite.height / 1024) * 1440 * 1.4) / 2; // équivaut à la largeur de menuSprite.width / 2, mais menuSprite.width est défini dans resizehandler donc je rajoute pour évite rles bugs
+    console.log(menuSprite.width);
     // On associe un texte à un menuAction (exemple : utiliser) visible sur le menuContainer
     // On utilise le tableau menuActionButtons et on le parcourt
     menuActionButtons.forEach(({ menuAction, text }) => {
