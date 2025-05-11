@@ -230,6 +230,8 @@ export async function interactions(apps, sprites, texts) {
             clearborders.height = innerHouseSprite.height;
             clearborders.x = innerHouseSprite.x;
             clearborders.y = innerHouseSprite.y;
+            clearborders.interactive = false;
+            clearborders.eventMode = "none";
             innerHouseContainer.addChild(clearborders);
             clearborders.zIndex = 5; // chest est à 3
 
@@ -329,6 +331,7 @@ export async function interactions(apps, sprites, texts) {
             rails.gotoAndStop(0);
             await wait(1000);
             innerHouseContainer.removeChild(rails);
+            rails.destroy();
 
             // Création d'un masque pour la disquette
             const disquetteMask = new PIXI.Graphics();
@@ -363,6 +366,8 @@ export async function interactions(apps, sprites, texts) {
 
             await wait(2000);
             chest.interactive = false;
+            // disquette.mask = null;
+            // disquetteMask.destroy();
             menuContainer.removeChild(menuCoverDialogueOverlay);
 
             // Rend la disquette ramassable 
