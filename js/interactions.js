@@ -1774,6 +1774,7 @@ export async function interactions(apps, sprites, texts) {
     let alreadyCoffeFilled = false;
     let alreadyWaterFilled = false;
     let alreadyPoisoned = false;
+    let machineUsed = false;
     // Mettre la capsule, l'eau, ou empoisonner la machine à café
     coffeMachine.on('click', () => {
         if (menuButton7.isActive) {
@@ -1822,6 +1823,8 @@ export async function interactions(apps, sprites, texts) {
             }
 
             if (alreadyPoisoned) {
+                if (!machineUsed) {
+                    machineUsed = true;
                 // Lancer l'animation de la machine à café
                 coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
                 coffeMachineCutsceneContainer.addChild(coffeMachineClone);
@@ -1867,7 +1870,7 @@ export async function interactions(apps, sprites, texts) {
                         }, 1000);       
                 // }, 1000);
 
-                // modifier le sprite du verre d'eau par le verre rempli de caféD
+                    }
             }
         }
     });
