@@ -384,7 +384,7 @@ export async function loadSprites(apps, sounds) {
      disquette.play();
     //  disquette.gotoAndStop(0);
     //  disquette.visible = false;
-     disquette.interactive = false;
+     disquette.interactive = true;
      disquette.zIndex = 12;
     //  innerHouseContainer.addChild(disquette);
 
@@ -1209,6 +1209,18 @@ export async function loadSprites(apps, sounds) {
     menuItemGlassWaterSelected.interactive = true;
     menuItemGlassWaterSelected.item = true;
 
+    // Disquette
+    const menuItemDisquetteAsset = await PIXI.Assets.load('../sprites/ELEMENTS/disquette/menuitemDisquette.png');
+    const menuItemDisquette = new PIXI.Sprite(menuItemDisquetteAsset);
+    menuItemDisquette.interactive = true;
+    menuItemDisquette.item = true;
+
+    // Disquette Sélectionnée
+    const menuItemDisquetteSelectedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/disquette/menuitemDisquetteSelected.png');
+    const menuItemDisquetteSelected = new PIXI.Sprite(menuItemDisquetteSelectedAsset);
+    menuItemDisquetteSelected.interactive = true;
+    menuItemDisquetteSelected.item = true;
+
     // Clé en or
     const menuItemGoldKeyAsset = await PIXI.Assets.load('../sprites/MENUITEM/goldkeyItem.png');
     const menuItemGoldKey = new PIXI.Sprite(menuItemGoldKeyAsset);
@@ -1349,6 +1361,7 @@ export async function loadSprites(apps, sounds) {
         { item: menuItemMetalStrip, defaultTexture: menuItemMetalStrip.texture, selectedTexture: menuItemMetalStripSelected.texture },
         { item: menuItemCoffePod, defaultTexture: menuItemCoffePod.texture, selectedTexture: menuItemCoffePodSelected.texture },
         { item: menuItemMetroTicket, defaultTexture: menuItemMetroTicket.texture, selectedTexture: menuItemMetroTicketSelected.texture },
+        { item: menuItemDisquette, defaultTexture: menuItemDisquette.texture, selectedTexture: menuItemDisquetteSelected.texture },
     ];
 
     // On parcourt le tableau des items
@@ -1540,6 +1553,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: chest, spriteName: "coffre en métal" },
         { sprite: glasswater, spriteName: "verre" },
         { sprite: goldkey, spriteName: "clé" },
+        { sprite: disquette, spriteName: "disquette" },
         // { sprite: pannel, spriteName: "panneau secret" },
         { sprite: swPannel, spriteName: "displate" },
         { sprite: shelf, spriteName: "étagère" },
@@ -1556,6 +1570,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: menuItemGlassCoffe, spriteName: "café revisité"},
         { sprite: menuItemGlassWaterEmpty, spriteName: "verre vide"},
         { sprite: menuItemTabletPack, spriteName: "comprimés"},
+        { sprite: menuItemDisquette, spriteName: "disquette"},
         { sprite: menuItemMetalStrip, spriteName: "lamelle"},
         { sprite: menuItemMetroTicket, spriteName: "ticket"},
     ];
@@ -1735,6 +1750,7 @@ export async function loadSprites(apps, sounds) {
     coffeMachine.label = "coffeMachine";
     boutdemetalShine.label = "boutdemetalShine";
     metroTicket.label = "metroTicket";
+    disquette.label = "metroTicket";
     // Items
     menuItemMetroTicket.label = "menuItemMetroTicket";
     menuItemCoffePod.label = "menuItemCoffePod";
@@ -1744,6 +1760,7 @@ export async function loadSprites(apps, sounds) {
     menuItemGlassWaterEmpty.label ="menuItemGlassWaterEmpty";    
     menuItemTabletPack.label ="menuItemTabletPack";    
     menuItemMetalStrip.label ="menuItemMetalStrip"; 
+    menuItemDisquette.label ="menuItemDisquette"; 
 
     // Idem pour les Boutons :
     // Boutons
@@ -1846,6 +1863,8 @@ export async function loadSprites(apps, sounds) {
         menuItemGlassCoffeSelected,
         menuItemGlassWaterEmpty,
         menuItemGlassWaterEmptySelected,
+        menuItemDisquette,
+        menuItemDisquetteSelected,
         menuItemGoldKey,
         menuItemGoldKeySelected,
         menuItemMetalStrip,
