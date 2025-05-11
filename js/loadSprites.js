@@ -1756,7 +1756,7 @@ export async function loadSprites(apps, sounds) {
     coffeMachine.label = "coffeMachine";
     boutdemetalShine.label = "boutdemetalShine";
     metroTicket.label = "metroTicket";
-    disquette.label = "metroTicket";
+    disquette.label = "disquette";
     // Items
     menuItemMetroTicket.label = "menuItemMetroTicket";
     menuItemCoffePod.label = "menuItemCoffePod";
