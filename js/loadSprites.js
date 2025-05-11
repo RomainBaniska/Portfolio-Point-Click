@@ -378,7 +378,15 @@ export async function loadSprites(apps, sounds) {
     boutdemetal.visible = false;
     boutdemetal.interactive = false;
     boutdemetal.zIndex = 12;
-    // innerHouseContainer.addChild(boutdemetal);
+
+     // DISQUETTE
+     const disquette = await displaySprite('ELEMENTS/disquette/disquetteitem.json', 0.08);
+     disquette.play();
+    //  disquette.gotoAndStop(0);
+    //  disquette.visible = false;
+     disquette.interactive = false;
+     disquette.zIndex = 12;
+     innerHouseContainer.addChild(disquette);
 
     const boutdemetalShine = await displaySprite('ELEMENTS/boutdemetal/boutdemetalshine.json', 0.09);
     boutdemetalShine.play();
@@ -1817,6 +1825,7 @@ export async function loadSprites(apps, sounds) {
         swPannel,
         metroTicket,
         shelf,
+        disquette,
         // ACTIONS MENU
         menuContainer,
         menuSprite,
