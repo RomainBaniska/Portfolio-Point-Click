@@ -382,11 +382,17 @@ export async function loadSprites(apps, sounds) {
      // DISQUETTE
      const disquette = await displaySprite('ELEMENTS/disquette/disquetteitem.json', 0.08);
      disquette.play();
-    //  disquette.gotoAndStop(0);
-    //  disquette.visible = false;
      disquette.interactive = true;
      disquette.zIndex = 12;
     //  innerHouseContainer.addChild(disquette);
+     // DISQUETTE FLOAT
+     const disquetteFloat = await displaySprite('ELEMENTS/disquette/disquetteitemFloat.json', 0.07);
+    disquetteFloat.play();
+    disquetteFloat.interactive = true;
+    disquetteFloat.zIndex = 12;
+    disquetteFloat.interactive = false;
+    disquetteFloat. eventMode = "none";
+    // innerHouseContainer.addChild(disquetteFloat);
 
     const boutdemetalShine = await displaySprite('ELEMENTS/boutdemetal/boutdemetalshine.json', 0.09);
     boutdemetalShine.play();
@@ -1843,6 +1849,7 @@ export async function loadSprites(apps, sounds) {
         metroTicket,
         shelf,
         disquette,
+        disquetteFloat,
         // ACTIONS MENU
         menuContainer,
         menuSprite,

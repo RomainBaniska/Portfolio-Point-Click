@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, metroTicket, rails, achievement, disquette, menuItemDisquette, poster, menuItemMetroTicket, guybrushF, guybrushP, toilePoulie416, menuItemGlassCoffe, swPannel, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
+    const { houseContainer, metroTicket, rails, achievement, disquette, disquetteFloat, menuItemDisquette, poster, menuItemMetroTicket, guybrushF, guybrushP, toilePoulie416, menuItemGlassCoffe, swPannel, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset,exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, /*musicthemePLAY*/ } = sprites;
     const { failText, failText2, failText3, failText4, failText5, sickText, sickText2, wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -357,6 +357,11 @@ export async function interactions(apps, sprites, texts) {
                      if (disquette.y <= stopPositionYRise) {
                         disquette.y = stopPositionYRise;
                          transportRiseTicker.stop();
+                         // On invisibilise la disquette à la fin de l'anim pour la remplacer par disquette qui flotte
+                        //  disquette.visible = false;
+                         disquette.alpha = 0;
+                         disquetteFloat.y = disquette.y;
+                         innerHouseContainer.addChild(disquetteFloat);
                          resolve();
                      }
                  });
@@ -376,6 +381,7 @@ export async function interactions(apps, sprites, texts) {
                     menuContainer.addChild(menuItemDisquette);
                     PIXI.sound.play('pickup');
                     innerHouseContainer.removeChild(disquette);
+                    innerHouseContainer.removeChild(disquetteFloat);
                 }
             })
             }
@@ -646,7 +652,7 @@ export async function interactions(apps, sprites, texts) {
         }  
     });
 
-    unroll();
+    // unroll();
     // unroll416();
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
