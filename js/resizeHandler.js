@@ -364,7 +364,7 @@ resizeButtons();
     setSpritePositionAndScaleINNERHOUSE(chest, 0.32, 0.31, 500, 1000);
 
     // Position Disquette
-    setSpritePositionAndScaleINNERHOUSE(disquette, 0.32, 0.31, 2000, 2000);
+    setSpritePositionAndScaleINNERHOUSE(disquette, 0.534, 0.87, 2000, 2000);
 
     // Position rails
     setSpritePositionAndScaleINNERHOUSE(rails, 0.32, 0.392, 730, 730);
