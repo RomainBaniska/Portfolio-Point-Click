@@ -390,6 +390,7 @@ export async function interactions(apps, sprites, texts) {
                     innerHouseContainer.removeChild(disquetteFloat);
                     await wait(500);
 
+                    PIXI.sound.play('almascream');
                     // Création du blood rectangle
                     const bloodRect = new PIXI.Graphics();
                     bloodRect.beginFill(0x990000);

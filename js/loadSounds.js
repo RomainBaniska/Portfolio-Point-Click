@@ -151,6 +151,10 @@ export async function loadSounds() {
     coffeSound.volume = 1;
     coffeSound.speed = 1;
 
+    const almaScreamSound = PIXI.sound.add('almascream', '../sounds/almascream.mp3');
+    almaScreamSound.volume = 0.1;
+    almaScreamSound.speed = 0.8;
+
     return {
         unrollSound,
         daythemeSound,
