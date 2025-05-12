@@ -461,11 +461,10 @@ export async function interactions(apps, sprites, texts) {
             bloodBGRect.beginFill(0x000000);
             bloodBGRect.drawRect(terminalbgSprite.x, terminalbgSprite.y, terminalbgSprite.width, terminalbgSprite.height);
             bloodBGRect.endFill();
-            bloodBGRect.alpha = 0.9
+            bloodBGRect.alpha = 0;
 
             app.stage.addChild(specialScreenContainer);
             specialScreenContainer.addChild(bloodBGRect);
-            // innerHouseContainer.addChild(only416);
             // Étape 1 : position globale depuis innerHouseContainer
             const globalPos = innerHouseContainer.toGlobal(new PIXI.Point(only416.x, only416.y));
             // Étape 2 : position locale relative à specialScreenContainer
@@ -475,6 +474,19 @@ export async function interactions(apps, sprites, texts) {
             only416.y = newLocalPos.y;
             // Étape 4 : on l'ajoute à specialScreenContainer
             specialScreenContainer.addChild(only416);
+
+            // set promise
+            const blackAlphaTicker = new PIXI.Ticker();
+            blackAlphaTicker.add(() => {
+                bloodBGRect.alpha += 0.003;
+                if (bloodBGRect.alpha >= 1) {
+                    bloodBGRect.alpha = 1;
+                    blackAlphaTicker.stop();
+                }
+            });
+            blackAlphaTicker.start();
+
+            
 
             await wait(5000000);
 
