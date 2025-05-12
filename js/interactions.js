@@ -1620,9 +1620,11 @@ export async function interactions(apps, sprites, texts) {
     lavabo.on('click', async () => {
         if (menuButton7.isActive && menuItemGlassWaterEmpty.isActive) {
             // menuContainer.addChild(menuCoverDialogueOverlay);
+            toggleClickBlocker();
             PIXI.sound.play('lavaboSound');
             app.stage.emit('rightdown');
             await wait(2000);
+            toggleClickBlocker();
             spriteSwap(menuContainer, menuItemGlassWaterEmpty, menuItemGlassWater);
             let fillGlassText;
             playerNewText(fillGlassText, "Rempli à ras bord", 1500);
@@ -1808,6 +1810,7 @@ export async function interactions(apps, sprites, texts) {
                 if (!alreadyWaterFilled) {
                     alreadyWaterFilled = true;
                 }
+                app.stage.emit('rightdown');
                 menuContainer.addChild(menuCoverDialogueOverlay);
                 PIXI.sound.play('pouringWater');
                 await wait(2500);

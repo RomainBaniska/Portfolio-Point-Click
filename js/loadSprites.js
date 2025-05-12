@@ -552,7 +552,6 @@ export async function loadSprites(apps, sounds) {
     // SPECIAL SCREEN CONTAINER 
     const specialScreenContainer = new PIXI.Container();
     specialScreenContainer.sortableChildren = true;
-    // app.stage.addChild(specialScreenContainer);
     specialScreenContainer.position.set(
         (app.stage.width - specialScreenContainer.width) / 2,
         0
@@ -582,19 +581,15 @@ export async function loadSprites(apps, sounds) {
     terminalPS.zIndex = 12;
     terminalPS.height = terminal.height;
     terminalPS.width = terminal.width;
-
     terminalPS.x = terminalbgSprite.x + (terminalbgSprite.width - terminal.width) / 2;
-    // specialScreenContainer.addChild(terminalPS);
 
     // PENDING LOGO
     const pendingLogo = await displaySprite('TERMINAL/hourglassAnimated.json', 0.1);
     pendingLogo.zIndex = 13;
     pendingLogo.height = terminal.height / 8;
     pendingLogo.width = terminal.width / 8;
-
     pendingLogo.x = terminalPS.x + (terminalPS.width - pendingLogo.width) / 2;
     pendingLogo.y = terminalPS.y + (terminalPS.height - pendingLogo.height) / 2;
-    // specialScreenContainer.addChild(pendingLogo);
 
     // yellow led
     const yellowledAsset = await PIXI.Assets.load('../sprites/TERMINAL/yellowled1.png');
@@ -602,9 +597,7 @@ export async function loadSprites(apps, sounds) {
     yellowled.zIndex = 12;
     yellowled.height = terminal.height;
     yellowled.width = terminal.width;
-
     yellowled.x = terminal.x;
-    // specialScreenContainer.addChild(yellowled);
 
     // green led
     const greenledAsset = await PIXI.Assets.load('../sprites/TERMINAL/greenled1.png');
@@ -612,9 +605,7 @@ export async function loadSprites(apps, sounds) {
     greenled.zIndex = 12;
     greenled.height = terminal.height;
     greenled.width = terminal.width;
-
     greenled.x = terminal.x;
-    // specialScreenContainer.addChild(greenled);
 
     // Chest en gros plan pour la cutscene
     const chestZoom = await displaySprite('ELEMENTS/chest/chest.json', 0.06);
@@ -629,238 +620,6 @@ export async function loadSprites(apps, sounds) {
     chestZoom.animationSpeed = 0.03
     chestZoom.loop = false;
     chestZoom.visible = false;
-
-
-    // FONCTIONNEMENT DU TERMINAL
-    // Champ d'affichage du mot de passe
-//     const terminalFontSize = terminal.height * 0.053;
-//     let currentInput = '';
-//     const inputText = new PIXI.Text({
-//         text: '_',
-//         style: {
-//             fontFamily: 'Digital7',
-//             fontSize: terminalFontSize,
-//             fill: 0x80FF80
-//         }
-//     });
-    
-//     inputText.x = terminal.x + terminal.width * 0.255;
-//     inputText.y = terminal.y + terminal.height * 0.55;
-//     inputText.zIndex = 13;
-//     inputText.scale.y = 1.1;
-//     inputText.scale.x = 0.9;
-//     specialScreenContainer.addChild(inputText);
-
-//     let showCursor = true;
-    
-//     // Fonction de mise à jour visuelle
-//     function terminalUpdateDisplay() {
-//         const spaced = currentInput.split('').join(' ');
-//         let cursor = '';
-//         if (currentInput.length < 12 && showCursor) {
-//             cursor = ' _';
-//         }
-//         inputText.text = spaced + cursor;
-//     }
-
-//     // Curseur clignotant
-//     setInterval(() => {
-//         showCursor = !showCursor;
-//         terminalUpdateDisplay();
-//     }, 500);
-
-//     // Fonction d'écoute de l'événement keydown
-//     function handleKeydown(e) {
-//         const key = e.key;
-
-//         // Cas validation
-//         if (key === 'Enter') {  
-//             console.log('Mot de passe entré :', currentInput);
-//             // Vérification du mot de passe
-//             if (currentInput.toLowerCase() === "tezcatlipoca") {
-                
-//                 PIXI.sound.play('passwordValid');
-//                 PIXI.sound.stop('nighttheme');
-//                 PIXI.sound.stop('daytheme');
-
-//                 setTimeout(() => { // recalage d'un léger délai au départ du sound
-//                     specialScreenContainer.addChild(greenled); 
-//                 }, 400);
-
-//                 setTimeout(() => {
-//                     specialScreenContainer.removeChild(greenled);
-//                 }, 3000);
-
-//                 setTimeout(() => {
-//                     specialScreenContainer.removeChild(terminal);
-//                     specialScreenContainer.removeChild(inputText);
-//                     specialScreenContainer.addChild(terminalPS);
-//                     specialScreenContainer.addChild(pendingLogo);
-//                     setTimeout(() => {
-//                         specialScreenContainer.addChild(greenled);
-//                     }, 2500);
-//                     setTimeout(() => {
-//                         specialScreenContainer.removeChild(greenled);
-//                     }, 5000);
-//                     setTimeout(() => {
-//                         specialScreenContainer.addChild(greenled);
-//                     }, 7000);
-//                 }, 3000);
-
-//                 setTimeout(() => {
-//                     transitionVolet();
-//                 }, 10000);
-
-//                 setTimeout(() => {
-//                     PIXI.sound.stop('passwordValid');
-//                     PIXI.sound.play('ewstheme', { loop: true });
-//                 }, 110000);
-
-//                 console.log("Mot de passe correct");
-
-//                 // Retirer l'écouteur d'événements après la validation
-//                 window.removeEventListener('keydown', handleKeydown);
-//             } else {
-//                 specialScreenContainer.addChild(yellowled);
-//                 PIXI.sound.play('accessDenied');
-//                 setTimeout(() => {
-//                     specialScreenContainer.removeChild(yellowled);
-//                 }, 500);
-//                 console.log("Mot de passe incorrect");
-//             }
-//             return;
-//         }
-
-//         // Cas suppression
-//         if (key === 'Backspace' || key === 'Delete' || key === 'ArrowLeft') {
-//             currentInput = currentInput.slice(0, -1);
-//             PIXI.sound.play('deleteinput');
-//             terminalUpdateDisplay();
-//             return;
-//         }
-
-//         // Vérification caractère autorisé (lettres uniquement)
-//         if (/^[a-zA-Z0-9]$/.test(key)) {
-//             if (currentInput.length < 12) {
-//                 currentInput += key;
-//                 PIXI.sound.play('input');
-//                 terminalUpdateDisplay();
-//             }
-//         }
-//     }
-
-//     // Ajouter l'écouteur d'événements
-//     window.addEventListener('keydown', handleKeydown);
-
-//     async function transitionVolet () {
-//     // TRANSITION VOLET :
-//     const scene1Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-1.jpg'); // à changer par un carré à la con
-//     const scene1 = new PIXI.Sprite(scene1Asset);
-//     const scene1Mask = new PIXI.Graphics();
-//     scene1.mask = scene1Mask; // Applique le masque sur scene1
-
-//     const scene2Asset = await PIXI.Assets.load('../sprites/blackbgscreen.jpg');
-//     const scene2 = new PIXI.Sprite(scene2Asset);
-
-//     scene1.width = scene2.width = terminalbgSprite.width;
-//     scene1.height = scene2.height = terminalbgSprite.height;
-//     scene1.x = scene2.x = terminalbgSprite.x;
-
-//     scene1.zIndex = scene2.zIndex = 98;
-
-//     specialScreenContainer.addChild(scene1);
-//     specialScreenContainer.addChild(scene2);
-
-//     // Chest en gros plan
-//     const chestZoom = await displaySprite('ELEMENTS/chest/chest.json', 0.06);
-//     chestZoom.gotoAndStop(0); 
-//     chestZoom.interactive = true;
-//     chestZoom.zIndex = 99;
-//     chestZoom.anchor.set(0.5);
-//     chestZoom.x = specialScreenContainer.width / 2;
-//     chestZoom.y = specialScreenContainer.height / 2;
-//     chestZoom.width = specialScreenContainer.width * 0.4;
-//     chestZoom.height = specialScreenContainer.height * 0.4;
-//     chestZoom.animationSpeed = 0.03
-//     chestZoom.loop = false;
-//     chestZoom.visible = false;  // Commence invisible
-//     specialScreenContainer.addChild(chestZoom);
-
-//     // 2. Create the masking graphics for scene1 (mask out the portion of the image)
-//     const mask = new PIXI.Graphics();
-//     scene2.mask = mask; // Applique le masque sur scene2
-//     app.stage.addChild(mask);
-
-//     // 3. Animate the mask (clock wipe effect)
-//     let angle = -90;
-// let fadeInOpacity = 0;
-// let hasTransitionEnded = false;
-
-// app.ticker.add(() => {
-//     const cx = app.screen.width / 2;
-//     const cy = app.screen.height / 2;
-//     const radius = Math.max(cx, cy) * 2;
-
-//     if (angle < 370) {
-//         angle += 3;
-//         mask.clear();
-//         mask.beginFill(0xffffff);
-//         mask.moveTo(cx, cy);
-
-//         for (let a = -90; a <= angle; a += 1) {
-//             const rad = a * (Math.PI / 180);
-//             mask.lineTo(cx + radius * Math.cos(rad), cy + radius * Math.sin(rad));
-//         }
-
-//         mask.lineTo(cx, cy);
-//         mask.endFill();
-//     } else {
-//         // FADE IN dans le ticker
-//         if (chestZoom.visible && fadeInOpacity < 1) {
-//             fadeInOpacity += 0.01;
-//             chestZoom.alpha = fadeInOpacity;
-//         }
-
-//         // Bloque les setTimeout une seule fois
-//         if (!hasTransitionEnded) {
-//             hasTransitionEnded = true;
-
-//             chestZoom.visible = true;
-//             chestZoom.alpha = 0; // Important pour que le fade-in parte de 0
-
-//             setTimeout(() => chestZoom.gotoAndStop(1), 3650);
-//             setTimeout(() => chestZoom.play(), 5200);
-
-//             setTimeout(() => {
-//                 let fadeOutOpacity = 1;
-//                 const fadeOutInterval = setInterval(() => {
-//                     fadeOutOpacity -= 0.01;
-//                     chestZoom.alpha = fadeOutOpacity;
-//                     if (fadeOutOpacity <= 0) {
-//                         chestZoom.visible = false;
-//                         clearInterval(fadeOutInterval);
-//                     }
-//                 }, 16);
-//                 chest.gotoAndStop(5);
-//             }, 12000);
-
-//             setTimeout(() => {
-//                 innerHouseContainer.removeChild(guybrushF);
-//                 innerHouseContainer.removeChild(bed);
-//                 innerHouseContainer.addChild(door);
-//                 innerHouseContainer.addChild(bed);
-//                 app.stage.removeChild(specialScreenContainer);
-//             }, 15000);
-
-//             setTimeout(() => {
-//                 PIXI.sound.play('doorslam');
-//                 innerHouseContainer.removeChild(door);
-//             }, 16000);
-//         }
-//     }
-// });
-
-// }
 
 
     // TOILE SCREEN
