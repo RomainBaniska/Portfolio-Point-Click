@@ -397,6 +397,7 @@ export async function interactions(apps, sprites, texts) {
                     bloodRect.drawRect(houseSprite.x, houseSprite.y, houseSprite.width, houseSprite.height);
                     bloodRect.endFill();
                     bloodRect.alpha = 0;
+                    bloodRect.eventMode = "none";
                     houseContainer.addChild(bloodRect);
 
                     let increasing = true;
@@ -411,6 +412,7 @@ export async function interactions(apps, sprites, texts) {
                             bloodRect.alpha -= 0.05;
                             if (bloodRect.alpha <= 0) {
                                 bloodTicker.stop();
+                                houseContainer.removeChild(bloodRect);
                             }
                         }
                     });
