@@ -427,21 +427,64 @@ export async function interactions(apps, sprites, texts) {
     });
 
     // Utiliser la disquette sur ordiRed
-    ordiRed.on('click', () => {
+    ordiRed.on('click', async () => {
         if (menuButton7.isActive && menuItemDisquette.isActive) {
             menuContainer.removeChild(menuItemDisquette);
-            app.stage.emit('rightdown');
-            menuItemDisquette.destroy();
+
+            // Création du rectangle "areusure?" en rouge
+            const bloodBGRect = new PIXI.Graphics();
+            bloodBGRect.beginFill(0xf23434);
+            bloodBGRect.drawRect(terminalbgSprite.x, terminalbgSprite.y, terminalbgSprite.width, terminalbgSprite.height);
+            bloodBGRect.endFill();
+            bloodBGRect.zIndex = 98;
+
+            // Création du logo416 détaché de la toilePoulie
+            const only416Asset = await PIXI.Assets.load('../sprites/ELEMENTS/toilepoulie/only416.png');
+            const only416 = new PIXI.Sprite(only416Asset);
+            only416.zIndex = 9999;
+            only416.x = toilePoulie416.x;
+            only416.y = toilePoulie416.y;
+            only416.width = toilePoulie416.width;
+            only416.height = toilePoulie416.height;
+            only416.zIndex = 99;
+
+            // On rend transparent tout le terminal
             terminal.alpha = 0;
             terminalbgSprite.alpha = 0;
             greenled.alpha = 0;
             yellowled.alpha = 0;
 
-            // Création du rectangle areusure
-            const bloodBGRect = new PIXI.Graphics();
-            bloodBGRect.beginFill(0xf23434);
+            // Déroule la poulie 416
+            unroll416();
+            // On recycle le bloodBGRect en le peignant en noir et en le mettant à un alpha de 0
+            bloodBGRect.clear();
+            bloodBGRect.beginFill(0x000000);
             bloodBGRect.drawRect(terminalbgSprite.x, terminalbgSprite.y, terminalbgSprite.width, terminalbgSprite.height);
             bloodBGRect.endFill();
+            bloodBGRect.alpha = 0.9
+
+            app.stage.addChild(specialScreenContainer);
+            specialScreenContainer.addChild(bloodBGRect);
+            // innerHouseContainer.addChild(only416);
+            // Étape 1 : position globale depuis innerHouseContainer
+            const globalPos = innerHouseContainer.toGlobal(new PIXI.Point(only416.x, only416.y));
+            // Étape 2 : position locale relative à specialScreenContainer
+            const newLocalPos = specialScreenContainer.toLocal(globalPos);
+            // Étape 3 : assignation avant le changement de parent
+            only416.x = newLocalPos.x;
+            only416.y = newLocalPos.y;
+            // Étape 4 : on l'ajoute à specialScreenContainer
+            specialScreenContainer.addChild(only416);
+
+            await wait(5000000);
+
+            app.stage.emit('rightdown');
+            menuItemDisquette.destroy();
+            // terminal.alpha = 0;
+            // terminalbgSprite.alpha = 0;
+            // greenled.alpha = 0;
+            // yellowled.alpha = 0;
+
             app.stage.addChild(specialScreenContainer);
             specialScreenContainer.addChild(bloodBGRect);
             areusure.gotoAndStop(0);
@@ -453,6 +496,8 @@ export async function interactions(apps, sprites, texts) {
                     areusure.gotoAndStop(0);
                 }, 200);
             }, 3000);
+
+
 
             return;
         }
