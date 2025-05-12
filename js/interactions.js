@@ -1551,9 +1551,9 @@ export async function interactions(apps, sprites, texts) {
                                 // });
         }
     });
-    // ordi.on('click', async () => {
+
     ordiRun.on('click', async () => {
-        guybrushReactive = false;
+        // guybrushReactive = false;
         // Quand on "utiliser" l'ordi allumé
         if (menuButton7.isActive && !guybrushReactive) {
             let useOrdiText;
@@ -1564,7 +1564,7 @@ export async function interactions(apps, sprites, texts) {
             // DEPLACER ICI TOUTE LA LOGIQUE DUTERMINAL
             displayTerminalAndChestCutscene();
 
-        }
+        } else {
         // Si guybrush n'est pas MORT
         let useOrdiTextFail;
         let useOrdiTextFail2;
@@ -1607,6 +1607,7 @@ export async function interactions(apps, sprites, texts) {
         playerNewText(useOrdiTextFail2, "Si je veux accéder à son ordinateur il faut que je trouve un moyen de l'en écarter", 2500);
         await wait(2500);
         playerNewText(useOrdiTextFail3, "Mais comment ?", 2500);
+    }
 });
 
 
@@ -1623,11 +1624,13 @@ export async function interactions(apps, sprites, texts) {
         
     // Donner la tasse de café
     // TEST Donner le verre d'eau à Romain
-    // guybrushSO.on('click', () => {
-        guybrushLD.on('click', async () => {
-            if (menuButton.isActive && menuItemGlassWater.isActive) {
+    guybrushSO.on('click', async () => {
+        // guybrushLD.on('click', async () => {
+            if (menuButton.isActive && menuItemGlassCoffe.isActive) {
                 app.stage.emit('rightdown');
                 menuContainer.addChild(menuCoverDialogueOverlay);
+
+                menuItemGlassCoffe.destroy();
         
                 setPosition(guybrushSO, 0.2, 0.68);
                 spriteSwap(innerHouseContainer, guybrushLD, guybrushSO);
@@ -1702,6 +1705,7 @@ export async function interactions(apps, sprites, texts) {
                 guybrushSO.interactive = false;
                 menuContainer.removeChild(menuCoverDialogueOverlay);
 
+                innerHouseContainer.removeChild(gamingChairAR); // Correction de bug à déplacer
                 toggleClickBlocker();
 
                 await wait(5000);
@@ -1766,12 +1770,9 @@ export async function interactions(apps, sprites, texts) {
                 toggleClickBlocker();
 
                 await wait(1000);
-
+                // Succès steam
                 PIXI.sound.play('steamnotif');
                 await showAchievement();
-
-                // Achievement unlocked
-                // screenBackgroundContainer.addChild(achievement);
             }
         });
 
@@ -1832,11 +1833,8 @@ export async function interactions(apps, sprites, texts) {
                 // Lancer l'animation de la machine à café
                 coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
                 coffeMachineCutsceneContainer.addChild(coffeMachineClone);
-                // setTimeout(() => {
-                //     coffeMachineClone.play();
-                //     coffeMachineClone.gotoAndStop(8);
-                    coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
-                        coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+                coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+                coffeMachineCutsceneContainer.addChild(coffeMachineClone);
                         PIXI.sound.play('coffesound');
                         setTimeout(() => {
                             coffeMachine.gotoAndStop(1);
@@ -2203,35 +2201,6 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
                 menuContainer.removeChild(menuCoverDialogueOverlay);
                 resolve();
             });
-            //     // 2eme promesse
-            //     await new Promise((resolve) => {
-            //     // On masque les réponses avec un overlay
-            //     menuContainer.addChild(menuCoverDialogueOverlay);
-            //     // Configuration et ajouts des réponses que va répondre Guybrush
-            //     const guybrushResponseText = new PIXI.Text({ text: response.guybrushResponse, style: dialogueStyle });
-            //     guybrushResponseText.anchor.set(0.5);
-            //     guybrushResponseText.zIndex = 4;
-            //     guybrushResponseText.x = guybrushSO.x + (guybrushSO.width / 2);
-            //     guybrushResponseText.y = guybrushSO.y - guybrushSO.height;
-
-            //     innerHouseContainer.addChild(guybrushResponseText);
-            //     spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
-            //     guybrushSOT.x = guybrushSO.x + (innerHouseSprite.width * 0.022);
-            //     guybrushSOT.y = guybrushSO.y;
-
-            //     // Supprimer la réponse après un délai
-            //     setTimeout(() => {
-            //         if (guybrushResponseText) {
-            //             guybrushResponseText.destroy();
-            //             // et l'animation
-            //             spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
-            //             // Et bien sûr l'Overlay
-            //             menuContainer.removeChild(menuCoverDialogueOverlay); 
-            //         } 
-            //         resolve();
-            //     }, 3000);
-            // });
-
 
                 // Si la réponse du JOUEUR a une propriété "exit: true", réinitialiser les réponses et quitter
                 if (response.exit) {
@@ -2264,11 +2233,6 @@ function displayResponses(menuCoverDialogue, playerResponses, style, originalRes
             });
     }
 }
-
-// setPosition(guybrushF, 0.63, 0.74);
-// houseContainer.addChild(guybrushF);
-// setPosition(guybrushP, 0.6, 0.6603);
-// houseContainer.addChild(guybrushP);
 
 // FONCTION CLICKBLOCKER qui ajoute un masque invisible pour bloquer les clics momentanément
 function toggleClickBlocker() {
@@ -2548,6 +2512,10 @@ async function displayTerminalAndChestCutscene() {
             setTimeout(() => {
                 PIXI.sound.play('doorslam');
                 innerHouseContainer.removeChild(door);
+                setTimeout(() => {
+                    let successTerminalChestCutscene;
+                    playerNewText(successTerminalChestCutscene, "quelqu'un vient de sortie de la pièce", 2000);
+                }, 1000);
             }, 16000);
         }
     }
