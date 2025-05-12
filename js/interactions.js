@@ -295,12 +295,22 @@ export async function interactions(apps, sprites, texts) {
 
             // tombe en piqué
             const stopPositionYFall = innerHouseSprite.y + innerHouseSprite.height * 0.83;
+            const startPositionYFall = chest.y;
+            const halfWayY = startPositionYFall + (stopPositionYFall - startPositionYFall) * 0.3;
             const speedFall = 20;
+            let tintApplied = false;
 
             await new Promise((resolve) => {
                 const transportFallTicker = new PIXI.Ticker();
                 transportFallTicker.add(() => {
                     chest.y += speedFall;
+
+                    if (!tintApplied && chest.y >= halfWayY) {
+                        // Retrait de la teinte
+                        chest.tint = 0xFFFFFF;
+                        tintApplied = true;
+                    }
+
                     if (chest.y >= stopPositionYFall) {
                         chest.y = stopPositionYFall;
                         transportFallTicker.stop();
@@ -308,7 +318,7 @@ export async function interactions(apps, sprites, texts) {
                         resolve();
                     }
                 });
-                
+
                 transportFallTicker.start();
             });
 
