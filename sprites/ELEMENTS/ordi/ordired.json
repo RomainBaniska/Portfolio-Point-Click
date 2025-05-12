@@ -1,0 +1,44 @@
+{ "frames": {
+   "ordired 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 106, "h": 103 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 106, "h": 103 },
+    "sourceSize": { "w": 106, "h": 103 },
+    "duration": 100
+   },
+   "ordired 1.aseprite": {
+    "frame": { "x": 106, "y": 0, "w": 106, "h": 103 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 106, "h": 103 },
+    "sourceSize": { "w": 106, "h": 103 },
+    "duration": 100
+   },
+   "ordired 2.aseprite": {
+    "frame": { "x": 212, "y": 0, "w": 106, "h": 103 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 106, "h": 103 },
+    "sourceSize": { "w": 106, "h": 103 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.13-x64",
+  "image": "ordired.png",
+  "format": "RGBA8888",
+  "size": { "w": 318, "h": 103 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "ordi", "opacity": 255, "blendMode": "normal" },
+   { "name": "redscreen", "opacity": 255, "blendMode": "normal" },
+   { "name": "attention", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

@@ -68,7 +68,6 @@ export async function loadSprites(apps, sounds) {
     screenBackgroundContainer.addChild(houseContainer);
 
     // HOUSE SPRITE
-
     let currentDate = new Date();
     let currentHour = currentDate.getHours();
     // currentHour = 23;
@@ -117,18 +116,11 @@ export async function loadSprites(apps, sounds) {
         center: {x:filterX, y:filterY},
         color: 0xffff66,
     });
-
-    // godrayFilter.center.x = 130;
-    // godrayFilter.center.y = 45;
-    // godrayFilter.color = 0xffff66;
-
     // On applique le filtre sur houseSprite
     houseSprite.filters = [godrayFilter];
     
     // Animation des rayons (optionnel pour que ça bouge un peu)
-    // app.ticker.add((delta) => {
     app.ticker.add(() => {
-    // godrayFilter.time += 0.1 * delta;
     godrayFilter.time += 0.03;
     });
 
@@ -261,34 +253,24 @@ export async function loadSprites(apps, sounds) {
 
     // MACHINE A CAFE CUTSCENE BG
     const coffeMachineCutsceneBG = new PIXI.Graphics();
-    // poster.beginFill(0x000000, 0);
-    // coffeMachineCutsceneBG.beginFill(0xFF0000, 1); 
-    // coffeMachineCutsceneBG.drawRect(0, 0, 200, 200); 
-    // coffeMachineCutsceneBG.endFill();
     coffeMachineCutsceneBG.lineStyle(6, 0x222222, 1);
     coffeMachineCutsceneBG.interactive = true;
-    // coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
     coffeMachineCutsceneBG.zIndex = 80;
 
     const coffeMachineClone = await displaySprite('ELEMENTS/coffemachine/coffemachineflip.json', 0.095);
     coffeMachineClone.gotoAndStop(0); 
     coffeMachineClone.interactive = true;
     coffeMachineClone.zIndex = 81;
-    // coffeMachineCutsceneContainer.addChild(coffeMachineClone);
 
     // TABLE ETROITE
     const narrowTableAsset = await PIXI.Assets.load('../sprites/ELEMENTS/coffemachine/narrowtable2.png');
     const narrowTable = new PIXI.Sprite(narrowTableAsset);
     narrowTable.tint = 0xcb796e;
     narrowTableAsset.interactive = false;
-    // const colorMatrix = new PIXI.filters.ColorMatrixFilter();
-    // colorMatrix.tint(0x5b3631, 0.3); 
-    // narrowTable.filters = [colorMatrix];
     innerHouseContainer.addChild(narrowTable);
 
     // POUBELLE
     const trash = new PIXI.Graphics();
-    // trash.beginFill(0x000000, 0);
     trash.beginFill(0xFF0000, 1); 
     trash.drawRect(0, 0, 200, 100); 
     trash.endFill();
@@ -299,7 +281,6 @@ export async function loadSprites(apps, sounds) {
 
     // POSTER
     const poster = new PIXI.Graphics();
-    // poster.beginFill(0x000000, 0);
     poster.beginFill(0xFF0000, 1); 
     poster.drawRect(0, 0, 200, 100); 
     poster.endFill();
@@ -310,11 +291,14 @@ export async function loadSprites(apps, sounds) {
     // ORDINATEUR
     const ordi = await displaySprite('ELEMENTS/ordi/ordi.json', 0.12);
     const ordiRun = await displaySprite('ELEMENTS/ordi/ordiRun.json', 0.12);
+    const ordiRed = await displaySprite('ELEMENTS/ordi/ordiRed.json', 0.07);
     ordi.gotoAndStop(0); 
     ordi.interactive = true;
     ordi.clicked = false;
     ordiRun.interactive = true;
     ordiRun.clicked = false;
+    ordiRed.interactive = true;
+    // ordiRed.clicked = false;
     innerHouseContainer.addChild(ordi);
 
     // BUREAU
@@ -341,27 +325,21 @@ export async function loadSprites(apps, sounds) {
 
     // ETAGERE
     const shelf = new PIXI.Graphics();
-    // shelf.beginFill(0x000000, 0);
-    // shelf.beginFill(0xFF0000, 1); 
     shelf.drawRect(0, 0, 200, 100); 
-    // shelf.endFill();
     // On masque l'étagère au départ par Romain qui dort
     shelf.interactive = true;
-    // shelf.alpha = 0.5; 
     shelf.alpha = 0;
     innerHouseContainer.addChild(shelf);
 
     // GOLD KEY
     const goldkeyAsset = await PIXI.Assets.load('../sprites/ELEMENTS/goldkey/goldkey.png');
     const goldkey = new PIXI.Sprite(goldkeyAsset);
-    // goldkey.anchor.set(0.5); 
     goldkey.interactive = true;
     innerHouseContainer.addChild(goldkey);
 
     // TABLE DE NUIT ET REVEIL
     const reveilAsset = await PIXI.Assets.load('../sprites/ELEMENTS/tablereveil/splitted/reveil.png');
     const reveil = new PIXI.Sprite(reveilAsset);
-    // reveil.anchor.set(0.5); 
     reveil.interactive = true;
     reveil.zIndex = 7;
     innerHouseContainer.addChild(reveil);
@@ -389,7 +367,6 @@ export async function loadSprites(apps, sounds) {
      disquette.play();
      disquette.interactive = true;
      disquette.zIndex = 12;
-    //  innerHouseContainer.addChild(disquette);
      // DISQUETTE FLOAT
      const disquetteFloat = await displaySprite('ELEMENTS/disquette/disquetteitemFloat.json', 0.07);
     disquetteFloat.play();
@@ -397,8 +374,8 @@ export async function loadSprites(apps, sounds) {
     disquetteFloat.zIndex = 12;
     disquetteFloat.interactive = false;
     disquetteFloat. eventMode = "none";
-    // innerHouseContainer.addChild(disquetteFloat);
 
+    // BOUT DE METAL
     const boutdemetalShine = await displaySprite('ELEMENTS/boutdemetal/boutdemetalshine.json', 0.09);
     boutdemetalShine.play();
     boutdemetalShine.gotoAndStop(0);
@@ -416,7 +393,6 @@ export async function loadSprites(apps, sounds) {
     glasswater.zIndex = 7;
     glasswater.interactive = true;
     glasswater.stop();
-    // glasswater.anchor.set(0.5); 
     innerHouseContainer.addChild(glasswater);
 
 
@@ -472,7 +448,6 @@ export async function loadSprites(apps, sounds) {
     // COFFRE
     const chest = await displaySprite('ELEMENTS/chest/chest.json', 0.12);
     chest.gotoAndStop(0); 
-    // chest.interactive = true;
     chest.zIndex = 3;
     chest.tint = 0x6B4423;
     innerHouseContainer.addChild(chest);
@@ -500,8 +475,6 @@ export async function loadSprites(apps, sounds) {
     door.width = innerHouseSprite.width; 
     door.x = innerHouseSprite.x;
     door.y = innerHouseSprite.y;
-    // door.zIndex = 0;
-    // innerHouseContainer.addChild(door);
 
     // BED
     const bedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/bed/bed.png');
@@ -752,12 +725,8 @@ export async function loadSprites(apps, sounds) {
     houseContainer.addChild(music);
 
     music.anchor.set(1, 0);
-    // music.x = houseContainer.width - music.width - 20;
-    // music.x = houseContainer.width - music.width - (houseContainer.width * 0.015);
     music.x = houseSprite.x + houseSprite.width * 0.98;
-    // music.y = 0 + 20;
     music.y = houseSprite.y + (houseContainer.height * 0.03);
-    // music.scale = 0.3;
 
     const originalWidthNote = music.texture.width;
     const originalHeightNote = music.texture.height;
@@ -794,7 +763,6 @@ export async function loadSprites(apps, sounds) {
     });
     
     music.on('click', () => {
-        // Sprites
         // Si la musique n'est pas jouée on la passe en true
         if (!musicToggled) {
         musicToggled = true;
@@ -826,7 +794,6 @@ export async function loadSprites(apps, sounds) {
     questionMarkActive.texture = questionMarkspriteAsset.textures[questionMarkframes[1]];
 
     questionMark.anchor.set(1, 0);
-    // questionMark.x = houseContainer.width - questionMark.width - 20;
     questionMark.x = music.x;
     questionMark.y = music.y + music.height + (houseContainer.width * 0.015);
 
@@ -834,7 +801,6 @@ export async function loadSprites(apps, sounds) {
     const originalHeight = questionMark.texture.height;
 
     const scaleFactor = Math.min(
-        // houseSprite.width / originalWidth,
         (houseContainer.width * 0.1) / originalWidth,
         (houseContainer.height * 0.1) / originalHeight
     );
@@ -853,7 +819,6 @@ export async function loadSprites(apps, sounds) {
     noPanik.zIndex = 95; 
     const noPanikContainer = new PIXI.Container();
     noPanikContainer.addChild(noPanik);
-    // app.stage.addChild(noPanik);
 
      // HOVER ET CLIC QUESTIONMARK
      questionMark.on('pointerover', () => {
@@ -879,9 +844,6 @@ export async function loadSprites(apps, sounds) {
     arrow.texture = arrowspriteAsset.textures[arrowframes[0]];
     arrowActive.texture = arrowspriteAsset.textures[arrowframes[1]];
     arrow.zIndex = 96;
-    // arrow.anchor.set (0.5, 0.5);
-    // arrow.x = noPanik.x + (noPanik.width * 0.9);
-    // arrow.y = noPanik.y + (noPanik.height * 0.9);
 
     noPanikContainer.addChild(arrow);
 
@@ -898,9 +860,6 @@ export async function loadSprites(apps, sounds) {
     });
 
 
-   
-
-
     //////////////////////////////////////// ACTIONS MENU ////////////////////////////////
 
     async function displaySpriteButton(path) {
@@ -913,13 +872,11 @@ export async function loadSprites(apps, sounds) {
      // MENU CONTAINER 
      const menuContainer = new PIXI.Container();
      menuContainer.sortableChildren = true;
-    //  app.stage.addChild(menuContainer);
      screenBackgroundContainer.addChild(menuContainer);
 
      // MENU TEXTURE
      const menuAsset = await PIXI.Assets.load('../sprites/test sprite menu.png');
      const menuSprite = new PIXI.Sprite(menuAsset);
-    //  menuSprite.anchor.set(0.5, 0);
      menuContainer.addChild(menuSprite);
 
      // MENU COVER TEXTURE (Dialogues)
@@ -1089,7 +1046,6 @@ export async function loadSprites(apps, sounds) {
         menuButton9,
     );
 
-  
     // Méthode pour l'activation du statut actif lors du clic sur l'item et sa surbrillance
     // On crée un tableau des items avec leur texture de surbrillance respective
     const menuItems = [
@@ -1110,7 +1066,6 @@ export async function loadSprites(apps, sounds) {
         // On définit l'item comme inactif par défaut
         item.isActive = false;
         item.on('click', () => {
-            // console.log(currentActionButton.action);
             // Si aucun bouton d'action n'est sélectionné, on ne fait rien
             if (!currentActionButton || (currentActionButton.action !== "donner" && currentActionButton.action !== "utiliser")) {
                 console.log("Aucun bouton d'action actif");
@@ -1283,6 +1238,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: guybrushF, spriteName: "cadavre" },
         { sprite: ordi, spriteName: "ordinateur" },
         { sprite: ordiRun, spriteName: "ordinateur" },
+        { sprite: ordiRed, spriteName: "ordinateur" },
         { sprite: gamingChair, spriteName: "fauteuil" },
         { sprite: toilePoulie, spriteName: "toile" },
         { sprite: toilePoulieRun, spriteName: "toile" },
@@ -1350,7 +1306,6 @@ export async function loadSprites(apps, sounds) {
                 }
            
             // Le positionnement vertical reste invariablement le même
-            // currentSpriteText.y = houseSprite.height + (houseSprite.height * 0.005);
             currentSpriteText.y = menuSprite.height * 0.012;
            
         });
@@ -1372,9 +1327,6 @@ export async function loadSprites(apps, sounds) {
                 // Si l'item n'était pas déjà cliqué, on passe le clicked en "true" et on fait un cleanUp
                 if (!itemClicked) {
                     itemClicked = true;
-                    // if (currentItemText) {
-                    //     currentItemText.destroy();
-                    // } 
                     // SI l'action est "utiliser"
                         if (currentActionButton == menuButton7) { 
                             currentItemText = new PIXI.Text({ text: `${spriteName} avec `, style: {
@@ -1459,7 +1411,6 @@ export async function loadSprites(apps, sounds) {
         function cleanupText() {
             // Si le nom du sprite existe on le détruit
                 if (currentSpriteText) {
-                    // app.stage.removeChild(currentSpriteText);
                     menuContainer.removeChild(currentSpriteText);
                     currentSpriteText.destroy();
                     currentSpriteText = null;
@@ -1478,6 +1429,7 @@ export async function loadSprites(apps, sounds) {
     glasswater.label = "glasswater";
     ordi.label = "ordi";
     ordiRun.label = "ordiRun";
+    ordiRed.label = "ordiRed";
     gamingChair.label = "gamingChair";
     chest.label = "chest";
     goldkey.label = "goldkey";
@@ -1553,6 +1505,7 @@ export async function loadSprites(apps, sounds) {
         // ELEMENTS & OBJECTS
         ordi,
         ordiRun,
+        ordiRed,
         trash,
         poster,
         desk,
@@ -1598,7 +1551,6 @@ export async function loadSprites(apps, sounds) {
         menuButton8,
         menuButton9,
         // ITEMS
-        // itemClicked,
         menuItemGlassWater,
         menuItemGlassWaterSelected,
         menuItemGlassCoffe,
@@ -1672,7 +1624,6 @@ export async function loadSprites(apps, sounds) {
         pendingLogo,
         // NOT A SPRITE
         // musicthemePLAY,
-        // currentHour,
     };
 }
 
