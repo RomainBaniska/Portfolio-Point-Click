@@ -382,53 +382,44 @@ export async function interactions(apps, sprites, texts) {
             menuContainer.removeChild(menuCoverDialogueOverlay);
 
             // Rend la disquette ramassable 
-            disquette.on("click", () => {
+            disquette.on("click", async () => {
                 if (menuButton4.isActive) {
                     menuContainer.addChild(menuItemDisquette);
                     PIXI.sound.play('pickup');
                     innerHouseContainer.removeChild(disquette);
                     innerHouseContainer.removeChild(disquetteFloat);
+                    await wait(500);
+
+                    // Création du blood rectangle
+                    const bloodRect = new PIXI.Graphics();
+                    bloodRect.beginFill(0x990000);
+                    bloodRect.drawRect(houseSprite.x, houseSprite.y, houseSprite.width, houseSprite.height);
+                    bloodRect.endFill();
+                    bloodRect.alpha = 0;
+                    houseContainer.addChild(bloodRect);
+
+                    let increasing = true;
+                    let bloodTicker = new PIXI.Ticker();
+                    bloodTicker.add(() => {
+                        if (increasing) {
+                            bloodRect.alpha += 0.05;
+                            if (bloodRect.alpha >= 0.4) {
+                                increasing = false;
+                            }
+                        } else {
+                            bloodRect.alpha -= 0.05;
+                            if (bloodRect.alpha <= 0) {
+                                bloodTicker.stop();
+                            }
+                        }
+                    });
+                    bloodTicker.start();
                 }
-            })
+            });
+
             }
         }
     })
-
-
-    // // TEST MASQUE
-    
-    // const disquetteMask = new PIXI.Graphics();
-    // disquetteMask.beginFill(0xffffff); // La couleur n’a pas d’importance pour un masque
-    // disquetteMask.drawRect(0, -chest.height * 2.1, chest.width, chest.height * 2);
-    // // disquetteMask.position.set((disquette.x), (disquette.y - (chest.height * 0.8)));
-    // disquetteMask.position.set(disquette.x, disquette.y);
-    // disquetteMask.endFill();
-    // innerHouseContainer.addChild(disquetteMask);
-
-    // disquette.mask = disquetteMask;
-
-
-    // glasswater.on('click', () => {
-    //     riseDisquette();
-    // })
-    // async function riseDisquette()  {
-    //     const stopPositionYRise = innerHouseSprite.y + innerHouseSprite.height * 0.76;
-    //          const speedRise = 1;
- 
-    //          await new Promise((resolve) => {
-    //              const transportRiseTicker = new PIXI.Ticker();
-    //              transportRiseTicker.add(() => {
-    //                  disquette.y -= speedRise;
-    //                  if (disquette.y <= stopPositionYRise) {
-    //                     disquette.y = stopPositionYRise;
-    //                      transportRiseTicker.stop();
-    //                      resolve();
-    //                  }
-    //              });
-                 
-    //              transportRiseTicker.start();
-    //          });
-    // }
 
     // SHAKY CAM EFFECT SUR N'IMPORTE QUEL CONTAINER
     function shakeContainer(container, intensity = 10, duration = 1000, frequency = 200) {
