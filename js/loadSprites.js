@@ -738,10 +738,9 @@ export async function loadSprites(apps, sounds) {
     // Ajouter l'écouteur d'événements
     window.addEventListener('keydown', handleKeydown);
 
-
     async function transitionVolet () {
     // TRANSITION VOLET :
-    const scene1Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-1.jpg');
+    const scene1Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-1.jpg'); // à changer par un carré à la con
     const scene1 = new PIXI.Sprite(scene1Asset);
     const scene1Mask = new PIXI.Graphics();
     scene1.mask = scene1Mask; // Applique le masque sur scene1
@@ -1892,6 +1891,8 @@ app.ticker.add(() => {
         logoMongo,
         logoMySQL,
         logoSymfony,
+        // TERMINAL SCREEN ASSETS
+        
         // NOT A SPRITE
         // musicthemePLAY,
         // currentHour,

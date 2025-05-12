@@ -1560,6 +1560,10 @@ export async function interactions(apps, sprites, texts) {
             playerNewText(useOrdiText, "Voyons voir ça de plus près...", 2500);
             await wait(2500);
             app.stage.addChild(specialScreenContainer);
+
+            // DEPLACER ICI TOUTE LA LOGIQUE DUTERMINAL
+            
+
         }
         // Si guybrush n'est pas MORT
         let useOrdiTextFail;
@@ -2328,4 +2332,7 @@ function skipDialogue(container, textParent, textObject, duration) {
         }, duration);
     });
 }
+
+//
+
 }
