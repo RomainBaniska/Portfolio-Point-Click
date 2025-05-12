@@ -2533,7 +2533,7 @@ async function displayTerminalAndChestCutscene() {
                 innerHouseContainer.removeChild(door);
                 setTimeout(() => {
                     let successTerminalChestCutscene;
-                    playerNewText(successTerminalChestCutscene, "quelqu'un vient de sortie de la pièce", 2000);
+                    playerNewText(successTerminalChestCutscene, "quelqu'un vient de sortir de la pièce", 2000);
                 }, 1000);
             }, 16000);
         }
