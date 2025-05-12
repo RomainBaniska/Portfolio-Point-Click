@@ -453,61 +453,74 @@ export async function interactions(apps, sprites, texts) {
             terminalbgSprite.alpha = 0;
             greenled.alpha = 0;
             yellowled.alpha = 0;
-
-            // Déroule la poulie 416
-            unroll416();
-            // On recycle le bloodBGRect en le peignant en noir et en le mettant à un alpha de 0
-            bloodBGRect.clear();
-            bloodBGRect.beginFill(0x000000);
-            bloodBGRect.drawRect(terminalbgSprite.x, terminalbgSprite.y, terminalbgSprite.width, terminalbgSprite.height);
-            bloodBGRect.endFill();
-            bloodBGRect.alpha = 0;
-
-            app.stage.addChild(specialScreenContainer);
-            specialScreenContainer.addChild(bloodBGRect);
-            // Étape 1 : position globale depuis innerHouseContainer
-            const globalPos = innerHouseContainer.toGlobal(new PIXI.Point(only416.x, only416.y));
-            // Étape 2 : position locale relative à specialScreenContainer
-            const newLocalPos = specialScreenContainer.toLocal(globalPos);
-            // Étape 3 : assignation avant le changement de parent
-            only416.x = newLocalPos.x;
-            only416.y = newLocalPos.y;
-            // Étape 4 : on l'ajoute à specialScreenContainer
-            specialScreenContainer.addChild(only416);
-
-            // set promise
-            const blackAlphaTicker = new PIXI.Ticker();
-            blackAlphaTicker.add(() => {
-                bloodBGRect.alpha += 0.003;
-                if (bloodBGRect.alpha >= 1) {
-                    bloodBGRect.alpha = 1;
-                    blackAlphaTicker.stop();
-                }
-            });
-            blackAlphaTicker.start();
-
-            
-
-            await wait(5000000);
+            // on remove terminalPS et pendingLogo un peu en retard
+            // specialScreenContainer.removeChild(terminalPS);
+            // specialScreenContainer.removeChild(pendingLogo);
+            // idem pour scene1mask qui est un graphic
+            // app.stage.removeChild(scene1Mask);        
 
             app.stage.emit('rightdown');
             menuItemDisquette.destroy();
-            // terminal.alpha = 0;
-            // terminalbgSprite.alpha = 0;
-            // greenled.alpha = 0;
-            // yellowled.alpha = 0;
 
             app.stage.addChild(specialScreenContainer);
             specialScreenContainer.addChild(bloodBGRect);
             areusure.gotoAndStop(0);
             specialScreenContainer.addChild(areusure);
             // Glitche toutes les 3 secondes
-            setInterval(() => {
+            const glitchInterval = setInterval(() => {
                 areusure.play();
                 setTimeout(() => {
                     areusure.gotoAndStop(0);
                 }, 200);
             }, 3000);
+            
+            window.addEventListener('keydown', async (e) => {
+                if (e.key === 'o' || e.key === 'O') {
+                    console.log('Touche "o" pressée');
+                    PIXI.sound.play('input');
+                    specialScreenContainer.removeChild(bloodBGRect);
+                    specialScreenContainer.removeChild(areusure);
+                    // clear le setinterval
+                    clearInterval(glitchInterval);
+
+                    await wait(1000);
+
+                    // Puis on lance la cinématique de fin 
+                    // Déroule la poulie 416
+                    unroll416();
+
+                    await wait(8000);
+                    // On recycle le bloodBGRect en le peignant en noir et en le mettant à un alpha de 0
+                    bloodBGRect.clear();
+                    bloodBGRect.beginFill(0x000000);
+                    bloodBGRect.drawRect(terminalbgSprite.x, terminalbgSprite.y, terminalbgSprite.width, terminalbgSprite.height);
+                    bloodBGRect.endFill();
+                    bloodBGRect.alpha = 0;
+
+                    app.stage.addChild(specialScreenContainer);
+                    specialScreenContainer.addChild(bloodBGRect);
+                    // Étape 1 : position globale depuis innerHouseContainer
+                    const globalPos = innerHouseContainer.toGlobal(new PIXI.Point(only416.x, only416.y));
+                    // Étape 2 : position locale relative à specialScreenContainer
+                    const newLocalPos = specialScreenContainer.toLocal(globalPos);
+                    // Étape 3 : assignation avant le changement de parent
+                    only416.x = newLocalPos.x;
+                    only416.y = newLocalPos.y;
+                    // Étape 4 : on l'ajoute à specialScreenContainer
+                    specialScreenContainer.addChild(only416);
+
+                    // set promise
+                    const blackAlphaTicker = new PIXI.Ticker();
+                    blackAlphaTicker.add(() => {
+                        bloodBGRect.alpha += 0.003;
+                        if (bloodBGRect.alpha >= 1) {
+                            bloodBGRect.alpha = 1;
+                            blackAlphaTicker.stop();
+                        }
+                    });
+                    blackAlphaTicker.start();
+                }
+            });
 
 
 
@@ -2525,108 +2538,113 @@ async function displayTerminalAndChestCutscene() {
     window.addEventListener('keydown', handleKeydown);
 
     async function transitionVolet () {
-    // TRANSITION VOLET :
-    const scene1Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-1.jpg'); // à changer par un carré à la con
-    const scene1 = new PIXI.Sprite(scene1Asset);
-    const scene1Mask = new PIXI.Graphics();
-    scene1.mask = scene1Mask; // Applique le masque sur scene1
-
-    const scene2Asset = await PIXI.Assets.load('../sprites/blackbgscreen.jpg');
-    const scene2 = new PIXI.Sprite(scene2Asset);
-
-    scene1.width = scene2.width = terminalbgSprite.width;
-    scene1.height = scene2.height = terminalbgSprite.height;
-    scene1.x = scene2.x = terminalbgSprite.x;
-
-    scene1.zIndex = scene2.zIndex = 98;
-
-    specialScreenContainer.addChild(scene1);
-    specialScreenContainer.addChild(scene2);
-
-   // Commence invisible
-    specialScreenContainer.addChild(chestZoom);
-
-    // 2. Create the masking graphics for scene1 (mask out the portion of the image)
-    const mask = new PIXI.Graphics();
-    scene2.mask = mask; // Applique le masque sur scene2
-    app.stage.addChild(mask);
-
-    // 3. Animate the mask (clock wipe effect)
-    let angle = -90;
-    let fadeInOpacity = 0;
-    let hasTransitionEnded = false;
-
-    app.ticker.add(() => {
-    const cx = app.screen.width / 2;
-    const cy = app.screen.height / 2;
-    const radius = Math.max(cx, cy) * 2;
-
-    if (angle < 370) {
-        angle += 3;
-        mask.clear();
-        mask.beginFill(0xffffff);
-        mask.moveTo(cx, cy);
-
-        for (let a = -90; a <= angle; a += 1) {
-            const rad = a * (Math.PI / 180);
-            mask.lineTo(cx + radius * Math.cos(rad), cy + radius * Math.sin(rad));
-        }
-
-        mask.lineTo(cx, cy);
-        mask.endFill();
-    } else {
-        // FADE IN dans le ticker
-        if (chestZoom.visible && fadeInOpacity < 1) {
-            fadeInOpacity += 0.01;
-            chestZoom.alpha = fadeInOpacity;
-        }
-
-        // Bloque les setTimeout une seule fois
-        if (!hasTransitionEnded) {
-            hasTransitionEnded = true;
-
-            chestZoom.visible = true;
-            chestZoom.alpha = 0; // Important pour que le fade-in parte de 0
-
-            setTimeout(() => chestZoom.gotoAndStop(1), 3650);
-            setTimeout(() => chestZoom.play(), 5200);
-
-            setTimeout(() => {
-                let fadeOutOpacity = 1;
-                const fadeOutInterval = setInterval(() => {
-                    fadeOutOpacity -= 0.01;
-                    chestZoom.alpha = fadeOutOpacity;
-                    if (fadeOutOpacity <= 0) {
-                        chestZoom.visible = false;
-                        clearInterval(fadeOutInterval);
-                    }
-                }, 16);
-                chest.gotoAndStop(5);
-            }, 12000);
-
-            setTimeout(() => {
-                innerHouseContainer.removeChild(guybrushF);
-                innerHouseContainer.removeChild(bed);
-                innerHouseContainer.addChild(door);
-                innerHouseContainer.addChild(bed);
-                app.stage.removeChild(specialScreenContainer);
-            }, 15000);
-
-            setTimeout(() => {
-                // On éteint l'ordi
-                spriteSwap(innerHouseContainer, ordiRun, ordi);
-                PIXI.sound.play('doorslam');
-                innerHouseContainer.removeChild(door);
-                setTimeout(() => {
-                    let successTerminalChestCutscene;
-                    playerNewText(successTerminalChestCutscene, "quelqu'un vient de sortir de la pièce", 2000);
-                }, 1000);
-            }, 16000);
-        }
+        const scene1Asset = await PIXI.Assets.load('https://assets.codepen.io/77020/sw-clock-wipe-scene-1.jpg');
+        const scene1 = new PIXI.Sprite(scene1Asset);
+        const scene1Mask = new PIXI.Graphics();
+        scene1.mask = scene1Mask;
+    
+        const scene2Asset = await PIXI.Assets.load('../sprites/blackbgscreen.jpg');
+        const scene2 = new PIXI.Sprite(scene2Asset);
+    
+        scene1.width = scene2.width = terminalbgSprite.width;
+        scene1.height = scene2.height = terminalbgSprite.height;
+        scene1.x = scene2.x = terminalbgSprite.x;
+        scene1.zIndex = scene2.zIndex = 98;
+    
+        specialScreenContainer.addChild(scene1, scene2, chestZoom);
+    
+        const mask = new PIXI.Graphics();
+        scene2.mask = mask;
+        app.stage.addChild(mask);
+    
+        let angle = -90;
+        let fadeInOpacity = 0;
+        let hasTransitionEnded = false;
+    
+        // Fonction stockée dans une variable
+        const transitionTicker = () => {
+            const cx = app.screen.width / 2;
+            const cy = app.screen.height / 2;
+            const radius = Math.max(cx, cy) * 2;
+    
+            if (angle < 370) {
+                angle += 3;
+                mask.clear();
+                mask.beginFill(0xffffff);
+                mask.moveTo(cx, cy);
+    
+                for (let a = -90; a <= angle; a += 1) {
+                    const rad = a * (Math.PI / 180);
+                    mask.lineTo(cx + radius * Math.cos(rad), cy + radius * Math.sin(rad));
+                }
+    
+                mask.lineTo(cx, cy);
+                mask.endFill();
+            } else {
+                if (chestZoom.visible && fadeInOpacity < 1) {
+                    fadeInOpacity += 0.01;
+                    chestZoom.alpha = fadeInOpacity;
+                }
+    
+                if (!hasTransitionEnded) {
+                    hasTransitionEnded = true;
+                    chestZoom.visible = true;
+                    chestZoom.alpha = 0;
+    
+                    setTimeout(() => chestZoom.gotoAndStop(1), 3650);
+                    setTimeout(() => chestZoom.play(), 5200);
+    
+                    setTimeout(() => {
+                        let fadeOutOpacity = 1;
+                        const fadeOutInterval = setInterval(() => {
+                            fadeOutOpacity -= 0.01;
+                            chestZoom.alpha = fadeOutOpacity;
+                            if (fadeOutOpacity <= 0) {
+                                chestZoom.visible = false;
+                                clearInterval(fadeOutInterval);
+                            }
+                        }, 16);
+                        chest.gotoAndStop(5);
+                    }, 12000);
+    
+                    setTimeout(() => {
+                        innerHouseContainer.removeChild(guybrushF);
+                        innerHouseContainer.removeChild(bed);
+                        innerHouseContainer.addChild(door, bed);
+                        app.stage.removeChild(specialScreenContainer);
+                    }, 15000);
+    
+                    setTimeout(() => {
+                        spriteSwap(innerHouseContainer, ordiRun, ordi);
+                        PIXI.sound.play('doorslam');
+                        innerHouseContainer.removeChild(door);
+    
+                        setTimeout(() => {
+                            let successTerminalChestCutscene;
+                            playerNewText(successTerminalChestCutscene, "quelqu'un vient de sortir de la pièce", 2000);
+    
+                            // Nettoyage et suppression du ticker
+                            app.ticker.remove(transitionTicker);
+    
+                            terminalPS.alpha = 0;
+                            pendingLogo.alpha = 0;
+    
+                            scene1.mask = null;
+                            app.stage.removeChild(mask);
+                            specialScreenContainer.removeChild(scene1, scene2, chestZoom);
+                            // scene1.destroy(true);
+                            // scene2.destroy(true);
+                            // mask.destroy(true);
+                            // scene1Mask.destroy(true);
+                            scene1Mask.destroy();
+                        }, 1000);
+                    }, 16000);
+                }
+            }
+        };
+    
+        app.ticker.add(transitionTicker); // Ajout correct du ticker
     }
-});
-
-}
 }
 
 }
