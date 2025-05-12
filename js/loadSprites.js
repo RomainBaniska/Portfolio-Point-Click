@@ -540,7 +540,7 @@ export async function loadSprites(apps, sounds) {
     terminal.width = (houseSprite.height / 1024) * 1440;
     terminalbgSprite.height = app.screen.height;
     terminalbgSprite.width = (houseSprite.height / 1024) * 1440 * 1.4;
-    
+    // Position du container par rapport à terminal screen
     specialScreenContainer.addChild(terminalbgSprite);
     terminal.x = terminalbgSprite.x + (terminalbgSprite.width - terminal.width) / 2;
     specialScreenContainer.addChild(terminal);
@@ -594,6 +594,15 @@ export async function loadSprites(apps, sounds) {
     chestZoom.loop = false;
     chestZoom.visible = false;
 
+    // ARE YOU SURE ?
+    const areusure = await displaySprite('SPECIAL/areusure.json', 0.15);
+    areusure.gotoAndStop(0); 
+    areusure.zIndex = 99;
+    areusure.anchor.set(0.5);
+    areusure.x = specialScreenContainer.width / 2;
+    areusure.y = specialScreenContainer.height / 2;
+    areusure.width = specialScreenContainer.width * 0.9;
+    areusure.height = specialScreenContainer.height * 0.9;
 
     // TOILE SCREEN
     const toileScreenAsset = await PIXI.Assets.load('../sprites/SPECIAL/toileScreen.png');
@@ -1622,6 +1631,7 @@ export async function loadSprites(apps, sounds) {
         yellowled,
         terminalPS,
         pendingLogo,
+        areusure,
         // NOT A SPRITE
         // musicthemePLAY,
     };
