@@ -219,10 +219,13 @@ export async function interactions(apps, sprites, texts) {
             darkborders.height = innerHouseSprite.height;
             darkborders.x = innerHouseSprite.x;
             darkborders.y = innerHouseSprite.y;
+            darkborders.interactive = false;
+            darkborders.eventMode = "none";
             innerHouseContainer.addChild(darkborders);
-             // on désactive l'interrupteur par sécurité
-            interrupteur.interactive = false;
             darkborders.zIndex = 5; // chest est à 3
+
+            // on désactive l'interrupteur par sécurité
+            interrupteur.interactive = false;
             } else {
             PIXI.sound.play('trapopen');
             const innerHouseAsset6 = await PIXI.Assets.load('../sprites/clearwithtrapopentrimed.png');
@@ -238,6 +241,7 @@ export async function interactions(apps, sprites, texts) {
             clearborders.eventMode = "none";
             innerHouseContainer.addChild(clearborders);
             clearborders.zIndex = 5; // chest est à 3
+            }
 
             await wait(1000);
             innerHouseContainer.addChild(rails);
@@ -423,8 +427,7 @@ export async function interactions(apps, sprites, texts) {
             });
 
             }
-        }
-    });
+        });
 
     // Utiliser la disquette sur ordiRed
     ordiRed.on('click', async () => {
