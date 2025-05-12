@@ -71,7 +71,7 @@ export async function loadTexts(sprites) {
     const coffeText3 = new PIXI.Text({ text: "J'espère au moins que tu l'as fait serré, j'ai absolument besoin de terminer ce projet avant l'été", style: dialogueStyle });
     const coffeText4 = new PIXI.Text({ text: 'Merci quand même !', style: dialogueStyle });
     const sickText = new PIXI.Text({ text: 'Mais bordel t\'as mis quoi dans ce café ?', style: dialogueStyle });
-    const sickText2 = new PIXI.Text({ text: 'J\'ai des palpitations dans tout le corps c\'est horrible', style: dialogueStyle });
+    const sickText2 = new PIXI.Text({ text: 'J\'ai des palpitations au coeur c\'est horrible', style: dialogueStyle });
     const startDialogue = new PIXI.Text({ text: 'Oui ?', style: dialogueStyle });
     const failText = new PIXI.Text({ text: 'ma "machine" ?', style: dialogueStyle });
     const failText2 = new PIXI.Text({ text: 'Ce n\'est pas une simple machine l\'ami', style: dialogueStyle });
