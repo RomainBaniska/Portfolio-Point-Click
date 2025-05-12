@@ -202,6 +202,9 @@ export async function interactions(apps, sprites, texts) {
             menuContainer.addChild(menuCoverDialogueOverlay);
             app.stage.emit('rightdown');
             PIXI.sound.play('ratp');
+
+            // Détruit l'item
+            menuItemMetroTicket.destroy();
             
             // ajout des textures innerhouseasset5 ou 6 en fonction de si on a ouvert l'oeil de boeuf
             await wait(1500);
@@ -483,6 +486,8 @@ export async function interactions(apps, sprites, texts) {
             isTableOpenned = true;
 
             menuContainer.addChild(menuItemTabletPack);
+            let takePillsText;
+            playerNewText(takePillsText, "Tiens donc, une tablette de comprimés. Je prends", 2500);
         }
     }
     })
@@ -1612,13 +1617,15 @@ export async function interactions(apps, sprites, texts) {
 
 
     // Remplir le verre d'eau
-    lavabo.on('click', () => {
+    lavabo.on('click', async () => {
         if (menuButton7.isActive && menuItemGlassWaterEmpty.isActive) {
+            // menuContainer.addChild(menuCoverDialogueOverlay);
             PIXI.sound.play('lavaboSound');
-            setTimeout(() => {
-            spriteSwap(menuContainer, menuItemGlassWaterEmpty, menuItemGlassWater);
             app.stage.emit('rightdown');
-            }, 2000);
+            await wait(2000);
+            spriteSwap(menuContainer, menuItemGlassWaterEmpty, menuItemGlassWater);
+            let fillGlassText;
+            playerNewText(fillGlassText, "Rempli à ras bord", 1500);
         }
     });
         
