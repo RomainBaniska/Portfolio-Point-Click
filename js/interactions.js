@@ -1569,7 +1569,7 @@ export async function interactions(apps, sprites, texts) {
             // DEPLACER ICI TOUTE LA LOGIQUE DUTERMINAL
             displayTerminalAndChestCutscene();
 
-        } else {
+        } else if (menuButton7.isActive && guybrushReactive) {
         // Si guybrush n'est pas MORT
         let useOrdiTextFail;
         let useOrdiTextFail2;
@@ -1788,101 +1788,108 @@ export async function interactions(apps, sprites, texts) {
     let alreadyPoisoned = false;
     let machineUsed = false;
     // Mettre la capsule, l'eau, ou empoisonner la machine à café
-    coffeMachine.on('click', () => {
+    coffeMachine.on('click', async () => {
         if (menuButton7.isActive) {
             if (menuItemCoffePod.isActive) {
                 if (!alreadyCoffeFilled) {
                     alreadyCoffeFilled = true;
                 }
+                // menuContainer.addChild(menuCoverDialogueOverlay);
                 menuContainer.removeChild(menuItemCoffePod);
                 app.stage.emit('rightdown');
                 PIXI.sound.play('podput');
                 menuItemCoffePod.destroy();
+                await wait(1500);
+                // menuContainer.removeChild(menuCoverDialogueOverlay);
                 return;
             }
-
+    
             if (menuItemGlassWater.isActive) {
                 if (!alreadyWaterFilled) {
                     alreadyWaterFilled = true;
                 }
+                menuContainer.addChild(menuCoverDialogueOverlay);
                 PIXI.sound.play('pouringWater');
-                setTimeout(() => {
-                    spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
-                    const waterPouredText = new PIXI.Text({ text: "J'ai rempli d'eau le réservoir de la machine", style: dialogueStyle2 });
-                    waterPouredText.anchor.set(0.5);
-                    waterPouredText.x = houseContainer.width / 2 ;
-                    waterPouredText.y = houseContainer.y + (houseContainer.height * 0.3);
-                    houseContainer.addChild(waterPouredText);
-                    setTimeout(() => {
-                        houseContainer.removeChild(waterPouredText);
-                        waterPouredText.destroy();
-                    }, 2000);
-                }, 2500);
+                await wait(2500);
+                menuContainer.removeChild(menuCoverDialogueOverlay);
+    
+                spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
+                const waterPouredText = new PIXI.Text({ text: "J'ai rempli d'eau le réservoir de la machine", style: dialogueStyle2 });
+                waterPouredText.anchor.set(0.5);
+                waterPouredText.x = houseContainer.width / 2;
+                waterPouredText.y = houseContainer.y + (houseContainer.height * 0.3);
+                houseContainer.addChild(waterPouredText);
+    
+                await wait(2000);
+                houseContainer.removeChild(waterPouredText);
+                waterPouredText.destroy();
+    
                 app.stage.emit('rightdown');
                 return;
             }
-
+    
             if (menuItemTabletPack.isActive) {
                 if (alreadyWaterFilled && alreadyCoffeFilled) {
+                    menuContainer.addChild(menuCoverDialogueOverlay);
                     alreadyPoisoned = true;
-                    spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
+                    // spriteSwap(menuContainer, menuItemGlassWater, menuItemGlassWaterEmpty);
                     menuContainer.removeChild(menuItemTabletPack);
                     app.stage.emit('rightdown');
-                    // PIXI.sound.play('putPod');
                     menuItemCoffePod.destroy();
+
+                    await wait(15000);
+                    menuContainer.removeChild(menuCoverDialogueOverlay);
                     return;
                 }
             }
-
+    
             if (alreadyPoisoned) {
                 if (!machineUsed) {
                     machineUsed = true;
-                // Lancer l'animation de la machine à café
-                coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
-                coffeMachineCutsceneContainer.addChild(coffeMachineClone);
-                coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
-                coffeMachineCutsceneContainer.addChild(coffeMachineClone);
-                        PIXI.sound.play('coffesound');
-                        setTimeout(() => {
-                            coffeMachine.gotoAndStop(1);
-                            coffeMachineClone.gotoAndStop(1);
-                            setTimeout(() => {
-                                coffeMachineClone.play();
-                                coffeMachineClone.loop = false;
-                                coffeMachine.play();
-                                coffeMachine.loop = false;
-                                setTimeout(() => {
-                                    coffeMachineCutsceneContainer.removeChild(coffeMachineCutsceneBG);
-                                    coffeMachineCutsceneContainer.removeChild(coffeMachineClone);
-                                    menuContainer.removeChild(menuItemGlassWaterEmpty);
-                                    menuContainer.removeChild(menuItemGlassWater);
-                                    PIXI.sound.play('pickup');
-                                    menuContainer.addChild(menuItemGlassCoffe);
-                                    coffeMachine.gotoAndStop(0);
-                                    // Ajout d'un petit texte de réussite
-                                    const successCoffe = new PIXI.Text({ text: "Et voilà le travail !", style: dialogueStyle2 });
-                                    successCoffe.anchor.set(0.5);
-                                    successCoffe.x = houseContainer.width / 2 ;
-                                    successCoffe.y = houseContainer.y + (houseContainer.height * 0.3);
-                                    houseContainer.addChild(successCoffe);
-                                    setTimeout(() => {
-                                        // retrait du texte et libération de la mémoire
-                                        houseContainer.removeChild(successCoffe);
-                                        coffeMachineClone.destroy();
-                                        coffeMachineCutsceneContainer.destroy();
-                                        successCoffe.destroy();
-                                        menuItemGlassWaterEmpty.destroy();
-                                        menuItemGlassWater.destroy();
-                                    }, 2000);
-                                }, 6000);
-                            }, 2000);
-                        }, 1000);       
-                // }, 1000);
-
-                    }
+    
+                    coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+                    coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+                    coffeMachineCutsceneContainer.addChild(coffeMachineCutsceneBG);
+                    coffeMachineCutsceneContainer.addChild(coffeMachineClone);
+                    PIXI.sound.play('coffesound');
+    
+                    await wait(1000);
+                    coffeMachine.gotoAndStop(1);
+                    coffeMachineClone.gotoAndStop(1);
+    
+                    await wait(2000);
+                    coffeMachineClone.play();
+                    coffeMachineClone.loop = false;
+                    coffeMachine.play();
+                    coffeMachine.loop = false;
+    
+                    await wait(6000);
+                    coffeMachineCutsceneContainer.removeChild(coffeMachineCutsceneBG);
+                    coffeMachineCutsceneContainer.removeChild(coffeMachineClone);
+                    menuContainer.removeChild(menuItemGlassWaterEmpty);
+                    menuContainer.removeChild(menuItemGlassWater);
+                    PIXI.sound.play('pickup');
+                    menuContainer.addChild(menuItemGlassCoffe);
+                    coffeMachine.gotoAndStop(0);
+    
+                    const successCoffe = new PIXI.Text({ text: "Et voilà le travail !", style: dialogueStyle2 });
+                    successCoffe.anchor.set(0.5);
+                    successCoffe.x = houseContainer.width / 2;
+                    successCoffe.y = houseContainer.y + (houseContainer.height * 0.3);
+                    houseContainer.addChild(successCoffe);
+    
+                    await wait(2000);
+                    houseContainer.removeChild(successCoffe);
+                    coffeMachineClone.destroy();
+                    coffeMachineCutsceneContainer.destroy();
+                    successCoffe.destroy();
+                    menuItemGlassWaterEmpty.destroy();
+                    menuItemGlassWater.destroy();
+                }
             }
         }
     });
+    
 
     // Actionner l'interrupteur
     let interrupteurSwitched = false;
@@ -2517,6 +2524,8 @@ async function displayTerminalAndChestCutscene() {
             }, 15000);
 
             setTimeout(() => {
+                // On éteint l'ordi
+                spriteSwap(innerHouseContainer, ordiRun, ordi);
                 PIXI.sound.play('doorslam');
                 innerHouseContainer.removeChild(door);
                 setTimeout(() => {
