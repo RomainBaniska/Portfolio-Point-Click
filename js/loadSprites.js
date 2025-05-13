@@ -240,7 +240,7 @@ export async function loadSprites(apps, sounds) {
     // innerHouseContainer.addChild(rails);
 
     // MACHINE A CAFE
-    const coffeMachine = await displaySprite('ELEMENTS/coffemachine/coffemachineflip.json', 0.12);
+    const coffeMachine = await displaySprite('ELEMENTS/coffemachine/coffeMachineFlip.json', 0.12);
     coffeMachine.gotoAndStop(0); 
     coffeMachine.interactive = true;
     coffeMachine.zIndex = 3;
@@ -257,7 +257,7 @@ export async function loadSprites(apps, sounds) {
     coffeMachineCutsceneBG.interactive = true;
     coffeMachineCutsceneBG.zIndex = 80;
 
-    const coffeMachineClone = await displaySprite('ELEMENTS/coffemachine/coffemachineflip.json', 0.095);
+    const coffeMachineClone = await displaySprite('ELEMENTS/coffemachine/coffeMachineFlip.json', 0.095);
     coffeMachineClone.gotoAndStop(0); 
     coffeMachineClone.interactive = true;
     coffeMachineClone.zIndex = 81;
@@ -291,7 +291,7 @@ export async function loadSprites(apps, sounds) {
     // ORDINATEUR
     const ordi = await displaySprite('ELEMENTS/ordi/ordi.json', 0.12);
     const ordiRun = await displaySprite('ELEMENTS/ordi/ordiRun.json', 0.12);
-    const ordiRed = await displaySprite('ELEMENTS/ordi/ordiRed.json', 0.07);
+    const ordiRed = await displaySprite('ELEMENTS/ordi/ordired.json', 0.07);
     ordi.gotoAndStop(0); 
     ordi.interactive = true;
     ordi.clicked = false;
@@ -363,12 +363,12 @@ export async function loadSprites(apps, sounds) {
     boutdemetal.zIndex = 12;
 
      // DISQUETTE
-     const disquette = await displaySprite('ELEMENTS/disquette/disquetteitem.json', 0.08);
+     const disquette = await displaySprite('ELEMENTS/disquette/disquetteItem.json', 0.08);
      disquette.play();
      disquette.interactive = true;
      disquette.zIndex = 12;
      // DISQUETTE FLOAT
-     const disquetteFloat = await displaySprite('ELEMENTS/disquette/disquetteitemFloat.json', 0.07);
+     const disquetteFloat = await displaySprite('ELEMENTS/disquette/disquetteItemFloat.json', 0.07);
     disquetteFloat.play();
     disquetteFloat.interactive = true;
     disquetteFloat.zIndex = 12;
@@ -916,13 +916,13 @@ export async function loadSprites(apps, sounds) {
     menuItemGlassWaterSelected.item = true;
 
     // Disquette
-    const menuItemDisquetteAsset = await PIXI.Assets.load('../sprites/ELEMENTS/disquette/menuitemDisquette.png');
+    const menuItemDisquetteAsset = await PIXI.Assets.load('../sprites/ELEMENTS/disquette/menuitemdisquette.png');
     const menuItemDisquette = new PIXI.Sprite(menuItemDisquetteAsset);
     menuItemDisquette.interactive = true;
     menuItemDisquette.item = true;
 
     // Disquette Sélectionnée
-    const menuItemDisquetteSelectedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/disquette/menuitemDisquetteSelected.png');
+    const menuItemDisquetteSelectedAsset = await PIXI.Assets.load('../sprites/ELEMENTS/disquette/menuitemdisquetteSelected.png');
     const menuItemDisquetteSelected = new PIXI.Sprite(menuItemDisquetteSelectedAsset);
     menuItemDisquetteSelected.interactive = true;
     menuItemDisquetteSelected.item = true;
