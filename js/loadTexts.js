@@ -745,7 +745,9 @@ export async function loadTexts(sprites) {
 
         // Lance un nouveau timeout et stocke son identifiant
         currentTextTimeout = setTimeout(() => {
+            if(currentText) {
                         currentText.destroy();
+                    }
                         currentText = null;
                         currentTextTimeout = null;
                     }, time);

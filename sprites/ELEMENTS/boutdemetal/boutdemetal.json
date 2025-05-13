@@ -1,76 +1,76 @@
 { "frames": {
-   "boutdemetal 0.ase": {
-    "frame": { "x": 0, "y": 0, "w": 51, "h": 60 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
-    "sourceSize": { "w": 51, "h": 60 },
-    "duration": 100
-   },
-   "boutdemetal 1.ase": {
-    "frame": { "x": 51, "y": 0, "w": 51, "h": 60 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
-    "sourceSize": { "w": 51, "h": 60 },
-    "duration": 100
-   },
-   "boutdemetal 2.ase": {
-    "frame": { "x": 102, "y": 0, "w": 51, "h": 60 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
-    "sourceSize": { "w": 51, "h": 60 },
-    "duration": 100
-   },
-   "boutdemetal 3.ase": {
-    "frame": { "x": 153, "y": 0, "w": 51, "h": 60 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
-    "sourceSize": { "w": 51, "h": 60 },
-    "duration": 100
-   },
-   "boutdemetal 4.ase": {
-    "frame": { "x": 204, "y": 0, "w": 51, "h": 60 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
-    "sourceSize": { "w": 51, "h": 60 },
-    "duration": 100
-   },
-   "boutdemetal 5.ase": {
-    "frame": { "x": 255, "y": 0, "w": 51, "h": 60 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
-    "sourceSize": { "w": 51, "h": 60 },
-    "duration": 100
-   },
-   "boutdemetal 6.ase": {
-    "frame": { "x": 306, "y": 0, "w": 51, "h": 60 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
-    "sourceSize": { "w": 51, "h": 60 },
-    "duration": 100
-   },
-   "boutdemetal 7.ase": {
-    "frame": { "x": 357, "y": 0, "w": 51, "h": 60 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
-    "sourceSize": { "w": 51, "h": 60 },
-    "duration": 100
-   },
-   "boutdemetal 8.ase": {
-    "frame": { "x": 408, "y": 0, "w": 51, "h": 60 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
-    "sourceSize": { "w": 51, "h": 60 },
-    "duration": 100
-   }
+    "boutdemetal_0.ase": {
+      "frame": { "x": 0, "y": 0, "w": 51, "h": 60 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
+      "sourceSize": { "w": 51, "h": 60 },
+      "duration": 100
+  },
+  "boutdemetal_1.ase": {
+      "frame": { "x": 51, "y": 0, "w": 51, "h": 60 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
+      "sourceSize": { "w": 51, "h": 60 },
+      "duration": 100
+  },
+  "boutdemetal_2.ase": {
+      "frame": { "x": 102, "y": 0, "w": 51, "h": 60 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
+      "sourceSize": { "w": 51, "h": 60 },
+      "duration": 100
+  },
+  "boutdemetal_3.ase": {
+      "frame": { "x": 153, "y": 0, "w": 51, "h": 60 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
+      "sourceSize": { "w": 51, "h": 60 },
+      "duration": 100
+  },
+  "boutdemetal_4.ase": {
+      "frame": { "x": 204, "y": 0, "w": 51, "h": 60 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
+      "sourceSize": { "w": 51, "h": 60 },
+      "duration": 100
+  },
+  "boutdemetal_5.ase": {
+      "frame": { "x": 255, "y": 0, "w": 51, "h": 60 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
+      "sourceSize": { "w": 51, "h": 60 },
+      "duration": 100
+  },
+  "boutdemetal_6.ase": {
+      "frame": { "x": 306, "y": 0, "w": 51, "h": 60 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
+      "sourceSize": { "w": 51, "h": 60 },
+      "duration": 100
+  },
+  "boutdemetal_7.ase": {
+      "frame": { "x": 357, "y": 0, "w": 51, "h": 60 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
+      "sourceSize": { "w": 51, "h": 60 },
+      "duration": 100
+  },
+  "boutdemetal_8.ase": {
+      "frame": { "x": 408, "y": 0, "w": 51, "h": 60 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 60 },
+      "sourceSize": { "w": 51, "h": 60 },
+      "duration": 100
+  }
  },
  "meta": {
   "app": "https://www.aseprite.org/",
