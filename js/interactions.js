@@ -355,8 +355,8 @@ export async function interactions(apps, sprites, texts) {
 
             // Création d'un masque pour la disquette
             const disquetteMask = new PIXI.Graphics();
-            disquetteMask.beginFill(0xffffff);
-            disquetteMask.drawRect(0, -chest.height * 2.03, chest.width, chest.height * 2);
+            disquetteMask.fill(0xffffff);
+            disquetteMask.rect(0, -chest.height * 2.03, chest.width, chest.height * 2);
             disquetteMask.position.set(disquette.x, disquette.y);
             disquetteMask.endFill();
             disquetteMask.interactive = false;
@@ -407,8 +407,8 @@ export async function interactions(apps, sprites, texts) {
                     PIXI.sound.play('almascream');
                     // Création du blood rectangle
                     const bloodRect = new PIXI.Graphics();
-                    bloodRect.beginFill(0x990000);
-                    bloodRect.drawRect(houseSprite.x, houseSprite.y, houseSprite.width, houseSprite.height);
+                    bloodRect.fill(0x990000);
+                    bloodRect.rect(houseSprite.x, houseSprite.y, houseSprite.width, houseSprite.height);
                     bloodRect.endFill();
                     bloodRect.alpha = 0;
                     bloodRect.eventMode = "none";
@@ -446,8 +446,8 @@ export async function interactions(apps, sprites, texts) {
 
             // Création du rectangle "areusure?" en rouge
             const bloodBGRect = new PIXI.Graphics();
-            bloodBGRect.beginFill(0xf23434);
-            bloodBGRect.drawRect(terminalbgSprite.x, terminalbgSprite.y, terminalbgSprite.width, terminalbgSprite.height);
+            bloodBGRect.fill(0xf23434);
+            bloodBGRect.rect(terminalbgSprite.x, terminalbgSprite.y, terminalbgSprite.width, terminalbgSprite.height);
             bloodBGRect.endFill();
             bloodBGRect.zIndex = 98;
 
@@ -505,8 +505,8 @@ export async function interactions(apps, sprites, texts) {
                     await wait(8000);
                     // On recycle le bloodBGRect en le peignant en noir et en le mettant à un alpha de 0
                     bloodBGRect.clear();
-                    bloodBGRect.beginFill(0x000000);
-                    bloodBGRect.drawRect(terminalbgSprite.x, terminalbgSprite.y, terminalbgSprite.width, terminalbgSprite.height);
+                    bloodBGRect.fill(0x000000);
+                    bloodBGRect.rect(terminalbgSprite.x, terminalbgSprite.y, terminalbgSprite.width, terminalbgSprite.height);
                     bloodBGRect.endFill();
                     bloodBGRect.alpha = 0;
 
@@ -2373,8 +2373,8 @@ function toggleClickBlocker() {
         blocker.destroy();
     } else {
         const clickBlockerLayer = new PIXI.Graphics()
-            .beginFill(0, 0)
-            .drawRect(0, 0, app.screen.width, app.screen.height)
+            .fill(0, 0)
+            .rect(0, 0, app.screen.width, app.screen.height)
             .endFill();
         
         clickBlockerLayer.interactive = true;
@@ -2585,7 +2585,7 @@ async function displayTerminalAndChestCutscene() {
             if (angle < 370) {
                 angle += 3;
                 mask.clear();
-                mask.beginFill(0xffffff);
+                mask.fill(0xffffff);
                 mask.moveTo(cx, cy);
     
                 for (let a = -90; a <= angle; a += 1) {

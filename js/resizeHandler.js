@@ -84,10 +84,10 @@ function adjustCanvasSize() {
     
         // Redessiner le rectangle
         zone.clear();
-        // zone.beginFill(0xFF0000, 1);
-        zone.beginFill(0xFFF5E1, 1);
-        // zone.drawRect(0, 0, zoneWidth, zoneHeight);
-        zone.drawRoundedRect(0, 0, zoneWidth, zoneHeight, 10); 
+        // zone.fill(0xFF0000, 1);
+        zone.fill(0xFFF5E1, 1);
+        // zone.rect(0, 0, zoneWidth, zoneHeight);
+        zone.roundRect(0, 0, zoneWidth, zoneHeight, 10); 
         zone.endFill();
     }
 

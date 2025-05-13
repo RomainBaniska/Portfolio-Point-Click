@@ -253,7 +253,7 @@ export async function loadSprites(apps, sounds) {
 
     // MACHINE A CAFE CUTSCENE BG
     const coffeMachineCutsceneBG = new PIXI.Graphics();
-    coffeMachineCutsceneBG.lineStyle(6, 0x222222, 1);
+    coffeMachineCutsceneBG.setStrokeStyle(6, 0x222222, 1);
     coffeMachineCutsceneBG.interactive = true;
     coffeMachineCutsceneBG.zIndex = 80;
 
@@ -271,8 +271,8 @@ export async function loadSprites(apps, sounds) {
 
     // POUBELLE
     const trash = new PIXI.Graphics();
-    trash.beginFill(0xFF0000, 1); 
-    trash.drawRect(0, 0, 200, 100); 
+    trash.fill(0xFF0000, 1); 
+    trash.rect(0, 0, 200, 100); 
     trash.endFill();
     // On masque la poubelle au départ par Romain qui dort
     trash.interactive = false;
@@ -281,8 +281,8 @@ export async function loadSprites(apps, sounds) {
 
     // POSTER
     const poster = new PIXI.Graphics();
-    poster.beginFill(0xFF0000, 1); 
-    poster.drawRect(0, 0, 200, 100); 
+    poster.fill(0xFF0000, 1); 
+    poster.rect(0, 0, 200, 100); 
     poster.endFill();
     poster.interactive = true;
     poster.alpha = 0; 
@@ -325,7 +325,7 @@ export async function loadSprites(apps, sounds) {
 
     // ETAGERE
     const shelf = new PIXI.Graphics();
-    shelf.drawRect(0, 0, 200, 100); 
+    shelf.rect(0, 0, 200, 100); 
     // On masque l'étagère au départ par Romain qui dort
     shelf.interactive = true;
     shelf.alpha = 0;
@@ -616,15 +616,15 @@ export async function loadSprites(apps, sounds) {
 
     // Création d'un cercle noir
     const fondPortrait = new PIXI.Graphics();
-    fondPortrait.lineStyle(4, 0x8B0000, 1);
-    fondPortrait.beginFill(0x000000);
-    fondPortrait.drawCircle(0, 0, rayon);
+    fondPortrait.setStrokeStyle(4, 0x8B0000, 1);
+    fondPortrait.fill(0x000000);
+    fondPortrait.circle(0, 0, rayon);
     fondPortrait.endFill();
     // Création d'un masque de dimension similaires
     const fondPortraitMask = new PIXI.Graphics();
-    fondPortraitMask.lineStyle(4, 0x8B0000, 1);
-    fondPortraitMask.beginFill(0x000000);
-    fondPortraitMask.drawCircle(0, 0, rayon);
+    fondPortraitMask.setStrokeStyle(4, 0x8B0000, 1);
+    fondPortraitMask.fill(0x000000);
+    fondPortraitMask.circle(0, 0, rayon);
     fondPortraitMask.endFill();
 
     // TOILE SCREEN PROJECT SELECTION
