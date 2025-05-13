@@ -405,7 +405,7 @@ export async function loadSprites(apps, sounds) {
     const metroTicket = new PIXI.Sprite(metroTicketAsset);
     metroTicket.interactive = true;
     metroTicket.zIndex = 5;
-    innerHouseContainer.addChild(metroTicket);
+    // innerHouseContainer.addChild(metroTicket);
 
     // GAMINGCHAIR
     const gcAsset = await PIXI.Assets.load('../sprites/ELEMENTS/gamingchair/gamingchair.png');

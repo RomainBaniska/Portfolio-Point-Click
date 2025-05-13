@@ -194,7 +194,7 @@ export async function interactions(apps, sprites, texts) {
         }
     });
 
-    innerHouseContainer.removeChild(swPannel);
+    // innerHouseContainer.removeChild(swPannel);
     // Utiliser le ticket de métro sur la borne de métro
     poster.on('click', async () => {
         if (menuButton7.isActive && menuItemMetroTicket.isActive) {
@@ -2682,6 +2682,7 @@ async function displayTerminalAndChestCutscene() {
     
                     setTimeout(() => {
                         spriteSwap(innerHouseContainer, ordiRun, ordi);
+                        innerHouseContainer.addChild(metroTicket);
                         PIXI.sound.play('doorslam');
                         innerHouseContainer.removeChild(door);
     
