@@ -563,6 +563,31 @@ export async function interactions(apps, sprites, texts) {
                     }, text416Speed);
                     ////////////////////////////////////////////
 
+                    // Surlignage
+                    text416Obj.interactive = true;
+                    only416.interactive = true;
+                    // Fonction de survol
+                    function handlePointerOver() {
+                        only416.tint = 0x00FFFF; // Teinte blanche (comme un "highlight")
+                        text416Obj.style.fill = '0x003232';
+                    }
+                    // Fonction de sortie
+                    function handlePointerOut() {
+                        only416.tint = 0xFFFFFF; 
+                        text416Obj.style.fill = '0xAC3232';
+                    }
+                    // Ajout des événements
+                    only416.on('pointerover', handlePointerOver);
+                    only416.on('pointerout', handlePointerOut);
+                    only416.on('pointerdown', handleClick);
+                    text416Obj.on('pointerover', handlePointerOver);
+                    text416Obj.on('pointerout', handlePointerOut);
+                    text416Obj.on('pointerdown', handleClick);
+
+                    function handleClick() {
+                    window.open('https://www.youtube.com/@bani.84N1', '_blank');
+                    }
+
                 }
             });
             return;
