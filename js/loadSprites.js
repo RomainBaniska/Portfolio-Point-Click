@@ -1182,7 +1182,7 @@ export async function loadSprites(apps, sounds) {
     actionTextAndSpriteSize =  houseSprite.height * 0.02;
     // const screenCenter = menuSprite.width / 2;
     const screenCenter = ((houseSprite.height / 1024) * 1440 * 1.4) / 2; // équivaut à la largeur de menuSprite.width / 2, mais menuSprite.width est défini dans resizehandler donc je rajoute pour évite rles bugs
-    console.log(menuSprite.width);
+    // console.log(menuSprite.width);
     // On associe un texte à un menuAction (exemple : utiliser) visible sur le menuContainer
     // On utilise le tableau menuActionButtons et on le parcourt
     menuActionButtons.forEach(({ menuAction, text }) => {

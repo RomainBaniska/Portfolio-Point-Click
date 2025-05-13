@@ -465,12 +465,7 @@ export async function interactions(apps, sprites, texts) {
             terminal.alpha = 0;
             terminalbgSprite.alpha = 0;
             greenled.alpha = 0;
-            yellowled.alpha = 0;
-            // on remove terminalPS et pendingLogo un peu en retard
-            // specialScreenContainer.removeChild(terminalPS);
-            // specialScreenContainer.removeChild(pendingLogo);
-            // idem pour scene1mask qui est un graphic
-            // app.stage.removeChild(scene1Mask);        
+            yellowled.alpha = 0;     
 
             app.stage.emit('rightdown');
             menuItemDisquette.destroy();
@@ -524,21 +519,52 @@ export async function interactions(apps, sprites, texts) {
                     // BONUS : CURSEUR - Mettre le cursor à zIndex 100
                     crosshair.zIndex = 100;
 
-                    // set promise
+                    // set promise du ticker
+                    await new Promise((resolve) => {
                     const blackAlphaTicker = new PIXI.Ticker();
                     blackAlphaTicker.add(() => {
                         bloodBGRect.alpha += 0.003;
                         if (bloodBGRect.alpha >= 1) {
                             bloodBGRect.alpha = 1;
                             blackAlphaTicker.stop();
+                            resolve();
                         }
                     });
                     blackAlphaTicker.start();
+                    });
+
+                    // Ajout du texte chaîne youtube BANI
+                    const fullText = "https://www.youtube.com/@bani.84N1";
+                    const text416Obj = new PIXI.Text('', {
+                        fontFamily: 'Efmi',
+                        fontSize: 36,
+                        fill: 0xAC3232
+                    });
+                    // text416Obj.position.set(bloodBGRect.x + bloodBGRect.width, only416.y + only416.height);
+                    text416Obj.anchor.set(0.4, 0);
+                    app.stage.addChild(text416Obj);
+
+                    
+                            text416Obj.x = only416.x + only416.width;
+                            text416Obj.y = only416.y + only416.height;
+
+                    let currentIndex416 = 0;
+                    const text416Speed = 50; // ms entre chaque lettre
+                    const interval416 = setInterval(() => {
+                        if (currentIndex416 <= fullText.length) {
+                            text416Obj.text = fullText.substring(0, currentIndex416);
+                            currentIndex416++;
+                        } else {
+                            clearInterval(interval416);
+
+                            // text416Obj.x = only416.x + only416.width / 2;
+                            // text416Obj.y = only416.y + only416.height;
+                        }
+                    }, text416Speed);
+                    ////////////////////////////////////////////
+
                 }
             });
-
-
-
             return;
         }
     });
