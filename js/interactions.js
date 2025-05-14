@@ -1126,8 +1126,10 @@ export async function interactions(apps, sprites, texts) {
         // guybrushClone.addEventListener("click", async () => {
         toileScreenProject1.addEventListener("click", () => {
             // destruction si existe
-            if (project1Description) {
-                project1Description.destroy();
+            const desc = projectDescriptions.get(toileScreenProject1);
+            if (desc) {
+                desc.destroy();
+                projectDescriptions.delete(toileScreenProject1);
             }
             // On invisibilise les projets non sélectionnés
             toileScreenProject1.interactive = false;
@@ -1314,9 +1316,11 @@ export async function interactions(apps, sprites, texts) {
 
         toileScreenProject2.addEventListener("click", () => {
             // destruction si existe
-            if (project2Description) {
-                project2Description.destroy();
-            }
+             const desc = projectDescriptions.get(toileScreenProject2);
+             if (desc) {
+                 desc.destroy();
+                 projectDescriptions.delete(toileScreenProject2);
+             }
             // On invisibilise les projets non sélectionnés
             toileScreenProject2.interactive = false;
             toileScreenProject1.visible = false;
@@ -1406,8 +1410,10 @@ export async function interactions(apps, sprites, texts) {
 
         toileScreenProject3.addEventListener("click", () => {
             // destruction si existe
-            if (project3Description) {
-                project3Description.destroy();
+            const desc = projectDescriptions.get(toileScreenProject3);
+            if (desc) {
+                desc.destroy();
+                projectDescriptions.delete(toileScreenProject3);
             }
 
             // On invisibilise les projets non sélectionnés
@@ -1431,19 +1437,13 @@ export async function interactions(apps, sprites, texts) {
                     const targetHeight = toileScreen.height * 0.655;
                     let scaleTicker = new PIXI.Ticker();
                     scaleTicker.add(() => {
-                        // if (toileScreenProject3.scale.x < 4.5) {
-                        //     toileScreenProject3.scale.x += 0.1;
-                        //     toileScreenProject3.scale.y += 0.1;
                         if (toileScreenProject3.width < targetWidth) {
                             toileScreenProject3.width += 10;
                             toileScreenProject3.height += (targetHeight / targetWidth) * 10;
                         } else {
-                            // scaleTicker.stop();
-                            // console.log("Agrandissement terminé !");
                             toileScreenProject3.width = targetWidth;
                             toileScreenProject3.height = targetHeight;
                             scaleTicker.stop();
-                            console.log("Agrandissement terminé !");
 
                             screenBackgroundContainer.addChild(introSlide);
                             // Troisième Ticker qui fait disparaitre le screenProject3
