@@ -720,6 +720,21 @@ export async function loadSprites(apps, sounds) {
     exitVideoActive.interactive = true;
     exitVideoActive.stop();
 
+    // RETURN ALERT
+    const returnVideo = await displaySprite('SPECIAL/toileAlerts/return.json', 0.12);
+    const returnVideoActive = await displaySprite('SPECIAL/toileAlerts/return.json', 0.12);
+    const returnVideospriteAsset = await PIXI.Assets.load(SPRITE_PATH_PREFIX + 'SPECIAL/toileAlerts/return.json');
+    const returnVideoframes = Object.keys(returnVideospriteAsset.textures);
+    returnVideo.texture = returnVideospriteAsset.textures[returnVideoframes[0]];
+    returnVideoActive.texture = returnVideospriteAsset.textures[returnVideoframes[1]];
+    returnVideo.zIndex = 11;
+    returnVideo.anchor.set(0.5);
+    returnVideo.interactive = true;
+    returnVideo.stop();
+    returnVideoActive.anchor.set(0.5);
+    returnVideoActive.interactive = true;
+    returnVideoActive.stop();
+
     // MUSIC TOGGLE
     const music = await displaySprite('SPECIAL/musicnote.json', 0.12);
     const musicActive = await displaySprite('SPECIAL/musicnote.json', 0.12);
