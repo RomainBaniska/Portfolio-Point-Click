@@ -915,7 +915,9 @@ export async function interactions(apps, sprites, texts) {
                     , bulleText(new PIXI.Text({ text: "Clique sur le projet qui t'intéresse ! Tu pourras revenir consulter les autres.", style: dialogueStyleLong })) // bulles[3] = bulleText4
                 );
 
-                // Bulles GetTogether - Intro
+                // Bulles Romain GETTOGETHER 
+
+                // Intro
                 bulles.push(
                     bulleText(new PIXI.Text({ text: "GetTogether, un projet pensé comme une extension pour TimeOut", style: dialogueStyleLong })) // bulles[4] = bulleTextGT1
                     , bulleText(new PIXI.Text({ text: "L'application permet aux utilisateurs de filtrer les événements selon leurs centres intérêts et de tchater en amont de l'événement.", style: dialogueStyleLong })) // bulles[5] = bulleTextGT2
@@ -952,7 +954,42 @@ export async function interactions(apps, sprites, texts) {
 
 
                 // Bulles Romain REBATIERE
+                // Intro
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[23]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[24]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[25]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[26]
+                );
+
+                // SignUp - Login
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[27]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[28]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[29]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[30]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[31]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[32]
+                );
+
+                // Calendrier - Event
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[33]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[34]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[35]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[36]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[37]
+                );
+
+                // Reservations
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[38]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[39]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[40]
+                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[41]
+                );
                 // Bulles Romain JSIGNE
+                
                 return bulles;
             }
             async function afficherBullesAvecChronoIntro() {// Appelle toileScreenProjectAppear()
@@ -1074,7 +1111,7 @@ export async function interactions(apps, sprites, texts) {
 
         const projectDescriptions = new Map();
 
-        // Hover qui affiche le nom du projet
+        // Hover qui affiche le nom du projet & Animation de zoom
         function handleProjectPointerOver(project, descriptionText) {
         const projectDescription = new PIXI.Text({ text: descriptionText, style: titleStyle2 });
         projectDescription.x = project.x;
@@ -1093,6 +1130,7 @@ export async function interactions(apps, sprites, texts) {
             ease: "power1.out"
         });
     }
+        // PointerOut qui retire le nom du projet et dézoom
         function handleProjectPointerOut(project) {
         const desc = projectDescriptions.get(project);
         if (desc) {
@@ -1120,10 +1158,7 @@ export async function interactions(apps, sprites, texts) {
         //////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT 1 ///
         //////////////////////////////////////
-    
-
         // On crée une petite animation lors de la sélection du projet
-        // guybrushClone.addEventListener("click", async () => {
         toileScreenProject1.addEventListener("click", () => {
             // destruction si existe
             const desc = projectDescriptions.get(toileScreenProject1);
@@ -1214,10 +1249,6 @@ export async function interactions(apps, sprites, texts) {
                                 screenBackgroundContainer.addChild(logoSymfony);
 
                                 // On va créer des séquences de texte pour la narration du projet
-                                // function wait(ms) {
-                                //     return new Promise(resolve => setTimeout(resolve, ms));
-                                // }
-
                                 async function playSequence() {
                                 screenBackgroundContainer.addChild(bulles[4]);
                                 await wait(3000);
@@ -1307,8 +1338,6 @@ export async function interactions(apps, sprites, texts) {
             });
             localTicker.start(); // Démarre le ticker de déplacement
         });
-
-        // ______________________________________________________________________________ //
 
         /////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT2 ///
