@@ -835,10 +835,8 @@ export async function interactions(apps, sprites, texts) {
             // Joue le son du succès:
             PIXI.sound.play("itemFoundPokemon");
             await wait(4000);
-
             // On appelle notre transition en pixelisation
             await transitionPixelisation();
-
             // Puis envoie l'écran "toileScreen"
             screenBackgroundContainer.addChild(toileScreen);
 
@@ -855,8 +853,8 @@ export async function interactions(apps, sprites, texts) {
             const getTogetherTitle = new PIXI.Text({ text: "GetTogether : une extension de TimeOut", style: titleStyle });
             const rebatiereTitle = new PIXI.Text({ text: "La Rebatière : une application de réservation pour maison d'hôte", style: titleStyle });
             const jsigneTitle = new PIXI.Text({ text: "Jsigné : un SoWeSign fait maison", style: titleStyle });
-             // Mini fonction titres
-             function projectTitle(title) {
+            // Mini fonction titres
+            function projectTitle(title) {
                 title.zIndex = 16;
                 title.x = toileScreen.x + (toileScreen.width / 2);
                 title.y = toileScreen.y + (toileScreen.height / 2);
@@ -895,7 +893,10 @@ export async function interactions(apps, sprites, texts) {
             ///////////////////////////////////////////////////////////
 
             // Mini fonction bulles
-            async function creerToutesLesBulles() {
+            const bulles = await creerToutesLesBulles(); // Retourne le bulles destinées à être affichées dans afficherBullesAvecChrono();
+            await afficherBullesAvecChronoIntro();
+           
+            async function creerToutesLesBulles() { // Crée toutes les bulles utilisées par Romain
                 function bulleText(bulle) {
                     bulle.zIndex = 12;
                     bulle.x = toileScreen.x + (toileScreen.width * 0.53);
@@ -905,59 +906,56 @@ export async function interactions(apps, sprites, texts) {
                 }
             
                 const bulles = [];
-            
+
                 // Bulles Romain Toile
                 bulles.push(
-                    bulleText(new PIXI.Text({ text: "Bravo d'être arrivé jusque là!", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Tu vas pouvoir avoir une idée un peu plus précise de mes compétences en dev web", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Voici une petite sélection de projets que j'ai réalisé", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Clique sur le projet qui t'intéresse ! Tu pourras revenir consulter les autres.", style: dialogueStyleLong }))
+                    bulleText(new PIXI.Text({ text: "Bravo d'être arrivé jusque là!", style: dialogueStyleLong })) // bulles[0] = bulleText1
+                    , bulleText(new PIXI.Text({ text: "Tu vas pouvoir avoir une idée un peu plus précise de mes compétences en dev web", style: dialogueStyleLong })) // bulles[1] = bulleText2
+                    , bulleText(new PIXI.Text({ text: "Voici une petite sélection de projets que j'ai réalisé", style: dialogueStyleLong })) // bulles[2] = bulleText3
+                    , bulleText(new PIXI.Text({ text: "Clique sur le projet qui t'intéresse ! Tu pourras revenir consulter les autres.", style: dialogueStyleLong })) // bulles[3] = bulleText4
                 );
-            
+
                 // Bulles GetTogether - Intro
                 bulles.push(
-                    bulleText(new PIXI.Text({ text: "GetTogether, un projet pensé comme une extension pour TimeOut", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "L'application permet aux utilisateurs de filtrer les événements selon leurs centres intérêts et de tchater en amont de l'événement.", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "À tout moment tu peux mettre la vidéo en pause, passer à la fonctionnalité suivante ou revenir en arrière.", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Prêt ? Alors c'est parti !", style: dialogueStyleLong }))
+                    bulleText(new PIXI.Text({ text: "GetTogether, un projet pensé comme une extension pour TimeOut", style: dialogueStyleLong })) // bulles[4] = bulleTextGT1
+                    , bulleText(new PIXI.Text({ text: "L'application permet aux utilisateurs de filtrer les événements selon leurs centres intérêts et de tchater en amont de l'événement.", style: dialogueStyleLong })) // bulles[5] = bulleTextGT2
+                    , bulleText(new PIXI.Text({ text: "À tout moment tu peux mettre la vidéo en pause, passer à la fonctionnalité suivante ou revenir en arrière.", style: dialogueStyleLong })) // bulles[6] = bulleTextGT3
+                    , bulleText(new PIXI.Text({ text: "Prêt ? Alors c'est parti !", style: dialogueStyleLong })) // bulles[7] = bulleTextGT4
                 );
-            
+
                 // SignUp - Login
                 bulles.push(
-                    bulleText(new PIXI.Text({ text: "On va commencer par s'inscrire et entrer nos informations", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Ensuite lors de notre première connexion on est invité à compléter notre profil.", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Petit Nom-Prénom-Pseudo classique ainsi que le nom de la ville (pour l'instant l'application est limitée à Paris)", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations.", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Clique sur 'suivant' pour passer au Dashboard", style: dialogueStyleLong }))
+                    bulleText(new PIXI.Text({ text: "On va commencer par s'inscrire et entrer nos informations", style: dialogueStyleLong })) // bulles[8] = bulleTextGT5
+                    , bulleText(new PIXI.Text({ text: "Ensuite lors de notre première connexion on est invité à compléter notre profil.", style: dialogueStyleLong })) // bulles[9] = bulleTextGT6
+                    , bulleText(new PIXI.Text({ text: "Petit Nom-Prénom-Pseudo classique ainsi que le nom de la ville (pour l'instant l'application est limitée à Paris)", style: dialogueStyleLong })) // bulles[10] = bulleTextGT7
+                    , bulleText(new PIXI.Text({ text: "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini", style: dialogueStyleLong })) // bulles[11] = bulleTextGT8
+                    , bulleText(new PIXI.Text({ text: "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations.", style: dialogueStyleLong })) // bulles[12] = bulleTextGT9
+                    , bulleText(new PIXI.Text({ text: "Clique sur 'suivant' pour passer au Dashboard", style: dialogueStyleLong })) // bulles[13] = bulleTextGT10
                 );
-            
+
                 // Dashboard - Event
                 bulles.push(
-                    bulleText(new PIXI.Text({ text: "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux...", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Mais allons plutot faire un petit tour sur la page d'un évenement", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Marquons un petit message et tentons d'y répondre avec une autre session", style: dialogueStyleLong }))
+                    bulleText(new PIXI.Text({ text: "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux...", style: dialogueStyleLong })) // bulles[14] = bulleTextGT11
+                    , bulleText(new PIXI.Text({ text: "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés", style: dialogueStyleLong })) // bulles[15] = bulleTextGT12
+                    , bulleText(new PIXI.Text({ text: "Mais allons plutot faire un petit tour sur la page d'un évenement", style: dialogueStyleLong })) // bulles[16] = bulleTextGT13
+                    , bulleText(new PIXI.Text({ text: "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat", style: dialogueStyleLong })) // bulles[17] = bulleTextGT14
+                    , bulleText(new PIXI.Text({ text: "Marquons un petit message et tentons d'y répondre avec une autre session", style: dialogueStyleLong })) // bulles[18] = bulleTextGT15
                 );
-            
+
                 // Tags
                 bulles.push(
-                    bulleText(new PIXI.Text({ text: "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Ta-da !", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska", style: dialogueStyleLong })),
-                    bulleText(new PIXI.Text({ text: "Clique sur 'Retour' pour parcourir les autres projets", style: dialogueStyleLong }))
+                    bulleText(new PIXI.Text({ text: "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations", style: dialogueStyleLong })) // bulles[19] = bulleTextGT17
+                    , bulleText(new PIXI.Text({ text: "Ta-da !", style: dialogueStyleLong })) // bulles[20] = bulleTextGT18
+                    , bulleText(new PIXI.Text({ text: "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska", style: dialogueStyleLong })) // bulles[21] = bulleTextGT19
+                    , bulleText(new PIXI.Text({ text: "Clique sur 'Retour' pour parcourir les autres projets", style: dialogueStyleLong })) // bulles[22] = bulleTextGT20
                 );
+
 
                 // Bulles Romain REBATIERE
                 // Bulles Romain JSIGNE
                 return bulles;
             }
-            
-            const bulles = await creerToutesLesBulles();
-            await afficherBullesAvecChrono();
-  
-            async function afficherBullesAvecChrono() {
+            async function afficherBullesAvecChronoIntro() {// Appelle toileScreenProjectAppear()
                 screenBackgroundContainer.addChild(bulles[0]);
                 await wait(4000);
             
@@ -999,111 +997,131 @@ export async function interactions(apps, sprites, texts) {
                 toileScreenProject2.interactive = true;
                 toileScreenProject3.interactive = true;
             }
+            async function toileScreenProjectAppear() {// Est appelé par afficherBullesAvecChronoIntro 
+                // Positionnement des Sprites Projets Videos
+                // taille d'espacement entre les sprites
+                const totalSpacing = toileScreen.width * 0.05;
 
-       
+                // On définit l'ancrage de chaque sprite à 0.5 pour les centrer
+                toileScreenProject1.anchor.set(0.5);
+                toileScreenProject2.anchor.set(0.5);
+                toileScreenProject3.anchor.set(0.5);
 
-        async function toileScreenProjectAppear() {
-            // Positionnement des Sprites Projets Videos
-            // taille d'espacement entre les sprites
-            const totalSpacing = toileScreen.width * 0.05;
+                // Dimensionnement des sprites toileScreenProjects
+                // ToileScreen: Width=968.821, Height=665 | Video: Width=775.057, Height=435.598 (968.821 * 0.8 = 775.057)
+                // Pour conserver le même ratio d'aspect, si la largeur passe à 775.057, la hauteur correspondante sera de 775.057 × 0.5625 = 435.60 px.
+                // // Taille cible 
+                // const targetWidth = toileScreen.width * 0.8;
+                // const targetHeight = toileScreen.height * 0.655;
+                // Taille initiale = 4.5 fois plus petit
+                toileScreenProject1.scale.set(0.18);
+                toileScreenProject2.scale.set(0.18);
+                toileScreenProject3.scale.set(0.18);
 
-            // On définit l'ancrage de chaque sprite à 0.5 pour les centrer
-            toileScreenProject1.anchor.set(0.5);
-            toileScreenProject2.anchor.set(0.5);
-            toileScreenProject3.anchor.set(0.5);
+                // On ajuste la position de tous les projets avec pour point de départ le centre de la toile
+                toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
+                toileScreenProject1.x = toileScreenProject2.x - toileScreenProject2.width - totalSpacing;
+                toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + totalSpacing;
+                const yCenter = toileScreen.y + (toileScreen.height * 0.5);
+                toileScreenProject1.y = yCenter;
+                toileScreenProject2.y = yCenter;
+                toileScreenProject3.y = yCenter;
+                
+                // Les projets commencent invisibles (alpha 0)
+                toileScreenProject1.alpha = 0;
+                toileScreenProject2.alpha = 0;
+                toileScreenProject3.alpha = 0;
 
-            // Dimensionnement des sprites toileScreenProjects
-            // ToileScreen: Width=968.821, Height=665 | Video: Width=775.057, Height=435.598 (968.821 * 0.8 = 775.057)
-            // Pour conserver le même ratio d'aspect, si la largeur passe à 775.057, la hauteur correspondante sera de 775.057 × 0.5625 = 435.60 px.
-            // // Taille cible 
-            // const targetWidth = toileScreen.width * 0.8;
-            // const targetHeight = toileScreen.height * 0.655;
-            // Taille initiale = 4.5 fois plus petit
-            toileScreenProject1.scale.set(0.18);
-            toileScreenProject2.scale.set(0.18);
-            toileScreenProject3.scale.set(0.18);
 
-            // On ajuste la position de tous les projets avec pour point de départ le centre de la toile
-            toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
-            toileScreenProject1.x = toileScreenProject2.x - toileScreenProject2.width - totalSpacing;
-            toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + totalSpacing;
-            const yCenter = toileScreen.y + (toileScreen.height * 0.5);
-            toileScreenProject1.y = yCenter;
-            toileScreenProject2.y = yCenter;
-            toileScreenProject3.y = yCenter;
+                // Ajout des sprites
+                screenBackgroundContainer.addChild(toileScreenProject1);
+                screenBackgroundContainer.addChild(toileScreenProject2);
+                screenBackgroundContainer.addChild(toileScreenProject3);
             
-            // Les projets commencent invisibles (alpha 0)
-            toileScreenProject1.alpha = 0;
-            toileScreenProject2.alpha = 0;
-            toileScreenProject3.alpha = 0;
+                // Ticker pour l'apparition progressive
+                const appearTicker = new PIXI.Ticker();
+                appearTicker.add(() => {
+                    let done = true;
+            
+                    if (toileScreenProject1.alpha < 1) {
+                        toileScreenProject1.alpha += 0.05;
+                        if (toileScreenProject1.alpha > 1) toileScreenProject1.alpha = 1;
+                        done = false;
+                    }
+            
+                    if (toileScreenProject2.alpha < 1) {
+                        toileScreenProject2.alpha += 0.05;
+                        if (toileScreenProject2.alpha > 1) toileScreenProject2.alpha = 1;
+                        done = false;
+                    }
+            
+                    if (toileScreenProject3.alpha < 1) {
+                        toileScreenProject3.alpha += 0.05;
+                        if (toileScreenProject3.alpha > 1) toileScreenProject3.alpha = 1;
+                        done = false;
+                    }
+            
+                    if (done) appearTicker.stop();
+                });
+                appearTicker.start();
+            }
 
 
-            // Ajout des sprites
-            screenBackgroundContainer.addChild(toileScreenProject1);
-            screenBackgroundContainer.addChild(toileScreenProject2);
-            screenBackgroundContainer.addChild(toileScreenProject3);
-        
-            // Ticker pour l'apparition progressive
-            const appearTicker = new PIXI.Ticker();
-            appearTicker.add(() => {
-                let done = true;
-        
-                if (toileScreenProject1.alpha < 1) {
-                    toileScreenProject1.alpha += 0.05;
-                    if (toileScreenProject1.alpha > 1) toileScreenProject1.alpha = 1;
-                    done = false;
-                }
-        
-                if (toileScreenProject2.alpha < 1) {
-                    toileScreenProject2.alpha += 0.05;
-                    if (toileScreenProject2.alpha > 1) toileScreenProject2.alpha = 1;
-                    done = false;
-                }
-        
-                if (toileScreenProject3.alpha < 1) {
-                    toileScreenProject3.alpha += 0.05;
-                    if (toileScreenProject3.alpha > 1) toileScreenProject3.alpha = 1;
-                    done = false;
-                }
-        
-                if (done) appearTicker.stop();
-            });
-            appearTicker.start();
+
+        ///////////////////////////////////////
+        /////////// POINTER EVENTS ////////////
+        ///////////////////////////////////////
+
+        const projectDescriptions = new Map();
+
+        // Hover qui affiche le nom du projet
+        function handleProjectPointerOver(project, descriptionText) {
+        const projectDescription = new PIXI.Text({ text: descriptionText, style: titleStyle2 });
+        projectDescription.x = project.x;
+        projectDescription.y = project.y + projectDescription.height * 2;
+        projectDescription.anchor.set(0.5, 0);
+        projectDescription.zIndex = 12;
+
+        screenBackgroundContainer.addChild(projectDescription);
+        projectDescriptions.set(project, projectDescription);
+
+        // Petite anim GSAP
+        gsap.to(project.scale, {
+            x: 0.23,
+            y: 0.23,
+            duration: 0.5,
+            ease: "power1.out"
+        });
+    }
+        function handleProjectPointerOut(project) {
+        const desc = projectDescriptions.get(project);
+        if (desc) {
+            desc.destroy();
+            projectDescriptions.delete(project);
         }
 
+        gsap.to(project.scale, {
+            x: 0.18,
+            y: 0.18,
+            duration: 0.5,
+            ease: "power1.out"
+        });
+    }
+        
+        toileScreenProject1.on('pointerover', () => handleProjectPointerOver(toileScreenProject1, "GetTogether"));
+        toileScreenProject1.on('pointerout', () => handleProjectPointerOut(toileScreenProject1));
+
+        toileScreenProject2.on('pointerover', () => handleProjectPointerOver(toileScreenProject2, "Rebatière"));
+        toileScreenProject2.on('pointerout', () => handleProjectPointerOut(toileScreenProject2));
+
+        toileScreenProject3.on('pointerover', () => handleProjectPointerOver(toileScreenProject3, "Jsigné"));
+        toileScreenProject3.on('pointerout', () => handleProjectPointerOut(toileScreenProject3));
 
         //////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT 1 ///
         //////////////////////////////////////
+    
 
-        // Hover qui affiche le nom du projet
-        let project1Description = null;
-        toileScreenProject1.on('pointerover', () => {
-            project1Description = new PIXI.Text({ text: "GetTogether", style: titleStyle2 });
-            project1Description.x = toileScreenProject1.x;
-            project1Description.y = toileScreenProject1.y + project1Description.height * 2;
-            project1Description.anchor.set(0.5, 0);
-            project1Description.zIndex = 12;
-            screenBackgroundContainer.addChild(project1Description);
-            // Petit GSAP pour animation simple
-            gsap.to(toileScreenProject1.scale, {
-                x: 0.23,
-                y: 0.23,
-                duration: 0.5,
-                ease: "power1.out"
-              });
-        });
-        toileScreenProject1.on('pointerout', () => {
-            if (project1Description) {
-                project1Description.destroy();
-                gsap.to(toileScreenProject1.scale, {
-                    x: 0.18,
-                    y: 0.18,
-                    duration: 0.5,
-                    ease: "power1.out"
-                  });
-            }
-        });
         // On crée une petite animation lors de la sélection du projet
         // guybrushClone.addEventListener("click", async () => {
         toileScreenProject1.addEventListener("click", () => {
@@ -1149,13 +1167,6 @@ export async function interactions(apps, sprites, texts) {
                                     toileScreenProject1.alpha -= 0.1;
                                 } else {
                                 alphaTicker.stop(); 
-
-                                // On détruit les textes précédents pour éviter un overlap
-                                if (bulleText3) {
-                                    console.log("ok");
-                                    // bulleText3.destroy();
-                                    // bulleText4.destroy();
-                                }
 
                                 // Ajout du texte d'intro
                                 screenBackgroundContainer.addChild(getTogetherTitle);
@@ -1206,104 +1217,84 @@ export async function interactions(apps, sprites, texts) {
                                 // }
 
                                 async function playSequence() {
-                                    screenBackgroundContainer.addChild(bulleTextGT1);
-                                    await wait(3000);
-                                
-                                    screenBackgroundContainer.removeChild(bulleTextGT1);
-                                    screenBackgroundContainer.addChild(bulleTextGT2);
-                                    await wait(7000);
-                                
-                                    screenBackgroundContainer.removeChild(bulleTextGT2);
-                                    screenBackgroundContainer.addChild(bulleTextGT3);
-                                    await wait(6000);
-                                
-                                    screenBackgroundContainer.removeChild(bulleTextGT3);
-                                    screenBackgroundContainer.addChild(bulleTextGT4);
-                                    await wait(3000);
-                                
-                                    launchProjectVideo(videoList);
+                                screenBackgroundContainer.addChild(bulles[4]);
+                                await wait(3000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT4);
-                                    screenBackgroundContainer.addChild(bulleTextGT5);
-                                    await wait(1000);
+                                screenBackgroundContainer.removeChild(bulles[4]);
+                                screenBackgroundContainer.addChild(bulles[5]);
+                                await wait(7000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT5);
-                                    screenBackgroundContainer.addChild(bulleTextGT6);
-                                    await wait(6000);
+                                screenBackgroundContainer.removeChild(bulles[5]);
+                                screenBackgroundContainer.addChild(bulles[6]);
+                                await wait(6000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT6);
-                                    screenBackgroundContainer.addChild(bulleTextGT7);
-                                    await wait(7000);
+                                screenBackgroundContainer.removeChild(bulles[6]);
+                                screenBackgroundContainer.addChild(bulles[7]);
+                                await wait(3000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT7);
-                                    screenBackgroundContainer.addChild(bulleTextGT8);
-                                    await wait(6000);
+                                launchProjectVideo(videoList);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT8);
-                                    screenBackgroundContainer.addChild(bulleTextGT9);
-                                    await wait(7000);
+                                screenBackgroundContainer.removeChild(bulles[7]);
+                                screenBackgroundContainer.addChild(bulles[8]);
+                                await wait(1000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT9);
-                                    screenBackgroundContainer.addChild(bulleTextGT10);
-                                    await wait(4000);
+                                screenBackgroundContainer.removeChild(bulles[8]);
+                                screenBackgroundContainer.addChild(bulles[9]);
+                                await wait(6000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT10);
-                                    screenBackgroundContainer.addChild(bulleTextGT11);
-                                    await wait(5000);
+                                screenBackgroundContainer.removeChild(bulles[9]);
+                                screenBackgroundContainer.addChild(bulles[10]);
+                                await wait(7000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT11);
-                                    screenBackgroundContainer.addChild(bulleTextGT12);
-                                    await wait(6000);
+                                screenBackgroundContainer.removeChild(bulles[10]);
+                                screenBackgroundContainer.addChild(bulles[11]);
+                                await wait(6000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT12);
-                                    screenBackgroundContainer.addChild(bulleTextGT13);
-                                    await wait(5000);
+                                screenBackgroundContainer.removeChild(bulles[11]);
+                                screenBackgroundContainer.addChild(bulles[12]);
+                                await wait(7000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT13);
-                                    screenBackgroundContainer.addChild(bulleTextGT14);
-                                    await wait(6000);
+                                screenBackgroundContainer.removeChild(bulles[12]);
+                                screenBackgroundContainer.addChild(bulles[13]);
+                                await wait(4000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT14);
-                                    screenBackgroundContainer.addChild(bulleTextGT15);
-                                    await wait(5000);
+                                screenBackgroundContainer.removeChild(bulles[13]);
+                                screenBackgroundContainer.addChild(bulles[14]);
+                                await wait(5000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT15);
-                                    screenBackgroundContainer.addChild(bulleTextGT17);
-                                    await wait(5000);
+                                screenBackgroundContainer.removeChild(bulles[14]);
+                                screenBackgroundContainer.addChild(bulles[15]);
+                                await wait(6000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT17);
-                                    screenBackgroundContainer.addChild(bulleTextGT18);
-                                    await wait(2000);
+                                screenBackgroundContainer.removeChild(bulles[15]);
+                                screenBackgroundContainer.addChild(bulles[16]);
+                                await wait(5000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT18);
-                                    screenBackgroundContainer.addChild(bulleTextGT19);
-                                    await wait(5000);
+                                screenBackgroundContainer.removeChild(bulles[16]);
+                                screenBackgroundContainer.addChild(bulles[17]);
+                                await wait(6000);
 
-                                    screenBackgroundContainer.removeChild(bulleTextGT19);
-                                    screenBackgroundContainer.addChild(bulleTextGT20);
-                                    await wait(4000);
-                                }
+                                screenBackgroundContainer.removeChild(bulles[17]);
+                                screenBackgroundContainer.addChild(bulles[18]);
+                                await wait(5000);
 
+                                screenBackgroundContainer.removeChild(bulles[18]);
+                                screenBackgroundContainer.addChild(bulles[19]);
+                                await wait(5000);
+
+                                screenBackgroundContainer.removeChild(bulles[19]);
+                                screenBackgroundContainer.addChild(bulles[20]);
+                                await wait(2000);
+
+                                screenBackgroundContainer.removeChild(bulles[20]);
+                                screenBackgroundContainer.addChild(bulles[21]);
+                                await wait(5000);
+
+                                screenBackgroundContainer.removeChild(bulles[21]);
+                                screenBackgroundContainer.addChild(bulles[22]);
+                                await wait(4000);
+                            }
                                 playSequence();
-
-                                // Ajout de la bulle de Romain après avoir sélectionné GetTogether
-                                // screenBackgroundContainer.addChild(bulleTextGT1);
-
-                                // setTimeout(() => {
-                                //     screenBackgroundContainer.removeChild(bulleTextGT1);
-                                //     screenBackgroundContainer.addChild(bulleTextGT2);
-                                //     setTimeout(() => {
-                                //         screenBackgroundContainer.removeChild(bulleTextGT2);
-                                //         screenBackgroundContainer.addChild(bulleTextGT3);
-                                //         setTimeout(() => {
-                                //             screenBackgroundContainer.removeChild(bulleTextGT3);
-                                //             screenBackgroundContainer.addChild(bulleTextGT4);
-                                //                                     setTimeout(() => {
-                                //                                 launchProjectVideo(videoList);
-                                //                             }, 3000);
-                                //         }, 6000);
-                                //     }, 7000);
-                                // }, 3000);
                                 }
                             });
                             alphaTicker.start();
@@ -1320,35 +1311,6 @@ export async function interactions(apps, sprites, texts) {
         /////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT2 ///
         /////////////////////////////////////
-
-        // Hover qui affiche le nom du projet
-        let project2Description = null;
-        toileScreenProject2.on('pointerover', () => {
-            project2Description = new PIXI.Text({ text: "Rebatière", style: titleStyle2 });
-            project2Description.x = toileScreenProject2.x;
-            project2Description.y = toileScreenProject2.y + project2Description.height * 2;
-            project2Description.anchor.set(0.5, 0);
-            project2Description.zIndex = 12;
-            screenBackgroundContainer.addChild(project2Description);
-            // Petit GSAP pour animation simple
-            gsap.to(toileScreenProject2.scale, {
-                x: 0.23,
-                y: 0.23,
-                duration: 0.5,
-                ease: "power1.out"
-              });
-        });
-        toileScreenProject2.on('pointerout', () => {
-            if (project2Description) {
-                project2Description.destroy();
-                gsap.to(toileScreenProject2.scale, {
-                    x: 0.18,
-                    y: 0.18,
-                    duration: 0.5,
-                    ease: "power1.out"
-                  });
-            }
-        });
 
         toileScreenProject2.addEventListener("click", () => {
             // destruction si existe
@@ -1441,36 +1403,6 @@ export async function interactions(apps, sprites, texts) {
         //////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT3 ////
         //////////////////////////////////////
-
-        // Hover qui affiche le nom du projet
-        let project3Description = null;
-        toileScreenProject3.on('pointerover', () => {
-            project3Description = new PIXI.Text({ text: "Jsigné", style: titleStyle2 });
-            project3Description.x = toileScreenProject3.x;
-            project3Description.y = toileScreenProject3.y + project3Description.height * 2;
-            project3Description.anchor.set(0.5, 0);
-            project3Description.zIndex = 12;
-            screenBackgroundContainer.addChild(project3Description);
-            // Petit GSAP pour animation simple
-            gsap.to(toileScreenProject3.scale, {
-                x: 0.23,
-                y: 0.23,
-                duration: 0.5,
-                ease: "power1.out"
-              });
-        });
-        toileScreenProject3.on('pointerout', () => {
-            if (project3Description) {
-                project3Description.destroy();
-                gsap.to(toileScreenProject3.scale, {
-                    x: 0.18,
-                    y: 0.18,
-                    duration: 0.5,
-                    ease: "power1.out"
-                  });
-            }
-        });
-
 
         toileScreenProject3.addEventListener("click", () => {
             // destruction si existe
@@ -1571,162 +1503,162 @@ export async function interactions(apps, sprites, texts) {
             localTicker.start();
         });
 
-                                    function launchProjectVideo(videoArray) {
-                                    // guybrushClone.addEventListener("click", () => {
-                            
-                                    // Vérifier si la vidéo existe déjà pour éviter les doublons
-                                    let existingVideo = document.getElementById("pixi-video");
-                                    if (existingVideo) return;
-                            
-                                    // Génération de la vidéo dans le DOM
-                                    const video = document.createElement("video");
-                                    video.id = "pixi-video";
-                                    video.src = videoArray[currentVideoIndex];
-                                    video.autoplay = true;
-                                    video.controls = false;
-                                    video.style.zIndex = "10";
-                                    // video.style.pointerEvents = "none";
-                                    video.style.width = (toileScreen.width * 0.8) + "px"; // Le ratio sera toujours respecté car la video a une propriété {object-fit: contain;} donc inutile de mettre une height
-                                    video.style.opacity = "0";
-                                    video.style.transition = "opacity 1s ease";
+                function launchProjectVideo(videoArray) {
+                // guybrushClone.addEventListener("click", () => {
+        
+                // Vérifier si la vidéo existe déjà pour éviter les doublons
+                let existingVideo = document.getElementById("pixi-video");
+                if (existingVideo) return;
+        
+                // Génération de la vidéo dans le DOM
+                const video = document.createElement("video");
+                video.id = "pixi-video";
+                video.src = videoArray[currentVideoIndex];
+                video.autoplay = true;
+                video.controls = false;
+                video.style.zIndex = "10";
+                // video.style.pointerEvents = "none";
+                video.style.width = (toileScreen.width * 0.8) + "px"; // Le ratio sera toujours respecté car la video a une propriété {object-fit: contain;} donc inutile de mettre une height
+                video.style.opacity = "0";
+                video.style.transition = "opacity 1s ease";
 
-                                    // Ajout de la video au DOM
-                                    document.body.appendChild(video);
+                // Ajout de la video au DOM
+                document.body.appendChild(video);
 
-                                    // Demander deux frames consécutives pour éviter les erreurs d'animation
-                                    requestAnimationFrame(() => {
-                                        requestAnimationFrame(() => {
-                                            video.style.opacity = "1";
-                                        });
-                                    });
-                            
-                                    // Ajout de playVideo au conteneur des boutons
-                                    screenBackgroundContainer.addChild(stopVideo);
+                // Demander deux frames consécutives pour éviter les erreurs d'animation
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        video.style.opacity = "1";
+                    });
+                });
+        
+                // Ajout de playVideo au conteneur des boutons
+                screenBackgroundContainer.addChild(stopVideo);
 
-                                    // Resetting de playvideo et stopvideo (changer plus tard loadsprite et resizehandler)
-                                    playVideo.x = toileScreen.x + (toileScreen.width * 0.5);
-                                    playVideo.y = toileScreen.y + (toileScreen.height * 0.9);
-                                    playVideo.anchor.set(0.5);
-                                    stopVideo.x = toileScreen.x + (toileScreen.width * 0.5);
-                                    stopVideo.y = toileScreen.y + (toileScreen.height * 0.9);
-                                    stopVideo.anchor.set(0.5);
-                                    prevVideo.x = toileScreen.x + (toileScreen.width * 0.4);
-                                    prevVideo.y = toileScreen.y + (toileScreen.height * 0.9);
-                                    prevVideo.anchor.set(0.5);
-                                    nextVideo.x = toileScreen.x + (toileScreen.width * 0.6);
-                                    nextVideo.y = toileScreen.y + (toileScreen.height * 0.9);
-                                    nextVideo.anchor.set(0.5);
+                // Resetting de playvideo et stopvideo (changer plus tard loadsprite et resizehandler)
+                playVideo.x = toileScreen.x + (toileScreen.width * 0.5);
+                playVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+                playVideo.anchor.set(0.5);
+                stopVideo.x = toileScreen.x + (toileScreen.width * 0.5);
+                stopVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+                stopVideo.anchor.set(0.5);
+                prevVideo.x = toileScreen.x + (toileScreen.width * 0.4);
+                prevVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+                prevVideo.anchor.set(0.5);
+                nextVideo.x = toileScreen.x + (toileScreen.width * 0.6);
+                nextVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+                nextVideo.anchor.set(0.5);
 
 
-                                    // Ajout de nextVideo et prevVideo
-                                    screenBackgroundContainer.addChild(prevVideo);
-                                    screenBackgroundContainer.addChild(nextVideo);
-                                    // Ajout de exitVideo
-                                    screenBackgroundContainer.addChild(exitVideo);
+                // Ajout de nextVideo et prevVideo
+                screenBackgroundContainer.addChild(prevVideo);
+                screenBackgroundContainer.addChild(nextVideo);
+                // Ajout de exitVideo
+                screenBackgroundContainer.addChild(exitVideo);
 
-                                    // Gestion des événements Play
-                                    playVideo.on('pointerover', () => {
-                                        playVideo.texture = playVideoActive.texture;
-                                    });
+                // Gestion des événements Play
+                playVideo.on('pointerover', () => {
+                    playVideo.texture = playVideoActive.texture;
+                });
 
-                                    playVideo.on('pointerout', () => {
-                                        playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]];
-                                    });
+                playVideo.on('pointerout', () => {
+                    playVideo.texture = playVideospriteAsset.textures[playVideoframes[0]];
+                });
 
-                                    playVideo.on('click', () => {
-                                        video.play();
-                                        screenBackgroundContainer.removeChild(playVideo);
-                                        screenBackgroundContainer.addChild(stopVideo);
-                                    });
+                playVideo.on('click', () => {
+                    video.play();
+                    screenBackgroundContainer.removeChild(playVideo);
+                    screenBackgroundContainer.addChild(stopVideo);
+                });
 
-                                    // Gestion des événements Stop
-                                    stopVideo.on('pointerover', () => {
-                                        stopVideo.texture = stopVideoActive.texture;
-                                    });
+                // Gestion des événements Stop
+                stopVideo.on('pointerover', () => {
+                    stopVideo.texture = stopVideoActive.texture;
+                });
 
-                                    stopVideo.on('pointerout', () => {
-                                        stopVideo.texture = stopVideospriteAsset.textures[stopVideoframes[0]];
-                                    });
+                stopVideo.on('pointerout', () => {
+                    stopVideo.texture = stopVideospriteAsset.textures[stopVideoframes[0]];
+                });
 
-                                    stopVideo.on('click', () => {
-                                        video.pause();
-                                        screenBackgroundContainer.removeChild(stopVideo);
-                                        screenBackgroundContainer.addChild(playVideo);
-                                    });
+                stopVideo.on('click', () => {
+                    video.pause();
+                    screenBackgroundContainer.removeChild(stopVideo);
+                    screenBackgroundContainer.addChild(playVideo);
+                });
 
-                                    // Gestion des événements Exit
-                                    exitVideo.on('pointerover', () => {
-                                        exitVideo.texture = exitVideoActive.texture;
-                                    });
+                // Gestion des événements Exit
+                exitVideo.on('pointerover', () => {
+                    exitVideo.texture = exitVideoActive.texture;
+                });
 
-                                    exitVideo.on('pointerout', () => {
-                                        exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
-                                    });
-                                    exitVideo.on('click', () => {
-                                        video.remove();
-                                        screenBackgroundContainer.removeChild(playVideo);
-                                        screenBackgroundContainer.removeChild(stopVideo);
-                                        screenBackgroundContainer.removeChild(prevVideo);
-                                        screenBackgroundContainer.removeChild(nextVideo);
-                                        exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
-                                        screenBackgroundContainer.removeChild(exitVideo);
-                                        screenBackgroundContainer.removeChild(toileScreen);
-                                        screenBackgroundContainer.removeChild(fondPortrait);
-                                        screenBackgroundContainer.removeChild(fondPortraitMask);
-                                        screenBackgroundContainer.removeChild(guybrush);
-                                        currentVideoIndex = 0;
-                                    });
+                exitVideo.on('pointerout', () => {
+                    exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
+                });
+                exitVideo.on('click', () => {
+                    video.remove();
+                    screenBackgroundContainer.removeChild(playVideo);
+                    screenBackgroundContainer.removeChild(stopVideo);
+                    screenBackgroundContainer.removeChild(prevVideo);
+                    screenBackgroundContainer.removeChild(nextVideo);
+                    exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
+                    screenBackgroundContainer.removeChild(exitVideo);
+                    screenBackgroundContainer.removeChild(toileScreen);
+                    screenBackgroundContainer.removeChild(fondPortrait);
+                    screenBackgroundContainer.removeChild(fondPortraitMask);
+                    screenBackgroundContainer.removeChild(guybrush);
+                    currentVideoIndex = 0;
+                });
 
-                                    // Gestion des événements Next
-                                    nextVideo.on('pointerover', () => {
-                                        nextVideo.texture = nextVideoActive.texture;
-                                    });
+                // Gestion des événements Next
+                nextVideo.on('pointerover', () => {
+                    nextVideo.texture = nextVideoActive.texture;
+                });
 
-                                    nextVideo.on('pointerout', () => {
-                                        nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
-                                    });
-                                    nextVideo.on('click', () => {
-                                        if (currentVideoIndex < videoArray.length - 1) {
-                                            currentVideoIndex++; 
-                                        } else {
-                                            currentVideoIndex = 0; 
-                                        }
-                                        video.src = videoArray[currentVideoIndex]; 
-                                        video.play(); 
-                                    });
+                nextVideo.on('pointerout', () => {
+                    nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
+                });
+                nextVideo.on('click', () => {
+                    if (currentVideoIndex < videoArray.length - 1) {
+                        currentVideoIndex++; 
+                    } else {
+                        currentVideoIndex = 0; 
+                    }
+                    video.src = videoArray[currentVideoIndex]; 
+                    video.play(); 
+                });
 
-                                    // Gestion des événements Prev
-                                    prevVideo.on('pointerover', () => {
-                                        prevVideo.texture = prevVideoActive.texture;
-                                    });
+                // Gestion des événements Prev
+                prevVideo.on('pointerover', () => {
+                    prevVideo.texture = prevVideoActive.texture;
+                });
 
-                                    prevVideo.on('pointerout', () => {
-                                        prevVideo.texture = prevVideospriteAsset.textures[prevVideoframes[0]];
-                                    });
-                                    prevVideo.on('click', () => {
-                                        if (currentVideoIndex > 0) {
-                                            currentVideoIndex--;
-                                        } else {
-                                            currentVideoIndex = videoArray.length - 1;
-                                        }
-                                        video.src = videoArray[currentVideoIndex]; 
-                                        video.play();
-                                    });
-                                    // Supprimer la vidéo quand on ferme l'écran
-                                    toileScreen.on("removed", () => {
-                                        video.remove();
-                                        screenBackgroundContainer.removeChild(playVideo);
-                                        screenBackgroundContainer.removeChild(stopVideo);
-                                        screenBackgroundContainer.removeChild(prevVideo);
-                                        screenBackgroundContainer.removeChild(nextVideo);
-                                        screenBackgroundContainer.removeChild(exitVideo);
-                                        reroll();
-                                    });
-                                }
-                                // });
+                prevVideo.on('pointerout', () => {
+                    prevVideo.texture = prevVideospriteAsset.textures[prevVideoframes[0]];
+                });
+                prevVideo.on('click', () => {
+                    if (currentVideoIndex > 0) {
+                        currentVideoIndex--;
+                    } else {
+                        currentVideoIndex = videoArray.length - 1;
+                    }
+                    video.src = videoArray[currentVideoIndex]; 
+                    video.play();
+                });
+                // Supprimer la vidéo quand on ferme l'écran
+                toileScreen.on("removed", () => {
+                    video.remove();
+                    screenBackgroundContainer.removeChild(playVideo);
+                    screenBackgroundContainer.removeChild(stopVideo);
+                    screenBackgroundContainer.removeChild(prevVideo);
+                    screenBackgroundContainer.removeChild(nextVideo);
+                    screenBackgroundContainer.removeChild(exitVideo);
+                    reroll();
+                });
+            }
         }
     });
 
+    // Utiliser l'ordinateur
     ordiRun.on('click', async () => {
         // guybrushReactive = false;
         // Quand on "utiliser" l'ordi allumé
