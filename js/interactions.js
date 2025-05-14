@@ -921,7 +921,7 @@ export async function interactions(apps, sprites, texts) {
                 bulles.push(
                     bulleText(new PIXI.Text({ text: "GetTogether, un projet pensé comme une extension pour TimeOut", style: dialogueStyleLong })) // bulles[4] = bulleTextGT1
                     , bulleText(new PIXI.Text({ text: "L'application permet aux utilisateurs de filtrer les événements selon leurs centres intérêts et de tchater en amont de l'événement.", style: dialogueStyleLong })) // bulles[5] = bulleTextGT2
-                    , bulleText(new PIXI.Text({ text: "À tout moment tu peux mettre la vidéo en pause, passer à la fonctionnalité suivante ou revenir en arrière.", style: dialogueStyleLong })) // bulles[6] = bulleTextGT3
+                    , bulleText(new PIXI.Text({ text: "À tout moment tu peux mettre la vidéo en pause, passer à l'étape suivante ou revenir en arrière.", style: dialogueStyleLong })) // bulles[6] = bulleTextGT3
                     , bulleText(new PIXI.Text({ text: "Prêt ? Alors c'est parti !", style: dialogueStyleLong })) // bulles[7] = bulleTextGT4
                 );
 
@@ -956,39 +956,68 @@ export async function interactions(apps, sprites, texts) {
                 // Bulles Romain REBATIERE
                 // Intro
                 bulles.push(
-                    bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[23]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[24]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[25]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[26]
+                    bulleText(new PIXI.Text({ text: "Bienvenue sur l'application 'Rebatière'", style: dialogueStyleLong })) // bulles[23]
+                    , bulleText(new PIXI.Text({ text: "Il s'agit d'une application de booking destinée à une maison d'hôte dans la Drôme", style: dialogueStyleLong })) // bulles[24]
+                    , bulleText(new PIXI.Text({ text: "À tout moment tu peux mettre la vidéo en pause, passer à l'étape suivante ou revenir en arrière.", style: dialogueStyleLong })) // bulles[25]
+                    , bulleText(new PIXI.Text({ text: "Prêt ? Alors c'est parti !", style: dialogueStyleLong })) // bulles[26]
                 );
 
                 // SignUp - Login
                 bulles.push(
-                    bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[27]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[28]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[29]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[30]
+                    bulleText(new PIXI.Text({ text: "On va commencer par se créer un compte sur la page d'enregistrement", style: dialogueStyleLong })) // bulles[27]
+                    , bulleText(new PIXI.Text({ text: "Pour recadrer l'avatar, j'ai retravaillé et intégré un CropperJS de manière à le sauvegarder en direct", style: dialogueStyleLong })) // bulles[28]
+                    , bulleText(new PIXI.Text({ text: "Une fois le compte validé, on se connecte de manière classique", style: dialogueStyleLong })) // bulles[29]
+                    , bulleText(new PIXI.Text({ text: "Nous voici désormais sur la page principale du clandrier, tu peux passer à l'étape suivante", style: dialogueStyleLong })) // bulles[30]
                     , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[31]
                     , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[32]
                 );
 
-                // Calendrier - Event
+                // Calendrier
                 bulles.push(
-                    bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[33]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[34]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[35]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[36]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[37]
+                    bulleText(new PIXI.Text({ text: "La page d'accueil nous donne accès à plusieurs choses. Commençons par effectuer une réservation.", style: dialogueStyleLong })) // bulles[33]
+                    , bulleText(new PIXI.Text({ text: "Programmons une réservation simple de 6 jours. ", style: dialogueStyleLong })) // bulles[34]
+                    , bulleText(new PIXI.Text({ text: "Choisissons ensuite la chambre que l'on souhaite réserver pour la période sur un plan en 2D", style: dialogueStyleLong })) // bulles[35]
+                    , bulleText(new PIXI.Text({ text: "Puis, on peut, si on le désir, rajouter un ou plusieurs membres de la Rebatière pendant la durée de notre séjour", style: dialogueStyleLong })) // bulles[36]
+                    , bulleText(new PIXI.Text({ text: "Vérifions ensuite si la réservation s'est fait effectuée", style: dialogueStyleLong })) // bulles[37]
+                    , bulleText(new PIXI.Text({ text: "On a bien réservé pour nous même et un autre membre ! Tu peux passer à l'étape suivante", style: dialogueStyleLong })) // bulles[38]
                 );
 
                 // Reservations
                 bulles.push(
-                    bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[38]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[39]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[40]
-                    , bulleText(new PIXI.Text({ text: "gagaga", style: dialogueStyleLong })) // bulles[41]
+                    bulleText(new PIXI.Text({ text: "Une fois qu'on a terminé notre réservation, regardons 'Mon Profil' pour accéder à la gestion de 'Mes Reservations'", style: dialogueStyleLong })) // bulles[39]
+                    , bulleText(new PIXI.Text({ text: "Comme on n'a qu'une réservation, on peut la supprimer", style: dialogueStyleLong })) // bulles[40]
+                    , bulleText(new PIXI.Text({ text: "Et on voit que notre réservation a bien été annulée, tu peux passer à la dernière étape", style: dialogueStyleLong })) // bulles[41]
                 );
+
+                // Réservations en grand nombre & gestion des erreurs
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "Voyons maintenant comment le site gère les cas de nombreuses réservations sur une même période", style: dialogueStyleLong })) // bulles[42]
+                    , bulleText(new PIXI.Text({ text: "Lors du formulaire de réservation, il est possible de savoir qui a déjà réservé sur une période", style: dialogueStyleLong })) // bulles[43]
+                    , bulleText(new PIXI.Text({ text: "Essayons maintenant de réserver une chambre déjà pleine pour cette période", style: dialogueStyleLong })) // bulles[44]
+                    , bulleText(new PIXI.Text({ text: "Le serveur nous renvoie un refus de réservation.", style: dialogueStyleLong })) // bulles[45]
+                    , bulleText(new PIXI.Text({ text: "Essayons d'inspecter une période sans avoir rentré de dates : erreur également", style: dialogueStyleLong })) // bulles[46]
+                    , bulleText(new PIXI.Text({ text: "Maintenant vérifions qu'une réservation dans les règles marche toujours correctement", style: dialogueStyleLong })) // bulles[47]
+                    , bulleText(new PIXI.Text({ text: "Eh oui c'est bon ! Tu peux maintenant passer à la dernière étape", style: dialogueStyleLong })) // bulles[48]
+                );
+
+                // Admin et piscine
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "Je me suis connecté sur un compte 'Admin' pour pouvoir ouvrir la piscine", style: dialogueStyleLong })) // bulles[49]
+                    , bulleText(new PIXI.Text({ text: "Il est possible donc pour un doyen de la Rebatière de décider de la disponibilité de la piscine", style: dialogueStyleLong })) // bulles[50]
+                    , bulleText(new PIXI.Text({ text: "Chaque jour où la piscine est dispo a son icone qui passe au vert!", style: dialogueStyleLong })) // bulles[51]
+                    , bulleText(new PIXI.Text({ text: "Faisons maintenant un petit tour du coté de panneau admin", style: dialogueStyleLong })) // bulles[52]
+                    , bulleText(new PIXI.Text({ text: "Pour la faire courte, j'ai simplement intégré le bundle EasyAdmin permettant d'avoir un controle sur tous les éléments de la BDD", style: dialogueStyleLong })) // bulles[53]
+                    , bulleText(new PIXI.Text({ text: "On en a terminé, tu peux cliquer sur le bouton retour !", style: dialogueStyleLong })) // bulles[54]
+                );
+
                 // Bulles Romain JSIGNE
+                // Renvoi sur le behance de Florian
+                 bulles.push(
+                    bulleText(new PIXI.Text({ text: "Jsigné, c'est un projet développé lors d'un stage de 4 mois à La Passerelle", style: dialogueStyleLong })) // bulles[55]
+                    , bulleText(new PIXI.Text({ text: "Il s'agit d'une application inspirée SoWeSign faite sur mesure pour les besoins de l'école", style: dialogueStyleLong })) // bulles[56]
+                    , bulleText(new PIXI.Text({ text: "Le projet reposant entre autre sur une clé API auquelle les anciens stagiaires n'ont plus accès...", style: dialogueStyleLong })) // bulles[57]
+                    , bulleText(new PIXI.Text({ text: "...Je te renvoie directement sur l'excellente présentation faite par notre UX Florian depuis son espace Behance.", style: dialogueStyleLong })) // bulles[58]
+                );
                 
                 return bulles;
             }
