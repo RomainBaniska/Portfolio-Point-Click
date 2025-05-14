@@ -825,7 +825,7 @@ export async function interactions(apps, sprites, texts) {
         }  
     });
 
-    // unroll();
+    unroll();
     // unroll416();
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
@@ -834,7 +834,7 @@ export async function interactions(apps, sprites, texts) {
 
             // Joue le son du succès:
             PIXI.sound.play("itemFoundPokemon");
-            await new Promise(resolve => setTimeout(resolve, 4000));
+            await wait(4000);
 
             // On appelle notre transition en pixelisation
             await transitionPixelisation();
@@ -895,146 +895,143 @@ export async function interactions(apps, sprites, texts) {
             ///////////////////////////////////////////////////////////
 
             // Mini fonction bulles
-            function bulleText(bulleText) {
-                bulleText.zIndex = 12;
-                bulleText.x = toileScreen.x + (toileScreen.width * 0.53);
-                bulleText.y = toileScreen.y + (toileScreen.height * 0.05);
-                bulleText.anchor.set(0.5, 0);
+            async function creerToutesLesBulles() {
+                function bulleText(bulle) {
+                    bulle.zIndex = 12;
+                    bulle.x = toileScreen.x + (toileScreen.width * 0.53);
+                    bulle.y = toileScreen.y + (toileScreen.height * 0.05);
+                    bulle.anchor.set(0.5, 0);
+                    return bulle;
+                }
+            
+                const bulles = [];
+            
+                // Bulles Romain Toile
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "Bravo d'être arrivé jusque là!", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Tu vas pouvoir avoir une idée un peu plus précise de mes compétences en dev web", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Voici une petite sélection de projets que j'ai réalisé", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Clique sur le projet qui t'intéresse ! Tu pourras revenir consulter les autres.", style: dialogueStyleLong }))
+                );
+            
+                // Bulles GetTogether - Intro
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "GetTogether, un projet pensé comme une extension pour TimeOut", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "L'application permet aux utilisateurs de filtrer les événements selon leurs centres intérêts et de tchater en amont de l'événement.", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "À tout moment tu peux mettre la vidéo en pause, passer à la fonctionnalité suivante ou revenir en arrière.", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Prêt ? Alors c'est parti !", style: dialogueStyleLong }))
+                );
+            
+                // SignUp - Login
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "On va commencer par s'inscrire et entrer nos informations", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Ensuite lors de notre première connexion on est invité à compléter notre profil.", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Petit Nom-Prénom-Pseudo classique ainsi que le nom de la ville (pour l'instant l'application est limitée à Paris)", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations.", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Clique sur 'suivant' pour passer au Dashboard", style: dialogueStyleLong }))
+                );
+            
+                // Dashboard - Event
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux...", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Mais allons plutot faire un petit tour sur la page d'un évenement", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Marquons un petit message et tentons d'y répondre avec une autre session", style: dialogueStyleLong }))
+                );
+            
+                // Tags
+                bulles.push(
+                    bulleText(new PIXI.Text({ text: "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Ta-da !", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska", style: dialogueStyleLong })),
+                    bulleText(new PIXI.Text({ text: "Clique sur 'Retour' pour parcourir les autres projets", style: dialogueStyleLong }))
+                );
+
+                // Bulles Romain REBATIERE
+                // Bulles Romain JSIGNE
+                return bulles;
             }
-            // Bulles Romain Toile
-            const bulleText1 = new PIXI.Text({ text: "Bravo d'être arrivé jusque là!", style: dialogueStyleLong });
-            const bulleText2 = new PIXI.Text({ text: "Tu vas pouvoir avoir une idée un peu plus précise de mes compétences en dev web", style: dialogueStyleLong });
-            const bulleText3 = new PIXI.Text({ text: "Voici une petite sélection de projets que j'ai réalisé", style: dialogueStyleLong });
-            const bulleText4 = new PIXI.Text({ text: "Clique sur le projet qui t'intéresse ! Tu pourras revenir consulter les autres.", style: dialogueStyleLong });
-            bulleText(bulleText1);
-            bulleText(bulleText2);
-            bulleText(bulleText3);
-            bulleText(bulleText4);
-
-            //// Bulles Romain GETTOGETHER ////
-            // Intro
-            const bulleTextGT1 = new PIXI.Text({ text: "GetTogether, un projet pensé comme une extension pour TimeOut", style: dialogueStyleLong });
-            const bulleTextGT2 = new PIXI.Text({ text: "L'application permet aux utilisateurs de filtrer les événements selon leurs centres intérêts et de tchater en amont de l'événement.", style: dialogueStyleLong });
-            const bulleTextGT3 = new PIXI.Text({ text: "À tout moment tu peux mettre la vidéo en pause, passer à la fonctionnalité suivante ou revenir en arrière.", style: dialogueStyleLong });
-            const bulleTextGT4 = new PIXI.Text({ text: "Prêt ? Alors c'est parti !", style: dialogueStyleLong });
-            bulleText(bulleTextGT1);
-            bulleText(bulleTextGT2);
-            bulleText(bulleTextGT3);
-            bulleText(bulleTextGT4);
-            // SignUp - Login
-            const bulleTextGT5 = new PIXI.Text({ text: "On va commencer par s'inscrire et entrer nos informations", style: dialogueStyleLong });
-            const bulleTextGT6 = new PIXI.Text({ text: "Ensuite lors de notre première connexion on est invité à compléter notre profil.", style: dialogueStyleLong });
-            const bulleTextGT7 = new PIXI.Text({ text: "Petit Nom-Prénom-Pseudo classique ainsi que le nom de la ville (pour l'instant l'application est limitée à Paris)", style: dialogueStyleLong });
-            const bulleTextGT8 = new PIXI.Text({ text: "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini", style: dialogueStyleLong });
-            const bulleTextGT9 = new PIXI.Text({ text: "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations.", style: dialogueStyleLong });
-            const bulleTextGT10 = new PIXI.Text({ text: "Clique sur 'suivant' pour passer au Dashboard", style: dialogueStyleLong });
-            bulleText(bulleTextGT5);
-            bulleText(bulleTextGT6);
-            bulleText(bulleTextGT7);
-            bulleText(bulleTextGT8);
-            bulleText(bulleTextGT9);
-            bulleText(bulleTextGT10);
-            // Dashboard - Event
-            const bulleTextGT11 = new PIXI.Text({ text: "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux...", style: dialogueStyleLong });
-            const bulleTextGT12 = new PIXI.Text({ text: "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés", style: dialogueStyleLong });
-            const bulleTextGT13 = new PIXI.Text({ text: "Mais allons plutot faire un petit tour sur la page d'un évenement", style: dialogueStyleLong });
-            const bulleTextGT14 = new PIXI.Text({ text: "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat", style: dialogueStyleLong });
-            const bulleTextGT15 = new PIXI.Text({ text: "Marquons un petit message et tentons d'y répondre avec une autre session", style: dialogueStyleLong });
-            bulleText(bulleTextGT11);
-            bulleText(bulleTextGT12);
-            bulleText(bulleTextGT13);
-            bulleText(bulleTextGT14);
-            bulleText(bulleTextGT15);
-            // Tags 
-            const bulleTextGT17 = new PIXI.Text({ text: "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations", style: dialogueStyleLong });
-            const bulleTextGT18 = new PIXI.Text({ text: "Ta-da !", style: dialogueStyleLong });
-            const bulleTextGT19 = new PIXI.Text({ text: "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska", style: dialogueStyleLong });
-            const bulleTextGT20 = new PIXI.Text({ text: "Clique sur 'Retour' pour parcourir les autres projets", style: dialogueStyleLong });
-            bulleText(bulleTextGT17);
-            bulleText(bulleTextGT18);
-            bulleText(bulleTextGT19);
-            bulleText(bulleTextGT20);
-
-            // Bulles Romain REBATIERE
-
-            // Bulles Romain JSIGNE
+            
+            const bulles = await creerToutesLesBulles();
+            await afficherBullesAvecChrono();
   
-            // Ajout des bulles avec chrono
-            screenBackgroundContainer.addChild(bulleText1);
-            setTimeout(() => {
-                screenBackgroundContainer.removeChild(bulleText1);
-                screenBackgroundContainer.addChild(bulleText2);
-                setTimeout(() => {
-                    screenBackgroundContainer.removeChild(bulleText2);
-                    screenBackgroundContainer.addChild(bulleText3);
-                    // On teint en gris les 3 projets
-                    toileScreenProject1.tint = 0x808080;
-                    toileScreenProject2.tint = 0x808080;
-                    toileScreenProject3.tint = 0x808080;
-                    // On s'assure qu'ils ne sont pas interactifs pour l'instant
-                    toileScreenProject1.interactive = false;
-                    toileScreenProject2.interactive = false;
-                    toileScreenProject3.interactive = false;
+            async function afficherBullesAvecChrono() {
+                screenBackgroundContainer.addChild(bulles[0]);
+                await wait(4000);
+            
+                screenBackgroundContainer.removeChild(bulles[0]);
+                screenBackgroundContainer.addChild(bulles[1]);
+                await wait(4000);
+            
+                screenBackgroundContainer.removeChild(bulles[1]);
+                screenBackgroundContainer.addChild(bulles[2]);
+            
+                // On teint en gris les 3 projets
+                toileScreenProject1.tint = 0x808080;
+                toileScreenProject2.tint = 0x808080;
+                toileScreenProject3.tint = 0x808080;
+            
+                // On s'assure qu'ils ne sont pas interactifs pour l'instant
+                toileScreenProject1.interactive = false;
+                toileScreenProject2.interactive = false;
+                toileScreenProject3.interactive = false;
+            
+                // Apparition des 3 projets
+                await toileScreenProjectAppear();
+                await wait(4000);
+            
+                screenBackgroundContainer.removeChild(bulles[2]);
+                screenBackgroundContainer.addChild(bulles[3]);
+                await wait(4000);
+            
+                screenBackgroundContainer.removeChild(bulles[3]);
+                guybrushClone.gotoAndStop(0);
+            
+                // On remet la teinte des sprites à la normale
+                toileScreenProject1.tint = 0xFFFFFF;
+                toileScreenProject2.tint = 0xFFFFFF;
+                toileScreenProject3.tint = 0xFFFFFF;
+            
+                // Ils sont désormais interactifs
+                toileScreenProject1.interactive = true;
+                toileScreenProject2.interactive = true;
+                toileScreenProject3.interactive = true;
+            }
 
-                    // Apparition des 3 projets
-                    toileScreenProjectAppear();
-                    
-                    setTimeout(() => {
-                        screenBackgroundContainer.removeChild(bulleText3);
-                        screenBackgroundContainer.addChild(bulleText4);
-                        setTimeout(() => {
-                            screenBackgroundContainer.removeChild(bulleText4);
-                            guybrushClone.gotoAndStop(0);
-                            // On remet la teinte des sprites à la normale
-                            toileScreenProject1.tint = 0xFFFFFF;
-                            toileScreenProject2.tint = 0xFFFFFF;
-                            toileScreenProject3.tint = 0xFFFFFF;
-                            // Ils sont désormais interactifs
-                            toileScreenProject1.interactive = true;
-                            toileScreenProject2.interactive = true;
-                            toileScreenProject3.interactive = true;
-                        }, 4000);
-                    }, 4000);
-                }, 4000);
-            }, 4000);
+       
 
-        // Positionnement des Sprites Projets Videos
-        // taille d'espacement entre les sprites
-        const totalSpacing = toileScreen.width * 0.05;
+        async function toileScreenProjectAppear() {
+            // Positionnement des Sprites Projets Videos
+            // taille d'espacement entre les sprites
+            const totalSpacing = toileScreen.width * 0.05;
 
-        // On définit l'ancrage de chaque sprite à 0.5 pour les centrer
-        toileScreenProject1.anchor.set(0.5);
-        toileScreenProject2.anchor.set(0.5);
-        toileScreenProject3.anchor.set(0.5);
+            // On définit l'ancrage de chaque sprite à 0.5 pour les centrer
+            toileScreenProject1.anchor.set(0.5);
+            toileScreenProject2.anchor.set(0.5);
+            toileScreenProject3.anchor.set(0.5);
 
-        // Dimensionnement des sprites toileScreenProjects
-        // ToileScreen: Width=968.821, Height=665 | Video: Width=775.057, Height=435.598 (968.821 * 0.8 = 775.057)
-        // Pour conserver le même ratio d'aspect, si la largeur passe à 775.057, la hauteur correspondante sera de 775.057 × 0.5625 = 435.60 px.
-        // Taille cible 
-        const targetWidth = toileScreen.width * 0.8;
-        const targetHeight = toileScreen.height * 0.655;
-        // Taille initiale = 4.5 fois plus petit
-        // toileScreenProject1.width = targetWidth / 4.5;
-        // toileScreenProject1.height = targetHeight / 4.5;
-        toileScreenProject1.scale.set(0.18);
-        // toileScreenProject2.width = targetWidth / 4.5;
-        // toileScreenProject2.height = targetHeight / 4.5;
-        toileScreenProject2.scale.set(0.18);
-        // toileScreenProject3.width = targetWidth / 4.5;
-        // toileScreenProject3.height = targetHeight / 4.5;
-        toileScreenProject3.scale.set(0.18);
+            // Dimensionnement des sprites toileScreenProjects
+            // ToileScreen: Width=968.821, Height=665 | Video: Width=775.057, Height=435.598 (968.821 * 0.8 = 775.057)
+            // Pour conserver le même ratio d'aspect, si la largeur passe à 775.057, la hauteur correspondante sera de 775.057 × 0.5625 = 435.60 px.
+            // // Taille cible 
+            // const targetWidth = toileScreen.width * 0.8;
+            // const targetHeight = toileScreen.height * 0.655;
+            // Taille initiale = 4.5 fois plus petit
+            toileScreenProject1.scale.set(0.18);
+            toileScreenProject2.scale.set(0.18);
+            toileScreenProject3.scale.set(0.18);
 
-
-        // On ajuste la position de tous les projets avec pour point de départ le centre de la toile
-        toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
-        toileScreenProject1.x = toileScreenProject2.x - toileScreenProject2.width - totalSpacing;
-        toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + totalSpacing;
-        const yCenter = toileScreen.y + (toileScreen.height * 0.5);
-        toileScreenProject1.y = yCenter;
-        toileScreenProject2.y = yCenter;
-        toileScreenProject3.y = yCenter;
-
-        function toileScreenProjectAppear() {
+            // On ajuste la position de tous les projets avec pour point de départ le centre de la toile
+            toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
+            toileScreenProject1.x = toileScreenProject2.x - toileScreenProject2.width - totalSpacing;
+            toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + totalSpacing;
+            const yCenter = toileScreen.y + (toileScreen.height * 0.5);
+            toileScreenProject1.y = yCenter;
+            toileScreenProject2.y = yCenter;
+            toileScreenProject3.y = yCenter;
+            
             // Les projets commencent invisibles (alpha 0)
             toileScreenProject1.alpha = 0;
             toileScreenProject2.alpha = 0;
@@ -1128,6 +1125,10 @@ export async function interactions(apps, sprites, texts) {
                     toileScreenProject1.x += 6;
                 } else {
                     localTicker.stop();
+
+                    // Taille cible 
+                    const targetWidth = toileScreen.width * 0.8;
+                    const targetHeight = toileScreen.height * 0.655;
 
                     // Deuxième Ticker qui agrandit screenProject1
                     let scaleTicker = new PIXI.Ticker();
@@ -1359,6 +1360,8 @@ export async function interactions(apps, sprites, texts) {
             toileScreenProject1.visible = false;
             toileScreenProject3.visible = false;
         
+            const targetWidth = toileScreen.width * 0.8;
+            const targetHeight = toileScreen.height * 0.655;
             // Ticker qui agrandit screenProject2
             let scaleTicker = new PIXI.Ticker();
             scaleTicker.add(() => {
@@ -1492,6 +1495,8 @@ export async function interactions(apps, sprites, texts) {
                     console.log("fini!");
         
                     // Deuxième Ticker qui agrandit screenProject3
+                    const targetWidth = toileScreen.width * 0.8;
+                    const targetHeight = toileScreen.height * 0.655;
                     let scaleTicker = new PIXI.Ticker();
                     scaleTicker.add(() => {
                         // if (toileScreenProject3.scale.x < 4.5) {
