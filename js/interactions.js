@@ -1606,6 +1606,12 @@ export async function interactions(apps, sprites, texts) {
                 nextVideo.x = toileScreen.x + (toileScreen.width * 0.6);
                 nextVideo.y = toileScreen.y + (toileScreen.height * 0.9);
                 nextVideo.anchor.set(0.5);
+                exitVideo.x = toileScreen.x + (toileScreen.width * 0.9);
+                exitVideo.y = toileScreen.y + (toileScreen.height * 0.1);
+                exitVideo.anchor.set(0.5);
+                returnVideo.x = toileScreen.x + (toileScreen.width * 0.9);
+                returnVideo.y = toileScreen.y + (toileScreen.height * 0.9);
+                returnVideo.anchor.set(0.5);
 
 
                 // Ajout de nextVideo et prevVideo
@@ -1613,6 +1619,8 @@ export async function interactions(apps, sprites, texts) {
                 screenBackgroundContainer.addChild(nextVideo);
                 // Ajout de exitVideo
                 screenBackgroundContainer.addChild(exitVideo);
+                // Ajout de returnVideo
+                screenBackgroundContainer.addChild(returnVideo);
 
                 // Gestion des événements Play
                 playVideo.on('pointerover', () => {
@@ -1702,6 +1710,16 @@ export async function interactions(apps, sprites, texts) {
                     video.src = videoArray[currentVideoIndex]; 
                     video.play();
                 });
+
+                // Gestion des événements Return
+                returnVideo.on('pointerover', () => {
+                returnVideo.texture = returnVideoActive.texture;
+                });
+                returnVideo.on('pointerout', () => {
+                    returnVideo.texture = returnVideospriteAsset.textures[returnVideoframes[0]];
+                });
+
+
                 // Supprimer la vidéo quand on ferme l'écran
                 toileScreen.on("removed", () => {
                     video.remove();
@@ -1710,6 +1728,7 @@ export async function interactions(apps, sprites, texts) {
                     screenBackgroundContainer.removeChild(prevVideo);
                     screenBackgroundContainer.removeChild(nextVideo);
                     screenBackgroundContainer.removeChild(exitVideo);
+                    screenBackgroundContainer.removeChild(returnVideo);
                     reroll();
                 });
             }
