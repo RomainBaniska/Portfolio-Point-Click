@@ -7,7 +7,7 @@ export async function interactions(apps, sprites, texts) {
 
     // Vidéos de la toile
     const videoList = [
-        "../videos/TimeOut/PART1-LOGIN.mp4",
+        "../videos/TimeOut/PART1-LOGIN2.mp4",
         "../videos/TimeOut/PART2-DASHBOARD&EVENT.mp4",
         "../videos/TimeOut/PART2-EVENTTCHATRESPONSE.mp4",
         "../videos/TimeOut/PART3-TAGS.mp4",
@@ -1326,35 +1326,36 @@ export async function interactions(apps, sprites, texts) {
 
                                 launchProjectVideo(videoList);
 
+                                if (await waitWithStop(2000)) return;
                                 screenBackgroundContainer.removeChild(bulles[7]);
-
+                                if (await waitWithStop(2000)) return;
                                 screenBackgroundContainer.addChild(bulles[8]); // bulles[8] = "On va commencer par s'inscrire et entrer nos informations"
-                                if (await waitWithStop(4000)) return;
+                                if (await waitWithStop(10000)) return;
                                 screenBackgroundContainer.removeChild(bulles[8]);
-                                if (await waitWithStop(4000)) return;
+                                if (await waitWithStop(6000)) return; 
+                                // 18 secs
                                 
                                 screenBackgroundContainer.addChild(bulles[9]); // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
-                                if (await waitWithStop(6000)) return;
+                                if (await waitWithStop(8000)) return;
                                 screenBackgroundContainer.removeChild(bulles[9]);
-                                if (await waitWithStop(3000)) return;
-                                
-                                // screenBackgroundContainer.addChild(bulles[10]); // bulles[10] = "Petit Nom-Prénom-Pseudo classique ainsi que le nom de la ville (pour l'instant l'application est limitée à Paris)"
-                                // if (await waitWithStop(3000)) return;
-                                // screenBackgroundContainer.removeChild(bulles[10]);
-                                // if (await waitWithStop(3000)) return;
+                                if (await waitWithStop(4000)) return;
+                                // 30 secs
                                 
                                 screenBackgroundContainer.addChild(bulles[11]); // bulles[11] = "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini"
-                                if (await waitWithStop(3000)) return;
+                                if (await waitWithStop(13000)) return;
                                 screenBackgroundContainer.removeChild(bulles[11]);
-                                if (await waitWithStop(3000)) return;
-                                
+                                if (await waitWithStop(4000)) return;
+                                // 47 secs
+
                                 screenBackgroundContainer.addChild(bulles[12]); // bulles[12] = "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations."
-                                if (await waitWithStop(3000)) return;
+                                if (await waitWithStop(7000)) return;
                                 screenBackgroundContainer.removeChild(bulles[12]);
-                                if (await waitWithStop(3000)) return;
-                                
+                                if (await waitWithStop(4000)) return;
+                                // 58 secs
+
                                 screenBackgroundContainer.addChild(bulles[13]); // bulles[13] = "Clique sur 'suivant' pour passer au Dashboard"
-                                if (await waitWithStop(3000)) return;
+                                if (await waitWithStop(2000)) return;
+                                // 1 min
                                 screenBackgroundContainer.removeChild(bulles[13]);
                                 if (await waitWithStop(3000)) return;
                                 
