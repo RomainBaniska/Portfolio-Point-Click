@@ -841,7 +841,7 @@ export async function interactions(apps, sprites, texts) {
             screenBackgroundContainer.addChild(toileScreen);
 
             // Ajout d'un sprite de présentation de "GetTogether"
-            const introSlide = new PIXI.Graphics()
+            let introSlide = new PIXI.Graphics()
             .fill({ color: 0xFAF9F6 })
             .rect(0, 0, toileScreen.width, toileScreen.height, 20);
             introSlide.endFill();
@@ -850,9 +850,9 @@ export async function interactions(apps, sprites, texts) {
             introSlide.y = toileScreen.y;
             introSlide.height = toileScreen.width * 9 / 16 + "px";
             introSlide.width = toileScreen.width * 0.8 + "px";
-            const getTogetherTitle = new PIXI.Text({ text: "GetTogether : une extension de TimeOut", style: titleStyle });
-            const rebatiereTitle = new PIXI.Text({ text: "La Rebatière : une application de réservation pour maison d'hôte", style: titleStyle });
-            const jsigneTitle = new PIXI.Text({ text: "Jsigné : un SoWeSign fait maison", style: titleStyle });
+            let getTogetherTitle = new PIXI.Text({ text: "GetTogether : une extension de TimeOut", style: titleStyle });
+            let rebatiereTitle = new PIXI.Text({ text: "La Rebatière : une application de réservation pour maison d'hôte", style: titleStyle });
+            let jsigneTitle = new PIXI.Text({ text: "Jsigné : un SoWeSign fait maison", style: titleStyle });
             // Mini fonction titres
             function projectTitle(title) {
                 title.zIndex = 16;
@@ -1413,6 +1413,8 @@ export async function interactions(apps, sprites, texts) {
                         // Ajout des logos d'intro
                         const screenFactor = toileScreen.width / 5000;
 
+                    console.log('on est good');
+
                         // HTML
                         logoHTML.scale.set(screenFactor);
                         logoHTML.x = toileScreen.x + (toileScreen.width / 2) - (logoHTML.width / 2);
@@ -1671,7 +1673,34 @@ export async function interactions(apps, sprites, texts) {
                     screenBackgroundContainer.removeChild(toileScreen);
                     screenBackgroundContainer.removeChild(fondPortrait);
                     screenBackgroundContainer.removeChild(fondPortraitMask);
-                    screenBackgroundContainer.removeChild(guybrush);
+                    screenBackgroundContainer.removeChild(guybrushClone);
+                    screenBackgroundContainer.removeChild(logoPHP);
+                    screenBackgroundContainer.removeChild(logoHTML);
+                    screenBackgroundContainer.removeChild(logoCSS);
+                    screenBackgroundContainer.removeChild(logoJS);
+                    screenBackgroundContainer.removeChild(logoMongo);
+                    screenBackgroundContainer.removeChild(logoMySQL);
+                    screenBackgroundContainer.removeChild(logoSymfony);
+                    toileScreenProject1.visible = true;
+                    toileScreenProject2.visible = true;
+                    toileScreenProject3.visible = true;
+                    toileScreenProject1.interactive = true;
+                    toileScreenProject2.interactive = true;
+                    toileScreenProject3.interactive = true;
+                    screenBackgroundContainer.removeChild(toileScreenProject1);
+                    screenBackgroundContainer.removeChild(toileScreenProject2);
+                    screenBackgroundContainer.removeChild(toileScreenProject3);
+                    // screenBackgroundContainer.removeChild(getTogetherTitle); 
+                    // screenBackgroundContainer.removeChild(rebatiereTitle); 
+                    // screenBackgroundContainer.removeChild(jsigneTitle); 
+                    getTogetherTitle.destroy();
+                    rebatiereTitle.destroy();
+                    jsigneTitle.destroy();
+                    toileScreenProject1.removeAllListeners();
+                    toileScreenProject2.removeAllListeners();
+                    toileScreenProject3.removeAllListeners();
+
+                    introSlide.destroy();
                     currentVideoIndex = 0;
                 });
 
