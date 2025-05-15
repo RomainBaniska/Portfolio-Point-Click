@@ -1327,84 +1327,78 @@ export async function interactions(apps, sprites, texts) {
                                 launchProjectVideo(videoList);
 
                                 screenBackgroundContainer.removeChild(bulles[7]);
-                                screenBackgroundContainer.addChild(bulles[8]);
-                                // await wait(1000);
-                                console.log("ok good");
-                                if (await waitWithStop(3000)) return;
-                                console.log("ok good2");
 
+                                screenBackgroundContainer.addChild(bulles[8]); // bulles[8] = "On va commencer par s'inscrire et entrer nos informations"
+                                if (await waitWithStop(4000)) return;
                                 screenBackgroundContainer.removeChild(bulles[8]);
-                                screenBackgroundContainer.addChild(bulles[9]);
-                                // await wait(6000);
-                                console.log("ok good3");
-                                if (await waitWithStop(3000)) return;
-                                console.log("ok good4");
-
+                                if (await waitWithStop(4000)) return;
+                                
+                                screenBackgroundContainer.addChild(bulles[9]); // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
+                                if (await waitWithStop(6000)) return;
                                 screenBackgroundContainer.removeChild(bulles[9]);
-                                screenBackgroundContainer.addChild(bulles[10]);
-                                // await wait(7000);
                                 if (await waitWithStop(3000)) return;
-                                console.log("ok good5");
-
-                                screenBackgroundContainer.removeChild(bulles[10]);
-                                screenBackgroundContainer.addChild(bulles[11]);
-                                // await wait(6000);
+                                
+                                // screenBackgroundContainer.addChild(bulles[10]); // bulles[10] = "Petit Nom-Prénom-Pseudo classique ainsi que le nom de la ville (pour l'instant l'application est limitée à Paris)"
+                                // if (await waitWithStop(3000)) return;
+                                // screenBackgroundContainer.removeChild(bulles[10]);
+                                // if (await waitWithStop(3000)) return;
+                                
+                                screenBackgroundContainer.addChild(bulles[11]); // bulles[11] = "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini"
                                 if (await waitWithStop(3000)) return;
-                                console.log("ok good6");
-
                                 screenBackgroundContainer.removeChild(bulles[11]);
-                                screenBackgroundContainer.addChild(bulles[12]);
-                                // await wait(7000);
                                 if (await waitWithStop(3000)) return;
-
+                                
+                                screenBackgroundContainer.addChild(bulles[12]); // bulles[12] = "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations."
+                                if (await waitWithStop(3000)) return;
                                 screenBackgroundContainer.removeChild(bulles[12]);
-                                screenBackgroundContainer.addChild(bulles[13]);
-                                // await wait(4000);
                                 if (await waitWithStop(3000)) return;
-
+                                
+                                screenBackgroundContainer.addChild(bulles[13]); // bulles[13] = "Clique sur 'suivant' pour passer au Dashboard"
+                                if (await waitWithStop(3000)) return;
                                 screenBackgroundContainer.removeChild(bulles[13]);
-                                screenBackgroundContainer.addChild(bulles[14]);
-                                // await wait(5000);
                                 if (await waitWithStop(3000)) return;
-
+                                
+                                screenBackgroundContainer.addChild(bulles[14]); // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
+                                if (await waitWithStop(3000)) return;
                                 screenBackgroundContainer.removeChild(bulles[14]);
-                                screenBackgroundContainer.addChild(bulles[15]);
-                                // await wait(6000);
                                 if (await waitWithStop(3000)) return;
-
+                                
+                                screenBackgroundContainer.addChild(bulles[15]); // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
+                                if (await waitWithStop(3000)) return;
                                 screenBackgroundContainer.removeChild(bulles[15]);
-                                screenBackgroundContainer.addChild(bulles[16]);
-                                // await wait(5000);
                                 if (await waitWithStop(3000)) return;
-
+                                
+                                screenBackgroundContainer.addChild(bulles[16]); // bulles[16] = "Mais allons plutot faire un petit tour sur la page d'un évenement"
+                                if (await waitWithStop(3000)) return;
                                 screenBackgroundContainer.removeChild(bulles[16]);
-                                screenBackgroundContainer.addChild(bulles[17]);
-                                // await wait(6000);
                                 if (await waitWithStop(3000)) return;
-
+                                
+                                screenBackgroundContainer.addChild(bulles[17]); // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
+                                if (await waitWithStop(3000)) return;
                                 screenBackgroundContainer.removeChild(bulles[17]);
-                                screenBackgroundContainer.addChild(bulles[18]);
-                                // await wait(5000);
                                 if (await waitWithStop(3000)) return;
-
+                                
+                                screenBackgroundContainer.addChild(bulles[18]); // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
+                                if (await waitWithStop(3000)) return;
                                 screenBackgroundContainer.removeChild(bulles[18]);
-                                screenBackgroundContainer.addChild(bulles[19]);
-                                // await wait(5000);
                                 if (await waitWithStop(3000)) return;
-
+                                
+                                screenBackgroundContainer.addChild(bulles[19]); // bulles[19] = "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations"
+                                if (await waitWithStop(3000)) return;
                                 screenBackgroundContainer.removeChild(bulles[19]);
-                                screenBackgroundContainer.addChild(bulles[20]);
-                                // await wait(2000);
                                 if (await waitWithStop(3000)) return;
-
+                                
+                                screenBackgroundContainer.addChild(bulles[20]); // bulles[20] = "Ta-da !"
+                                if (await waitWithStop(3000)) return;
                                 screenBackgroundContainer.removeChild(bulles[20]);
-                                screenBackgroundContainer.addChild(bulles[21]);
-                                // await wait(5000);
                                 if (await waitWithStop(3000)) return;
-
+                                
+                                screenBackgroundContainer.addChild(bulles[21]); // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
+                                if (await waitWithStop(3000)) return;
                                 screenBackgroundContainer.removeChild(bulles[21]);
-                                screenBackgroundContainer.addChild(bulles[22]);
-                                // await wait(4000);
+                                if (await waitWithStop(3000)) return;
+                                
+                                screenBackgroundContainer.addChild(bulles[22]); // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
                                 if (await waitWithStop(3000)) return;
                             }
                                 playSequence();
@@ -1773,13 +1767,25 @@ export async function interactions(apps, sprites, texts) {
                     nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
                 });
                 nextVideo.on('click', () => {
+                    // Eviter les clics multiples
+                    nextVideo.disabled = true;
+                
+                    // Changer l'index
+                    // currentVideoIndex = (currentVideoIndex + 1) % videoArray.length;
                     if (currentVideoIndex < videoArray.length - 1) {
-                        currentVideoIndex++; 
+                        currentVideoIndex++;
                     } else {
-                        currentVideoIndex = 0; 
+                        currentVideoIndex = 0;
                     }
-                    video.src = videoArray[currentVideoIndex]; 
-                    video.play(); 
+                
+                    // Mettre à jour la source et lancer la lecture
+                    video.src = videoArray[currentVideoIndex];
+                    video.play();
+                
+                    // Réactiver le bouton quand la vidéo est prête à être lue
+                    video.onloadeddata = () => {
+                        nextVideo.disabled = false;
+                    };
                 });
 
                 // Gestion des événements Prev
@@ -1791,6 +1797,9 @@ export async function interactions(apps, sprites, texts) {
                     prevVideo.texture = prevVideospriteAsset.textures[prevVideoframes[0]];
                 });
                 prevVideo.on('click', () => {
+                    // Eviter les clics multiples
+                    prevVideo.disabled = true;
+                    
                     if (currentVideoIndex > 0) {
                         currentVideoIndex--;
                     } else {
@@ -1798,6 +1807,11 @@ export async function interactions(apps, sprites, texts) {
                     }
                     video.src = videoArray[currentVideoIndex]; 
                     video.play();
+
+                    // Réactiver le bouton quand la vidéo est prête à être lue
+                    video.onloadeddata = () => {
+                        prevVideo.disabled = false;
+                    };
                 });
 
                 // Gestion des événements Return
