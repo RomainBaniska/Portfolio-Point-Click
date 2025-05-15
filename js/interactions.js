@@ -856,6 +856,9 @@ export async function interactions(apps, sprites, texts) {
         // Quand on clique sur la toile
         if (menuButton5.isActive) {
 
+            // On désactive l'interactivité du sprite pour éviter les clics multiples
+            toilePoulieRun.interactive = false;
+
             // Joue le son du succès:
             PIXI.sound.play("itemFoundPokemon");
             await wait(4000);
@@ -1306,99 +1309,122 @@ export async function interactions(apps, sprites, texts) {
 
                                 stopText = false;
 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[4]);
                                 if (await waitWithStop(3000)) return;
-
                                 screenBackgroundContainer.removeChild(bulles[4]);
                                 screenBackgroundContainer.addChild(bulles[5]);
-                                // await wait(7000);
                                 if (await waitWithStop(7000)) return;
-
                                 screenBackgroundContainer.removeChild(bulles[5]);
                                 screenBackgroundContainer.addChild(bulles[6]);
-                                // await wait(6000);
                                 if (await waitWithStop(6000)) return;
-
                                 screenBackgroundContainer.removeChild(bulles[6]);
                                 screenBackgroundContainer.addChild(bulles[7]);
-                                // await wait(3000);
                                 if (await waitWithStop(3000)) return;
 
                                 launchProjectVideo(videoList);
 
                                 if (await waitWithStop(2000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[7]);
                                 if (await waitWithStop(2000)) return;
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[8]); // bulles[8] = "On va commencer par s'inscrire et entrer nos informations"
                                 if (await waitWithStop(10000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[8]);
                                 if (await waitWithStop(5000)) return; 
                                 // 18 secs
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[9]); // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
                                 if (await waitWithStop(8000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[9]);
                                 if (await waitWithStop(4000)) return;
                                 // 30 secs
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[11]); // bulles[11] = "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini"
                                 if (await waitWithStop(13000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[11]);
                                 if (await waitWithStop(4000)) return;
                                 // 47 secs
 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[12]); // bulles[12] = "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations."
                                 if (await waitWithStop(7000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[12]);
                                 if (await waitWithStop(4000)) return;
                                 // 58 secs
 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[13]); // bulles[13] = "Clique sur 'suivant' pour passer au Dashboard"
                                 if (await waitWithStop(2000)) return;
                                 // 1 min
+                                 guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[13]);
                                 if (await waitWithStop(3000)) return;
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[14]); // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
                                 if (await waitWithStop(3000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[14]);
                                 if (await waitWithStop(3000)) return;
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[15]); // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
                                 if (await waitWithStop(3000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[15]);
                                 if (await waitWithStop(3000)) return;
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[16]); // bulles[16] = "Mais allons plutot faire un petit tour sur la page d'un évenement"
                                 if (await waitWithStop(3000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[16]);
                                 if (await waitWithStop(3000)) return;
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[17]); // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
                                 if (await waitWithStop(3000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[17]);
                                 if (await waitWithStop(3000)) return;
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[18]); // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
                                 if (await waitWithStop(3000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[18]);
                                 if (await waitWithStop(3000)) return;
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[19]); // bulles[19] = "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations"
                                 if (await waitWithStop(3000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[19]);
                                 if (await waitWithStop(3000)) return;
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[20]); // bulles[20] = "Ta-da !"
                                 if (await waitWithStop(3000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[20]);
                                 if (await waitWithStop(3000)) return;
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[21]); // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
                                 if (await waitWithStop(3000)) return;
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[21]);
                                 if (await waitWithStop(3000)) return;
                                 
+                                guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[22]); // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
                                 if (await waitWithStop(3000)) return;
                             }
