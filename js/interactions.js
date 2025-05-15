@@ -1305,8 +1305,7 @@ export async function interactions(apps, sprites, texts) {
                                 screenBackgroundContainer.addChild(logoSymfony);
 
                                 // On va créer des séquences de texte pour la narration du projet
-                                async function playSequence() {
-
+                                async function playSequence0() {
                                 stopText = false;
 
                                 guybrushClone.play();
@@ -1323,6 +1322,10 @@ export async function interactions(apps, sprites, texts) {
                                 if (await waitWithStop(3000)) return;
 
                                 launchProjectVideo(videoList);
+                                }
+
+                                async function playSequence1() {
+                                stopText = false;
 
                                 if (await waitWithStop(2000)) return;
                                 guybrushClone.gotoAndStop(0);
@@ -1364,9 +1367,13 @@ export async function interactions(apps, sprites, texts) {
                                 screenBackgroundContainer.addChild(bulles[13]); // bulles[13] = "Clique sur 'suivant' pour passer au Dashboard"
                                 if (await waitWithStop(2000)) return;
                                 // 1 min
-                                 guybrushClone.gotoAndStop(0);
+                                guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[13]);
                                 if (await waitWithStop(3000)) return;
+                                }
+
+                                async function playSequence2() {
+                                stopText = false;
                                 
                                 guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[14]); // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
@@ -1395,6 +1402,10 @@ export async function interactions(apps, sprites, texts) {
                                 guybrushClone.gotoAndStop(0);
                                 screenBackgroundContainer.removeChild(bulles[17]);
                                 if (await waitWithStop(3000)) return;
+                                }
+
+                                async function playSequence3() {
+                                stopText = false;
                                 
                                 guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[18]); // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
@@ -1410,6 +1421,10 @@ export async function interactions(apps, sprites, texts) {
                                 screenBackgroundContainer.removeChild(bulles[19]);
                                 if (await waitWithStop(3000)) return;
                                 
+
+                                async function playSequence4() {
+                                stopText = false;
+
                                 guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[20]); // bulles[20] = "Ta-da !"
                                 if (await waitWithStop(3000)) return;
@@ -1427,8 +1442,15 @@ export async function interactions(apps, sprites, texts) {
                                 guybrushClone.play();
                                 screenBackgroundContainer.addChild(bulles[22]); // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
                                 if (await waitWithStop(3000)) return;
+                                }
                             }
-                                playSequence();
+
+
+                                playSequence0();
+                                playSequence1();
+                                // playSequence2();
+                                // playSequence3();
+                                // playSequence4();
                                 }
                             });
                             alphaTicker.start();
@@ -1793,7 +1815,7 @@ export async function interactions(apps, sprites, texts) {
                 nextVideo.on('pointerout', () => {
                     nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
                 });
-                nextVideo.on('click', () => {
+                nextVideo.on('click', async () => {
                     // Eviter les clics multiples
                     nextVideo.disabled = true;
                 
@@ -1813,6 +1835,24 @@ export async function interactions(apps, sprites, texts) {
                     video.onloadeddata = () => {
                         nextVideo.disabled = false;
                     };
+
+                     // Lancer la bonne séquence en fonction de l'index
+                    switch (currentVideoIndex) {
+                        case 0:
+                            await playSequence1();
+                            break;
+                        case 1:
+                            await playSequence2();
+                            break;
+                        case 2:
+                            await playSequence3();
+                            break;
+                        case 3:
+                            await playSequence4();
+                            break;
+                        default:
+                            break;
+                    }
                 });
 
                 // Gestion des événements Prev
