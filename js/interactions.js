@@ -1332,7 +1332,7 @@ export async function interactions(apps, sprites, texts) {
                                 screenBackgroundContainer.addChild(bulles[8]); // bulles[8] = "On va commencer par s'inscrire et entrer nos informations"
                                 if (await waitWithStop(10000)) return;
                                 screenBackgroundContainer.removeChild(bulles[8]);
-                                if (await waitWithStop(6000)) return; 
+                                if (await waitWithStop(5000)) return; 
                                 // 18 secs
                                 
                                 screenBackgroundContainer.addChild(bulles[9]); // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
