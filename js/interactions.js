@@ -828,12 +828,28 @@ export async function interactions(apps, sprites, texts) {
     unroll();
     // unroll416();
 
-    // Petite fonction appelée pour stopper le défilement du texte si true;
+    // Petite fonction appelée pour stopper le défilement du texte si true et pour mettre en pause le texte;
     let stopText = false;
+    let pauseText = false;
     async function waitWithStop(ms) {
-        await wait(ms);
-        if (stopText) return true;
-        return false;
+        const interval = 100;
+        let waited = 0;
+
+        while (waited < ms) {
+            if (stopText) {
+                return true; // demande d'arrêt complète
+            }
+            if (pauseText) {
+                // en pause : on attend sans avancer le compteur
+                await wait(interval);
+                continue;
+            }
+            // pas de pause, on attend et incrémente
+            await wait(interval);
+            waited += interval;
+        }
+
+        return false; // attente normale terminée
     }
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
@@ -1671,7 +1687,8 @@ export async function interactions(apps, sprites, texts) {
                 playVideo.on('click', () => {
                     video.play();
                     screenBackgroundContainer.removeChild(playVideo);
-                    screenBackgroundContainer.addChild(stopVideo);
+                    screenBackgroundContainer.addChild(stopVideo); // n'arrête pas mais met en pause en fait
+                    pauseText = false;
                 });
 
                 // Gestion des événements Stop
@@ -1687,6 +1704,7 @@ export async function interactions(apps, sprites, texts) {
                     video.pause();
                     screenBackgroundContainer.removeChild(stopVideo);
                     screenBackgroundContainer.addChild(playVideo);
+                    pauseText = true;
                 });
 
                 // Gestion des événements Exit
@@ -2516,7 +2534,7 @@ function toggleClickBlocker() {
         clickBlockerLayer.interactive = true;
         clickBlockerLayer.cursor = "none";
         clickBlockerLayer.zIndex = 9999;
-        clickBlockerLayer.name = "ClickBlocker";
+        clickBlockerLayer.label = "ClickBlocker";
 
         app.stage.addChild(clickBlockerLayer);
         app.stage.sortChildren();
