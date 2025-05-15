@@ -827,6 +827,14 @@ export async function interactions(apps, sprites, texts) {
 
     unroll();
     // unroll416();
+
+    // Petite fonction appelée pour stopper le défilement du texte si true;
+    let stopText = false;
+    async function waitWithStop(ms) {
+        await wait(ms);
+        if (stopText) return true;
+        return false;
+    }
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
         // Quand on clique sur la toile
@@ -893,7 +901,7 @@ export async function interactions(apps, sprites, texts) {
             ///////////////////////////////////////////////////////////
 
             // Mini fonction bulles
-            const bulles = await creerToutesLesBulles(); // Retourne le bulles destinées à être affichées dans afficherBullesAvecChrono();
+            let bulles = await creerToutesLesBulles(); // Retourne le bulles destinées à être affichées dans afficherBullesAvecChrono();
             await afficherBullesAvecChronoIntro();
            
             async function creerToutesLesBulles() { // Crée toutes les bulles utilisées par Romain
@@ -905,7 +913,7 @@ export async function interactions(apps, sprites, texts) {
                     return bulle;
                 }
             
-                const bulles = [];
+                let bulles = [];
 
                 // Bulles Romain Toile
                 bulles.push(
@@ -1279,82 +1287,109 @@ export async function interactions(apps, sprites, texts) {
 
                                 // On va créer des séquences de texte pour la narration du projet
                                 async function playSequence() {
+
+                                stopText = false;
+
                                 screenBackgroundContainer.addChild(bulles[4]);
-                                await wait(3000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[4]);
                                 screenBackgroundContainer.addChild(bulles[5]);
-                                await wait(7000);
+                                // await wait(7000);
+                                if (await waitWithStop(7000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[5]);
                                 screenBackgroundContainer.addChild(bulles[6]);
-                                await wait(6000);
+                                // await wait(6000);
+                                if (await waitWithStop(6000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[6]);
                                 screenBackgroundContainer.addChild(bulles[7]);
-                                await wait(3000);
+                                // await wait(3000);
+                                if (await waitWithStop(3000)) return;
 
                                 launchProjectVideo(videoList);
 
                                 screenBackgroundContainer.removeChild(bulles[7]);
                                 screenBackgroundContainer.addChild(bulles[8]);
-                                await wait(1000);
+                                // await wait(1000);
+                                console.log("ok good");
+                                if (await waitWithStop(3000)) return;
+                                console.log("ok good2");
 
                                 screenBackgroundContainer.removeChild(bulles[8]);
                                 screenBackgroundContainer.addChild(bulles[9]);
-                                await wait(6000);
+                                // await wait(6000);
+                                console.log("ok good3");
+                                if (await waitWithStop(3000)) return;
+                                console.log("ok good4");
 
                                 screenBackgroundContainer.removeChild(bulles[9]);
                                 screenBackgroundContainer.addChild(bulles[10]);
-                                await wait(7000);
+                                // await wait(7000);
+                                if (await waitWithStop(3000)) return;
+                                console.log("ok good5");
 
                                 screenBackgroundContainer.removeChild(bulles[10]);
                                 screenBackgroundContainer.addChild(bulles[11]);
-                                await wait(6000);
+                                // await wait(6000);
+                                if (await waitWithStop(3000)) return;
+                                console.log("ok good6");
 
                                 screenBackgroundContainer.removeChild(bulles[11]);
                                 screenBackgroundContainer.addChild(bulles[12]);
-                                await wait(7000);
+                                // await wait(7000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[12]);
                                 screenBackgroundContainer.addChild(bulles[13]);
-                                await wait(4000);
+                                // await wait(4000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[13]);
                                 screenBackgroundContainer.addChild(bulles[14]);
-                                await wait(5000);
+                                // await wait(5000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[14]);
                                 screenBackgroundContainer.addChild(bulles[15]);
-                                await wait(6000);
+                                // await wait(6000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[15]);
                                 screenBackgroundContainer.addChild(bulles[16]);
-                                await wait(5000);
+                                // await wait(5000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[16]);
                                 screenBackgroundContainer.addChild(bulles[17]);
-                                await wait(6000);
+                                // await wait(6000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[17]);
                                 screenBackgroundContainer.addChild(bulles[18]);
-                                await wait(5000);
+                                // await wait(5000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[18]);
                                 screenBackgroundContainer.addChild(bulles[19]);
-                                await wait(5000);
+                                // await wait(5000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[19]);
                                 screenBackgroundContainer.addChild(bulles[20]);
-                                await wait(2000);
+                                // await wait(2000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[20]);
                                 screenBackgroundContainer.addChild(bulles[21]);
-                                await wait(5000);
+                                // await wait(5000);
+                                if (await waitWithStop(3000)) return;
 
                                 screenBackgroundContainer.removeChild(bulles[21]);
                                 screenBackgroundContainer.addChild(bulles[22]);
-                                await wait(4000);
+                                // await wait(4000);
+                                if (await waitWithStop(3000)) return;
                             }
                                 playSequence();
                                 }
@@ -1699,9 +1734,16 @@ export async function interactions(apps, sprites, texts) {
                     toileScreenProject1.removeAllListeners();
                     toileScreenProject2.removeAllListeners();
                     toileScreenProject3.removeAllListeners();
-
                     introSlide.destroy();
                     currentVideoIndex = 0;
+
+                    // Destruction du tableau bulles
+                    if (bulles) {
+                        for (const bulle of bulles) {
+                          stopText = true;
+                          bulle.destroy();
+                        }
+                      }
                 });
 
                 // Gestion des événements Next
