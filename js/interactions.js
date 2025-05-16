@@ -1425,8 +1425,12 @@ export async function interactions(apps, sprites, texts) {
                                         if (await waitWithStop(3000)) return;
                                     }
 
+                                    // On joue la séquence 0 et la séquence 1 juste après
                                     playSequence0().then(() => {
-                                        launchProjectVideo(videoList);
+                                        // playSequence1().then(() => {
+                                            playSequence1();
+                                            launchProjectVideo(videoList);
+                                        // });
                                     });
                                 }                              
                             });
