@@ -8,8 +8,9 @@ export async function interactions(apps, sprites, texts) {
     // Vidéos de la toile
     const videoList = [
         "../videos/TimeOut/PART1-LOGIN2.mp4",
-        "../videos/TimeOut/PART2-DASHBOARD&EVENT.mp4",
-        "../videos/TimeOut/PART2-EVENTTCHATRESPONSE.mp4",
+        "../videos/TimeOut/PART2-DASHBOARD&EVENTFULL.mp4",
+        // "../videos/TimeOut/PART2-DASHBOARD&EVENT.mp4",
+        // "../videos/TimeOut/PART2-EVENTTCHATRESPONSE.mp4",
         "../videos/TimeOut/PART3-TAGS.mp4",
     ];
 
@@ -1496,42 +1497,62 @@ export async function interactions(apps, sprites, texts) {
 
     async function playSequence3(token) {
     stopText = false;
-
-    if ((await waitWithStop(100, token)) || token.cancelled) return;
     guybrushClone.play();
     // bulles[19] = "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations"
     screenBackgroundContainer.addChild(bulles[19]);
-    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    if ((await waitWithStop(4000, token)) || token.cancelled) return;
     guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[19]);
-}
-
-
-    async function playSequence4(token) {
-    stopText = false;
 
     guybrushClone.play();
     // bulles[20] = "Ta-da !"
     screenBackgroundContainer.addChild(bulles[20]);
-    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    if ((await waitWithStop(3000, token)) || token.cancelled) return;
     guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[20]);
 
-    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    if ((await waitWithStop(2000, token)) || token.cancelled) return;
     guybrushClone.play();
     // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
     screenBackgroundContainer.addChild(bulles[21]);
-    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    if ((await waitWithStop(6000, token)) || token.cancelled) return;
     guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[21]);
 
-    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    if ((await waitWithStop(2000, token)) || token.cancelled) return;
     guybrushClone.play();
     // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
     screenBackgroundContainer.addChild(bulles[22]);
-    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    if ((await waitWithStop(5000, token)) || token.cancelled) return;
     screenBackgroundContainer.removeChild(bulles[22]);
 }
+
+
+//     async function playSequence4(token) {
+//     stopText = false;
+
+//     guybrushClone.play();
+//     // bulles[20] = "Ta-da !"
+//     screenBackgroundContainer.addChild(bulles[20]);
+//     if ((await waitWithStop(100, token)) || token.cancelled) return;
+//     guybrushClone.gotoAndStop(0);
+//     screenBackgroundContainer.removeChild(bulles[20]);
+
+//     if ((await waitWithStop(100, token)) || token.cancelled) return;
+//     guybrushClone.play();
+//     // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
+//     screenBackgroundContainer.addChild(bulles[21]);
+//     if ((await waitWithStop(100, token)) || token.cancelled) return;
+//     guybrushClone.gotoAndStop(0);
+//     screenBackgroundContainer.removeChild(bulles[21]);
+
+//     if ((await waitWithStop(100, token)) || token.cancelled) return;
+//     guybrushClone.play();
+//     // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
+//     screenBackgroundContainer.addChild(bulles[22]);
+//     if ((await waitWithStop(100, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[22]);
+// }
 
        // On crée une petite animation lors de la sélection du projet
         toileScreenProject1.addEventListener("click", async () => {
@@ -2141,9 +2162,9 @@ export async function interactions(apps, sprites, texts) {
                     case 2:
                         await playSequence3(token);
                         break;
-                    case 3:
-                        await playSequence4(token);
-                        break;
+                    // case 3:
+                    //     await playSequence4(token);
+                    //     break;
                 }
             });
 
