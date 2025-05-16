@@ -1991,6 +1991,10 @@ export async function interactions(apps, sprites, texts) {
                     // video.pause();
                     // video.currentTime = 0;
                     // video.style.display = 'none';
+
+                    // Annule toute séquence en cours
+                    currentAbortToken.cancelled = true;
+
                     video.pause();
                     video.src = "";
                     video.load(); 
@@ -2053,6 +2057,15 @@ export async function interactions(apps, sprites, texts) {
                     //     //   bulle.destroy();
                     //     }
                     //   }
+                    // Supprime les bulles visibles
+
+                    stopText = true
+                    
+                    if (bulles) {
+                        for (const bulle of bulles) {
+                            if (bulle.parent) screenBackgroundContainer.removeChild(bulle);
+                        }
+                    }
                     
                     console.log(stopText);
                     stopText = false;
@@ -2177,23 +2190,67 @@ export async function interactions(apps, sprites, texts) {
                 prevVideo.on('pointerout', () => {
                     prevVideo.texture = prevVideospriteAsset.textures[prevVideoframes[0]];
                 });
-                prevVideo.on('click', () => {
-                    // Eviter les clics multiples
-                    prevVideo.disabled = true;
+                // prevVideo.on('click', () => {
+                //     // Eviter les clics multiples
+                //     prevVideo.disabled = true;
                     
-                    if (currentVideoIndex > 0) {
-                        currentVideoIndex--;
-                    } else {
-                        currentVideoIndex = videoArray.length - 1;
-                    }
-                    video.src = videoArray[currentVideoIndex]; 
-                    video.play();
+                //     if (currentVideoIndex > 0) {
+                //         currentVideoIndex--;
+                //     } else {
+                //         currentVideoIndex = videoArray.length - 1;
+                //     }
+                //     video.src = videoArray[currentVideoIndex]; 
+                //     video.play();
 
-                    // Réactiver le bouton quand la vidéo est prête à être lue
-                    video.onloadeddata = () => {
-                        prevVideo.disabled = false;
-                    };
-                });
+                //     // Réactiver le bouton quand la vidéo est prête à être lue
+                //     video.onloadeddata = () => {
+                //         prevVideo.disabled = false;
+                //     };
+                // });
+
+                prevVideo.on('click', async () => {
+                console.log('PREVIOUS CLICKED');
+
+                // Stoppe l’ancienne séquence en la marquant comme annulée
+                currentAbortToken.cancelled = true;
+
+                // Supprime les bulles visibles
+                if (bulles) {
+                    for (const bulle of bulles) {
+                        if (bulle.parent) screenBackgroundContainer.removeChild(bulle);
+                    }
+                }
+
+                // Crée un nouveau token pour la séquence précédente
+                currentAbortToken = { cancelled: false };
+                const token = currentAbortToken;
+
+                // Change la vidéo
+                if (currentVideoIndex > 0) {
+                    currentVideoIndex--;
+                } else {
+                    currentVideoIndex = videoArray.length - 1;
+                }
+                video.src = videoArray[currentVideoIndex];
+                video.play();
+
+                // Lance la séquence correspondante
+                switch (currentVideoIndex) {
+                    case 0:
+                        await playSequence1(token);
+                        break;
+                    case 1:
+                        await playSequence2(token);
+                        break;
+                    case 2:
+                        await playSequence3(token);
+                        break;
+                    // case 3:
+                    //     await playSequence4(token);
+                    //     break;
+                }
+            });
+
 
                 // Gestion des événements Return
                 returnVideo.on('pointerover', () => {
