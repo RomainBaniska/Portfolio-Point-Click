@@ -1213,20 +1213,9 @@ export async function interactions(apps, sprites, texts) {
         /// MOUVEMENT TOILESCREENPROJECT 1 ///
         //////////////////////////////////////
 
-        // nextvideo.disabled = true;
-        // if (// nextvideo.disabled) {
-        //     nextVideo.tint = 0xFF0000;
-        // } else {
-        //     nextVideo.tint = 0xFFFFFF;
-        // }
-
         // On définit toutes les séquences de video du projet 1:
         async function playSequence1() {
-
-
-        // launchProjectVideo(videoList);
-
-        // On désactive le bouton "NextVideo" (autrement dit séquence d'après)
+        // On définit stopText (texte mis en pause en false)
         stopText = false;
 
         // "Prêt ? Alors c'est parti" -> removechild après délai
@@ -1728,7 +1717,10 @@ export async function interactions(apps, sprites, texts) {
         
                 // Vérifier si la vidéo existe déjà pour éviter les doublons
                 let existingVideo = document.getElementById("pixi-video");
-                if (existingVideo) return;
+                // if (existingVideo) return;
+                if (existingVideo) {
+                    existingVideo.remove(); // on supprime la vidéo précédente si elle était restée
+                }
         
                 // Génération de la vidéo dans le DOM
                 let video = document.createElement("video");
@@ -1828,8 +1820,12 @@ export async function interactions(apps, sprites, texts) {
                     // video.pause();
                     // video.currentTime = 0;
                     // video.style.display = 'none';
+                    video.pause();
+                    video.src = "";
+                    video.load(); 
                     video.remove();
-
+                    currentVideoIndex = 0;
+                    
                     // On remet la texture de base de exitvideo
                     exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
                     // On remove toutes les alertes 
@@ -1869,16 +1865,21 @@ export async function interactions(apps, sprites, texts) {
                     toileScreenProject1.removeAllListeners();
                     toileScreenProject2.removeAllListeners();
                     toileScreenProject3.removeAllListeners();
-                    // introSlide.destroy();
-                    currentVideoIndex = 0;
+                    playVideo.removeAllListeners();
+                    stopVideo.removeAllListeners();
+                    nextVideo.removeAllListeners();
+                    prevVideo.removeAllListeners();
+                    exitVideo.removeAllListeners();
+                    returnVideo.removeAllListeners();
 
                     // Destruction du tableau bulles
-                    // if (bulles) {
-                    //     for (const bulle of bulles) {
-                    //       stopText = true;
-                    //       bulle.destroy();
-                    //     }
-                    //   }
+                    if (bulles) {
+                        for (const bulle of bulles) {
+                          stopText = true;
+                          if (bulle.parent) bulle.parent.removeChild(bulle);
+                        //   bulle.destroy();
+                        }
+                      }
                     
                     console.log(stopText);
                     stopText = false;
@@ -1894,61 +1895,47 @@ export async function interactions(apps, sprites, texts) {
                     nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
                 });
                 nextVideo.on('click', async () => {
-                    // Si nextVideo n'est pas grisé
-                    // if (!// nextvideo.disabled) {
                         console.log(currentVideoIndex);
                         console.log('video:', video);
-
-                        // video.style.display = 'block';
-                        // video.src = videoArray[currentVideoIndex];
-                        // video.play();
 
                     // Changer l'index
                     if (currentVideoIndex < videoArray.length - 1) {
                         currentVideoIndex++;
                         console.log('increased', currentVideoIndex);
-                        //  video.style.display = 'block';
-                        // video.src = videoArray[currentVideoIndex];
-                        // video.play();
                     } else {
                         currentVideoIndex = 0;
                     }
                     console.log(currentVideoIndex);
 
-                    // Mettre à jour la 
-                    // source et lancer la lecture
+                    // Mettre à jour la source et lancer la lecture
                     video.src = videoArray[currentVideoIndex];
                     video.play();
                 
                     // Lancer la bonne séquence en fonction de l'index
                     switch (currentVideoIndex) {
                         case 0:
+                            console.log("séquence 1 enclenchée via nextvideo");
                             await playSequence1();
+                            console.log("séquence 1 terminée via nextvideo");
                             break;
                         case 1:
                             console.log("séquence 2 enclenchée via nextvideo");
                             await playSequence2();
                             console.log("séquence 2 terminée via nextvideo");
-                            // nextvideo.disabled = false;
                             break;
                         case 2:
                             console.log("séquence 3 enclenchée via nextvideo");
                             await playSequence3();
                             console.log("séquence 3 terminée via nextvideo");
-                            // nextvideo.disabled = false;
                             break;
                         case 3:
                             console.log("séquence 4 enclenchée via nextvideo");
                             await playSequence4();
                             console.log("séquence 4 terminée via nextvideo");
-                            // nextvideo.disabled = false;
                             break;
                         default:
                             break;
                     }
-                    // Regrise ensuite nextVideo après avoir changé de séquence
-                    // // nextvideo.disabled = true;
-                // }
                 });
 
                 // Gestion des événements Prev
