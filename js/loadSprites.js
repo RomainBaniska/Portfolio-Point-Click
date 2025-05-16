@@ -690,6 +690,14 @@ export async function loadSprites(apps, sounds) {
     nextVideoActive.interactive = true;
     nextVideoActive.stop();
 
+    // Filtre Gris pour nextVideo et prevVideo
+    // const colorMatrix = new PIXI.filters.ColorMatrixFilter();
+    // nextVideo.filters = [colorMatrix];
+    // colorMatrix.desaturate();
+    //  let colorMatrix = new PIXI.filters.ColorMatrixFilter();
+    // container.filters = [colorMatrix];
+    // colorMatrix.contrast(2);
+
     // PREVIOUS VIDEO ALERT
     const prevVideo = await displaySprite('SPECIAL/toileAlerts/prev-sheet.json', 0.12);
     const prevVideoActive = await displaySprite('SPECIAL/toileAlerts/prev-sheet.json', 0.12);

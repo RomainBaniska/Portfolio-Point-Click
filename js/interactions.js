@@ -867,20 +867,13 @@ export async function interactions(apps, sprites, texts) {
             // Puis envoie l'écran "toileScreen"
             screenBackgroundContainer.addChild(toileScreen);
 
-            // Ajout d'un sprite de présentation de "GetTogether"
-            let introSlide = new PIXI.Graphics()
-            .fill({ color: 0xFAF9F6 })
-            .rect(0, 0, toileScreen.width, toileScreen.height, 20);
-            introSlide.endFill();
-            introSlide.zIndex = 16;
-            introSlide.x = toileScreen.x;
-            introSlide.y = toileScreen.y;
-            introSlide.height = toileScreen.width * 9 / 16 + "px";
-            introSlide.width = toileScreen.width * 0.8 + "px";
+                                        /// GENERATION & SETUP DES ASSETS ///
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Génération des 3 titres de projets qui s'afficheront lors du hover
             let getTogetherTitle = new PIXI.Text({ text: "GetTogether : une extension de TimeOut", style: titleStyle });
             let rebatiereTitle = new PIXI.Text({ text: "La Rebatière : une application de réservation pour maison d'hôte", style: titleStyle });
             let jsigneTitle = new PIXI.Text({ text: "Jsigné : un SoWeSign fait maison", style: titleStyle });
-            // Mini fonction titres
+            // Mini fonction qui configure la position des titres qui apparaissent en hover
             function projectTitle(title) {
                 title.zIndex = 16;
                 title.x = toileScreen.x + (toileScreen.width / 2);
@@ -891,40 +884,79 @@ export async function interactions(apps, sprites, texts) {
             projectTitle(rebatiereTitle);
             projectTitle(jsigneTitle);
 
-            // Positionnement de la bulle info avec le portrait de Romain (fondPortrait & fondPortraitMask)            
-            // Positionner le cercle en haut à gauche de l'écran
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // On appelle la fonction qui affiche et configure taille & position du portrait de Romain qui parle
+            await setupRomainPortrait();
+            // On appelle la fonction qui affiche et configure taille & position des sprites du projet
+            await setupToileProjectsSprites();
+            // On appelle la fonction pour créer tous les textes que Romain va réciter dans l'intro et les projets (les "bulles")
+            let bulles = await creerToutesLesBulles();
+            // On lance l'introduction
+            await introSequence();
+
+            // Fonction de configuration du portrait de Romain
+            async function setupRomainPortrait() {          
+            // Importé depuis les sprites, le fond du Portrait (et son mask) où Romain parle est positionné en haut à gauche de la toile.
             fondPortrait.x = toileScreen.x + (toileScreen.width * 0.12);
             fondPortrait.y = toileScreen.y + (toileScreen.height * 0.1);
             fondPortrait.zIndex = 11;
-            // Idem pour le masque
             fondPortraitMask.x = toileScreen.x + (toileScreen.width * 0.12);
             fondPortraitMask.y = toileScreen.y + (toileScreen.height * 0.1);
             fondPortraitMask.zIndex = 11;
             screenBackgroundContainer.addChild(fondPortraitMask);
-
             /////// On invoque Romain qui parle dans une bulle ///////
             guybrushClone.x = fondPortrait.x;
             guybrushClone.y = fondPortrait.y;
             guybrushClone.anchor.set(0.5, 0.2);
             guybrushClone.zIndex = 12;
             guybrushClone.interactive = true;
-            guybrushClone.gotoAndPlay(0);
-            guybrushClone.on("click", () => {
-                guybrushClone.gotoAndStop(0);
-            })
-            // Ajout du masque à Romain
+            guybrushClone.gotoAndPlay(0); // Equivaut à .play()
+            // Ajout du masque à Romain - Il n'apparaitra que dans l'espace autorisé par le masque (càd le fondPortrait)
             guybrushClone.mask = fondPortraitMask;
             screenBackgroundContainer.addChild(guybrushClone);
             // ajout du portrait
             screenBackgroundContainer.addChild(fondPortrait);
-            ///////////////////////////////////////////////////////////
+            }
 
-            // Mini fonction bulles
-            let bulles = await creerToutesLesBulles(); // Retourne le bulles destinées à être affichées dans afficherBullesAvecChrono();
-            await afficherBullesAvecChronoIntro();
-           
-            async function creerToutesLesBulles() { // Crée toutes les bulles utilisées par Romain
-                function bulleText(bulle) {
+            // Fonction de configuration des sprites toileScreenProject
+            async function setupToileProjectsSprites() {
+            // IMPORTES DE LOADSPRITES - On configure les 3 sprites de projet (respectivement GetTogether, Rebatiere, Jsigne)
+            // On les grise (car pas encore cliquables)
+            toileScreenProject1.tint = 0x808080;
+            toileScreenProject2.tint = 0x808080;
+            toileScreenProject3.tint = 0x808080;
+            // Non interactifs, car non cliquables
+            toileScreenProject1.interactive = false;
+            toileScreenProject2.interactive = false;
+            toileScreenProject3.interactive = false;
+            // Les projets commencent invisibles (alpha 0) avant de le devenir plus tard avec un ticker
+            toileScreenProject1.alpha = 0;
+            toileScreenProject2.alpha = 0;
+            toileScreenProject3.alpha = 0;
+            // On configure l'espacement total qu'on veut entre les 3 sprites de projet
+            const totalSpacing = toileScreen.width * 0.05;
+            // On les ancre à 0.5 de leur largeur
+            toileScreenProject1.anchor.set(0.5);
+            toileScreenProject2.anchor.set(0.5);
+            toileScreenProject3.anchor.set(0.5);
+            // On configure leur taille (environ 18% de leur taille originale -à améliorer-)
+            toileScreenProject1.scale.set(0.18);
+            toileScreenProject2.scale.set(0.18);
+            toileScreenProject3.scale.set(0.18);
+            // On ajuste la position de tous les projets avec pour point de départ le centre de la toile
+            toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
+            toileScreenProject1.x = toileScreenProject2.x - toileScreenProject2.width - totalSpacing;
+            toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + totalSpacing;
+            const yCenter = toileScreen.y + (toileScreen.height * 0.5);
+            toileScreenProject1.y = yCenter;
+            toileScreenProject2.y = yCenter;
+            toileScreenProject3.y = yCenter;
+            }
+
+            // Fonction qui, appelée, va créer un tableau de lignes de textes (bulles) que Romain va réciter durant les videos
+            async function creerToutesLesBulles() { 
+                function bulleText(bulle) { // Configuration spatiale des bulles (en haut centrées)
                     bulle.zIndex = 12;
                     bulle.x = toileScreen.x + (toileScreen.width * 0.53);
                     bulle.y = toileScreen.y + (toileScreen.height * 0.05);
@@ -932,6 +964,7 @@ export async function interactions(apps, sprites, texts) {
                     return bulle;
                 }
             
+                // Tableau vide des bulles qu'on va remplir
                 let bulles = [];
 
                 // Bulles Romain Toile
@@ -1048,87 +1081,51 @@ export async function interactions(apps, sprites, texts) {
                 
                 return bulles;
             }
-            async function afficherBullesAvecChronoIntro() {// Appelle toileScreenProjectAppear()
-                screenBackgroundContainer.addChild(bulles[0]);
-                await wait(4000);
+           
+            // Méthode génère une petite séquence simple qui réapparaitra à chaque fois durant l'intro
+            // La méthode appelle une méthode "animation d'apparition des toiles projects" un peu plus bas
+            async function introSequence() {
+                screenBackgroundContainer.addChild(bulles[0]); // "Bravo d'être arrivé jusque là!"
+                await wait(3000);
             
-                screenBackgroundContainer.removeChild(bulles[0]);
-                screenBackgroundContainer.addChild(bulles[1]);
-                await wait(4000);
+                screenBackgroundContainer.removeChild(bulles[0]); 
+                screenBackgroundContainer.addChild(bulles[1]); // "Tu vas pouvoir avoir une idée un peu plus précise de mes compétences en dev web"
+                await wait(3000);
             
                 screenBackgroundContainer.removeChild(bulles[1]);
-                screenBackgroundContainer.addChild(bulles[2]);
-            
-                // On teint en gris les 3 projets
-                toileScreenProject1.tint = 0x808080;
-                toileScreenProject2.tint = 0x808080;
-                toileScreenProject3.tint = 0x808080;
-            
-                // On s'assure qu'ils ne sont pas interactifs pour l'instant
-                toileScreenProject1.interactive = false;
-                toileScreenProject2.interactive = false;
-                toileScreenProject3.interactive = false;
-            
-                // Apparition des 3 projets
+                screenBackgroundContainer.addChild(bulles[2]); // "Voici une petite sélection de projets que j'ai réalisé"
+       
+                // Ajout des sprites toileProject au canvas
+                screenBackgroundContainer.addChild(toileScreenProject1);
+                screenBackgroundContainer.addChild(toileScreenProject2);
+                screenBackgroundContainer.addChild(toileScreenProject3);
+
+                // Animation d'apparition des 3 projets
                 await toileScreenProjectAppear();
-                await wait(4000);
-            
+
+                // On retire la deuxième bulle 3 secondes après être apparue
+                await wait(3000);
                 screenBackgroundContainer.removeChild(bulles[2]);
-                screenBackgroundContainer.addChild(bulles[3]);
-                await wait(4000);
-            
+                screenBackgroundContainer.addChild(bulles[3]); // "Clique sur le projet qui t'intéresse ! Tu pourras revenir consulter les autres."
+                
+                // On retire la 3ème bulle, Romain arrête de parler et attend qu'un projet soit sélectionné
+                await wait(3000);
                 screenBackgroundContainer.removeChild(bulles[3]);
                 guybrushClone.gotoAndStop(0);
             
-                // On remet la teinte des sprites à la normale
+                // On dégrise la teinte des sprites de toileproject à la normale
                 toileScreenProject1.tint = 0xFFFFFF;
                 toileScreenProject2.tint = 0xFFFFFF;
                 toileScreenProject3.tint = 0xFFFFFF;
             
-                // Ils sont désormais interactifs
+                // Et ils sont désormais interactifs
                 toileScreenProject1.interactive = true;
                 toileScreenProject2.interactive = true;
                 toileScreenProject3.interactive = true;
             }
-            async function toileScreenProjectAppear() {// Est appelé par afficherBullesAvecChronoIntro 
-                // Positionnement des Sprites Projets Videos
-                // taille d'espacement entre les sprites
-                const totalSpacing = toileScreen.width * 0.05;
 
-                // On définit l'ancrage de chaque sprite à 0.5 pour les centrer
-                toileScreenProject1.anchor.set(0.5);
-                toileScreenProject2.anchor.set(0.5);
-                toileScreenProject3.anchor.set(0.5);
-
-                // Dimensionnement des sprites toileScreenProjects
-                // ToileScreen: Width=968.821, Height=665 | Video: Width=775.057, Height=435.598 (968.821 * 0.8 = 775.057)
-                // Pour conserver le même ratio d'aspect, si la largeur passe à 775.057, la hauteur correspondante sera de 775.057 × 0.5625 = 435.60 px.
-                // Taille initiale = 4.5 fois plus petit
-                toileScreenProject1.scale.set(0.18);
-                toileScreenProject2.scale.set(0.18);
-                toileScreenProject3.scale.set(0.18);
-
-                // On ajuste la position de tous les projets avec pour point de départ le centre de la toile
-                toileScreenProject2.x = toileScreen.x + (toileScreen.width * 0.5);
-                toileScreenProject1.x = toileScreenProject2.x - toileScreenProject2.width - totalSpacing;
-                toileScreenProject3.x = toileScreenProject2.x + toileScreenProject2.width + totalSpacing;
-                const yCenter = toileScreen.y + (toileScreen.height * 0.5);
-                toileScreenProject1.y = yCenter;
-                toileScreenProject2.y = yCenter;
-                toileScreenProject3.y = yCenter;
-                
-                // Les projets commencent invisibles (alpha 0)
-                toileScreenProject1.alpha = 0;
-                toileScreenProject2.alpha = 0;
-                toileScreenProject3.alpha = 0;
-
-
-                // Ajout des sprites
-                screenBackgroundContainer.addChild(toileScreenProject1);
-                screenBackgroundContainer.addChild(toileScreenProject2);
-                screenBackgroundContainer.addChild(toileScreenProject3);
-            
-                // Ticker pour l'apparition progressive
+            // Méthode d'animation - apparition des 3 projets
+            async function toileScreenProjectAppear() {        
                 const appearTicker = new PIXI.Ticker();
                 appearTicker.add(() => {
                     let done = true;
@@ -1389,7 +1386,7 @@ export async function interactions(apps, sprites, texts) {
                             toileScreenProject1.height = targetHeight;
                             scaleTicker.stop();
 
-                            screenBackgroundContainer.addChild(introSlide);
+                            // screenBackgroundContainer.addChild(introSlide);
                             // Troisième Ticker qui fait disparaitre le screenProject1
                             let alphaTicker = new PIXI.Ticker();
                             alphaTicker.add(() => {
@@ -1774,12 +1771,16 @@ export async function interactions(apps, sprites, texts) {
                 });
                 exitVideo.on('click', () => {
                     video.remove();
+                    // On remet la texture de base de exitvideo
+                    exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
+                    // On remove toutes les alertes 
                     screenBackgroundContainer.removeChild(playVideo);
                     screenBackgroundContainer.removeChild(stopVideo);
                     screenBackgroundContainer.removeChild(prevVideo);
                     screenBackgroundContainer.removeChild(nextVideo);
-                    exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
+                    screenBackgroundContainer.removeChild(returnVideo);
                     screenBackgroundContainer.removeChild(exitVideo);
+                    // On remove le toilescreen, le portrait, lez clone et tous les logos
                     screenBackgroundContainer.removeChild(toileScreen);
                     screenBackgroundContainer.removeChild(fondPortrait);
                     screenBackgroundContainer.removeChild(fondPortraitMask);
@@ -1791,25 +1792,25 @@ export async function interactions(apps, sprites, texts) {
                     screenBackgroundContainer.removeChild(logoMongo);
                     screenBackgroundContainer.removeChild(logoMySQL);
                     screenBackgroundContainer.removeChild(logoSymfony);
+                    // On réinitialise les toileprojects tous visibles si nécessité de relancer la toile
                     toileScreenProject1.visible = true;
                     toileScreenProject2.visible = true;
                     toileScreenProject3.visible = true;
                     toileScreenProject1.interactive = true;
                     toileScreenProject2.interactive = true;
                     toileScreenProject3.interactive = true;
+                    // On remove les 3 projets
                     screenBackgroundContainer.removeChild(toileScreenProject1);
                     screenBackgroundContainer.removeChild(toileScreenProject2);
                     screenBackgroundContainer.removeChild(toileScreenProject3);
-                    // screenBackgroundContainer.removeChild(getTogetherTitle); 
-                    // screenBackgroundContainer.removeChild(rebatiereTitle); 
-                    // screenBackgroundContainer.removeChild(jsigneTitle); 
+                    // On détruit les titles (qui seront recréés lors de la génération de toilescreen)
                     getTogetherTitle.destroy();
                     rebatiereTitle.destroy();
                     jsigneTitle.destroy();
                     toileScreenProject1.removeAllListeners();
                     toileScreenProject2.removeAllListeners();
                     toileScreenProject3.removeAllListeners();
-                    introSlide.destroy();
+                    // introSlide.destroy();
                     currentVideoIndex = 0;
 
                     // Destruction du tableau bulles
@@ -1830,6 +1831,7 @@ export async function interactions(apps, sprites, texts) {
                     nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
                 });
                 nextVideo.on('click', async () => {
+                    // Si nextVideo n'est pas grisé
                     if (!nextVideo.disabled) {
 
                     // Changer l'index
@@ -1860,6 +1862,7 @@ export async function interactions(apps, sprites, texts) {
                         default:
                             break;
                     }
+                    // Regrise ensuite nextVideo après avoir changé de séquence
                     nextVideo.disabled = true;
                 }
                 });
