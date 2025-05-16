@@ -1411,7 +1411,7 @@ export async function interactions(apps, sprites, texts) {
 
     guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[8]);
-    if ((await waitWithStop(5000, token)) || token.cancelled) return;
+    if ((await waitWithStop(2500, token)) || token.cancelled) return;
 
     guybrushClone.play();
     // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
@@ -1434,10 +1434,7 @@ export async function interactions(apps, sprites, texts) {
     guybrushClone.play();
     // bulles[12] = "On termine ensuite par sélectionner..."
     screenBackgroundContainer.addChild(bulles[12]);
-    
     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-
-    if ((await waitWithStop(4000, token)) || token.cancelled) return;
     guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[12]);
 
@@ -1459,45 +1456,46 @@ export async function interactions(apps, sprites, texts) {
         guybrushClone.play();
         // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
         screenBackgroundContainer.addChild(bulles[14]);
-        if ((await waitWithStop(100, token)) || token.cancelled) return;
+        if ((await waitWithStop(7000, token)) || token.cancelled) return;
         guybrushClone.gotoAndStop(0);
         screenBackgroundContainer.removeChild(bulles[14]);
 
-        if ((await waitWithStop(100, token)) || token.cancelled) return;
+        if ((await waitWithStop(2000, token)) || token.cancelled) return;
         guybrushClone.play();
         // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
         screenBackgroundContainer.addChild(bulles[15]);
-        if ((await waitWithStop(100, token)) || token.cancelled) return;
+        if ((await waitWithStop(9000, token)) || token.cancelled) return;
         guybrushClone.gotoAndStop(0);
         screenBackgroundContainer.removeChild(bulles[15]);
 
-        if ((await waitWithStop(100, token)) || token.cancelled) return;
+        if ((await waitWithStop(6000, token)) || token.cancelled) return;
         guybrushClone.play();
         // bulles[16] = "Mais allons plutôt faire un petit tour sur la page d'un événement"
         screenBackgroundContainer.addChild(bulles[16]);
-        if ((await waitWithStop(100, token)) || token.cancelled) return;
+        if ((await waitWithStop(7000, token)) || token.cancelled) return;
         guybrushClone.gotoAndStop(0);
         screenBackgroundContainer.removeChild(bulles[16]);
 
-        if ((await waitWithStop(100, token)) || token.cancelled) return;
+        if ((await waitWithStop(1000, token)) || token.cancelled) return;
         guybrushClone.play();
         // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
         screenBackgroundContainer.addChild(bulles[17]);
-        if ((await waitWithStop(100, token)) || token.cancelled) return;
+        if ((await waitWithStop(8000, token)) || token.cancelled) return;
         guybrushClone.gotoAndStop(0);
         screenBackgroundContainer.removeChild(bulles[17]);
+        if ((await waitWithStop(3000, token)) || token.cancelled) return;
+
+        guybrushClone.play();
+        // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
+        screenBackgroundContainer.addChild(bulles[18]);
+        if ((await waitWithStop(8000, token)) || token.cancelled) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[18]);
 }
 
 
     async function playSequence3(token) {
     stopText = false;
-
-    guybrushClone.play();
-    // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
-    screenBackgroundContainer.addChild(bulles[18]);
-    if ((await waitWithStop(100, token)) || token.cancelled) return;
-    guybrushClone.gotoAndStop(0);
-    screenBackgroundContainer.removeChild(bulles[18]);
 
     if ((await waitWithStop(100, token)) || token.cancelled) return;
     guybrushClone.play();
