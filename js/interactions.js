@@ -1103,9 +1103,6 @@ export async function interactions(apps, sprites, texts) {
                 // Dimensionnement des sprites toileScreenProjects
                 // ToileScreen: Width=968.821, Height=665 | Video: Width=775.057, Height=435.598 (968.821 * 0.8 = 775.057)
                 // Pour conserver le même ratio d'aspect, si la largeur passe à 775.057, la hauteur correspondante sera de 775.057 × 0.5625 = 435.60 px.
-                // // Taille cible 
-                // const targetWidth = toileScreen.width * 0.8;
-                // const targetHeight = toileScreen.height * 0.655;
                 // Taille initiale = 4.5 fois plus petit
                 toileScreenProject1.scale.set(0.18);
                 toileScreenProject2.scale.set(0.18);
@@ -1214,8 +1211,115 @@ export async function interactions(apps, sprites, texts) {
         //////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT 1 ///
         //////////////////////////////////////
-        // On crée une petite animation lors de la sélection du projet
-        toileScreenProject1.addEventListener("click", () => {
+        // On définit toutes les séquences de video du projet 1:
+        async function playSequence1() {
+        stopText = false;
+        if (await waitWithStop(2000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[7]);
+        if (await waitWithStop(2000)) return;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[8]); // bulles[8] = "On va commencer par s'inscrire et entrer nos informations"
+        if (await waitWithStop(10000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[8]);
+        if (await waitWithStop(5000)) return; 
+        // 18 secs
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[9]); // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
+        if (await waitWithStop(8000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[9]);
+        if (await waitWithStop(4000)) return;
+        // 30 secs
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[11]); // bulles[11] = "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini"
+        if (await waitWithStop(13000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[11]);
+        if (await waitWithStop(4000)) return;
+        // 47 secs
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[12]); // bulles[12] = "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations."
+        if (await waitWithStop(7000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[12]);
+        if (await waitWithStop(4000)) return;
+        // 58 secs
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[13]); // bulles[13] = "Clique sur 'suivant' pour passer au Dashboard"
+        if (await waitWithStop(2000)) return;
+        // 1 min
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[13]);
+        if (await waitWithStop(3000)) return;
+        }
+
+        async function playSequence2() {
+        stopText = false;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[14]); // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
+        if (await waitWithStop(3000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[14]);
+        if (await waitWithStop(3000)) return;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[15]); // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
+        if (await waitWithStop(3000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[15]);
+        if (await waitWithStop(3000)) return;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[16]); // bulles[16] = "Mais allons plutot faire un petit tour sur la page d'un évenement"
+        if (await waitWithStop(3000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[16]);
+        if (await waitWithStop(3000)) return;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[17]); // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
+        if (await waitWithStop(3000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[17]);
+        if (await waitWithStop(3000)) return;
+        }
+
+        async function playSequence3() {
+        stopText = false;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[18]); // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
+        if (await waitWithStop(3000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[18]);
+        if (await waitWithStop(3000)) return;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[19]); // bulles[19] = "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations"
+        if (await waitWithStop(3000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[19]);
+        if (await waitWithStop(3000)) return;
+        }
+        
+        async function playSequence4() {
+        stopText = false;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[20]); // bulles[20] = "Ta-da !"
+        if (await waitWithStop(3000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[20]);
+        if (await waitWithStop(3000)) return;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[21]); // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
+        if (await waitWithStop(3000)) return;
+        guybrushClone.gotoAndStop(0);
+        screenBackgroundContainer.removeChild(bulles[21]);
+        if (await waitWithStop(3000)) return;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[22]); // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
+        if (await waitWithStop(3000)) return;
+        }
+
+       // On crée une petite animation lors de la sélection du projet
+        toileScreenProject1.addEventListener("click", async () => {
             // destruction si existe
             const desc = projectDescriptions.get(toileScreenProject1);
             if (desc) {
@@ -1259,199 +1363,72 @@ export async function interactions(apps, sprites, texts) {
                                 if (toileScreenProject1.alpha > 0) {
                                     toileScreenProject1.alpha -= 0.1;
                                 } else {
-                                alphaTicker.stop(); 
+                                    alphaTicker.stop(); 
 
-                                // Ajout du texte d'intro
-                                screenBackgroundContainer.addChild(getTogetherTitle);
+                                    // Ajout du texte d'intro
+                                    screenBackgroundContainer.addChild(getTogetherTitle);
 
-                                
-                                // Ajout des logos d'intro
-                                const screenFactor = toileScreen.width / 5000;
+                                    // Ajout des logos d'intro
+                                    const screenFactor = toileScreen.width / 5000;
 
-                                // HTML
-                                logoHTML.scale.set(screenFactor);
-                                logoHTML.x = toileScreen.x + (toileScreen.width / 2) - (logoHTML.width / 2);
-                                logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                screenBackgroundContainer.addChild(logoHTML);
+                                    // HTML
+                                    logoHTML.scale.set(screenFactor);
+                                    logoHTML.x = toileScreen.x + (toileScreen.width / 2) - (logoHTML.width / 2);
+                                    logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                    screenBackgroundContainer.addChild(logoHTML);
 
-                                // JS
-                                logoJS.scale.set(screenFactor);
-                                logoJS.x = logoHTML.x - logoHTML.width;
-                                logoJS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                screenBackgroundContainer.addChild(logoJS);
+                                    // JS
+                                    logoJS.scale.set(screenFactor);
+                                    logoJS.x = logoHTML.x - logoHTML.width;
+                                    logoJS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                    screenBackgroundContainer.addChild(logoJS);
 
-                                // PHP
-                                logoPHP.scale.set(screenFactor);
-                                logoPHP.x = logoJS.x - logoJS.width;
-                                logoPHP.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                screenBackgroundContainer.addChild(logoPHP);
+                                    // PHP
+                                    logoPHP.scale.set(screenFactor);
+                                    logoPHP.x = logoJS.x - logoJS.width;
+                                    logoPHP.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                    screenBackgroundContainer.addChild(logoPHP);
 
-                                // CSS
-                                logoCSS.scale.set(screenFactor);
-                                logoCSS.x = logoHTML.x + logoHTML.width;
-                                logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                screenBackgroundContainer.addChild(logoCSS);
+                                    // CSS
+                                    logoCSS.scale.set(screenFactor);
+                                    logoCSS.x = logoHTML.x + logoHTML.width;
+                                    logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                    screenBackgroundContainer.addChild(logoCSS);
 
-                                // MongoDB
-                                logoMongo.scale.set(screenFactor);
-                                logoMongo.x = logoCSS.x + logoCSS.width;
-                                logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                screenBackgroundContainer.addChild(logoMongo);
+                                    // MongoDB
+                                    logoMongo.scale.set(screenFactor);
+                                    logoMongo.x = logoCSS.x + logoCSS.width;
+                                    logoMongo.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                    screenBackgroundContainer.addChild(logoMongo);
 
-                                // Symfony
-                                logoSymfony.scale.set(screenFactor);
-                                logoSymfony.x = logoMongo.x + logoMongo.width;
-                                logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                                screenBackgroundContainer.addChild(logoSymfony);
+                                    // Symfony
+                                    logoSymfony.scale.set(screenFactor);
+                                    logoSymfony.x = logoMongo.x + logoMongo.width;
+                                    logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
+                                    screenBackgroundContainer.addChild(logoSymfony);
 
-                                // On va créer des séquences de texte pour la narration du projet
-                                async function playSequence0() {
-                                stopText = false;
+                                    // On va créer des séquences de texte pour la narration du projet
+                                    async function playSequence0() {
+                                        stopText = false;
 
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[4]);
-                                if (await waitWithStop(3000)) return;
-                                screenBackgroundContainer.removeChild(bulles[4]);
-                                screenBackgroundContainer.addChild(bulles[5]);
-                                if (await waitWithStop(7000)) return;
-                                screenBackgroundContainer.removeChild(bulles[5]);
-                                screenBackgroundContainer.addChild(bulles[6]);
-                                if (await waitWithStop(6000)) return;
-                                screenBackgroundContainer.removeChild(bulles[6]);
-                                screenBackgroundContainer.addChild(bulles[7]);
-                                if (await waitWithStop(3000)) return;
+                                        guybrushClone.play();
+                                        screenBackgroundContainer.addChild(bulles[4]);
+                                        if (await waitWithStop(3000)) return;
+                                        screenBackgroundContainer.removeChild(bulles[4]);
+                                        screenBackgroundContainer.addChild(bulles[5]);
+                                        if (await waitWithStop(7000)) return;
+                                        screenBackgroundContainer.removeChild(bulles[5]);
+                                        screenBackgroundContainer.addChild(bulles[6]);
+                                        if (await waitWithStop(6000)) return;
+                                        screenBackgroundContainer.removeChild(bulles[6]);
+                                        screenBackgroundContainer.addChild(bulles[7]);
+                                        if (await waitWithStop(3000)) return;
+                                    }
 
-                                launchProjectVideo(videoList);
-                                }
-
-                                async function playSequence1() {
-                                stopText = false;
-
-                                if (await waitWithStop(2000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[7]);
-                                if (await waitWithStop(2000)) return;
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[8]); // bulles[8] = "On va commencer par s'inscrire et entrer nos informations"
-                                if (await waitWithStop(10000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[8]);
-                                if (await waitWithStop(5000)) return; 
-                                // 18 secs
-                                
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[9]); // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
-                                if (await waitWithStop(8000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[9]);
-                                if (await waitWithStop(4000)) return;
-                                // 30 secs
-                                
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[11]); // bulles[11] = "On peut au choix uploader sa propre photo de profil, ou bien choisir un avatar prédéfini"
-                                if (await waitWithStop(13000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[11]);
-                                if (await waitWithStop(4000)) return;
-                                // 47 secs
-
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[12]); // bulles[12] = "On termine ensuite par sélectionner quelques 'tags', ce qui va servir à filtrer nos recommandations."
-                                if (await waitWithStop(7000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[12]);
-                                if (await waitWithStop(4000)) return;
-                                // 58 secs
-
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[13]); // bulles[13] = "Clique sur 'suivant' pour passer au Dashboard"
-                                if (await waitWithStop(2000)) return;
-                                // 1 min
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[13]);
-                                if (await waitWithStop(3000)) return;
-                                }
-
-                                async function playSequence2() {
-                                stopText = false;
-                                
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[14]); // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
-                                if (await waitWithStop(3000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[14]);
-                                if (await waitWithStop(3000)) return;
-                                
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[15]); // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
-                                if (await waitWithStop(3000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[15]);
-                                if (await waitWithStop(3000)) return;
-                                
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[16]); // bulles[16] = "Mais allons plutot faire un petit tour sur la page d'un évenement"
-                                if (await waitWithStop(3000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[16]);
-                                if (await waitWithStop(3000)) return;
-                                
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[17]); // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
-                                if (await waitWithStop(3000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[17]);
-                                if (await waitWithStop(3000)) return;
-                                }
-
-                                async function playSequence3() {
-                                stopText = false;
-                                
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[18]); // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
-                                if (await waitWithStop(3000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[18]);
-                                if (await waitWithStop(3000)) return;
-                                
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[19]); // bulles[19] = "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations"
-                                if (await waitWithStop(3000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[19]);
-                                if (await waitWithStop(3000)) return;
-                                
-
-                                async function playSequence4() {
-                                stopText = false;
-
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[20]); // bulles[20] = "Ta-da !"
-                                if (await waitWithStop(3000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[20]);
-                                if (await waitWithStop(3000)) return;
-                                
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[21]); // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
-                                if (await waitWithStop(3000)) return;
-                                guybrushClone.gotoAndStop(0);
-                                screenBackgroundContainer.removeChild(bulles[21]);
-                                if (await waitWithStop(3000)) return;
-                                
-                                guybrushClone.play();
-                                screenBackgroundContainer.addChild(bulles[22]); // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
-                                if (await waitWithStop(3000)) return;
-                                }
-                            }
-
-
-                                playSequence0();
-                                playSequence1();
-                                // playSequence2();
-                                // playSequence3();
-                                // playSequence4();
-                                }
+                                    playSequence0().then(() => {
+                                        launchProjectVideo(videoList);
+                                    });
+                                }                              
                             });
                             alphaTicker.start();
                         }
@@ -1460,7 +1437,9 @@ export async function interactions(apps, sprites, texts) {
                 }
             });
             localTicker.start(); // Démarre le ticker de déplacement
-        });
+        }); 
+
+        
 
         /////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT2 ///
