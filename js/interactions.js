@@ -831,26 +831,39 @@ export async function interactions(apps, sprites, texts) {
     // Petite fonction appelée pour stopper le défilement du texte si true et pour mettre en pause le texte;
     let stopText = false;
     let pauseText = false;
-    async function waitWithStop(ms) {
-        let waited = 0;
+    // async function waitWithStop(ms) {
+    //     let waited = 0;
 
-        while (waited < ms) {
-            if (stopText) {
-                // Si stopText devient true, le compteur s'arrête et on renvoie true
-                return true;
-            }
-            if (pauseText) {
-                // Si pauseText devient true, alors le compteur s'arrête temporairement (revient au début de la boucle de 100ms)
-                await wait(100);
-                continue;
-            }
-            // Si ni stopText ou pauseText, on a l'équivalent d'un await wait(ms)
-            await wait(100);
-            waited += 100;
-        }
-        return false; // Une fois le wait(ms) terminé, on retourne false
+    //     while (waited < ms) {
+    //         if (stopText) {
+    //             // Si stopText devient true, le compteur s'arrête et on renvoie true
+    //             return true;
+    //         }
+    //         if (pauseText) {
+    //             // Si pauseText devient true, alors le compteur s'arrête temporairement (revient au début de la boucle de 100ms)
+    //             await wait(100);
+    //             continue;
+    //         }
+    //         // Si ni stopText ou pauseText, on a l'équivalent d'un await wait(ms)
+    //         await wait(100);
+    //         waited += 100;
+    //     }
+    //     return false; // Une fois le wait(ms) terminé, on retourne false
+    // }
+        async function waitWithStop(ms, token) {
+        return new Promise(resolve => {
+            let elapsed = 0;
+            const step = 10;
+            const check = () => {
+                if (stopText || (token && token.cancelled)) return resolve(true);
+                if ((elapsed += step) >= ms) return resolve(false);
+                setTimeout(check, step);
+            };
+            check();
+        });
     }
 
+    let currentAbortToken = { cancelled: false };
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
         // Quand on clique sur la toile
@@ -1214,176 +1227,313 @@ export async function interactions(apps, sprites, texts) {
         //////////////////////////////////////
 
         // On définit toutes les séquences de video du projet 1:
-        async function playSequence1() {
-        // On définit stopText (texte mis en pause en false)
+    //     async function playSequence1() {
+    //     // On définit stopText (texte mis en pause en false)
+    //     stopText = false;
+
+    //     // "Prêt ? Alors c'est parti" -> removechild après délai
+    //     if ((await waitWithStop(2000)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[7]);
+    //     if ((await waitWithStop(2000)) === true) return;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[8]); // bulles[8] = "On va commencer par s'inscrire et entrer nos informations"
+    //     // if ((await waitWithStop(10000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[8]);
+    //     // if ((await waitWithStop(5000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[9]); // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
+    //     // if ((await waitWithStop(8000)) === true) return;
+    //             if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[9]);
+    //     // if ((await waitWithStop(4000)) === true) return;
+    //             if ((await waitWithStop(100)) === true) return;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[11]); // bulles[11] = "On peut au choix uploader..."
+    //     // if ((await waitWithStop(13000)) === true) return;
+    //             if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[11]);
+    //     // if ((await waitWithStop(4000)) === true) return;
+    //             if ((await waitWithStop(100)) === true) return;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[12]); // bulles[12] = "On termine ensuite par sélectionner..."
+    //     // if ((await waitWithStop(7000)) === true) return;
+    //             if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[12]);
+    //     // if ((await waitWithStop(4000)) === true) return;
+    //             if ((await waitWithStop(100)) === true) return;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[13]); // bulles[13] = "Clique sur 'suivant' pour passer au Dashboard"
+    //     // if ((await waitWithStop(2000)) === true) return;
+    //             if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[13]);
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //             if ((await waitWithStop(100)) === true) return;
+
+    //     // On rerend le bouton nextVideo disponible
+    //     // nextvideo.disabled = false;
+    // }
+
+    //     async function playSequence2() {
+    //     // launchProjectVideo(videoList);
+    //     console.log("séquence 2 démarrée");
+    //     // On désactive le bouton "NextVideo"
+    //     // nextvideo.disabled = true;
+    //     stopText = false;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[14]); // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //      if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[14]);
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //              if ((await waitWithStop(100)) === true) return;
+    //         console.log("bulle 14 retirée");
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[15]); // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //              if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[15]);
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //              if ((await waitWithStop(100)) === true) return;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[16]); // bulles[16] = "Mais allons plutot faire un petit tour sur la page d'un évenement"
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //              if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[16]);
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //              if ((await waitWithStop(100)) === true) return;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[17]); // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //              if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[17]);
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //              if ((await waitWithStop(100)) === true) return;
+
+    //     // nextvideo.disabled = false;
+    //     }
+
+    //     async function playSequence3() {
+
+    //                 // launchProjectVideo(videoList);
+    //     // On désactive le bouton "NextVideo"
+    //     // nextvideo.disabled = true;
+    //     stopText = false;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[18]); // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[18]);
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[19]); // bulles[19] = "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations"
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[19]);
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+        
+    //     // nextvideo.disabled = false;
+    //     }
+        
+    //     async function playSequence4() {
+    //                 // launchProjectVideo(videoList);
+    //     // On désactive le bouton "NextVideo"
+    //     // nextvideo.disabled = true;
+    //     stopText = false;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[20]); // bulles[20] = "Ta-da !"
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[20]);
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[21]); // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+    //     guybrushClone.gotoAndStop(0);
+    //     screenBackgroundContainer.removeChild(bulles[21]);
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+
+    //     guybrushClone.play();
+    //     screenBackgroundContainer.addChild(bulles[22]); // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+    //     screenBackgroundContainer.removeChild(bulles[22]);
+    //     // if ((await waitWithStop(3000)) === true) return;
+    //     if ((await waitWithStop(100)) === true) return;
+        
+    //     // On réactive le bouton nextvideo
+    //     // nextvideo.disabled = false;
+    // }
+    async function playSequence1(token) {
+    stopText = false;
+
+    if ((await waitWithStop(2000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[7]);
+    if ((await waitWithStop(2000, token)) || token.cancelled) return;
+
+    guybrushClone.play();
+    // bulles[8] = "On va commencer par s'inscrire et entrer nos informations"
+    screenBackgroundContainer.addChild(bulles[8]);
+    if ((await waitWithStop(10000, token)) || token.cancelled) return;
+
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[8]);
+    if ((await waitWithStop(5000, token)) || token.cancelled) return;
+
+    guybrushClone.play();
+    // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
+    screenBackgroundContainer.addChild(bulles[9]);
+    if ((await waitWithStop(8000, token)) || token.cancelled) return;
+
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[9]);
+    if ((await waitWithStop(4000, token)) || token.cancelled) return;
+
+    guybrushClone.play();
+    // bulles[11] = "On peut au choix uploader..."
+    screenBackgroundContainer.addChild(bulles[11]);
+
+    if ((await waitWithStop(13000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[11]);
+    if ((await waitWithStop(4000, token)) || token.cancelled) return;
+
+    guybrushClone.play();
+    // bulles[12] = "On termine ensuite par sélectionner..."
+    screenBackgroundContainer.addChild(bulles[12]);
+    
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+
+    if ((await waitWithStop(4000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[12]);
+
+    if ((await waitWithStop(2000, token)) || token.cancelled) return;
+    guybrushClone.play();
+    // bulles[13] = "Clique sur 'suivant' pour passer au Dashboard"
+    screenBackgroundContainer.addChild(bulles[13]);
+
+    if ((await waitWithStop(3000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[13]);
+}
+
+
+
+    async function playSequence2(token) {
         stopText = false;
 
-        // "Prêt ? Alors c'est parti" -> removechild après délai
-        if ((await waitWithStop(2000)) === true) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[7]);
-        if ((await waitWithStop(2000)) === true) return;
-
         guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[8]); // bulles[8] = "On va commencer par s'inscrire et entrer nos informations"
-        // if ((await waitWithStop(10000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[8]);
-        // if ((await waitWithStop(5000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
-
-        guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[9]); // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
-        // if ((await waitWithStop(8000)) === true) return;
-                if ((await waitWithStop(100)) === true) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[9]);
-        // if ((await waitWithStop(4000)) === true) return;
-                if ((await waitWithStop(100)) === true) return;
-
-        guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[11]); // bulles[11] = "On peut au choix uploader..."
-        // if ((await waitWithStop(13000)) === true) return;
-                if ((await waitWithStop(100)) === true) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[11]);
-        // if ((await waitWithStop(4000)) === true) return;
-                if ((await waitWithStop(100)) === true) return;
-
-        guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[12]); // bulles[12] = "On termine ensuite par sélectionner..."
-        // if ((await waitWithStop(7000)) === true) return;
-                if ((await waitWithStop(100)) === true) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[12]);
-        // if ((await waitWithStop(4000)) === true) return;
-                if ((await waitWithStop(100)) === true) return;
-
-        guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[13]); // bulles[13] = "Clique sur 'suivant' pour passer au Dashboard"
-        // if ((await waitWithStop(2000)) === true) return;
-                if ((await waitWithStop(100)) === true) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[13]);
-        // if ((await waitWithStop(3000)) === true) return;
-                if ((await waitWithStop(100)) === true) return;
-
-        // On rerend le bouton nextVideo disponible
-        // nextvideo.disabled = false;
-    }
-
-        async function playSequence2() {
-        // launchProjectVideo(videoList);
-        console.log("séquence 2 démarrée");
-        // On désactive le bouton "NextVideo"
-        // nextvideo.disabled = true;
-        stopText = false;
-
-        guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[14]); // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
-        // if ((await waitWithStop(3000)) === true) return;
-         if ((await waitWithStop(100)) === true) return;
+        // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
+        screenBackgroundContainer.addChild(bulles[14]);
+        if ((await waitWithStop(100, token)) || token.cancelled) return;
         guybrushClone.gotoAndStop(0);
         screenBackgroundContainer.removeChild(bulles[14]);
-        // if ((await waitWithStop(3000)) === true) return;
-                 if ((await waitWithStop(100)) === true) return;
-            console.log("bulle 14 retirée");
 
+        if ((await waitWithStop(100, token)) || token.cancelled) return;
         guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[15]); // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
-        // if ((await waitWithStop(3000)) === true) return;
-                 if ((await waitWithStop(100)) === true) return;
+        // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
+        screenBackgroundContainer.addChild(bulles[15]);
+        if ((await waitWithStop(100, token)) || token.cancelled) return;
         guybrushClone.gotoAndStop(0);
         screenBackgroundContainer.removeChild(bulles[15]);
-        // if ((await waitWithStop(3000)) === true) return;
-                 if ((await waitWithStop(100)) === true) return;
 
+        if ((await waitWithStop(100, token)) || token.cancelled) return;
         guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[16]); // bulles[16] = "Mais allons plutot faire un petit tour sur la page d'un évenement"
-        // if ((await waitWithStop(3000)) === true) return;
-                 if ((await waitWithStop(100)) === true) return;
+        // bulles[16] = "Mais allons plutôt faire un petit tour sur la page d'un événement"
+        screenBackgroundContainer.addChild(bulles[16]);
+        if ((await waitWithStop(100, token)) || token.cancelled) return;
         guybrushClone.gotoAndStop(0);
         screenBackgroundContainer.removeChild(bulles[16]);
-        // if ((await waitWithStop(3000)) === true) return;
-                 if ((await waitWithStop(100)) === true) return;
 
+        if ((await waitWithStop(100, token)) || token.cancelled) return;
         guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[17]); // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
-        // if ((await waitWithStop(3000)) === true) return;
-                 if ((await waitWithStop(100)) === true) return;
+        // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
+        screenBackgroundContainer.addChild(bulles[17]);
+        if ((await waitWithStop(100, token)) || token.cancelled) return;
         guybrushClone.gotoAndStop(0);
         screenBackgroundContainer.removeChild(bulles[17]);
-        // if ((await waitWithStop(3000)) === true) return;
-                 if ((await waitWithStop(100)) === true) return;
+}
 
-        // nextvideo.disabled = false;
-        }
 
-        async function playSequence3() {
+    async function playSequence3(token) {
+    stopText = false;
 
-                    // launchProjectVideo(videoList);
-        // On désactive le bouton "NextVideo"
-        // nextvideo.disabled = true;
-        stopText = false;
+    guybrushClone.play();
+    // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
+    screenBackgroundContainer.addChild(bulles[18]);
+    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[18]);
 
-        guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[18]); // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
-        // if ((await waitWithStop(3000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[18]);
-        // if ((await waitWithStop(3000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
+    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    guybrushClone.play();
+    // bulles[19] = "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations"
+    screenBackgroundContainer.addChild(bulles[19]);
+    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[19]);
+}
 
-        guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[19]); // bulles[19] = "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations"
-        // if ((await waitWithStop(3000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[19]);
-        // if ((await waitWithStop(3000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
-        
-        // nextvideo.disabled = false;
-        }
-        
-        async function playSequence4() {
-                    // launchProjectVideo(videoList);
-        // On désactive le bouton "NextVideo"
-        // nextvideo.disabled = true;
-        stopText = false;
 
-        guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[20]); // bulles[20] = "Ta-da !"
-        // if ((await waitWithStop(3000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[20]);
-        // if ((await waitWithStop(3000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
+    async function playSequence4(token) {
+    stopText = false;
 
-        guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[21]); // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
-        // if ((await waitWithStop(3000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[21]);
-        // if ((await waitWithStop(3000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
+    guybrushClone.play();
+    // bulles[20] = "Ta-da !"
+    screenBackgroundContainer.addChild(bulles[20]);
+    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[20]);
 
-        guybrushClone.play();
-        screenBackgroundContainer.addChild(bulles[22]); // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
-        // if ((await waitWithStop(3000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
-        screenBackgroundContainer.removeChild(bulles[22]);
-        // if ((await waitWithStop(3000)) === true) return;
-        if ((await waitWithStop(100)) === true) return;
-        
-        // On réactive le bouton nextvideo
-        // nextvideo.disabled = false;
-    }
+    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    guybrushClone.play();
+    // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
+    screenBackgroundContainer.addChild(bulles[21]);
+    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[21]);
 
+    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    guybrushClone.play();
+    // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
+    screenBackgroundContainer.addChild(bulles[22]);
+    if ((await waitWithStop(100, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[22]);
+}
 
        // On crée une petite animation lors de la sélection du projet
         toileScreenProject1.addEventListener("click", async () => {
@@ -1501,7 +1651,9 @@ export async function interactions(apps, sprites, texts) {
                                     // On joue la séquence 0 et la séquence 1 juste après
                                     playSequence0().then( async () => {
                                             launchProjectVideo(videoList);
-                                            await playSequence1();
+                                            // await playSequence1();
+                                            await playSequence1(currentAbortToken);
+
                                         // });
                                     });
                                 }                              
@@ -1872,14 +2024,16 @@ export async function interactions(apps, sprites, texts) {
                     exitVideo.removeAllListeners();
                     returnVideo.removeAllListeners();
 
-                    // Destruction du tableau bulles
-                    if (bulles) {
-                        for (const bulle of bulles) {
-                          stopText = true;
-                          if (bulle.parent) bulle.parent.removeChild(bulle);
-                        //   bulle.destroy();
-                        }
-                      }
+                    
+                    // stopText = true;
+
+                    // // Destruction du tableau bulles
+                    // if (bulles) {
+                    //     for (const bulle of bulles) {
+                    //       if (bulle.parent) bulle.parent.removeChild(bulle);
+                    //     //   bulle.destroy();
+                    //     }
+                    //   }
                     
                     console.log(stopText);
                     stopText = false;
@@ -1894,49 +2048,107 @@ export async function interactions(apps, sprites, texts) {
                 nextVideo.on('pointerout', () => {
                     nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
                 });
-                nextVideo.on('click', async () => {
-                        console.log(currentVideoIndex);
-                        console.log('video:', video);
+                // nextVideo.on('click', async () => {
+                //         console.log(currentVideoIndex);
+                //         console.log('video:', video);
 
-                    // Changer l'index
-                    if (currentVideoIndex < videoArray.length - 1) {
-                        currentVideoIndex++;
-                        console.log('increased', currentVideoIndex);
-                    } else {
-                        currentVideoIndex = 0;
-                    }
-                    console.log(currentVideoIndex);
+                //     // Interruption de la séquence en cours
+                //      stopText = true;
 
-                    // Mettre à jour la source et lancer la lecture
-                    video.src = videoArray[currentVideoIndex];
-                    video.play();
+                //     // Destruction du tableau bulles
+                //     if (bulles) {
+                //         for (const bulle of bulles) {
+                //           if (bulle.parent) bulle.parent.removeChild(bulle);
+                //         //   bulle.destroy();
+                //         }
+                //       }
+
+                //     // Attendre un petit peu pour que le stop soit bien pris en compte
+                //     await wait(50);
+                //     stopText = false;
+
+                //     // Changer l'index
+                //     if (currentVideoIndex < videoArray.length - 1) {
+                //         currentVideoIndex++;
+                //         console.log('increased', currentVideoIndex);
+                //     } else {
+                //         currentVideoIndex = 0;
+                //     }
+                //     console.log(currentVideoIndex);
+
+                //     // Mettre à jour la source et lancer la lecture
+                //     video.src = videoArray[currentVideoIndex];
+                //     video.play();
                 
-                    // Lancer la bonne séquence en fonction de l'index
-                    switch (currentVideoIndex) {
-                        case 0:
-                            console.log("séquence 1 enclenchée via nextvideo");
-                            await playSequence1();
-                            console.log("séquence 1 terminée via nextvideo");
-                            break;
-                        case 1:
-                            console.log("séquence 2 enclenchée via nextvideo");
-                            await playSequence2();
-                            console.log("séquence 2 terminée via nextvideo");
-                            break;
-                        case 2:
-                            console.log("séquence 3 enclenchée via nextvideo");
-                            await playSequence3();
-                            console.log("séquence 3 terminée via nextvideo");
-                            break;
-                        case 3:
-                            console.log("séquence 4 enclenchée via nextvideo");
-                            await playSequence4();
-                            console.log("séquence 4 terminée via nextvideo");
-                            break;
-                        default:
-                            break;
+                //     // Lancer la bonne séquence en fonction de l'index
+                //     switch (currentVideoIndex) {
+                //         case 0:
+                //             console.log("séquence 1 enclenchée via nextvideo");
+                //             await playSequence1();
+                //             console.log("séquence 1 terminée via nextvideo");
+                //             break;
+                //         case 1:
+                //             console.log("séquence 2 enclenchée via nextvideo");
+                //             await playSequence2();
+                //             console.log("séquence 2 terminée via nextvideo");
+                //             break;
+                //         case 2:
+                //             console.log("séquence 3 enclenchée via nextvideo");
+                //             await playSequence3();
+                //             console.log("séquence 3 terminée via nextvideo");
+                //             break;
+                //         case 3:
+                //             console.log("séquence 4 enclenchée via nextvideo");
+                //             await playSequence4();
+                //             console.log("séquence 4 terminée via nextvideo");
+                //             break;
+                //         default:
+                //             break;
+                //     }
+                // });
+                nextVideo.on('click', async () => {
+                console.log('NEXT CLICKED');
+
+                // Stoppe l’ancienne séquence en la marquant comme annulée
+                currentAbortToken.cancelled = true;
+
+                // Supprime les bulles visibles
+                if (bulles) {
+                    for (const bulle of bulles) {
+                        if (bulle.parent) screenBackgroundContainer.removeChild(bulle);
                     }
-                });
+                }
+
+                // Crée un nouveau token pour la séquence suivante
+                currentAbortToken = { cancelled: false };
+                const token = currentAbortToken;
+
+                // Change la vidéo
+                if (currentVideoIndex < videoArray.length - 1) {
+                    currentVideoIndex++;
+                } else {
+                    currentVideoIndex = 0;
+                }
+                video.src = videoArray[currentVideoIndex];
+                video.play();
+
+                // Lance la nouvelle séquence avec le nouveau token
+                switch (currentVideoIndex) {
+                    case 0:
+                        await playSequence1(token);
+                        break;
+                    case 1:
+                        await playSequence2(token);
+                        break;
+                    case 2:
+                        await playSequence3(token);
+                        break;
+                    case 3:
+                        await playSequence4(token);
+                        break;
+                }
+            });
+
 
                 // Gestion des événements Prev
                 prevVideo.on('pointerover', () => {
