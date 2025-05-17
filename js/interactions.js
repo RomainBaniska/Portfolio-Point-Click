@@ -830,7 +830,7 @@ export async function interactions(apps, sprites, texts) {
         }  
     });
 
-    unroll();
+    // unroll();
     // unroll416();
 
     // Petite fonction appelée pour stopper le défilement du texte si true et pour mettre en pause le texte;
@@ -1110,13 +1110,13 @@ export async function interactions(apps, sprites, texts) {
             // La méthode appelle une méthode "animation d'apparition des toiles projects" un peu plus bas
             async function introSequence() {
                 screenBackgroundContainer.addChild(bulles[0]); // "Bravo d'être arrivé jusque là!"
-                // await wait(3000);
-                await wait(100);
+                await wait(3000);
+                // await wait(100);
             
                 screenBackgroundContainer.removeChild(bulles[0]); 
                 screenBackgroundContainer.addChild(bulles[1]); // "Tu vas pouvoir avoir une idée un peu plus précise de mes compétences en dev web"
-                // await wait(3000);
-                await wait(100);
+                await wait(3000);
+                // await wait(100);
             
                 screenBackgroundContainer.removeChild(bulles[1]);
                 screenBackgroundContainer.addChild(bulles[2]); // "Voici une petite sélection de projets que j'ai réalisé"
@@ -1130,14 +1130,14 @@ export async function interactions(apps, sprites, texts) {
                 await toileScreenProjectAppear();
 
                 // On retire la deuxième bulle 3 secondes après être apparue
-                // await wait(3000);
-                await wait(100);
+                await wait(3000);
+                // await wait(100);
                 screenBackgroundContainer.removeChild(bulles[2]);
                 screenBackgroundContainer.addChild(bulles[3]); // "Clique sur le projet qui t'intéresse ! Tu pourras revenir consulter les autres."
                 
                 // On retire la 3ème bulle, Romain arrête de parler et attend qu'un projet soit sélectionné
-                // await wait(3000);
-                await wait(100);
+                await wait(3000);
+                // await wait(100);
                 screenBackgroundContainer.removeChild(bulles[3]);
                 guybrushClone.gotoAndStop(0);
             

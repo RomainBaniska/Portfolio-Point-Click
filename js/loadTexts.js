@@ -59,7 +59,7 @@ export async function loadTexts(sprites) {
     const wakeUpText = new PIXI.Text({ text: 'Hein quoi ?!', style: dialogueStyle });
     let wakeUpText2;
     if (currentHourInit >= 7 && currentHourInit < 22) {
-        wakeUpText2 = new PIXI.Text({ text: "Je rêve ou tu forces ma baraque pour venir me réveiller en pleine nu...", style: dialogueStyle });
+        wakeUpText2 = new PIXI.Text({ text: "Je rêve ou tu forces ma baraque pour venir me réveiller en pleine sieste ??", style: dialogueStyle });
     } else {
         wakeUpText2 = new PIXI.Text({ text: "Je rêve ou tu forces ma baraque pour venir me réveiller en pleine nuit avec de la flotte ?", style: dialogueStyle });
     }
