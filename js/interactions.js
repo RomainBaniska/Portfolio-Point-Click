@@ -1227,176 +1227,7 @@ export async function interactions(apps, sprites, texts) {
         /// MOUVEMENT TOILESCREENPROJECT 1 ///
         //////////////////////////////////////
 
-        // On définit toutes les séquences de video du projet 1:
-    //     async function playSequence1() {
-    //     // On définit stopText (texte mis en pause en false)
-    //     stopText = false;
-
-    //     // "Prêt ? Alors c'est parti" -> removechild après délai
-    //     if ((await waitWithStop(2000)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[7]);
-    //     if ((await waitWithStop(2000)) === true) return;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[8]); // bulles[8] = "On va commencer par s'inscrire et entrer nos informations"
-    //     // if ((await waitWithStop(10000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[8]);
-    //     // if ((await waitWithStop(5000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[9]); // bulles[9] = "Ensuite lors de notre première connexion on est invité à compléter notre profil."
-    //     // if ((await waitWithStop(8000)) === true) return;
-    //             if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[9]);
-    //     // if ((await waitWithStop(4000)) === true) return;
-    //             if ((await waitWithStop(100)) === true) return;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[11]); // bulles[11] = "On peut au choix uploader..."
-    //     // if ((await waitWithStop(13000)) === true) return;
-    //             if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[11]);
-    //     // if ((await waitWithStop(4000)) === true) return;
-    //             if ((await waitWithStop(100)) === true) return;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[12]); // bulles[12] = "On termine ensuite par sélectionner..."
-    //     // if ((await waitWithStop(7000)) === true) return;
-    //             if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[12]);
-    //     // if ((await waitWithStop(4000)) === true) return;
-    //             if ((await waitWithStop(100)) === true) return;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[13]); // bulles[13] = "Clique sur 'suivant' pour passer au Dashboard"
-    //     // if ((await waitWithStop(2000)) === true) return;
-    //             if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[13]);
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //             if ((await waitWithStop(100)) === true) return;
-
-    //     // On rerend le bouton nextVideo disponible
-    //     // nextvideo.disabled = false;
-    // }
-
-    //     async function playSequence2() {
-    //     // launchProjectVideo(videoList);
-    //     console.log("séquence 2 démarrée");
-    //     // On désactive le bouton "NextVideo"
-    //     // nextvideo.disabled = true;
-    //     stopText = false;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[14]); // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //      if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[14]);
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //              if ((await waitWithStop(100)) === true) return;
-    //         console.log("bulle 14 retirée");
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[15]); // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //              if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[15]);
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //              if ((await waitWithStop(100)) === true) return;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[16]); // bulles[16] = "Mais allons plutot faire un petit tour sur la page d'un évenement"
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //              if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[16]);
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //              if ((await waitWithStop(100)) === true) return;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[17]); // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //              if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[17]);
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //              if ((await waitWithStop(100)) === true) return;
-
-    //     // nextvideo.disabled = false;
-    //     }
-
-    //     async function playSequence3() {
-
-    //                 // launchProjectVideo(videoList);
-    //     // On désactive le bouton "NextVideo"
-    //     // nextvideo.disabled = true;
-    //     stopText = false;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[18]); // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[18]);
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[19]); // bulles[19] = "Pour terminer, rendons-nous sur la page 'tags' pour les modifier et obtenir d'autres recommandations"
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[19]);
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-        
-    //     // nextvideo.disabled = false;
-    //     }
-        
-    //     async function playSequence4() {
-    //                 // launchProjectVideo(videoList);
-    //     // On désactive le bouton "NextVideo"
-    //     // nextvideo.disabled = true;
-    //     stopText = false;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[20]); // bulles[20] = "Ta-da !"
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[20]);
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[21]); // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-    //     guybrushClone.gotoAndStop(0);
-    //     screenBackgroundContainer.removeChild(bulles[21]);
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-
-    //     guybrushClone.play();
-    //     screenBackgroundContainer.addChild(bulles[22]); // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-    //     screenBackgroundContainer.removeChild(bulles[22]);
-    //     // if ((await waitWithStop(3000)) === true) return;
-    //     if ((await waitWithStop(100)) === true) return;
-        
-    //     // On réactive le bouton nextvideo
-    //     // nextvideo.disabled = false;
-    // }
+    // On définit toutes les séquences de video du projet 1:
     async function playSequence1(token) {
     stopText = false;
 
@@ -1527,32 +1358,6 @@ export async function interactions(apps, sprites, texts) {
     screenBackgroundContainer.removeChild(bulles[22]);
 }
 
-
-//     async function playSequence4(token) {
-//     stopText = false;
-
-//     guybrushClone.play();
-//     // bulles[20] = "Ta-da !"
-//     screenBackgroundContainer.addChild(bulles[20]);
-//     if ((await waitWithStop(100, token)) || token.cancelled) return;
-//     guybrushClone.gotoAndStop(0);
-//     screenBackgroundContainer.removeChild(bulles[20]);
-
-//     if ((await waitWithStop(100, token)) || token.cancelled) return;
-//     guybrushClone.play();
-//     // bulles[21] = "Si tu souhaites consulter le code de l'application, il est disponible sur mon github @romainbaniska"
-//     screenBackgroundContainer.addChild(bulles[21]);
-//     if ((await waitWithStop(100, token)) || token.cancelled) return;
-//     guybrushClone.gotoAndStop(0);
-//     screenBackgroundContainer.removeChild(bulles[21]);
-
-//     if ((await waitWithStop(100, token)) || token.cancelled) return;
-//     guybrushClone.play();
-//     // bulles[22] = "Clique sur 'Retour' pour parcourir les autres projets"
-//     screenBackgroundContainer.addChild(bulles[22]);
-//     if ((await waitWithStop(100, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[22]);
-// }
 
        // On crée une petite animation lors de la sélection du projet
         toileScreenProject1.addEventListener("click", async () => {
@@ -1988,11 +1793,7 @@ export async function interactions(apps, sprites, texts) {
                     exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
                 });
                 exitVideo.on('click', () => {
-                    // video.pause();
-                    // video.currentTime = 0;
-                    // video.style.display = 'none';
-
-                    // Annule toute séquence en cours
+                     // Annule toute séquence en cours
                     currentAbortToken.cancelled = true;
 
                     video.pause();
@@ -2047,20 +1848,8 @@ export async function interactions(apps, sprites, texts) {
                     exitVideo.removeAllListeners();
                     returnVideo.removeAllListeners();
 
-                    
-                    // stopText = true;
-
-                    // // Destruction du tableau bulles
-                    // if (bulles) {
-                    //     for (const bulle of bulles) {
-                    //       if (bulle.parent) bulle.parent.removeChild(bulle);
-                    //     //   bulle.destroy();
-                    //     }
-                    //   }
-                    // Supprime les bulles visibles
-
                     stopText = true
-                    
+
                     if (bulles) {
                         for (const bulle of bulles) {
                             if (bulle.parent) screenBackgroundContainer.removeChild(bulle);
@@ -2080,64 +1869,7 @@ export async function interactions(apps, sprites, texts) {
                 nextVideo.on('pointerout', () => {
                     nextVideo.texture = nextVideospriteAsset.textures[nextVideoframes[0]];
                 });
-                // nextVideo.on('click', async () => {
-                //         console.log(currentVideoIndex);
-                //         console.log('video:', video);
 
-                //     // Interruption de la séquence en cours
-                //      stopText = true;
-
-                //     // Destruction du tableau bulles
-                //     if (bulles) {
-                //         for (const bulle of bulles) {
-                //           if (bulle.parent) bulle.parent.removeChild(bulle);
-                //         //   bulle.destroy();
-                //         }
-                //       }
-
-                //     // Attendre un petit peu pour que le stop soit bien pris en compte
-                //     await wait(50);
-                //     stopText = false;
-
-                //     // Changer l'index
-                //     if (currentVideoIndex < videoArray.length - 1) {
-                //         currentVideoIndex++;
-                //         console.log('increased', currentVideoIndex);
-                //     } else {
-                //         currentVideoIndex = 0;
-                //     }
-                //     console.log(currentVideoIndex);
-
-                //     // Mettre à jour la source et lancer la lecture
-                //     video.src = videoArray[currentVideoIndex];
-                //     video.play();
-                
-                //     // Lancer la bonne séquence en fonction de l'index
-                //     switch (currentVideoIndex) {
-                //         case 0:
-                //             console.log("séquence 1 enclenchée via nextvideo");
-                //             await playSequence1();
-                //             console.log("séquence 1 terminée via nextvideo");
-                //             break;
-                //         case 1:
-                //             console.log("séquence 2 enclenchée via nextvideo");
-                //             await playSequence2();
-                //             console.log("séquence 2 terminée via nextvideo");
-                //             break;
-                //         case 2:
-                //             console.log("séquence 3 enclenchée via nextvideo");
-                //             await playSequence3();
-                //             console.log("séquence 3 terminée via nextvideo");
-                //             break;
-                //         case 3:
-                //             console.log("séquence 4 enclenchée via nextvideo");
-                //             await playSequence4();
-                //             console.log("séquence 4 terminée via nextvideo");
-                //             break;
-                //         default:
-                //             break;
-                //     }
-                // });
                 nextVideo.on('click', async () => {
                 console.log('NEXT CLICKED');
 
@@ -2175,9 +1907,7 @@ export async function interactions(apps, sprites, texts) {
                     case 2:
                         await playSequence3(token);
                         break;
-                    // case 3:
-                    //     await playSequence4(token);
-                    //     break;
+                   
                 }
             });
 
@@ -2190,23 +1920,6 @@ export async function interactions(apps, sprites, texts) {
                 prevVideo.on('pointerout', () => {
                     prevVideo.texture = prevVideospriteAsset.textures[prevVideoframes[0]];
                 });
-                // prevVideo.on('click', () => {
-                //     // Eviter les clics multiples
-                //     prevVideo.disabled = true;
-                    
-                //     if (currentVideoIndex > 0) {
-                //         currentVideoIndex--;
-                //     } else {
-                //         currentVideoIndex = videoArray.length - 1;
-                //     }
-                //     video.src = videoArray[currentVideoIndex]; 
-                //     video.play();
-
-                //     // Réactiver le bouton quand la vidéo est prête à être lue
-                //     video.onloadeddata = () => {
-                //         prevVideo.disabled = false;
-                //     };
-                // });
 
                 prevVideo.on('click', async () => {
                 console.log('PREVIOUS CLICKED');
@@ -2259,17 +1972,85 @@ export async function interactions(apps, sprites, texts) {
                 returnVideo.on('pointerout', () => {
                     returnVideo.texture = returnVideospriteAsset.textures[returnVideoframes[0]];
                 });
+                returnVideo.on('click', async () => {
+    // Annule toute séquence en cours
+    currentAbortToken.cancelled = true;
+
+    // Supprime les bulles visibles
+    if (bulles) {
+        for (const bulle of bulles) {
+            if (bulle.parent) screenBackgroundContainer.removeChild(bulle);
+        }
+    }
+
+    // Supprime la vidéo
+    let existingVideo = document.getElementById("pixi-video");
+    if (existingVideo) {
+        existingVideo.pause();
+        existingVideo.src = "";
+        existingVideo.load();
+        existingVideo.remove();
+    }
+
+    // Supprime tous les boutons
+    screenBackgroundContainer.removeChild(playVideo);
+    screenBackgroundContainer.removeChild(stopVideo);
+    screenBackgroundContainer.removeChild(prevVideo);
+    screenBackgroundContainer.removeChild(nextVideo);
+    screenBackgroundContainer.removeChild(exitVideo);
+    screenBackgroundContainer.removeChild(returnVideo);
+
+    // Supprime les éléments de la séquence
+    screenBackgroundContainer.removeChild(logoPHP);
+    screenBackgroundContainer.removeChild(logoHTML);
+    screenBackgroundContainer.removeChild(logoCSS);
+    screenBackgroundContainer.removeChild(logoJS);
+    screenBackgroundContainer.removeChild(logoMongo);
+    screenBackgroundContainer.removeChild(logoMySQL);
+    screenBackgroundContainer.removeChild(logoSymfony);
+    screenBackgroundContainer.removeChild(guybrushClone);
+    screenBackgroundContainer.removeChild(fondPortrait);
+    screenBackgroundContainer.removeChild(fondPortraitMask);
+
+    if (getTogetherTitle?.parent) screenBackgroundContainer.removeChild(getTogetherTitle);
+    if (rebatiereTitle?.parent) screenBackgroundContainer.removeChild(rebatiereTitle);
+    if (jsigneTitle?.parent) screenBackgroundContainer.removeChild(jsigneTitle);
+
+    // Réinitialisation des sprites de projets
+    toileScreenProject1.alpha = 1;
+    toileScreenProject2.alpha = 1;
+    toileScreenProject3.alpha = 1;
+
+    toileScreenProject1.visible = true;
+    toileScreenProject2.visible = true;
+    toileScreenProject3.visible = true;
+
+    toileScreenProject1.interactive = true;
+    toileScreenProject2.interactive = true;
+    toileScreenProject3.interactive = true;
+
+    // Réajout des sprites au conteneur (si tu les as retirés)
+    screenBackgroundContainer.addChild(toileScreenProject1);
+    screenBackgroundContainer.addChild(toileScreenProject2);
+    screenBackgroundContainer.addChild(toileScreenProject3);
+
+    // Optionnel : rejouer l’animation d’apparition
+    await toileScreenProjectAppear();
+
+    // On remet le portrait de Romain
+    screenBackgroundContainer.addChild(fondPortraitMask);
+    screenBackgroundContainer.addChild(guybrushClone);
+    screenBackgroundContainer.addChild(fondPortrait);
+    guybrushClone.gotoAndPlay(0);
+
+    // Affiche une bulle d’instruction ?
+    screenBackgroundContainer.addChild(bulles[3]); // "Clique sur le projet qui t'intéresse..."
+});
+
 
 
                 // // Supprimer la vidéo quand on ferme l'écran
                 toileScreen.on("removed", () => {
-                    // video.remove();
-                    // screenBackgroundContainer.removeChild(playVideo);
-                    // screenBackgroundContainer.removeChild(stopVideo);
-                    // screenBackgroundContainer.removeChild(prevVideo);
-                    // screenBackgroundContainer.removeChild(nextVideo);
-                    // screenBackgroundContainer.removeChild(exitVideo);
-                    // screenBackgroundContainer.removeChild(returnVideo);
                     reroll();
                 });
             }
