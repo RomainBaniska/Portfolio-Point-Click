@@ -1278,53 +1278,50 @@ export async function interactions(apps, sprites, texts) {
     if ((await waitWithStop(3000, token)) || token.cancelled) return;
     guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[13]);
-}
-
-
+    }
 
     async function playSequence2(token) {
-        stopText = false;
+    stopText = false;
 
-        guybrushClone.play();
-        // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
-        screenBackgroundContainer.addChild(bulles[14]);
-        if ((await waitWithStop(7000, token)) || token.cancelled) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[14]);
+    guybrushClone.play();
+    // bulles[14] = "On y est, enfin ! Voici le Dashboard de l'application, faisons l'état des lieux..."
+    screenBackgroundContainer.addChild(bulles[14]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[14]);
 
-        if ((await waitWithStop(2000, token)) || token.cancelled) return;
-        guybrushClone.play();
-        // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
-        screenBackgroundContainer.addChild(bulles[15]);
-        if ((await waitWithStop(9000, token)) || token.cancelled) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[15]);
+    if ((await waitWithStop(2000, token)) || token.cancelled) return;
+    guybrushClone.play();
+    // bulles[15] = "Un FullCalendar nous affiche des événements disponibles à gauche et un peu plus bas des événements recommandés"
+    screenBackgroundContainer.addChild(bulles[15]);
+    if ((await waitWithStop(9000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[15]);
 
-        if ((await waitWithStop(6000, token)) || token.cancelled) return;
-        guybrushClone.play();
-        // bulles[16] = "Mais allons plutôt faire un petit tour sur la page d'un événement"
-        screenBackgroundContainer.addChild(bulles[16]);
-        if ((await waitWithStop(7000, token)) || token.cancelled) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[16]);
+    if ((await waitWithStop(6000, token)) || token.cancelled) return;
+    guybrushClone.play();
+    // bulles[16] = "Mais allons plutôt faire un petit tour sur la page d'un événement"
+    screenBackgroundContainer.addChild(bulles[16]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[16]);
 
-        if ((await waitWithStop(1000, token)) || token.cancelled) return;
-        guybrushClone.play();
-        // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
-        screenBackgroundContainer.addChild(bulles[17]);
-        if ((await waitWithStop(8000, token)) || token.cancelled) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[17]);
-        if ((await waitWithStop(3000, token)) || token.cancelled) return;
+    if ((await waitWithStop(1000, token)) || token.cancelled) return;
+    guybrushClone.play();
+    // bulles[17] = "On a une description de l'événement, son adresse, ses tags et même un petit canal de tchat"
+    screenBackgroundContainer.addChild(bulles[17]);
+    if ((await waitWithStop(8000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[17]);
+    if ((await waitWithStop(3000, token)) || token.cancelled) return;
 
-        guybrushClone.play();
-        // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
-        screenBackgroundContainer.addChild(bulles[18]);
-        if ((await waitWithStop(8000, token)) || token.cancelled) return;
-        guybrushClone.gotoAndStop(0);
-        screenBackgroundContainer.removeChild(bulles[18]);
+    guybrushClone.play();
+    // bulles[18] = "Marquons un petit message et tentons d'y répondre avec une autre session"
+    screenBackgroundContainer.addChild(bulles[18]);
+    if ((await waitWithStop(8000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
+    screenBackgroundContainer.removeChild(bulles[18]);
 }
-
 
     async function playSequence3(token) {
     stopText = false;
@@ -1493,99 +1490,123 @@ export async function interactions(apps, sprites, texts) {
 
         
 
-        /////////////////////////////////////
-        /// MOUVEMENT TOILESCREENPROJECT2 ///
-        /////////////////////////////////////
+        ////////////////////////////////////
+///// MOUVEMENT TOILEPROJECT 2 /////
+////////////////////////////////////
 
-        toileScreenProject2.addEventListener("click", () => {
-            // destruction si existe
-             const desc = projectDescriptions.get(toileScreenProject2);
-             if (desc) {
-                 desc.destroy();
-                 projectDescriptions.delete(toileScreenProject2);
-             }
-            // On invisibilise les projets non sélectionnés
-            toileScreenProject2.interactive = false;
-            toileScreenProject1.visible = false;
-            toileScreenProject3.visible = false;
-        
-            const targetWidth = toileScreen.width * 0.8;
-            const targetHeight = toileScreen.height * 0.655;
-            // Ticker qui agrandit screenProject2
-            let scaleTicker = new PIXI.Ticker();
-            scaleTicker.add(() => {
-                if (toileScreenProject2.width < targetWidth) {
-                    toileScreenProject2.width += 10;
-                    toileScreenProject2.height += (targetHeight / targetWidth) * 10;
+toileScreenProject2.addEventListener("click", async () => {
+    // destruction si existe
+    const desc = projectDescriptions.get(toileScreenProject2);
+    if (desc) {
+        desc.destroy();
+        projectDescriptions.delete(toileScreenProject2);
+    }
+
+    // On invisibilise les projets non sélectionnés
+    toileScreenProject2.interactive = false;
+    toileScreenProject1.visible = false;
+    toileScreenProject3.visible = false;
+
+    // Taille cible 
+    const targetWidth = toileScreen.width * 0.8;
+    const targetHeight = toileScreen.height * 0.655;
+
+    // Ticker qui agrandit screenProject2
+    let scaleTicker = new PIXI.Ticker();
+    scaleTicker.add(() => {
+        if (toileScreenProject2.width < targetWidth) {
+            toileScreenProject2.width += 10;
+            toileScreenProject2.height += (targetHeight / targetWidth) * 10;
+        } else {
+            toileScreenProject2.width = targetWidth;
+            toileScreenProject2.height = targetHeight;
+            scaleTicker.stop();
+
+            // Troisième Ticker qui fait disparaitre le screenProject2
+            let alphaTicker = new PIXI.Ticker();
+            alphaTicker.add(() => {
+                if (toileScreenProject2.alpha > 0) {
+                    toileScreenProject2.alpha -= 0.1;
                 } else {
-                    toileScreenProject2.width = targetWidth;
-                    toileScreenProject2.height = targetHeight;
-                    scaleTicker.stop();
-                    console.log("Agrandissement terminé !");
+                    alphaTicker.stop(); 
 
-                    screenBackgroundContainer.addChild(introSlide);
+                    // screenBackgroundContainer.removeChild(toileScreenProject2);
+                    screenBackgroundContainer.addChild(rebatiereTitle);
 
-                    // Troisième Ticker qui fait disparaitre le screenProject2
-                    let alphaTicker = new PIXI.Ticker();
-                    alphaTicker.add(() => {
-                        if (toileScreenProject2.alpha > 0) {
-                            toileScreenProject2.alpha -= 0.1;
-                        } else {
-                        alphaTicker.stop(); 
-                        // screenBackgroundContainer.removeChild(toileScreenProject1);
-                        screenBackgroundContainer.addChild(rebatiereTitle);
+                    // Ajout des logos d'intro
+                    const screenFactor = toileScreen.width / 5000;
 
-                        // Ajout des logos d'intro
-                        const screenFactor = toileScreen.width / 5000;
+                    // HTML
+                    logoHTML.scale.set(screenFactor);
+                    logoHTML.x = toileScreen.x + (toileScreen.width / 2) - (logoHTML.width / 2);
+                    logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (rebatiereTitle.height * 2);
+                    screenBackgroundContainer.addChild(logoHTML);
 
-                    console.log('on est good');
+                    // JS
+                    logoJS.scale.set(screenFactor);
+                    logoJS.x = logoHTML.x - logoHTML.width;
+                    logoJS.y = logoHTML.y;
+                    screenBackgroundContainer.addChild(logoJS);
 
-                        // HTML
-                        logoHTML.scale.set(screenFactor);
-                        logoHTML.x = toileScreen.x + (toileScreen.width / 2) - (logoHTML.width / 2);
-                        logoHTML.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoHTML);
+                    // PHP
+                    logoPHP.scale.set(screenFactor);
+                    logoPHP.x = logoJS.x - logoJS.width;
+                    logoPHP.y = logoHTML.y;
+                    screenBackgroundContainer.addChild(logoPHP);
 
-                        // JS
-                        logoJS.scale.set(screenFactor);
-                        logoJS.x = logoHTML.x - logoHTML.width;
-                        logoJS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoJS);
+                    // CSS
+                    logoCSS.scale.set(screenFactor);
+                    logoCSS.x = logoHTML.x + logoHTML.width;
+                    logoCSS.y = logoHTML.y;
+                    screenBackgroundContainer.addChild(logoCSS);
 
-                        // PHP
-                        logoPHP.scale.set(screenFactor);
-                        logoPHP.x = logoJS.x - logoJS.width;
-                        logoPHP.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoPHP);
+                    // MySQL
+                    logoMySQL.scale.set(screenFactor);
+                    logoMySQL.x = logoCSS.x + logoCSS.width;
+                    logoMySQL.y = logoHTML.y;
+                    screenBackgroundContainer.addChild(logoMySQL);
 
-                        // CSS
-                        logoCSS.scale.set(screenFactor);
-                        logoCSS.x = logoHTML.x + logoHTML.width;
-                        logoCSS.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoCSS);
+                    // Symfony
+                    logoSymfony.scale.set(screenFactor);
+                    logoSymfony.x = logoMySQL.x + logoMySQL.width;
+                    logoSymfony.y = logoHTML.y;
+                    screenBackgroundContainer.addChild(logoSymfony);
 
-                        // MySQL
-                        logoMySQL.scale.set(screenFactor);
-                        logoMySQL.x = logoCSS.x + logoCSS.width;
-                        logoMySQL.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoMySQL);
+                    // Intro parlée de Rebatière
+                    async function playSequenceRebatiereIntro() {
+                        stopText = false;
+                        guybrushClone.play();
 
-                        // Symfony
-                        logoSymfony.scale.set(screenFactor);
-                        logoSymfony.x = logoMySQL.x + logoMySQL.width;
-                        logoSymfony.y = toileScreen.y + (toileScreen.height / 2) + (getTogetherTitle.height * 2);
-                        screenBackgroundContainer.addChild(logoSymfony);
+                        screenBackgroundContainer.addChild(bulles[23]); // "Bienvenue sur l'application 'Rebatière'"
+                        await wait(100);
+                        screenBackgroundContainer.removeChild(bulles[23]);
 
-                        setTimeout(() => {
-                            launchProjectVideo(videoList2);
-                        }, 3000);
-                        }
+                        screenBackgroundContainer.addChild(bulles[24]); // "Il s'agit d'une application de booking destinée à une maison d'hôte dans la Drôme"
+                        await wait(100);
+                        screenBackgroundContainer.removeChild(bulles[24]);
+
+                        screenBackgroundContainer.addChild(bulles[25]); // "À tout moment tu peux mettre la vidéo en pause..."
+                        await wait(100);
+                        screenBackgroundContainer.removeChild(bulles[25]);
+
+                        screenBackgroundContainer.addChild(bulles[26]); // "Prêt ? Alors c'est parti !"
+                        await wait(100);
+                    }
+
+                    // Lancement de l'intro et séquence suivante
+                    playSequenceRebatiereIntro().then(async () => {
+                        launchProjectVideo(videoList2);
+                        await playSequence2(currentAbortToken);
                     });
-                    alphaTicker.start();
                 }
             });
-            scaleTicker.start();
-        });
+            alphaTicker.start();
+        }
+    });
+    scaleTicker.start();
+});
+
+
 
         // ______________________________________________________________________________ //
 
