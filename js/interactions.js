@@ -16,8 +16,8 @@ export async function interactions(apps, sprites, texts) {
 
     const videoList2 = [
         "../videos/Rebatiere/PART1-LOGINSIGNUP.mp4",
-        "../videos/Rebatiere/PART2-RESERVATION.mp4",
-        "../videos/Rebatiere/PART2-RESERVATION&DELETE&PROFILE.mp4",
+        "../videos/Rebatiere/PART2-RESERVATIONFULL.mp4",
+        // "../videos/Rebatiere/PART2-RESERVATION&DELETE&PROFILE.mp4",
         "../videos/Rebatiere/PART3-CONTRAINTES.mp4",
         "../videos/Rebatiere/PART4-PISCINE&ADMIN.mp4",
     ];
@@ -1063,14 +1063,14 @@ export async function interactions(apps, sprites, texts) {
                     , bulleText(new PIXI.Text({ text: "Choisissons ensuite la chambre que l'on souhaite réserver pour la période sur un plan en 2D", style: dialogueStyleLong })) // bulles[35]
                     , bulleText(new PIXI.Text({ text: "Puis, on peut, si on le désir, rajouter un ou plusieurs membres de la Rebatière pendant la durée de notre séjour", style: dialogueStyleLong })) // bulles[36]
                     , bulleText(new PIXI.Text({ text: "Vérifions ensuite si la réservation s'est fait effectuée", style: dialogueStyleLong })) // bulles[37]
-                    , bulleText(new PIXI.Text({ text: "On a bien réservé pour nous même et un autre membre ! Tu peux passer à l'étape suivante", style: dialogueStyleLong })) // bulles[38]
+                    , bulleText(new PIXI.Text({ text: "On a bien réservé pour nous même et un autre membre !", style: dialogueStyleLong })) // bulles[38]
                 );
 
                 // Reservations
                 bulles.push(
                     bulleText(new PIXI.Text({ text: "Une fois qu'on a terminé notre réservation, regardons 'Mon Profil' pour accéder à la gestion de 'Mes Reservations'", style: dialogueStyleLong })) // bulles[39]
                     , bulleText(new PIXI.Text({ text: "Comme on n'a qu'une réservation, on peut la supprimer", style: dialogueStyleLong })) // bulles[40]
-                    , bulleText(new PIXI.Text({ text: "Et on voit que notre réservation a bien été annulée, tu peux passer à la dernière étape", style: dialogueStyleLong })) // bulles[41]
+                    , bulleText(new PIXI.Text({ text: "Et on voit que notre réservation a bien été annulée, tu peux passer à l'étape suivante", style: dialogueStyleLong })) // bulles[41]
                 );
 
                 // Réservations en grand nombre & gestion des erreurs
@@ -1415,96 +1415,103 @@ async function playSequenceRebatiere2(token) {
     screenBackgroundContainer.removeChild(bulles[35]);
 
     screenBackgroundContainer.addChild(bulles[36]); // "Puis, on peut, si on le désir, rajouter un ou plusieurs membres de la Rebatière pendant la durée de notre séjour"
-    if ((await waitWithStop(23000, token)) || token.cancelled) return;
+    if ((await waitWithStop(24000, token)) || token.cancelled) return;
     screenBackgroundContainer.removeChild(bulles[36]);
 
     screenBackgroundContainer.addChild(bulles[37]); // "Vérifions ensuite si la réservation s'est fait effectuée"
     if ((await waitWithStop(11000, token)) || token.cancelled) return;
     screenBackgroundContainer.removeChild(bulles[37]);
 
-    screenBackgroundContainer.addChild(bulles[38]); // "On a bien réservé pour nous même et un autre membre ! Tu peux passer à l'étape suivante"
+    screenBackgroundContainer.addChild(bulles[38]); // "On a bien réservé pour nous même et un autre membre !"
     if ((await waitWithStop(7000, token)) || token.cancelled) return;
     screenBackgroundContainer.removeChild(bulles[38]);
+
+    screenBackgroundContainer.addChild(bulles[39]); // "Une fois qu'on a terminé notre réservation, regardons 'Mon Profil' pour accéder à la gestion de 'Mes Reservations'"
+    if ((await waitWithStop(9000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[39]);
+
+    screenBackgroundContainer.addChild(bulles[40]); // "Comme on n'a qu'une réservation, on peut la supprimer"
+    if ((await waitWithStop(14000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[40]);
+
+    guybrushClone.gotoAndStop(0);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    guybrushClone.play();
+    screenBackgroundContainer.addChild(bulles[41]); // "Et on voit que notre réservation a bien été annulée, tu peux passer à la dernière étape"
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[41]);
 }
 
 async function playSequenceRebatiere3(token) {
     stopText = false;
     guybrushClone.play();
 
-    screenBackgroundContainer.addChild(bulles[39]);
-    if ((await waitWithStop(7000, token)) || token.cancelled) return;
-    screenBackgroundContainer.removeChild(bulles[39]);
+    screenBackgroundContainer.addChild(bulles[42]); // "Voyons maintenant comment le site gère les cas de nombreuses réservations sur une même période"
+    if ((await waitWithStop(17000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[42]);
 
-    screenBackgroundContainer.addChild(bulles[40]);
-    if ((await waitWithStop(7000, token)) || token.cancelled) return;
-    screenBackgroundContainer.removeChild(bulles[40]);
+    guybrushClone.gotoAndStop(0);
+    if ((await waitWithStop(10000, token)) || token.cancelled) return;
+    guybrushClone.play();
+    screenBackgroundContainer.addChild(bulles[43]); // "Lors du formulaire de réservation, il est possible de savoir qui a déjà réservé sur une période"
+    if ((await waitWithStop(15000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[43]);
 
-    screenBackgroundContainer.addChild(bulles[41]);
+    screenBackgroundContainer.addChild(bulles[44]); // "Essayons maintenant de réserver une chambre déjà pleine pour cette période"
+    if ((await waitWithStop(19000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[44]);
+    guybrushClone.gotoAndStop(0);
+
+    if ((await waitWithStop(5000, token)) || token.cancelled) return;
+    guybrushClone.play();
+    screenBackgroundContainer.addChild(bulles[45]); // "Le serveur nous renvoie un refus de réservation."
+    if ((await waitWithStop(9000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[45]);
+
+    screenBackgroundContainer.addChild(bulles[46]); // "Essayons d'inspecter une période sans avoir rentré de dates : erreur également"
+    if ((await waitWithStop(8000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[46]);
+
+    screenBackgroundContainer.addChild(bulles[47]); // "Maintenant vérifions qu'une réservation dans les règles marche toujours correctement"
+    if ((await waitWithStop(29000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[47]);
+
+    screenBackgroundContainer.addChild(bulles[48]); // "Eh oui c'est bon ! Tu peux maintenant passer à la dernière étape"
     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-    screenBackgroundContainer.removeChild(bulles[41]);
+    screenBackgroundContainer.removeChild(bulles[48]);
 }
 
-// async function playSequenceRebatiere4(token) {
-//     stopText = false;
-//     guybrushClone.play();
+    async function playSequenceRebatiere4(token) {
+        stopText = false;
+        guybrushClone.play();
 
-//     screenBackgroundContainer.addChild(bulles[42]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[42]);
+        screenBackgroundContainer.addChild(bulles[49]); // bulle[49] : Je me suis connecté sur un compte 'Admin' pour pouvoir ouvrir la piscine
+        if ((await waitWithStop(7000, token)) || token.cancelled) return;
+        screenBackgroundContainer.removeChild(bulles[49]);
 
-//     screenBackgroundContainer.addChild(bulles[43]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[43]);
+        screenBackgroundContainer.addChild(bulles[50]); // bulle[50] : Il est possible donc pour un doyen de la Rebatière de décider de la disponibilité de la piscine
+        if ((await waitWithStop(7000, token)) || token.cancelled) return;
+        screenBackgroundContainer.removeChild(bulles[50]);
 
-//     screenBackgroundContainer.addChild(bulles[44]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[44]);
+        screenBackgroundContainer.addChild(bulles[51]); // bulle[51] : Chaque jour où la piscine est dispo a son icone qui passe au vert!
+        if ((await waitWithStop(12000, token)) || token.cancelled) return;
+        screenBackgroundContainer.removeChild(bulles[51]);
 
-//     screenBackgroundContainer.addChild(bulles[45]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[45]);
+        screenBackgroundContainer.addChild(bulles[52]); // bulle[52] : Faisons maintenant un petit tour du coté de panneau admin
+        if ((await waitWithStop(7000, token)) || token.cancelled) return;
+        screenBackgroundContainer.removeChild(bulles[52]);
 
-//     screenBackgroundContainer.addChild(bulles[46]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[46]);
+        screenBackgroundContainer.addChild(bulles[53]); // bulle[53] : Pour la faire courte, j'ai simplement intégré le bundle EasyAdmin permettant d'avoir un controle sur tous les éléments de la BDD
+        if ((await waitWithStop(14000, token)) || token.cancelled) return;
+        screenBackgroundContainer.removeChild(bulles[53]);
+        guybrushClone.gotoAndStop(0);
 
-//     screenBackgroundContainer.addChild(bulles[47]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[47]);
-
-//     screenBackgroundContainer.addChild(bulles[48]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[48]);
-// }
-
-// async function playSequenceRebatiere5(token) {
-//     stopText = false;
-//     guybrushClone.play();
-
-//     screenBackgroundContainer.addChild(bulles[49]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[49]);
-
-//     screenBackgroundContainer.addChild(bulles[50]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[50]);
-
-//     screenBackgroundContainer.addChild(bulles[51]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[51]);
-
-//     screenBackgroundContainer.addChild(bulles[52]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[52]);
-
-//     screenBackgroundContainer.addChild(bulles[53]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[53]);
-
-//     screenBackgroundContainer.addChild(bulles[54]);
-//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
-//     screenBackgroundContainer.removeChild(bulles[54]);
-// }
+        if ((await waitWithStop(33000, token)) || token.cancelled) return;
+        guybrushClone.play();
+        screenBackgroundContainer.addChild(bulles[54]); // bulle[54] : On en a terminé, tu peux cliquer sur le bouton retour !
+        if ((await waitWithStop(7000, token)) || token.cancelled) return;
+        screenBackgroundContainer.removeChild(bulles[54]);
+    }
 
 
 // Mapping entre projets et séquences
@@ -1517,7 +1524,8 @@ const projectSequences = {
     rebatiere: [
         playSequenceRebatiere1,
         playSequenceRebatiere2,
-        playSequenceRebatiere3
+        playSequenceRebatiere3,
+        playSequenceRebatiere4
     ]
 };
 

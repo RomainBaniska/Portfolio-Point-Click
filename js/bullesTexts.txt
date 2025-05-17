@@ -56,3 +56,10 @@
 // bulles[46] = "Essayons d'inspecter une période sans avoir rentré de dates : erreur également"
 // bulles[47] = "Maintenant vérifions qu'une réservation dans les règles marche toujours correctement"
 // bulles[48] = "Eh oui c'est bon ! Tu peux maintenant passer à la dernière étape"
+
+// bulle[49] : Je me suis connecté sur un compte 'Admin' pour pouvoir ouvrir la piscine
+// bulle[50] : Il est possible donc pour un doyen de la Rebatière de décider de la disponibilité de la piscine
+// bulle[51] : Chaque jour où la piscine est dispo a son icone qui passe au vert!
+// bulle[52] : Faisons maintenant un petit tour du coté de panneau admin
+// bulle[53] : Pour la faire courte, j'ai simplement intégré le bundle EasyAdmin permettant d'avoir un controle sur tous les éléments de la BDD
+// bulle[54] : On en a terminé, tu peux cliquer sur le bouton retour !
