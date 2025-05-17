@@ -856,17 +856,21 @@ export async function interactions(apps, sprites, texts) {
     //     return false; // Une fois le wait(ms) terminé, on retourne false
     // }
         async function waitWithStop(ms, token) {
-        return new Promise(resolve => {
-            let elapsed = 0;
-            const step = 10;
-            const check = () => {
-                if (stopText || (token && token.cancelled)) return resolve(true);
-                if ((elapsed += step) >= ms) return resolve(false);
-                setTimeout(check, step);
-            };
-            check();
-        });
+    const interval = 100;
+    let waited = 0;
+    while (waited < ms) {
+        if (token?.cancelled) return true;
+        while (pauseText) {
+            // Pause active → attend que pauseText repasse à false
+            await wait(interval);
+            if (token?.cancelled) return true;
+        }
+        await wait(interval);
+        waited += interval;
     }
+    return false;
+}
+
 
     let currentAbortToken = { cancelled: false };
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
@@ -1338,6 +1342,7 @@ export async function interactions(apps, sprites, texts) {
     guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[19]);
 
+    if ((await waitWithStop(4000, token)) || token.cancelled) return;
     guybrushClone.play();
     // bulles[20] = "Ta-da !"
     screenBackgroundContainer.addChild(bulles[20]);
@@ -1374,7 +1379,7 @@ async function playSequenceRebatiere1(token) {
     if ((await waitWithStop(6000, token)) || token.cancelled) return;
     guybrushClone.play(); 
     screenBackgroundContainer.addChild(bulles[28]); // "Pour recadrer l'avatar..."
-    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    if ((await waitWithStop(8000, token)) || token.cancelled) return;
     guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[28]);
 
@@ -1397,27 +1402,27 @@ async function playSequenceRebatiere2(token) {
     stopText = false;
     guybrushClone.play();
 
-    screenBackgroundContainer.addChild(bulles[33]);
-    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.addChild(bulles[33]); // "La page d'accueil nous donne accès à plusieurs choses. Commençons par effectuer une réservation."
+    if ((await waitWithStop(7000, token)) || token.cancelled) return; 
     screenBackgroundContainer.removeChild(bulles[33]);
 
-    screenBackgroundContainer.addChild(bulles[34]);
-    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.addChild(bulles[34]); // "Programmons une réservation simple de 6 jours. "
+    if ((await waitWithStop(10000, token)) || token.cancelled) return;
     screenBackgroundContainer.removeChild(bulles[34]);
 
-    screenBackgroundContainer.addChild(bulles[35]);
-    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.addChild(bulles[35]); // "Choisissons ensuite la chambre que l'on souhaite réserver pour la période sur un plan en 2D"
+    if ((await waitWithStop(23000, token)) || token.cancelled) return;
     screenBackgroundContainer.removeChild(bulles[35]);
 
-    screenBackgroundContainer.addChild(bulles[36]);
-    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.addChild(bulles[36]); // "Puis, on peut, si on le désir, rajouter un ou plusieurs membres de la Rebatière pendant la durée de notre séjour"
+    if ((await waitWithStop(23000, token)) || token.cancelled) return;
     screenBackgroundContainer.removeChild(bulles[36]);
 
-    screenBackgroundContainer.addChild(bulles[37]);
-    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.addChild(bulles[37]); // "Vérifions ensuite si la réservation s'est fait effectuée"
+    if ((await waitWithStop(11000, token)) || token.cancelled) return;
     screenBackgroundContainer.removeChild(bulles[37]);
 
-    screenBackgroundContainer.addChild(bulles[38]);
+    screenBackgroundContainer.addChild(bulles[38]); // "On a bien réservé pour nous même et un autre membre ! Tu peux passer à l'étape suivante"
     if ((await waitWithStop(7000, token)) || token.cancelled) return;
     screenBackgroundContainer.removeChild(bulles[38]);
 }
@@ -1975,6 +1980,9 @@ toileScreenProject2.addEventListener("click", async () => {
                      // Annule toute séquence en cours
                     currentAbortToken.cancelled = true;
 
+                    // DÉFIGE le texte pour la prochaine fois
+                    pauseText = false;
+
                     video.pause();
                     video.src = "";
                     video.load(); 
@@ -2075,6 +2083,9 @@ toileScreenProject2.addEventListener("click", async () => {
                 video.src = videoArray[currentVideoIndex];
                 video.play();
 
+                // DÉFIGE les bulles automatiquement
+                pauseText = false;
+
                 // Lance la nouvelle séquence avec le nouveau token
                 const sequences = projectSequences[currentProject];
                 if (sequences && sequences[currentVideoIndex]) {
@@ -2117,6 +2128,9 @@ toileScreenProject2.addEventListener("click", async () => {
                 }
                 video.src = videoArray[currentVideoIndex];
                 video.play();
+
+                // DÉFIGE les bulles automatiquement
+                pauseText = false;
 
                 // Lance la séquence correspondante
                 const sequences = projectSequences[currentProject];
