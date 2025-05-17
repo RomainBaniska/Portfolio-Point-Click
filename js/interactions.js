@@ -1,7 +1,7 @@
 export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
-    const { houseContainer, crosshair, metroTicket, rails, ordiRed, areusure, bed, door, terminal, terminalbgSprite, achievement, greenled, yellowled, terminalPS, pendingLogo, chestZoom, disquette, disquetteFloat, menuItemDisquette, poster, menuItemMetroTicket, guybrushF, guybrushP, toilePoulie416, menuItemGlassCoffe, swPannel, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset, exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, returnVideo, returnVideoActive, returnVideospriteAsset, returnVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, music, questionMark } = sprites;
+    const { houseContainer, chestOpenRect, crosshair, metroTicket, rails, ordiRed, areusure, bed, door, terminal, terminalbgSprite, achievement, greenled, yellowled, terminalPS, pendingLogo, chestZoom, disquette, disquetteFloat, menuItemDisquette, poster, menuItemMetroTicket, guybrushF, guybrushP, toilePoulie416, menuItemGlassCoffe, swPannel, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset, exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, returnVideo, returnVideoActive, returnVideospriteAsset, returnVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, music, questionMark } = sprites;
     const { failText, failText2, failText3, failText4, failText5, sickText, sickText2, wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -204,6 +204,10 @@ export async function interactions(apps, sprites, texts) {
             app.stage.emit('rightdown');
             PIXI.sound.play('ratp');
 
+            // rend interactive false le coffre et le openChestRect
+            chest.interactive = false;
+            chestOpenRect.interactive = false
+
             // Détruit l'item
             menuItemMetroTicket.destroy();
             
@@ -391,7 +395,7 @@ export async function interactions(apps, sprites, texts) {
              });
 
             await wait(2000);
-            chest.interactive = false;
+            // chest.interactive = false;
             // disquette.mask = null;
             // disquetteMask.destroy();
             menuContainer.removeChild(menuCoverDialogueOverlay);
@@ -869,6 +873,8 @@ export async function interactions(apps, sprites, texts) {
     toilePoulieRun.on('click', async () => {
         // Quand on clique sur la toile
         if (menuButton5.isActive) {
+
+            let currentProject = null;
 
             // On désactive l'interactivité du sprite pour éviter les clics multiples
             toilePoulieRun.interactive = false;
@@ -1355,6 +1361,159 @@ export async function interactions(apps, sprites, texts) {
     screenBackgroundContainer.removeChild(bulles[22]);
 }
 
+// Séquences pour Rebatiere
+async function playSequenceRebatiere1(token) {
+    stopText = false;
+    guybrushClone.play();
+
+    screenBackgroundContainer.addChild(bulles[27]); // "On va commencer par se créer un compte..."
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[27]);
+
+    screenBackgroundContainer.addChild(bulles[28]); // "Pour recadrer l'avatar..."
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[28]);
+
+    screenBackgroundContainer.addChild(bulles[29]); // "Une fois le compte validé..."
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[29]);
+
+    screenBackgroundContainer.addChild(bulles[30]); // "Nous voici désormais sur la page principale..."
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[30]);
+
+    screenBackgroundContainer.addChild(bulles[31]); // "gagaga"
+    if ((await waitWithStop(3000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[31]);
+
+    screenBackgroundContainer.addChild(bulles[32]); // "gagaga"
+    if ((await waitWithStop(3000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[32]);
+}
+
+async function playSequenceRebatiere2(token) {
+    stopText = false;
+    guybrushClone.play();
+
+    screenBackgroundContainer.addChild(bulles[33]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[33]);
+
+    screenBackgroundContainer.addChild(bulles[34]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[34]);
+
+    screenBackgroundContainer.addChild(bulles[35]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[35]);
+
+    screenBackgroundContainer.addChild(bulles[36]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[36]);
+
+    screenBackgroundContainer.addChild(bulles[37]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[37]);
+
+    screenBackgroundContainer.addChild(bulles[38]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[38]);
+}
+
+async function playSequenceRebatiere3(token) {
+    stopText = false;
+    guybrushClone.play();
+
+    screenBackgroundContainer.addChild(bulles[39]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[39]);
+
+    screenBackgroundContainer.addChild(bulles[40]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[40]);
+
+    screenBackgroundContainer.addChild(bulles[41]);
+    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    screenBackgroundContainer.removeChild(bulles[41]);
+}
+
+// async function playSequenceRebatiere4(token) {
+//     stopText = false;
+//     guybrushClone.play();
+
+//     screenBackgroundContainer.addChild(bulles[42]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[42]);
+
+//     screenBackgroundContainer.addChild(bulles[43]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[43]);
+
+//     screenBackgroundContainer.addChild(bulles[44]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[44]);
+
+//     screenBackgroundContainer.addChild(bulles[45]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[45]);
+
+//     screenBackgroundContainer.addChild(bulles[46]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[46]);
+
+//     screenBackgroundContainer.addChild(bulles[47]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[47]);
+
+//     screenBackgroundContainer.addChild(bulles[48]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[48]);
+// }
+
+// async function playSequenceRebatiere5(token) {
+//     stopText = false;
+//     guybrushClone.play();
+
+//     screenBackgroundContainer.addChild(bulles[49]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[49]);
+
+//     screenBackgroundContainer.addChild(bulles[50]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[50]);
+
+//     screenBackgroundContainer.addChild(bulles[51]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[51]);
+
+//     screenBackgroundContainer.addChild(bulles[52]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[52]);
+
+//     screenBackgroundContainer.addChild(bulles[53]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[53]);
+
+//     screenBackgroundContainer.addChild(bulles[54]);
+//     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+//     screenBackgroundContainer.removeChild(bulles[54]);
+// }
+
+
+// Mapping entre projets et séquences
+const projectSequences = {
+    getTogether: [
+        playSequence1,
+        playSequence2,
+        playSequence3
+    ],
+    rebatiere: [
+        playSequenceRebatiere1,
+        playSequenceRebatiere2,
+        playSequenceRebatiere3
+    ]
+};
+
 
        // On crée une petite animation lors de la sélection du projet
         toileScreenProject1.addEventListener("click", async () => {
@@ -1471,11 +1630,9 @@ export async function interactions(apps, sprites, texts) {
 
                                     // On joue la séquence 0 et la séquence 1 juste après
                                     playSequence0().then( async () => {
-                                            launchProjectVideo(videoList);
-                                            // await playSequence1();
-                                            await playSequence1(currentAbortToken);
-
-                                        // });
+                                    currentProject = "getTogether";
+                                    launchProjectVideo(videoList);
+                                    await projectSequences[currentProject][0](currentAbortToken); // playSequence1()
                                     });
                                 }                              
                             });
@@ -1594,9 +1751,10 @@ toileScreenProject2.addEventListener("click", async () => {
                     }
 
                     // Lancement de l'intro et séquence suivante
-                    playSequenceRebatiereIntro().then(async () => {
+                        playSequenceRebatiereIntro().then(async () => {
+                        currentProject = "rebatiere"; 
                         launchProjectVideo(videoList2);
-                        await playSequence2(currentAbortToken);
+                        await projectSequences[currentProject][0](currentAbortToken); // ← Appel factorisé
                     });
                 }
             });
@@ -1918,17 +2076,9 @@ toileScreenProject2.addEventListener("click", async () => {
                 video.play();
 
                 // Lance la nouvelle séquence avec le nouveau token
-                switch (currentVideoIndex) {
-                    case 0:
-                        await playSequence1(token);
-                        break;
-                    case 1:
-                        await playSequence2(token);
-                        break;
-                    case 2:
-                        await playSequence3(token);
-                        break;
-                   
+                const sequences = projectSequences[currentProject];
+                if (sequences && sequences[currentVideoIndex]) {
+                    await sequences[currentVideoIndex](token);
                 }
             });
 
@@ -1969,20 +2119,11 @@ toileScreenProject2.addEventListener("click", async () => {
                 video.play();
 
                 // Lance la séquence correspondante
-                switch (currentVideoIndex) {
-                    case 0:
-                        await playSequence1(token);
-                        break;
-                    case 1:
-                        await playSequence2(token);
-                        break;
-                    case 2:
-                        await playSequence3(token);
-                        break;
-                    // case 3:
-                    //     await playSequence4(token);
-                    //     break;
+                const sequences = projectSequences[currentProject];
+                if (sequences && sequences[currentVideoIndex]) {
+                    await sequences[currentVideoIndex](token);
                 }
+
             });
 
 
@@ -2459,6 +2600,7 @@ toileScreenProject2.addEventListener("click", async () => {
                     // On retire la teinte du chest et on l'active
                     chest.tint = 0xFFFFFF;
                     chest.interactive = true;
+                    chestOpenRect.interactive = true;
                 }
                 if (currentIndex < innerHouseSprites.length) {
                     setTimeout(() => changeSprite(currentIndex), interval);
@@ -3028,6 +3170,8 @@ async function displayTerminalAndChestCutscene() {
                             }
                         }, 16);
                         chest.gotoAndStop(5);
+                        chest.interactive = false;
+                        innerHouseContainer.addChild(chestOpenRect);
                     }, 12000);
     
                     setTimeout(() => {

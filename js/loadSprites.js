@@ -452,6 +452,16 @@ export async function loadSprites(apps, sounds) {
     chest.tint = 0x6B4423;
     innerHouseContainer.addChild(chest);
 
+    // COFFRE OUVERT
+    const chestOpenRect = new PIXI.Graphics();
+    chestOpenRect.fill(0xFF0000, 1); 
+    chestOpenRect.rect(0, 0, 150, 120); 
+    chestOpenRect.endFill();
+    chestOpenRect.zIndex = 3;
+    // chestOpenRect.interactive = true;
+    chestOpenRect.alpha = 0; 
+    // innerHouseContainer.addChild(chestOpenRect);
+
     // INTERRUPTEUR
     const interrupteur = await displaySprite('ELEMENTS/interrupteur/interrupteur.json', 0.12);
     interrupteur.gotoAndStop(0); 
@@ -1279,6 +1289,7 @@ export async function loadSprites(apps, sounds) {
         { sprite: tableOpen, spriteName: "tiroir" },
         { sprite: table, spriteName: "table de nuit" },
         { sprite: chest, spriteName: "coffre en métal" },
+        { sprite: chestOpenRect, spriteName: "coffre ouvert" },
         { sprite: glasswater, spriteName: "verre" },
         { sprite: goldkey, spriteName: "clé" },
         { sprite: disquette, spriteName: "disquette" },
@@ -1464,6 +1475,7 @@ export async function loadSprites(apps, sounds) {
     ordiRed.label = "ordiRed";
     gamingChair.label = "gamingChair";
     chest.label = "chest";
+    chestOpenRect.label = "chestOpenRect";
     goldkey.label = "goldkey";
     lavabo.label = "lavabo";
     table.label = "table";
@@ -1556,6 +1568,7 @@ export async function loadSprites(apps, sounds) {
         glasswater,
         waterpouring,
         chest,
+        chestOpenRect,
         chestZoom,
         bed,
         goldkey,

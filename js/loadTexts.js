@@ -2,7 +2,7 @@
 export async function loadTexts(sprites) {
 
     // Sprites
-    const { houseContainer, guybrushF, metroTicket, shelf, ordiRed, menuItemMetroTicket, menuItemDisquette, disquette, houseSprite, swPannel, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, table, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
+    const { houseContainer, guybrushF, metroTicket, shelf, chestOpenRect, ordiRed, menuItemMetroTicket, menuItemDisquette, disquette, houseSprite, swPannel, itemClicked, lavabo, trash, poster, menuItemCoffePod, coffeMachine, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChair, goldkey, gamingChairAR, guybrushIUL, guybrushIUR, boutdemetalShine, menuItemMetalStrip, menuItemTabletPack, table, ordi, ordiRun, reveil, toilePoulie, toilePoulieRun, menuContainer, menuCoverDialogue, glasswater, chest, menuItemGoldKey, menuItemGlassWaterEmpty, menuItemGlassWater, menuItemGlassCoffe,
         menuButton,
         menuButton2,
         menuButton3,
@@ -122,7 +122,7 @@ export async function loadTexts(sprites) {
     // On regroupe nos boutons d'action
     const menuButtonsArray = [menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9]; 
     // Pour tous les sprites interactifs...
-    const interactableSprites = [guybrushSO, guybrushF, guybrushLD, lavabo, disquette, swPannel, ordiRed, shelf, metroTicket, menuItemMetroTicket, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, table, menuItemDisquette];
+    const interactableSprites = [guybrushSO, guybrushF, guybrushLD, lavabo, disquette, swPannel, ordiRed, shelf, metroTicket, menuItemMetroTicket, trash, coffeMachine, poster, toilePoulie, toilePoulieRun, reveil, ordi, ordiRun, gamingChair, glasswater, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassCoffe, chest, goldkey, menuItemMetalStrip, menuItemGoldKey, boutdemetalShine, menuItemTabletPack, menuItemCoffePod, table, menuItemDisquette, chestOpenRect];
     // ... Chacun possède des actions
     const spriteBehaviors = {
         guybrushSO: {
@@ -323,6 +323,17 @@ export async function loadTexts(sprites) {
                 "... Bien essayé"
             ],
             utiliser: "Je ne peux ni l'atteindre, ni l'ouvrir de mes mains",
+            pousser: "Hmm, non",
+            tirer: "Hmm, non",
+        },
+        chestOpenRect: {
+            donner: "Hmm, non",
+            ouvrir: "Le coffre est déjà ouvert",
+            fermer: "Avec tout le mal que je me suis donné : Non",
+            prendre: "Le coffre est ouvert mais je ne peux pas l'atteindre. Il faudrait trouver un moyen de le descendre dans la pièce principale",
+            regarder: "Le coffre est ouvert, mais je ne peux pas l'atteindre",
+            parler: "Je ne parle pas aux coffres mystérieux inatteignables",
+            utiliser: "Je ne peux pas l'atteindre",
             pousser: "Hmm, non",
             tirer: "Hmm, non",
         },
