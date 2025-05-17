@@ -1364,31 +1364,33 @@ export async function interactions(apps, sprites, texts) {
 // Séquences pour Rebatiere
 async function playSequenceRebatiere1(token) {
     stopText = false;
-    guybrushClone.play();
 
+    guybrushClone.play(); 
     screenBackgroundContainer.addChild(bulles[27]); // "On va commencer par se créer un compte..."
-    if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    if ((await waitWithStop(9000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[27]);
 
+    if ((await waitWithStop(6000, token)) || token.cancelled) return;
+    guybrushClone.play(); 
     screenBackgroundContainer.addChild(bulles[28]); // "Pour recadrer l'avatar..."
     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[28]);
 
+    if ((await waitWithStop(13000, token)) || token.cancelled) return;
+    guybrushClone.play(); 
     screenBackgroundContainer.addChild(bulles[29]); // "Une fois le compte validé..."
     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[29]);
 
+    if ((await waitWithStop(13000, token)) || token.cancelled) return;
+    guybrushClone.play(); 
     screenBackgroundContainer.addChild(bulles[30]); // "Nous voici désormais sur la page principale..."
     if ((await waitWithStop(7000, token)) || token.cancelled) return;
+    guybrushClone.gotoAndStop(0);
     screenBackgroundContainer.removeChild(bulles[30]);
-
-    screenBackgroundContainer.addChild(bulles[31]); // "gagaga"
-    if ((await waitWithStop(3000, token)) || token.cancelled) return;
-    screenBackgroundContainer.removeChild(bulles[31]);
-
-    screenBackgroundContainer.addChild(bulles[32]); // "gagaga"
-    if ((await waitWithStop(3000, token)) || token.cancelled) return;
-    screenBackgroundContainer.removeChild(bulles[32]);
 }
 
 async function playSequenceRebatiere2(token) {
@@ -1648,8 +1650,8 @@ const projectSequences = {
         
 
         ////////////////////////////////////
-///// MOUVEMENT TOILEPROJECT 2 /////
-////////////////////////////////////
+        ///// MOUVEMENT TOILEPROJECT 2 /////
+        ////////////////////////////////////
 
 toileScreenProject2.addEventListener("click", async () => {
     // destruction si existe
@@ -1748,6 +1750,7 @@ toileScreenProject2.addEventListener("click", async () => {
 
                         screenBackgroundContainer.addChild(bulles[26]); // "Prêt ? Alors c'est parti !"
                         await wait(100);
+                        screenBackgroundContainer.removeChild(bulles[26]);
                     }
 
                     // Lancement de l'intro et séquence suivante
@@ -1764,9 +1767,6 @@ toileScreenProject2.addEventListener("click", async () => {
     scaleTicker.start();
 });
 
-
-
-        // ______________________________________________________________________________ //
 
         //////////////////////////////////////
         /// MOUVEMENT TOILESCREENPROJECT3 ////
