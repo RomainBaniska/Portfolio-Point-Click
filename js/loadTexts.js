@@ -100,7 +100,7 @@ export async function loadTexts(sprites) {
             text: "C'est quoi cet endroit ? Où on est ici ?",
             guybrushResponse: ["Je comprends que tu sois un peu confus, installe toi je vais t'expliquer", 
                 "J'avais besoin de créer un portfolio comme beaucoup de devs junior et je trouvais que tous se ressemblaient pas mal finalement",
-                "J'avais envie de créer quelque chose quelque chose d'un peu original et qui puisse constituer un vrai challenge technique",
+                "J'avais envie de créer quelque chose d'un peu original et qui puisse constituer un vrai challenge technique",
                 "C'est de là que m'est venue l'idée de faire un portfolio... Dynamique si l'on peut dire"],
             reset: true,
             exit: false

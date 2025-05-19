@@ -2227,12 +2227,24 @@ toileScreenProject2.addEventListener("click", async () => {
                 toileScreenProject3.interactive = true;
 
                 // Réajout des sprites au conteneur (si tu les as retirés)
-                screenBackgroundContainer.addChild(toileScreenProject1);
-                screenBackgroundContainer.addChild(toileScreenProject2);
-                screenBackgroundContainer.addChild(toileScreenProject3);
+                // screenBackgroundContainer.addChild(toileScreenProject1);
+                // screenBackgroundContainer.addChild(toileScreenProject2);
+                // screenBackgroundContainer.addChild(toileScreenProject3);
+
+                await setupToileProjectsSprites();       
+                await toileScreenProjectAppear();  
+
+                toileScreenProject1.tint = 0xFFFFFF;
+                toileScreenProject2.tint = 0xFFFFFF;
+                toileScreenProject3.tint = 0xFFFFFF;
+
+                toileScreenProject1.interactive = true;
+                toileScreenProject2.interactive = true;
+                toileScreenProject3.interactive = true;
+
 
                 // Optionnel : rejouer l’animation d’apparition
-                await toileScreenProjectAppear();
+                // await toileScreenProjectAppear();
 
                 // On remet le portrait de Romain
                 screenBackgroundContainer.addChild(fondPortraitMask);
