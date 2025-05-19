@@ -2169,79 +2169,84 @@ toileScreenProject2.addEventListener("click", async () => {
                     returnVideo.texture = returnVideospriteAsset.textures[returnVideoframes[0]];
                 });
                 returnVideo.on('click', async () => {
-    // Annule toute séquence en cours
-    currentAbortToken.cancelled = true;
+                // Annule toute séquence en cours
+                currentAbortToken.cancelled = true;
 
-    // Supprime les bulles visibles
-    if (bulles) {
-        for (const bulle of bulles) {
-            if (bulle.parent) screenBackgroundContainer.removeChild(bulle);
-        }
-    }
+                // Supprime les bulles visibles
+                if (bulles) {
+                    for (const bulle of bulles) {
+                        if (bulle.parent) screenBackgroundContainer.removeChild(bulle);
+                    }
+                }
 
-    // Supprime la vidéo
-    let existingVideo = document.getElementById("pixi-video");
-    if (existingVideo) {
-        existingVideo.pause();
-        existingVideo.src = "";
-        existingVideo.load();
-        existingVideo.remove();
-    }
+                // Supprime la vidéo
+                let existingVideo = document.getElementById("pixi-video");
+                if (existingVideo) {
+                    existingVideo.pause();
+                    existingVideo.src = "";
+                    existingVideo.load();
+                    existingVideo.remove();
+                    currentVideoIndex = 0;
+                }
 
-    // Supprime tous les boutons
-    screenBackgroundContainer.removeChild(playVideo);
-    screenBackgroundContainer.removeChild(stopVideo);
-    screenBackgroundContainer.removeChild(prevVideo);
-    screenBackgroundContainer.removeChild(nextVideo);
-    screenBackgroundContainer.removeChild(exitVideo);
-    screenBackgroundContainer.removeChild(returnVideo);
+                // Supprime tous les boutons
+                screenBackgroundContainer.removeChild(playVideo);
+                screenBackgroundContainer.removeChild(stopVideo);
+                screenBackgroundContainer.removeChild(prevVideo);
+                screenBackgroundContainer.removeChild(nextVideo);
+                screenBackgroundContainer.removeChild(exitVideo);
+                screenBackgroundContainer.removeChild(returnVideo);
 
-    // Supprime les éléments de la séquence
-    screenBackgroundContainer.removeChild(logoPHP);
-    screenBackgroundContainer.removeChild(logoHTML);
-    screenBackgroundContainer.removeChild(logoCSS);
-    screenBackgroundContainer.removeChild(logoJS);
-    screenBackgroundContainer.removeChild(logoMongo);
-    screenBackgroundContainer.removeChild(logoMySQL);
-    screenBackgroundContainer.removeChild(logoSymfony);
-    screenBackgroundContainer.removeChild(guybrushClone);
-    screenBackgroundContainer.removeChild(fondPortrait);
-    screenBackgroundContainer.removeChild(fondPortraitMask);
+                // Supprime les éléments de la séquence
+                screenBackgroundContainer.removeChild(logoPHP);
+                screenBackgroundContainer.removeChild(logoHTML);
+                screenBackgroundContainer.removeChild(logoCSS);
+                screenBackgroundContainer.removeChild(logoJS);
+                screenBackgroundContainer.removeChild(logoMongo);
+                screenBackgroundContainer.removeChild(logoMySQL);
+                screenBackgroundContainer.removeChild(logoSymfony);
+                screenBackgroundContainer.removeChild(guybrushClone);
+                screenBackgroundContainer.removeChild(fondPortrait);
+                screenBackgroundContainer.removeChild(fondPortraitMask);
 
-    if (getTogetherTitle?.parent) screenBackgroundContainer.removeChild(getTogetherTitle);
-    if (rebatiereTitle?.parent) screenBackgroundContainer.removeChild(rebatiereTitle);
-    if (jsigneTitle?.parent) screenBackgroundContainer.removeChild(jsigneTitle);
+                if (getTogetherTitle?.parent) screenBackgroundContainer.removeChild(getTogetherTitle);
+                if (rebatiereTitle?.parent) screenBackgroundContainer.removeChild(rebatiereTitle);
+                if (jsigneTitle?.parent) screenBackgroundContainer.removeChild(jsigneTitle);
 
-    // Réinitialisation des sprites de projets
-    toileScreenProject1.alpha = 1;
-    toileScreenProject2.alpha = 1;
-    toileScreenProject3.alpha = 1;
+                // Réinitialisation des sprites de projets
+                toileScreenProject1.alpha = 1;
+                toileScreenProject2.alpha = 1;
+                toileScreenProject3.alpha = 1;
 
-    toileScreenProject1.visible = true;
-    toileScreenProject2.visible = true;
-    toileScreenProject3.visible = true;
+                toileScreenProject1.visible = true;
+                toileScreenProject2.visible = true;
+                toileScreenProject3.visible = true;
 
-    toileScreenProject1.interactive = true;
-    toileScreenProject2.interactive = true;
-    toileScreenProject3.interactive = true;
+                toileScreenProject1.interactive = true;
+                toileScreenProject2.interactive = true;
+                toileScreenProject3.interactive = true;
 
-    // Réajout des sprites au conteneur (si tu les as retirés)
-    screenBackgroundContainer.addChild(toileScreenProject1);
-    screenBackgroundContainer.addChild(toileScreenProject2);
-    screenBackgroundContainer.addChild(toileScreenProject3);
+                // Réajout des sprites au conteneur (si tu les as retirés)
+                screenBackgroundContainer.addChild(toileScreenProject1);
+                screenBackgroundContainer.addChild(toileScreenProject2);
+                screenBackgroundContainer.addChild(toileScreenProject3);
 
-    // Optionnel : rejouer l’animation d’apparition
-    await toileScreenProjectAppear();
+                // Optionnel : rejouer l’animation d’apparition
+                await toileScreenProjectAppear();
 
-    // On remet le portrait de Romain
-    screenBackgroundContainer.addChild(fondPortraitMask);
-    screenBackgroundContainer.addChild(guybrushClone);
-    screenBackgroundContainer.addChild(fondPortrait);
-    guybrushClone.gotoAndPlay(0);
+                // On remet le portrait de Romain
+                screenBackgroundContainer.addChild(fondPortraitMask);
+                screenBackgroundContainer.addChild(guybrushClone);
+                screenBackgroundContainer.addChild(fondPortrait);
+                guybrushClone.gotoAndStop(0);
 
-    // Affiche une bulle d’instruction ?
-    screenBackgroundContainer.addChild(bulles[3]); // "Clique sur le projet qui t'intéresse..."
-});
+                playVideo.removeAllListeners();
+                stopVideo.removeAllListeners();
+                nextVideo.removeAllListeners();
+                prevVideo.removeAllListeners();
+                exitVideo.removeAllListeners();
+                returnVideo.removeAllListeners();
+        });
 
 
 
