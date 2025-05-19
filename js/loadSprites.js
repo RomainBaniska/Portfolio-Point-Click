@@ -1392,9 +1392,9 @@ export async function loadSprites(apps, sounds) {
                             currentItemText.anchor.set(0.5, 0);                           
                         }
                         // Position horizontale du texte
-                        currentActionText.x = menuSprite.width * 0.40;
+                        currentActionText.x = menuSprite.width * 0.40 - currentActionText.width;
                         currentItemText.x = screenCenter;
-                        currentSpriteText.x = menuSprite.width * 0.60;   
+                        currentSpriteText.x = menuSprite.width * 0.60 + currentSpriteText.width;   
 
                         // Position verticale du texte
                         currentItemText.y = currentSpriteText.y = menuSprite.height * 0.012;
