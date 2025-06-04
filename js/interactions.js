@@ -2,7 +2,7 @@ export async function interactions(apps, sprites, texts) {
 
     const { app, blackScreen } = apps;
     const { houseContainer, chestOpenRect, crosshair, metroTicket, rails, ordiRed, areusure, bed, door, terminal, terminalbgSprite, achievement, greenled, yellowled, terminalPS, pendingLogo, chestZoom, disquette, disquetteFloat, menuItemDisquette, poster, menuItemMetroTicket, guybrushF, guybrushP, toilePoulie416, menuItemGlassCoffe, swPannel, guybrushSOTIRED, guybrushSODISGUSTED, guybrushSOSLEEPY, chest, coffeMachineCutsceneContainer, coffeMachineCutsceneBG, coffeMachineClone, innerHouseAsset, toileScreenProject1, toileScreenProject2, trash, toileScreenProject3, specialScreenContainer, fondPortrait, fondPortraitMask, lavabo, guybrushClone, guybrushD, interrupteur, logoPHP, logoHTML, logoCSS, logoJS, logoMongo, logoMySQL, logoSymfony, screenBackgroundContainer, boutdemetal, menuItemMetalStrip, boutdemetalShine, houseSprite, innerHouseSprite, waterpouring, guybrush, guybrushWR, guybrushWL, guybrushLD, guybrushGU, guybrushSO, guybrushSOT, gamingChairAR, guybrushIUL, guybrushIUR, ordi, ordiRun, toilePoulie, toilePoulieRun, toilePoulieReverse, menuContainer, menuCoverDialogue, menuCoverDialogueOverlay, menuButton, menuButton2, menuButton3, menuButton4, menuButton5, menuButton6, menuButton7, menuButton8, menuButton9, glasswater, menuItemTabletPack, menuItemTabletPackSelected, menuItemGlassWater, menuItemGlassWaterEmpty, menuItemGlassWaterEmptySelected, goldkey, menuItemGoldKey, menuItemGoldKeySelected, table, tableOpen, toileScreen, playVideo, playVideoActive, playVideospriteAsset, playVideoframes, stopVideo, stopVideoActive, stopVideospriteAsset, stopVideoframes, nextVideo, nextVideoActive, nextVideoframes, nextVideospriteAsset, prevVideo, prevVideoActive, prevVideoframes, prevVideospriteAsset, exitVideo, exitVideoActive, exitVideospriteAsset, exitVideoframes, returnVideo, returnVideoActive, returnVideospriteAsset, returnVideoframes, innerHouseContainer, coffeMachine, menuItemCoffePod, music, questionMark } = sprites;
-    const { failText, failText2, failText3, failText4, failText5, sickText, sickText2, wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2 } = texts;
+    const { failText, failText2, failText3, failText4, failText5, sickText, sickText2, wakeUpText, wakeUpText2, wakeUpText3, wakeUpText4, wakeUpText5, coffeText, coffeText4, coffeText2, coffeText3, wakeUpResponses, responseStyle, startDialogue, dialogueStyleLong, dialogueStyle, dialogueStyle2, titleStyle, titleStyle2, rerollRomText, rerollRomText2, rerollRomText3 } = texts;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Vidéos de la toile
@@ -836,26 +836,8 @@ export async function interactions(apps, sprites, texts) {
     // Petite fonction appelée pour stopper le défilement du texte si true et pour mettre en pause le texte;
     let stopText = false;
     let pauseText = false;
-    // async function waitWithStop(ms) {
-    //     let waited = 0;
 
-    //     while (waited < ms) {
-    //         if (stopText) {
-    //             // Si stopText devient true, le compteur s'arrête et on renvoie true
-    //             return true;
-    //         }
-    //         if (pauseText) {
-    //             // Si pauseText devient true, alors le compteur s'arrête temporairement (revient au début de la boucle de 100ms)
-    //             await wait(100);
-    //             continue;
-    //         }
-    //         // Si ni stopText ou pauseText, on a l'équivalent d'un await wait(ms)
-    //         await wait(100);
-    //         waited += 100;
-    //     }
-    //     return false; // Une fois le wait(ms) terminé, on retourne false
-    // }
-        async function waitWithStop(ms, token) {
+    async function waitWithStop(ms, token) {
     const interval = 100;
     let waited = 0;
     while (waited < ms) {
@@ -872,12 +854,15 @@ export async function interactions(apps, sprites, texts) {
 }
 
 
-    unroll();
+    // unroll();
     let currentAbortToken = { cancelled: false };
     // Lorsqu'on regarde la toile de home cinema, on active le toileScreen pour voir le portfolio
     toilePoulieRun.on('click', async () => {
         // Quand on clique sur la toile
         if (menuButton5.isActive) {
+
+            
+            app.stage.emit('rightdown');
 
             let currentProject = null;
 
@@ -1902,7 +1887,7 @@ toileScreenProject2.addEventListener("click", async () => {
                 exitVideo.on('pointerout', () => {
                     exitVideo.texture = exitVideospriteAsset.textures[exitVideoframes[0]];
                 });
-                exitVideo.on('click', () => {
+                exitVideo.on('click', async () => {
                      // Annule toute séquence en cours
                     currentAbortToken.cancelled = true;
 
@@ -1968,10 +1953,57 @@ toileScreenProject2.addEventListener("click", async () => {
                             if (bulle.parent) screenBackgroundContainer.removeChild(bulle);
                         }
                     }
-                    
-                    console.log(stopText);
                     stopText = false;
-                    console.log(stopText);
+
+                    // Lancement d'une courte animation avec Romain
+                    menuContainer.addChild(menuCoverDialogueOverlay)
+                    await wait(2000)
+
+                    let rerollText;
+                    playerNewText(rerollText, "Pas mal", 2000);
+                    await wait(2000);
+                    let rerollText2;
+                    playerNewText(rerollText2, "C'est tout ?", 2000);
+                    await wait(2000);
+                    guybrushSO.gotoAndStop(0);
+                    await wait(1000);
+                    setPosition(guybrushSOT, 0.22, 0.68);
+                    spriteSwap(innerHouseContainer, guybrushSO, guybrushSOT);
+                    textFollowSprite(guybrushSOT, rerollRomText); // "Quoi comment ça c'est tout ?"
+                    guybrushSOT.play();
+                    await wait(2500);
+                    innerHouseContainer.removeChild(rerollRomText); // arrêt
+                    guybrushSOT.gotoAndStop(0);
+                    await wait(1000);
+                    let rerollText3;
+                    playerNewText(rerollText3, "Ben je veux dire, très sympa ton lecteur video qui présente tes projets...", 2500);
+                    await wait(2500);
+                    let rerollText4;
+                    playerNewText(rerollText4, "...Mais bon... Tout ça pour ça ?", 2500);
+                    await wait(2500);
+                    guybrushSOT.play();
+                    textFollowSprite(guybrushSOT, rerollRomText2); // Oui... enfin après peut-être qu'en cherchant un peu tu trouveras quelque chose d'intéressant                
+                    await wait(3000);
+                    innerHouseContainer.removeChild(rerollRomText2); // arrêt
+                    guybrushSOT.gotoAndStop(0);
+                    await wait(1000);
+                    let rerollText5;
+                    playerNewText(rerollText5, "Ah bon ? Comme quoi ?", 2000);
+                    await wait(2000);
+                    guybrushSOT.play();
+                    textFollowSprite(guybrushSOT, rerollRomText3); // Quelque chose de vraiment personnel ?...
+                    await wait(2000);
+                    innerHouseContainer.removeChild(rerollRomText3); // arrêt
+                    guybrushSOT.gotoAndStop(4);
+                    await wait(1500);
+                    guybrushSOT.gotoAndStop(0);
+                    await wait(300);
+                    spriteSwap(innerHouseContainer, guybrushSOT, guybrushSO);
+                    guybrushSO.play();
+
+                    menuContainer.removeChild(menuCoverDialogueOverlay)
+                    console.log("ok fini");
+                    
                 });
 
                 // Gestion des événements Next

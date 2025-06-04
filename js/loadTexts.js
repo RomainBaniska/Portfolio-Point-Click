@@ -78,7 +78,9 @@ export async function loadTexts(sprites) {
     const failText3 = new PIXI.Text({ text: 'C\'est une COMMODORE 64, un bijou de charme et d\'ingéniosité', style: dialogueStyle });
     const failText4 = new PIXI.Text({ text: 'Encore parfaite pour compiler des langages modernes, je développe toutes mes apps avec.', style: dialogueStyle });
     const failText5 = new PIXI.Text({ text: 'Et non je ne prête pas ma "machine" au premier quidam venu qui s\'introduit chez moi sans invitation', style: dialogueStyle });
-
+    const rerollRomText = new PIXI.Text({ text: 'Quoi comment ça c\'est tout ?', style: dialogueStyle });
+    const rerollRomText2 = new PIXI.Text({ text: 'Oui... enfin après peut-être qu\'en cherchant un peu tu trouveras quelque chose d\'intéressant', style: dialogueStyle });
+    const rerollRomText3 = new PIXI.Text({ text: 'Quelque chose de vraiment personnel ?...', style: dialogueStyle });
 
     // DIALOGUE PLAYER - ROMAIN . TABLEAUX DES REPONSES DE ROMAIN
     const wakeUpResponses = [
@@ -840,6 +842,9 @@ export async function loadTexts(sprites) {
         failText3,
         failText4,
         failText5,
+        rerollRomText,
+        rerollRomText2,
+        rerollRomText3,
     };
 
 }
