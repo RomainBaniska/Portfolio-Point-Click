@@ -1,6 +1,6 @@
 export async function loadSprites(apps, sounds) {
 
-    const { app, blackScreen } = apps;
+    const { app, blackScreen, loadingText } = apps;
     const { daythemeSound, nightthemeSound, inputSound } = sounds;
 
     const SPRITE_PATH_PREFIX = '../sprites/';
@@ -1512,6 +1512,7 @@ export async function loadSprites(apps, sounds) {
     
     // FONDU DU NOIR AU SPRITE
     function fadeInEffect() {
+        loadingText.destroy();
         gsap.to(blackScreen, { alpha: 0, duration: 1, onComplete: () => {
             app.stage.removeChild(blackScreen);
         }}

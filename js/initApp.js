@@ -4,17 +4,6 @@ export async function initializeApp() {
     const app = new PIXI.Application();
 
     globalThis.__PIXI_APP__ = app;
-
-    // DEVTOOL
-    // window.__PIXI_DEVTOOLS__ = {
-    //     app
-    //   };
-
-    // Configuration de la largeur maximale adaptée à la taille de l'écran si plus petit
-    // const maxWidth = 1440;
-    // const width = Math.min(window.innerWidth, maxWidth);
-    // const aspectRatio = 16 / 9;
-    // const height = width / aspectRatio;
     const maxWidth = 1440;
     const width = window.innerWidth;
     const aspectRatio = 16 / 9;
@@ -39,7 +28,35 @@ export async function initializeApp() {
       blackScreen.zIndex = 99;
       app.stage.addChild(blackScreen);
 
+      // CREATION DU TEXTE
+      // Texte de base sans points
+        const baseText = 'Chargement des assets';
+
+
+      const loadingText = new PIXI.Text(baseText, {
+      fill: 0xffffff,
+      fontSize: 36,
+      fontFamily: 'Efmi',
+      align: 'center',
+      });
+
+      // Centrage du texte sur le blackScreen
+      loadingText.anchor.set(0.5);
+      loadingText.x = window.innerWidth / 2;
+      loadingText.y = window.innerHeight / 2;
+
+      blackScreen.addChild(loadingText);
+
+    // Animation des points
+    let dotCount = 0;
+    setInterval(() => {
+        dotCount = (dotCount + 1) % 5; // 0 à 4
+        const dots = '.'.repeat(dotCount);
+        loadingText.text = baseText + dots;
+    }, 500);
+
 return {app,
-    blackScreen
+    blackScreen,
+    loadingText
     }
 };

@@ -1,2 +1,3 @@
 # Ignorer tous les fichiers vidéos
 *.mp4
+.vscode/
